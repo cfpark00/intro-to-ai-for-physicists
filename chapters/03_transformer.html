@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="cfpark00">
-<meta name="dcterms.date" content="2026-05-24">
 
-<title>Intro to AI for Physicists</title>
+<title>4&nbsp; The transformer – Intro to AI for Physicists</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -25,31 +23,51 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./chapters/01_landscape.html" rel="next">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-8b607c24640247af39dc75d492f0f030.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-eedb75fe2dc3d83e245d147b9d269cd9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-8b607c24640247af39dc75d492f0f030.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/04_scaling_laws.html" rel="next">
+<link href="../chapters/02_dl_primer.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-8b607c24640247af39dc75d492f0f030.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-eedb75fe2dc3d83e245d147b9d269cd9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-8b607c24640247af39dc75d492f0f030.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -79,8 +97,51 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
 
-<link rel="stylesheet" href="styles.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -254,7 +315,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Preface</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/03_transformer.html">Modern architectures</a></li><li class="breadcrumb-item"><a href="../chapters/03_transformer.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The transformer</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -269,7 +330,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Intro to AI for Physicists</a> 
+      <a href="../">Intro to AI for Physicists</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/cfpark00/intro-to-ai-for-physicists" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
@@ -285,7 +346,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Preface</span></span></a>
   </div>
 </li>
@@ -300,13 +361,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/01_landscape.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/01_landscape.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The modern AI landscape</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/02_dl_primer.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/02_dl_primer.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">A deep learning primer</span></span></a>
   </div>
 </li>
@@ -314,22 +375,22 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Modern architectures</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/03_transformer.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/03_transformer.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The transformer</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/04_scaling_laws.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/04_scaling_laws.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Scaling laws</span></span></a>
   </div>
 </li>
@@ -346,25 +407,25 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/05_pretraining.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/05_pretraining.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Pretraining LLMs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/06_finetuning.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/06_finetuning.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Fine-tuning</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/07_rl.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/07_rl.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Reinforcement learning for LLMs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/08_reasoning.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/08_reasoning.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Reasoning and test-time compute</span></span></a>
   </div>
 </li>
@@ -381,7 +442,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/09_diffusion.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/09_diffusion.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Diffusion and score-based models</span></span></a>
   </div>
 </li>
@@ -398,7 +459,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/10_inference.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/10_inference.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Inference</span></span></a>
   </div>
 </li>
@@ -406,7 +467,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
+  <a href="../references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">References</span></span></a>
   </div>
 </li>
@@ -420,40 +481,29 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#who-this-is-for" id="toc-who-this-is-for" class="nav-link active" data-scroll-target="#who-this-is-for"><span class="header-section-number">0.1</span> Who this is for</a></li>
-  <li><a href="#what-this-is-not" id="toc-what-this-is-not" class="nav-link" data-scroll-target="#what-this-is-not"><span class="header-section-number">0.2</span> What this is not</a></li>
-  <li><a href="#how-to-read-it" id="toc-how-to-read-it" class="nav-link" data-scroll-target="#how-to-read-it"><span class="header-section-number">0.3</span> How to read it</a></li>
-  <li><a href="#source-and-contributions" id="toc-source-and-contributions" class="nav-link" data-scroll-target="#source-and-contributions"><span class="header-section-number">0.4</span> Source and contributions</a></li>
+  <li><a href="#sec-transformer" id="toc-sec-transformer" class="nav-link active" data-scroll-target="#sec-transformer"><span class="header-section-number">4.1</span> The residual stream picture</a></li>
+  <li><a href="#attention-in-one-equation" id="toc-attention-in-one-equation" class="nav-link" data-scroll-target="#attention-in-one-equation"><span class="header-section-number">4.2</span> Attention in one equation</a></li>
+  <li><a href="#why-this-works" id="toc-why-this-works" class="nav-link" data-scroll-target="#why-this-works"><span class="header-section-number">4.3</span> Why this works</a></li>
+  <li><a href="#the-mlp-block" id="toc-the-mlp-block" class="nav-link" data-scroll-target="#the-mlp-block"><span class="header-section-number">4.4</span> The MLP block</a></li>
+  <li><a href="#causal-masking-and-the-loss" id="toc-causal-masking-and-the-loss" class="nav-link" data-scroll-target="#causal-masking-and-the-loss"><span class="header-section-number">4.5</span> Causal masking and the loss</a></li>
+  <li><a href="#what-we-havent-covered" id="toc-what-we-havent-covered" class="nav-link" data-scroll-target="#what-we-havent-covered"><span class="header-section-number">4.6</span> What we haven’t covered</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/cfpark00/intro-to-ai-for-physicists/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cfpark00/intro-to-ai-for-physicists/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/cfpark00/intro-to-ai-for-physicists/edit/main/chapters/03_transformer.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cfpark00/intro-to-ai-for-physicists/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/03_transformer.html">Modern architectures</a></li><li class="breadcrumb-item"><a href="../chapters/03_transformer.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The transformer</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Intro to AI for Physicists</h1>
-<p class="subtitle lead">A short, modern introduction to ML, deep learning, and large-scale AI — for people who already know calculus, linear algebra, and a bit of statistics.</p>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The transformer</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>cfpark00 </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">May 24, 2026</p>
-    </div>
-  </div>
   
     
   </div>
@@ -463,50 +513,60 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This is a short, modern introduction to AI/ML/DL written for physicists. It is <strong>not</strong> a survey of classical machine learning — there are already excellent books for SVMs, decision trees, and kernel methods, and they are no longer the bottleneck for understanding what is happening in AI today.</p>
-<p>Instead, this book focuses on the ideas that drive modern AI:</p>
-<ul>
-<li><strong>Why scale matters.</strong> Why a single recipe — transformers + large compute — has eaten most of the field, and what that means for the next decade.</li>
-<li><strong>The transformer</strong>, attention, and the residual stream — the architecture behind nearly every frontier model.</li>
-<li><strong>Scaling laws</strong> as empirical physics: power-law behavior of loss in compute, data, and parameters; and what Chinchilla actually said.</li>
-<li><strong>Large language models</strong> — pretraining, fine-tuning (SFT, LoRA), and post-training (RLHF, DPO, GRPO, RLVR).</li>
-<li><strong>Reasoning and test-time compute</strong> — chain-of-thought, RL on verifiable rewards, and why this changed the trajectory.</li>
-<li><strong>Diffusion and score-based generative models</strong> — the part of modern AI most directly continuous with statistical physics.</li>
-<li><strong>Inference</strong> — KV cache, speculative decoding, batching: the engineering that decides whether a model is usable.</li>
-</ul>
-<p>The treatment is mathematical where it helps and intuitive where it doesn’t. Code is included sparingly and only when it is the clearest explanation. Equations use the conventions a physicist already knows — sums over indices, derivatives, expectations — and avoid the notational tics of ML papers when they don’t add anything.</p>
-<section id="who-this-is-for" class="level2" data-number="0.1">
-<h2 data-number="0.1" class="anchored" data-anchor-id="who-this-is-for"><span class="header-section-number">0.1</span> Who this is for</h2>
-<p>Anyone comfortable with:</p>
-<ul>
-<li>Linear algebra (matrices, eigendecompositions)</li>
-<li>Calculus and basic optimization (gradients, chain rule)</li>
-<li>Probability (expectations, KL divergence, sampling)</li>
-</ul>
-<p>You do <strong>not</strong> need prior ML background. If you have written <code>optimizer.zero_grad()</code> in your life, you may skim the early chapters.</p>
+<p>The transformer <span class="citation" data-cites="vaswani2017attention">(<a href="../references.html#ref-vaswani2017attention" role="doc-biblioref">Vaswani et al. 2017</a>)</span> is the single architecture behind nearly every frontier model in language, vision, audio, and code as of 2026. It is worth understanding not by reading the diagram in the original paper, but by thinking of it as a particular kind of dynamical system on a sequence of vectors.</p>
+<section id="sec-transformer" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="sec-transformer"><span class="header-section-number">4.1</span> The residual stream picture</h2>
+<p>A transformer processes a sequence of <span class="math inline">T</span> tokens. Each token starts as an embedding vector in <span class="math inline">\mathbb{R}^d</span> where <span class="math inline">d</span> is the <em>model dimension</em> (commonly 768 to 16384). Stack them and you have an array <span class="math inline">X \in \mathbb{R}^{T \times d}</span>.</p>
+<p>The model is a stack of <span class="math inline">L</span> identical blocks. Each block does: <span class="math display">
+X \leftarrow X + \mathrm{Attn}(X), \qquad X \leftarrow X + \mathrm{MLP}(X).
+</span></p>
+<p>That is: every block <strong>adds</strong> something to the running state <span class="math inline">X</span>. The cumulative state <span class="math inline">X</span> is called the <strong>residual stream</strong>. Each token’s residual stream is a <span class="math inline">d</span>-dimensional vector that gets refined as it passes through layers — attention writes information from other tokens into it, the MLP processes information already there.</p>
+<p>The crucial observation is that the residual stream is a <em>linear</em> channel: every component reads its input via a linear projection of the stream and writes its output by addition. This is why mechanistic interpretability talks about “writing to the residual stream” — different components can effectively communicate by writing to and reading from agreed-upon subspaces.</p>
 </section>
-<section id="what-this-is-not" class="level2" data-number="0.2">
-<h2 data-number="0.2" class="anchored" data-anchor-id="what-this-is-not"><span class="header-section-number">0.2</span> What this is not</h2>
-<ul>
-<li><strong>Not a research survey.</strong> Citations are minimal and chosen for pedagogy, not credit assignment.</li>
-<li><strong>Not a software manual.</strong> We will not teach PyTorch, JAX, or distributed training systems in depth.</li>
-<li><strong>Not opinion-free.</strong> Where the field has converged on a view, this book takes that view rather than presenting all historical alternatives equally.</li>
-</ul>
+<section id="attention-in-one-equation" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="attention-in-one-equation"><span class="header-section-number">4.2</span> Attention in one equation</h2>
+<p>Attention takes the <span class="math inline">T \times d</span> array <span class="math inline">X</span>, projects it three ways into queries, keys, and values: <span class="math display">
+Q = X W_Q, \qquad K = X W_K, \qquad V = X W_V,
+</span> each of shape <span class="math inline">T \times d_{\text{head}}</span>. Then for each pair of token positions <span class="math inline">(i, j)</span> it computes an attention weight <span class="math display">
+A_{ij} = \mathrm{softmax}_j\!\left(\frac{Q_i \cdot K_j}{\sqrt{d_{\text{head}}}}\right),
+</span> and outputs a weighted sum of values: <span class="math display">
+\mathrm{Attn}(X)_i = \sum_j A_{ij}\, V_j.
+</span></p>
+<p>In words: token <span class="math inline">i</span> asks a question (its query), every token answers (its key), and token <span class="math inline">i</span> takes a weighted average of the values, weighted by how well each key matched its query.</p>
+<p><strong>Multi-head attention</strong> runs this <span class="math inline">h</span> times in parallel with different <span class="math inline">W_Q, W_K, W_V</span> matrices, each producing an output, and concatenates them. The intuition is that different heads can specialize in different relationships between tokens.</p>
 </section>
-<section id="how-to-read-it" class="level2" data-number="0.3">
-<h2 data-number="0.3" class="anchored" data-anchor-id="how-to-read-it"><span class="header-section-number">0.3</span> How to read it</h2>
-<p>Chapters build on each other but most can be read out of order if you already have the basics. The dependency graph is roughly:</p>
-<pre><code>landscape → dl_primer → transformer → scaling_laws → pretraining → finetuning → rl → reasoning
-                                                  ↘
-                                                   diffusion (mostly independent)
-                                                  ↘
-                                                   inference</code></pre>
+<section id="why-this-works" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="why-this-works"><span class="header-section-number">4.3</span> Why this works</h2>
+<p>There is no fully satisfying theory of <em>why</em> attention is the right inductive bias. The two facts that probably matter:</p>
+<ol type="1">
+<li><strong>Content-based routing.</strong> Unlike convolutions or RNNs, attention lets a token decide <em>which other tokens</em> are relevant on the basis of their content, not their position. This makes long-range dependencies cheap.</li>
+<li><strong>No recurrence, no convolution.</strong> The entire forward pass parallelizes across the sequence dimension on a GPU, which makes attention <span class="math inline">\sim 10\times</span> more efficient to train than an RNN of comparable accuracy.</li>
+</ol>
 </section>
-<section id="source-and-contributions" class="level2" data-number="0.4">
-<h2 data-number="0.4" class="anchored" data-anchor-id="source-and-contributions"><span class="header-section-number">0.4</span> Source and contributions</h2>
-<p>Source for this book lives at <a href="https://github.com/cfpark00/intro-to-ai-for-physicists">github.com/cfpark00/intro-to-ai-for-physicists</a>. Issues and PRs are welcome.</p>
+<section id="the-mlp-block" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="the-mlp-block"><span class="header-section-number">4.4</span> The MLP block</h2>
+<p>Sandwiched between attention layers is a position-wise feedforward network — typically a two-layer MLP with an inner dimension of <span class="math inline">4d</span>: <span class="math display">
+\mathrm{MLP}(x) = W_2\, \sigma(W_1 x).
+</span></p>
+<p>This is where most of the parameters live (in a standard transformer, the MLPs are roughly <span class="math inline">2/3</span> of the parameter count). Mechanistic interpretability work suggests the MLPs are doing most of the “knowledge storage” — the attention is the routing, the MLP is the memory.</p>
+</section>
+<section id="causal-masking-and-the-loss" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="causal-masking-and-the-loss"><span class="header-section-number">4.5</span> Causal masking and the loss</h2>
+<p>For language modeling we want each position <span class="math inline">i</span> to predict token <span class="math inline">i+1</span> using only tokens <span class="math inline">\le i</span>. This is enforced by <strong>masking</strong> the attention weights <span class="math inline">A_{ij}</span> to zero for <span class="math inline">j &gt; i</span>. The loss is then cross-entropy at every position, averaged over the sequence: <span class="math display">
+\mathcal{L} = -\frac{1}{T} \sum_{i=1}^T \log p_\theta(x_{i+1} \mid x_{\le i}).
+</span></p>
+<p>A single forward pass produces <span class="math inline">T</span> supervised gradient signals. This is one reason next-token prediction scales so well: every token in your dataset is a training example.</p>
+</section>
+<section id="what-we-havent-covered" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="what-we-havent-covered"><span class="header-section-number">4.6</span> What we haven’t covered</h2>
+<p>Position encodings (RoPE), normalization placement (pre-norm), modern attention variants (grouped-query, sliding window, sparse, linear), inference-time efficiencies (KV cache — see <a href="10_inference.html#sec-inference" class="quarto-xref"><span>Section 11.1</span></a>), and mixture-of-experts MLPs are all important refinements. The core picture — residual stream, attention, MLP — is what you need to follow the rest of the book.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-vaswani2017attention" class="csl-entry" role="listitem">
+Vaswani, Ashish, Noam Shazeer, Niki Parmar, et al. 2017. <span>“Attention Is All You Need.”</span> <em>Advances in Neural Information Processing Systems</em> 30.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
@@ -930,10 +990,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../chapters/02_dl_primer.html" class="pagination-link" aria-label="A deep learning primer">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">A deep learning primer</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./chapters/01_landscape.html" class="pagination-link" aria-label="The modern AI landscape">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The modern AI landscape</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/04_scaling_laws.html" class="pagination-link" aria-label="Scaling laws">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Scaling laws</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -942,5 +1005,5 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cfpark00/intro-to-ai-for-physicists/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cfpark00/intro-to-ai-for-physicists/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cfpark00/intro-to-ai-for-physicists/edit/main/chapters/03_transformer.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cfpark00/intro-to-ai-for-physicists/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

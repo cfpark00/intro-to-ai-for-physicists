@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="cfpark00">
-<meta name="dcterms.date" content="2026-05-24">
 
-<title>Intro to AI for Physicists</title>
+<title>8&nbsp; Reinforcement learning for LLMs – Intro to AI for Physicists</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -25,31 +23,51 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./chapters/01_landscape.html" rel="next">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-8b607c24640247af39dc75d492f0f030.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-eedb75fe2dc3d83e245d147b9d269cd9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-8b607c24640247af39dc75d492f0f030.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/08_reasoning.html" rel="next">
+<link href="../chapters/06_finetuning.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-8b607c24640247af39dc75d492f0f030.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-eedb75fe2dc3d83e245d147b9d269cd9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-8b607c24640247af39dc75d492f0f030.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -79,8 +97,51 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
 
-<link rel="stylesheet" href="styles.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -254,7 +315,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Preface</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/05_pretraining.html">Large language models</a></li><li class="breadcrumb-item"><a href="../chapters/07_rl.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Reinforcement learning for LLMs</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -269,7 +330,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Intro to AI for Physicists</a> 
+      <a href="../">Intro to AI for Physicists</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/cfpark00/intro-to-ai-for-physicists" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
@@ -285,7 +346,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Preface</span></span></a>
   </div>
 </li>
@@ -300,13 +361,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/01_landscape.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/01_landscape.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The modern AI landscape</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/02_dl_primer.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/02_dl_primer.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">A deep learning primer</span></span></a>
   </div>
 </li>
@@ -323,13 +384,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/03_transformer.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/03_transformer.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The transformer</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/04_scaling_laws.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/04_scaling_laws.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Scaling laws</span></span></a>
   </div>
 </li>
@@ -337,34 +398,34 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Large language models</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/05_pretraining.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/05_pretraining.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Pretraining LLMs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/06_finetuning.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/06_finetuning.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Fine-tuning</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/07_rl.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/07_rl.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Reinforcement learning for LLMs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/08_reasoning.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/08_reasoning.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Reasoning and test-time compute</span></span></a>
   </div>
 </li>
@@ -381,7 +442,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/09_diffusion.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/09_diffusion.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Diffusion and score-based models</span></span></a>
   </div>
 </li>
@@ -398,7 +459,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/10_inference.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/10_inference.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Inference</span></span></a>
   </div>
 </li>
@@ -406,7 +467,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
+  <a href="../references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">References</span></span></a>
   </div>
 </li>
@@ -420,40 +481,29 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#who-this-is-for" id="toc-who-this-is-for" class="nav-link active" data-scroll-target="#who-this-is-for"><span class="header-section-number">0.1</span> Who this is for</a></li>
-  <li><a href="#what-this-is-not" id="toc-what-this-is-not" class="nav-link" data-scroll-target="#what-this-is-not"><span class="header-section-number">0.2</span> What this is not</a></li>
-  <li><a href="#how-to-read-it" id="toc-how-to-read-it" class="nav-link" data-scroll-target="#how-to-read-it"><span class="header-section-number">0.3</span> How to read it</a></li>
-  <li><a href="#source-and-contributions" id="toc-source-and-contributions" class="nav-link" data-scroll-target="#source-and-contributions"><span class="header-section-number">0.4</span> Source and contributions</a></li>
+  <li><a href="#sec-rl" id="toc-sec-rl" class="nav-link active" data-scroll-target="#sec-rl"><span class="header-section-number">8.1</span> The setup</a></li>
+  <li><a href="#rlhf-learning-a-reward-model-from-preferences" id="toc-rlhf-learning-a-reward-model-from-preferences" class="nav-link" data-scroll-target="#rlhf-learning-a-reward-model-from-preferences"><span class="header-section-number">8.2</span> RLHF: learning a reward model from preferences</a></li>
+  <li><a href="#dpo-skip-the-reward-model" id="toc-dpo-skip-the-reward-model" class="nav-link" data-scroll-target="#dpo-skip-the-reward-model"><span class="header-section-number">8.3</span> DPO: skip the reward model</a></li>
+  <li><a href="#rlvr-reinforcement-learning-with-verifiable-rewards" id="toc-rlvr-reinforcement-learning-with-verifiable-rewards" class="nav-link" data-scroll-target="#rlvr-reinforcement-learning-with-verifiable-rewards"><span class="header-section-number">8.4</span> RLVR: reinforcement learning with verifiable rewards</a></li>
+  <li><a href="#policy-gradient-in-one-paragraph" id="toc-policy-gradient-in-one-paragraph" class="nav-link" data-scroll-target="#policy-gradient-in-one-paragraph"><span class="header-section-number">8.5</span> Policy gradient in one paragraph</a></li>
+  <li><a href="#what-changed-in-20242026" id="toc-what-changed-in-20242026" class="nav-link" data-scroll-target="#what-changed-in-20242026"><span class="header-section-number">8.6</span> What changed in 2024–2026</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/cfpark00/intro-to-ai-for-physicists/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cfpark00/intro-to-ai-for-physicists/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/cfpark00/intro-to-ai-for-physicists/edit/main/chapters/07_rl.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cfpark00/intro-to-ai-for-physicists/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/05_pretraining.html">Large language models</a></li><li class="breadcrumb-item"><a href="../chapters/07_rl.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Reinforcement learning for LLMs</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Intro to AI for Physicists</h1>
-<p class="subtitle lead">A short, modern introduction to ML, deep learning, and large-scale AI — for people who already know calculus, linear algebra, and a bit of statistics.</p>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Reinforcement learning for LLMs</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>cfpark00 </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">May 24, 2026</p>
-    </div>
-  </div>
   
     
   </div>
@@ -463,50 +513,64 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This is a short, modern introduction to AI/ML/DL written for physicists. It is <strong>not</strong> a survey of classical machine learning — there are already excellent books for SVMs, decision trees, and kernel methods, and they are no longer the bottleneck for understanding what is happening in AI today.</p>
-<p>Instead, this book focuses on the ideas that drive modern AI:</p>
-<ul>
-<li><strong>Why scale matters.</strong> Why a single recipe — transformers + large compute — has eaten most of the field, and what that means for the next decade.</li>
-<li><strong>The transformer</strong>, attention, and the residual stream — the architecture behind nearly every frontier model.</li>
-<li><strong>Scaling laws</strong> as empirical physics: power-law behavior of loss in compute, data, and parameters; and what Chinchilla actually said.</li>
-<li><strong>Large language models</strong> — pretraining, fine-tuning (SFT, LoRA), and post-training (RLHF, DPO, GRPO, RLVR).</li>
-<li><strong>Reasoning and test-time compute</strong> — chain-of-thought, RL on verifiable rewards, and why this changed the trajectory.</li>
-<li><strong>Diffusion and score-based generative models</strong> — the part of modern AI most directly continuous with statistical physics.</li>
-<li><strong>Inference</strong> — KV cache, speculative decoding, batching: the engineering that decides whether a model is usable.</li>
-</ul>
-<p>The treatment is mathematical where it helps and intuitive where it doesn’t. Code is included sparingly and only when it is the clearest explanation. Equations use the conventions a physicist already knows — sums over indices, derivatives, expectations — and avoid the notational tics of ML papers when they don’t add anything.</p>
-<section id="who-this-is-for" class="level2" data-number="0.1">
-<h2 data-number="0.1" class="anchored" data-anchor-id="who-this-is-for"><span class="header-section-number">0.1</span> Who this is for</h2>
-<p>Anyone comfortable with:</p>
-<ul>
-<li>Linear algebra (matrices, eigendecompositions)</li>
-<li>Calculus and basic optimization (gradients, chain rule)</li>
-<li>Probability (expectations, KL divergence, sampling)</li>
-</ul>
-<p>You do <strong>not</strong> need prior ML background. If you have written <code>optimizer.zero_grad()</code> in your life, you may skim the early chapters.</p>
+<p>Reinforcement learning is how modern LLMs get <em>good</em>. SFT teaches a base model to imitate behavior; RL teaches it to optimize for an outcome. By 2025 the gap between an SFT-only model and a heavily RL-post-trained model is enormous, especially on reasoning, code, and instruction following.</p>
+<p>This chapter covers RL in the specific context of fine-tuning LLMs. General RL is a much larger field; we treat only the slice that matters here.</p>
+<section id="sec-rl" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="sec-rl"><span class="header-section-number">8.1</span> The setup</h2>
+<p>We have a pretrained-and-SFT’d language model <span class="math inline">\pi_\theta(y \mid x)</span> — a policy that, given a prompt <span class="math inline">x</span>, samples a response <span class="math inline">y</span>. We want to update <span class="math inline">\theta</span> to maximize an expected reward: <span class="math display">
+\max_\theta \; \mathbb{E}_{x \sim \mathcal{D},\; y \sim \pi_\theta(\cdot \mid x)} \big[\, r(x, y) \,\big] \;-\; \beta \, \mathrm{KL}\!\left(\pi_\theta \,\|\, \pi_{\text{ref}}\right).
+</span> The reward <span class="math inline">r</span> comes from somewhere — human preferences, a learned model, a verifier, a unit test. The KL term keeps <span class="math inline">\pi_\theta</span> close to a reference (usually the SFT model) to prevent collapse onto degenerate high-reward outputs.</p>
+<p>The art is in (a) where the reward comes from, and (b) how we estimate the gradient.</p>
 </section>
-<section id="what-this-is-not" class="level2" data-number="0.2">
-<h2 data-number="0.2" class="anchored" data-anchor-id="what-this-is-not"><span class="header-section-number">0.2</span> What this is not</h2>
-<ul>
-<li><strong>Not a research survey.</strong> Citations are minimal and chosen for pedagogy, not credit assignment.</li>
-<li><strong>Not a software manual.</strong> We will not teach PyTorch, JAX, or distributed training systems in depth.</li>
-<li><strong>Not opinion-free.</strong> Where the field has converged on a view, this book takes that view rather than presenting all historical alternatives equally.</li>
-</ul>
+<section id="rlhf-learning-a-reward-model-from-preferences" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="rlhf-learning-a-reward-model-from-preferences"><span class="header-section-number">8.2</span> RLHF: learning a reward model from preferences</h2>
+<p>In <strong>RLHF</strong> <span class="citation" data-cites="ouyang2022instructgpt">(<a href="../references.html#ref-ouyang2022instructgpt" role="doc-biblioref"><span class="nocase">Ouyang et al.</span> 2022</a>)</span> the reward is a learned function. The pipeline is:</p>
+<ol type="1">
+<li>Collect pairs of model outputs <span class="math inline">(y_A, y_B)</span> for the same prompt <span class="math inline">x</span> and have humans pick the preferred one.</li>
+<li>Train a <strong>reward model</strong> <span class="math inline">r_\phi(x, y)</span> to predict human preferences via the Bradley–Terry likelihood: <span class="math display">
+P(y_A \succ y_B \mid x) = \sigma\!\big( r_\phi(x, y_A) - r_\phi(x, y_B) \big).
+</span></li>
+<li>Use <span class="math inline">r_\phi</span> as the reward signal, optimize <span class="math inline">\pi_\theta</span> with a policy-gradient algorithm — historically <strong>PPO</strong> <span class="citation" data-cites="schulman2017ppo">(<a href="../references.html#ref-schulman2017ppo" role="doc-biblioref">Schulman et al. 2017</a>)</span>.</li>
+</ol>
+<p>This was the recipe behind InstructGPT and the original ChatGPT. It works but is finicky: the reward model is overfittable, the policy is good at gaming it (<em>reward hacking</em>), and PPO has many knobs.</p>
 </section>
-<section id="how-to-read-it" class="level2" data-number="0.3">
-<h2 data-number="0.3" class="anchored" data-anchor-id="how-to-read-it"><span class="header-section-number">0.3</span> How to read it</h2>
-<p>Chapters build on each other but most can be read out of order if you already have the basics. The dependency graph is roughly:</p>
-<pre><code>landscape → dl_primer → transformer → scaling_laws → pretraining → finetuning → rl → reasoning
-                                                  ↘
-                                                   diffusion (mostly independent)
-                                                  ↘
-                                                   inference</code></pre>
+<section id="dpo-skip-the-reward-model" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="dpo-skip-the-reward-model"><span class="header-section-number">8.3</span> DPO: skip the reward model</h2>
+<p>Direct Preference Optimization <span class="citation" data-cites="rafailov2023dpo">(<a href="../references.html#ref-rafailov2023dpo" role="doc-biblioref">Rafailov et al. 2023</a>)</span> derives a closed-form loss that optimizes the same KL-regularized objective without ever training a reward model. Given a preference pair <span class="math inline">(y_w, y_l)</span> (winner, loser) for prompt <span class="math inline">x</span>: <span class="math display">
+\mathcal{L}_{\text{DPO}} = -\log \sigma\!\left( \beta \log \frac{\pi_\theta(y_w \mid x)}{\pi_{\text{ref}}(y_w \mid x)} \;-\; \beta \log \frac{\pi_\theta(y_l \mid x)}{\pi_{\text{ref}}(y_l \mid x)} \right).
+</span> This is a supervised loss on preference data. No reward model, no rollouts, no PPO. The derivation is a clean piece of math worth working through; the intuition is that the optimal policy under a KL-regularized reward objective has a specific functional form, and you can invert that form to express the reward in terms of the policy ratios.</p>
+<p>DPO is much cheaper to train than PPO and often matches its quality. It is the default for most open-weights post-training in 2024–2026.</p>
 </section>
-<section id="source-and-contributions" class="level2" data-number="0.4">
-<h2 data-number="0.4" class="anchored" data-anchor-id="source-and-contributions"><span class="header-section-number">0.4</span> Source and contributions</h2>
-<p>Source for this book lives at <a href="https://github.com/cfpark00/intro-to-ai-for-physicists">github.com/cfpark00/intro-to-ai-for-physicists</a>. Issues and PRs are welcome.</p>
+<section id="rlvr-reinforcement-learning-with-verifiable-rewards" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="rlvr-reinforcement-learning-with-verifiable-rewards"><span class="header-section-number">8.4</span> RLVR: reinforcement learning with verifiable rewards</h2>
+<p>For problems where you can <em>check</em> whether an answer is correct — math problems with a known answer, code with unit tests, formal proofs — you do not need humans or learned reward models. Just use the verifier as the reward: <span class="math display">
+r(x, y) = \mathbb{1}\big[\text{verifier accepts } y\big].
+</span></p>
+<p>This is <strong>RLVR</strong> (RL with verifiable rewards), and it is the dominant signal behind reasoning-trained models (covered in <a href="08_reasoning.html#sec-reasoning" class="quarto-xref"><span>Section 9.1</span></a>). The reward is sparse — one bit per problem — but it is <em>honest</em>: there is no reward hacking against ground truth.</p>
+<p>Algorithms used here include PPO and, increasingly, <strong>GRPO</strong> (Group Relative Policy Optimization): for each prompt, sample <span class="math inline">G</span> completions, compute their rewards, and use the in-group mean as the baseline instead of training a separate value network. GRPO avoids the value-network instability of PPO and is computationally lean.</p>
+</section>
+<section id="policy-gradient-in-one-paragraph" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="policy-gradient-in-one-paragraph"><span class="header-section-number">8.5</span> Policy gradient in one paragraph</h2>
+<p>If you have never seen the policy gradient, here is the entire idea. Let <span class="math inline">J(\theta) = \mathbb{E}_{y \sim \pi_\theta} [r(y)]</span>. Then <span class="math display">
+\nabla_\theta J = \mathbb{E}_{y \sim \pi_\theta} \big[\, r(y)\, \nabla_\theta \log \pi_\theta(y) \,\big].
+</span> You sample, you score, you weight the log-probability gradient by the score. Subtracting a baseline <span class="math inline">b</span> (any function not depending on <span class="math inline">y</span>) keeps the estimator unbiased and reduces variance. PPO, GRPO, REINFORCE — they are all variations on this, with different choices of baseline and different ways of clipping or trust-regioning the update to avoid policy collapse.</p>
+</section>
+<section id="what-changed-in-20242026" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="what-changed-in-20242026"><span class="header-section-number">8.6</span> What changed in 2024–2026</h2>
+<p>The biggest shift is that <strong>RL on verifiable rewards became the central training paradigm for frontier capabilities</strong>, not just a polish layer. Models like o1, R1, and their successors are mostly defined by their RL stage, not their pretraining. This is the topic of <a href="08_reasoning.html#sec-reasoning" class="quarto-xref"><span>Section 9.1</span></a>.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-ouyang2022instructgpt" class="csl-entry" role="listitem">
+<span class="nocase">Ouyang, Long, Jeff Wu, Xu Jiang, et al.</span> 2022. <span>“Training Language Models to Follow Instructions with Human Feedback.”</span> <em>Advances in Neural Information Processing Systems</em> 35.
+</div>
+<div id="ref-rafailov2023dpo" class="csl-entry" role="listitem">
+Rafailov, Rafael, Archit Sharma, Eric Mitchell, Stefano Ermon, Christopher D Manning, and Chelsea Finn. 2023. <span>“Direct Preference Optimization: Your Language Model Is Secretly a Reward Model.”</span> <em>NeurIPS</em>.
+</div>
+<div id="ref-schulman2017ppo" class="csl-entry" role="listitem">
+Schulman, John, Filip Wolski, Prafulla Dhariwal, Alec Radford, and Oleg Klimov. 2017. <span>“Proximal Policy Optimization Algorithms.”</span> <em>arXiv Preprint arXiv:1707.06347</em>.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
@@ -930,10 +994,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../chapters/06_finetuning.html" class="pagination-link" aria-label="Fine-tuning">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Fine-tuning</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./chapters/01_landscape.html" class="pagination-link" aria-label="The modern AI landscape">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The modern AI landscape</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/08_reasoning.html" class="pagination-link" aria-label="Reasoning and test-time compute">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Reasoning and test-time compute</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -942,5 +1009,5 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cfpark00/intro-to-ai-for-physicists/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cfpark00/intro-to-ai-for-physicists/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cfpark00/intro-to-ai-for-physicists/edit/main/chapters/07_rl.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cfpark00/intro-to-ai-for-physicists/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

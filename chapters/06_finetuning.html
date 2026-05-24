@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="cfpark00">
-<meta name="dcterms.date" content="2026-05-24">
 
-<title>Intro to AI for Physicists</title>
+<title>7&nbsp; Fine-tuning – Intro to AI for Physicists</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -25,31 +23,51 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./chapters/01_landscape.html" rel="next">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-8b607c24640247af39dc75d492f0f030.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-eedb75fe2dc3d83e245d147b9d269cd9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-8b607c24640247af39dc75d492f0f030.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/07_rl.html" rel="next">
+<link href="../chapters/05_pretraining.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-8b607c24640247af39dc75d492f0f030.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-eedb75fe2dc3d83e245d147b9d269cd9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-8b607c24640247af39dc75d492f0f030.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -79,8 +97,51 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
 
-<link rel="stylesheet" href="styles.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -254,7 +315,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Preface</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/05_pretraining.html">Large language models</a></li><li class="breadcrumb-item"><a href="../chapters/06_finetuning.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Fine-tuning</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -269,7 +330,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Intro to AI for Physicists</a> 
+      <a href="../">Intro to AI for Physicists</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/cfpark00/intro-to-ai-for-physicists" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
@@ -285,7 +346,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Preface</span></span></a>
   </div>
 </li>
@@ -300,13 +361,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/01_landscape.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/01_landscape.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The modern AI landscape</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/02_dl_primer.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/02_dl_primer.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">A deep learning primer</span></span></a>
   </div>
 </li>
@@ -323,13 +384,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/03_transformer.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/03_transformer.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The transformer</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/04_scaling_laws.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/04_scaling_laws.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Scaling laws</span></span></a>
   </div>
 </li>
@@ -337,34 +398,34 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Large language models</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/05_pretraining.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/05_pretraining.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Pretraining LLMs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/06_finetuning.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/06_finetuning.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Fine-tuning</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/07_rl.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/07_rl.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Reinforcement learning for LLMs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/08_reasoning.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/08_reasoning.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Reasoning and test-time compute</span></span></a>
   </div>
 </li>
@@ -381,7 +442,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/09_diffusion.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/09_diffusion.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Diffusion and score-based models</span></span></a>
   </div>
 </li>
@@ -398,7 +459,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/10_inference.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/10_inference.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Inference</span></span></a>
   </div>
 </li>
@@ -406,7 +467,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
+  <a href="../references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">References</span></span></a>
   </div>
 </li>
@@ -420,40 +481,33 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#who-this-is-for" id="toc-who-this-is-for" class="nav-link active" data-scroll-target="#who-this-is-for"><span class="header-section-number">0.1</span> Who this is for</a></li>
-  <li><a href="#what-this-is-not" id="toc-what-this-is-not" class="nav-link" data-scroll-target="#what-this-is-not"><span class="header-section-number">0.2</span> What this is not</a></li>
-  <li><a href="#how-to-read-it" id="toc-how-to-read-it" class="nav-link" data-scroll-target="#how-to-read-it"><span class="header-section-number">0.3</span> How to read it</a></li>
-  <li><a href="#source-and-contributions" id="toc-source-and-contributions" class="nav-link" data-scroll-target="#source-and-contributions"><span class="header-section-number">0.4</span> Source and contributions</a></li>
+  <li><a href="#sec-finetuning" id="toc-sec-finetuning" class="nav-link active" data-scroll-target="#sec-finetuning"><span class="header-section-number">7.1</span> Supervised fine-tuning (SFT)</a></li>
+  <li><a href="#why-sft-alone-is-not-enough" id="toc-why-sft-alone-is-not-enough" class="nav-link" data-scroll-target="#why-sft-alone-is-not-enough"><span class="header-section-number">7.2</span> Why SFT alone is not enough</a></li>
+  <li><a href="#parameter-efficient-fine-tuning" id="toc-parameter-efficient-fine-tuning" class="nav-link" data-scroll-target="#parameter-efficient-fine-tuning"><span class="header-section-number">7.3</span> Parameter-efficient fine-tuning</a>
+  <ul class="collapse">
+  <li><a href="#lora" id="toc-lora" class="nav-link" data-scroll-target="#lora"><span class="header-section-number">7.3.1</span> LoRA</a></li>
+  <li><a href="#qlora-and-quantized-adapters" id="toc-qlora-and-quantized-adapters" class="nav-link" data-scroll-target="#qlora-and-quantized-adapters"><span class="header-section-number">7.3.2</span> QLoRA and quantized adapters</a></li>
+  </ul></li>
+  <li><a href="#continued-pretraining" id="toc-continued-pretraining" class="nav-link" data-scroll-target="#continued-pretraining"><span class="header-section-number">7.4</span> Continued pretraining</a></li>
+  <li><a href="#distillation" id="toc-distillation" class="nav-link" data-scroll-target="#distillation"><span class="header-section-number">7.5</span> Distillation</a></li>
+  <li><a href="#when-fine-tuning-is-not-the-answer" id="toc-when-fine-tuning-is-not-the-answer" class="nav-link" data-scroll-target="#when-fine-tuning-is-not-the-answer"><span class="header-section-number">7.6</span> When fine-tuning is not the answer</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/cfpark00/intro-to-ai-for-physicists/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cfpark00/intro-to-ai-for-physicists/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/cfpark00/intro-to-ai-for-physicists/edit/main/chapters/06_finetuning.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cfpark00/intro-to-ai-for-physicists/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/05_pretraining.html">Large language models</a></li><li class="breadcrumb-item"><a href="../chapters/06_finetuning.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Fine-tuning</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Intro to AI for Physicists</h1>
-<p class="subtitle lead">A short, modern introduction to ML, deep learning, and large-scale AI — for people who already know calculus, linear algebra, and a bit of statistics.</p>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Fine-tuning</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>cfpark00 </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">May 24, 2026</p>
-    </div>
-  </div>
   
     
   </div>
@@ -463,50 +517,65 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This is a short, modern introduction to AI/ML/DL written for physicists. It is <strong>not</strong> a survey of classical machine learning — there are already excellent books for SVMs, decision trees, and kernel methods, and they are no longer the bottleneck for understanding what is happening in AI today.</p>
-<p>Instead, this book focuses on the ideas that drive modern AI:</p>
+<p>Fine-tuning is everything you do to a pretrained model after pretraining. It is enormously cheaper than pretraining — typically <span class="math inline">&lt;1\%</span> of the compute — and is where most of the <em>usability</em> of modern LLMs comes from.</p>
+<p>This chapter covers the supervised side. Reinforcement-learning-based post-training is its own chapter (<a href="07_rl.html#sec-rl" class="quarto-xref"><span>Section 8.1</span></a>).</p>
+<section id="sec-finetuning" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="sec-finetuning"><span class="header-section-number">7.1</span> Supervised fine-tuning (SFT)</h2>
+<p>The simplest form of post-training: continue training the model on a curated dataset of <code>(prompt, response)</code> pairs, with the loss masked so that gradients flow only on the response tokens. The objective is otherwise identical to pretraining — next-token cross-entropy.</p>
+<p>A typical SFT dataset is <span class="math inline">10^4</span>–<span class="math inline">10^6</span> examples, hand-written or synthetically generated, demonstrating:</p>
 <ul>
-<li><strong>Why scale matters.</strong> Why a single recipe — transformers + large compute — has eaten most of the field, and what that means for the next decade.</li>
-<li><strong>The transformer</strong>, attention, and the residual stream — the architecture behind nearly every frontier model.</li>
-<li><strong>Scaling laws</strong> as empirical physics: power-law behavior of loss in compute, data, and parameters; and what Chinchilla actually said.</li>
-<li><strong>Large language models</strong> — pretraining, fine-tuning (SFT, LoRA), and post-training (RLHF, DPO, GRPO, RLVR).</li>
-<li><strong>Reasoning and test-time compute</strong> — chain-of-thought, RL on verifiable rewards, and why this changed the trajectory.</li>
-<li><strong>Diffusion and score-based generative models</strong> — the part of modern AI most directly continuous with statistical physics.</li>
-<li><strong>Inference</strong> — KV cache, speculative decoding, batching: the engineering that decides whether a model is usable.</li>
+<li>Following instructions</li>
+<li>Refusing harmful requests</li>
+<li>Using a consistent format (markdown, code blocks)</li>
+<li>Tool use, when relevant</li>
 </ul>
-<p>The treatment is mathematical where it helps and intuitive where it doesn’t. Code is included sparingly and only when it is the clearest explanation. Equations use the conventions a physicist already knows — sums over indices, derivatives, expectations — and avoid the notational tics of ML papers when they don’t add anything.</p>
-<section id="who-this-is-for" class="level2" data-number="0.1">
-<h2 data-number="0.1" class="anchored" data-anchor-id="who-this-is-for"><span class="header-section-number">0.1</span> Who this is for</h2>
-<p>Anyone comfortable with:</p>
+<p>The model learns to imitate the style and behavior of the demonstrations. This is enough to turn a base model into a usable assistant for most everyday tasks.</p>
+</section>
+<section id="why-sft-alone-is-not-enough" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="why-sft-alone-is-not-enough"><span class="header-section-number">7.2</span> Why SFT alone is not enough</h2>
+<p>SFT can only teach behaviors that are <em>demonstrated</em>. It cannot teach the model to do something better than the demonstrations, and it has no good way to teach the model to <em>avoid</em> a behavior that wasn’t shown. It also tends to make the model overconfident — every response in the SFT data was a “good” response, so the model learns to be assertive even when it should not be.</p>
+<p>These are the gaps that reinforcement learning (<a href="07_rl.html#sec-rl" class="quarto-xref"><span>Section 8.1</span></a>) fills.</p>
+</section>
+<section id="parameter-efficient-fine-tuning" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="parameter-efficient-fine-tuning"><span class="header-section-number">7.3</span> Parameter-efficient fine-tuning</h2>
+<p>A full SFT run still updates all <span class="math inline">N</span> parameters, requiring optimizer state for all of them. For very large models this is expensive. <strong>Parameter-efficient fine-tuning (PEFT)</strong> methods update only a tiny fraction of parameters.</p>
+<section id="lora" class="level3" data-number="7.3.1">
+<h3 data-number="7.3.1" class="anchored" data-anchor-id="lora"><span class="header-section-number">7.3.1</span> LoRA</h3>
+<p>The dominant method is <strong>LoRA</strong> <span class="citation" data-cites="hu2021lora">(<a href="../references.html#ref-hu2021lora" role="doc-biblioref">Hu et al. 2021</a>)</span>: for each weight matrix <span class="math inline">W \in \mathbb{R}^{d \times k}</span> you want to fine-tune, freeze it and add a low-rank update <span class="math display">
+W' = W + B A, \qquad A \in \mathbb{R}^{r \times k}, \quad B \in \mathbb{R}^{d \times r},
+</span> with <span class="math inline">r \ll \min(d, k)</span>. Typical <span class="math inline">r</span> is 8 to 64. Only <span class="math inline">A</span> and <span class="math inline">B</span> are trained — orders of magnitude fewer parameters than <span class="math inline">W</span>.</p>
+<p>The implicit assumption is that the update needed to specialize a pretrained model lives on a low-dimensional subspace. Empirically this is <em>almost</em> true. LoRA-fine-tuned models match or slightly underperform full fine-tunes on most benchmarks, at <span class="math inline">\sim 100\times</span> less GPU memory.</p>
+</section>
+<section id="qlora-and-quantized-adapters" class="level3" data-number="7.3.2">
+<h3 data-number="7.3.2" class="anchored" data-anchor-id="qlora-and-quantized-adapters"><span class="header-section-number">7.3.2</span> QLoRA and quantized adapters</h3>
+<p>The combination of 4-bit quantizing the frozen base model and training LoRA adapters on top — <strong>QLoRA</strong> — lets you fine-tune a 70B model on a single consumer GPU. This is what democratized open-weights fine-tuning.</p>
+</section>
+</section>
+<section id="continued-pretraining" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="continued-pretraining"><span class="header-section-number">7.4</span> Continued pretraining</h2>
+<p>A middle ground between pretraining and SFT: keep training the base model on a large, in-domain corpus (medical papers, legal text, your company’s internal data) with the same next-token objective. Useful for adapting the model’s <em>knowledge</em> rather than its <em>behavior</em>. Usually done before SFT, not after.</p>
+</section>
+<section id="distillation" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="distillation"><span class="header-section-number">7.5</span> Distillation</h2>
+<p>Train a smaller “student” model to match the output distribution of a larger “teacher”. Concretely, minimize <span class="math display">
+\mathcal{L}_{\text{distill}} = \sum_{x,t} \mathrm{KL}\!\left(p_{\text{teacher}}(\cdot \mid x_{&lt;t}) \,\Big\|\, p_{\text{student}}(\cdot \mid x_{&lt;t})\right).
+</span> Distillation has become a central technique in the LLM era because frontier models are too expensive to serve at scale. Smaller distilled models (1B–8B parameters) can capture a large fraction of the teacher’s capability at a tiny fraction of inference cost. Most of the open-weights “small” models you see in 2025 are heavily distilled.</p>
+</section>
+<section id="when-fine-tuning-is-not-the-answer" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="when-fine-tuning-is-not-the-answer"><span class="header-section-number">7.6</span> When fine-tuning is not the answer</h2>
+<p>Two cases where the right answer is <em>not</em> fine-tuning:</p>
 <ul>
-<li>Linear algebra (matrices, eigendecompositions)</li>
-<li>Calculus and basic optimization (gradients, chain rule)</li>
-<li>Probability (expectations, KL divergence, sampling)</li>
+<li><strong>Retrieval-augmented generation (RAG).</strong> If you need the model to know facts that change frequently or are private, retrieve them at inference time and put them in the prompt. Fine-tuning on facts is a poor knowledge-store.</li>
+<li><strong>Prompting.</strong> If a well-written system prompt or a few in-context examples is enough, do that. It is much cheaper, much faster to iterate, and does not lock you into a single model version.</li>
 </ul>
-<p>You do <strong>not</strong> need prior ML background. If you have written <code>optimizer.zero_grad()</code> in your life, you may skim the early chapters.</p>
-</section>
-<section id="what-this-is-not" class="level2" data-number="0.2">
-<h2 data-number="0.2" class="anchored" data-anchor-id="what-this-is-not"><span class="header-section-number">0.2</span> What this is not</h2>
-<ul>
-<li><strong>Not a research survey.</strong> Citations are minimal and chosen for pedagogy, not credit assignment.</li>
-<li><strong>Not a software manual.</strong> We will not teach PyTorch, JAX, or distributed training systems in depth.</li>
-<li><strong>Not opinion-free.</strong> Where the field has converged on a view, this book takes that view rather than presenting all historical alternatives equally.</li>
-</ul>
-</section>
-<section id="how-to-read-it" class="level2" data-number="0.3">
-<h2 data-number="0.3" class="anchored" data-anchor-id="how-to-read-it"><span class="header-section-number">0.3</span> How to read it</h2>
-<p>Chapters build on each other but most can be read out of order if you already have the basics. The dependency graph is roughly:</p>
-<pre><code>landscape → dl_primer → transformer → scaling_laws → pretraining → finetuning → rl → reasoning
-                                                  ↘
-                                                   diffusion (mostly independent)
-                                                  ↘
-                                                   inference</code></pre>
-</section>
-<section id="source-and-contributions" class="level2" data-number="0.4">
-<h2 data-number="0.4" class="anchored" data-anchor-id="source-and-contributions"><span class="header-section-number">0.4</span> Source and contributions</h2>
-<p>Source for this book lives at <a href="https://github.com/cfpark00/intro-to-ai-for-physicists">github.com/cfpark00/intro-to-ai-for-physicists</a>. Issues and PRs are welcome.</p>
+<p>Fine-tuning is the right answer when you need to change <em>behavior</em> (format, tone, refusal patterns) or teach a <em>skill</em> (a domain-specific reasoning pattern, a structured output schema) that is too costly to demonstrate at every inference time.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-hu2021lora" class="csl-entry" role="listitem">
+Hu, Edward J, Yelong Shen, Phillip Wallis, et al. 2021. <span>“LoRA: Low-Rank Adaptation of Large Language Models.”</span> <em>arXiv Preprint arXiv:2106.09685</em>.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
@@ -930,10 +999,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../chapters/05_pretraining.html" class="pagination-link" aria-label="Pretraining LLMs">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Pretraining LLMs</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./chapters/01_landscape.html" class="pagination-link" aria-label="The modern AI landscape">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The modern AI landscape</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/07_rl.html" class="pagination-link" aria-label="Reinforcement learning for LLMs">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Reinforcement learning for LLMs</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -942,5 +1014,5 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cfpark00/intro-to-ai-for-physicists/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cfpark00/intro-to-ai-for-physicists/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cfpark00/intro-to-ai-for-physicists/edit/main/chapters/06_finetuning.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cfpark00/intro-to-ai-for-physicists/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

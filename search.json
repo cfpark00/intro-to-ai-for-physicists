@@ -1,0 +1,810 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Intro to AI for Physicists",
+    "section": "",
+    "text": "0.1 Who this is for\nThis is a short, modern introduction to AI/ML/DL written for physicists. It is not a survey of classical machine learning — there are already excellent books for SVMs, decision trees, and kernel methods, and they are no longer the bottleneck for understanding what is happening in AI today.\nInstead, this book focuses on the ideas that drive modern AI:\nThe treatment is mathematical where it helps and intuitive where it doesn’t. Code is included sparingly and only when it is the clearest explanation. Equations use the conventions a physicist already knows — sums over indices, derivatives, expectations — and avoid the notational tics of ML papers when they don’t add anything.\nAnyone comfortable with:\nYou do not need prior ML background. If you have written optimizer.zero_grad() in your life, you may skim the early chapters.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Preface</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#who-this-is-for",
+    "href": "index.html#who-this-is-for",
+    "title": "Intro to AI for Physicists",
+    "section": "",
+    "text": "Linear algebra (matrices, eigendecompositions)\nCalculus and basic optimization (gradients, chain rule)\nProbability (expectations, KL divergence, sampling)",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Preface</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#what-this-is-not",
+    "href": "index.html#what-this-is-not",
+    "title": "Intro to AI for Physicists",
+    "section": "0.2 What this is not",
+    "text": "0.2 What this is not\n\nNot a research survey. Citations are minimal and chosen for pedagogy, not credit assignment.\nNot a software manual. We will not teach PyTorch, JAX, or distributed training systems in depth.\nNot opinion-free. Where the field has converged on a view, this book takes that view rather than presenting all historical alternatives equally.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Preface</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#how-to-read-it",
+    "href": "index.html#how-to-read-it",
+    "title": "Intro to AI for Physicists",
+    "section": "0.3 How to read it",
+    "text": "0.3 How to read it\nChapters build on each other but most can be read out of order if you already have the basics. The dependency graph is roughly:\nlandscape → dl_primer → transformer → scaling_laws → pretraining → finetuning → rl → reasoning\n                                                  ↘\n                                                   diffusion (mostly independent)\n                                                  ↘\n                                                   inference",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Preface</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#source-and-contributions",
+    "href": "index.html#source-and-contributions",
+    "title": "Intro to AI for Physicists",
+    "section": "0.4 Source and contributions",
+    "text": "0.4 Source and contributions\nSource for this book lives at github.com/cfpark00/intro-to-ai-for-physicists. Issues and PRs are welcome.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Preface</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01_landscape.html",
+    "href": "chapters/01_landscape.html",
+    "title": "2  The modern AI landscape",
+    "section": "",
+    "text": "2.1 Why this book exists\nThe shape of AI changed between 2017 and 2023. Before, the field was a zoo: convolutional networks for vision, recurrent networks for sequences, dozens of specialized architectures for individual tasks, and a healthy debate over which inductive biases mattered. After, a single recipe — a transformer trained on a lot of data with a lot of compute — was beating everything, in every modality, often by margins that no amount of clever architecture had previously achieved.\nThis is sometimes called the bitter lesson (Sutton 2019): methods that scale with computation reliably win over methods that encode human cleverness. The bitter lesson is not new, but the last few years made it inescapable.",
+    "crumbs": [
+      "Foundations",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>The modern AI landscape</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01_landscape.html#what-ai-means-in-this-book",
+    "href": "chapters/01_landscape.html#what-ai-means-in-this-book",
+    "title": "2  The modern AI landscape",
+    "section": "2.2 What “AI” means in this book",
+    "text": "2.2 What “AI” means in this book\nWhen we say AI we will almost always mean some variation of:\n\nA large neural network, trained by gradient descent on a self-supervised or supervised objective, possibly post-trained with reinforcement learning, deployed by sampling from its outputs.\n\nThat covers GPT-style language models, diffusion image models, code models, multimodal models, and most of what you have read about in the news. It does not cover classical symbolic AI, expert systems, or planners, which are largely separate traditions.",
+    "crumbs": [
+      "Foundations",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>The modern AI landscape</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01_landscape.html#the-three-resources",
+    "href": "chapters/01_landscape.html#the-three-resources",
+    "title": "2  The modern AI landscape",
+    "section": "2.3 The three resources",
+    "text": "2.3 The three resources\nEvery modern AI system trades off three things:\n\nCompute (C) — floating-point operations spent during training, measured in FLOPs or A100/H100/B200-hours.\nData (D) — number of tokens, images, or examples seen during training.\nParameters (N) — size of the model.\n\nThe empirical claim of scaling laws is that loss decreases as a smooth power law in each of these, and that for a fixed compute budget there is an optimal (N, D) allocation. We will get to this in Section 5.1.",
+    "crumbs": [
+      "Foundations",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>The modern AI landscape</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01_landscape.html#a-physicists-first-reaction",
+    "href": "chapters/01_landscape.html#a-physicists-first-reaction",
+    "title": "2  The modern AI landscape",
+    "section": "2.4 A physicist’s first reaction",
+    "text": "2.4 A physicist’s first reaction\nMost physicists, on first contact, want to ask one of two questions:\n\nIs there a theory of why this works?\nWhy are the architectures so ugly?\n\nThe honest answers are not really, yet and because we found them empirically. The field has theory — neural tangent kernels, mean-field analyses, feature-learning theory — but none of it predicts the empirical scaling curves quantitatively, and none of it told anyone to build a transformer. This book will mostly take the empirical view, because that is where the predictive power currently lives.",
+    "crumbs": [
+      "Foundations",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>The modern AI landscape</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01_landscape.html#what-follows",
+    "href": "chapters/01_landscape.html#what-follows",
+    "title": "2  The modern AI landscape",
+    "section": "2.5 What follows",
+    "text": "2.5 What follows\nThe next chapter is a short primer on deep learning for readers who have not done it before — what a model is, how gradient descent works, and how networks are trained at scale. Everything after that builds on it.\n\n\n\n\nSutton, Richard. 2019. “The Bitter Lesson.” Incomplete Ideas (Blog).",
+    "crumbs": [
+      "Foundations",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>The modern AI landscape</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02_dl_primer.html",
+    "href": "chapters/02_dl_primer.html",
+    "title": "3  A deep learning primer",
+    "section": "",
+    "text": "3.1 A model is a parameterized function\nThis chapter is for readers who have never trained a neural network. If you have, skip it.\nA neural network is just a function \nf_\\theta : \\mathcal{X} \\to \\mathcal{Y}\n with a vector of parameters \\theta \\in \\mathbb{R}^N. The number N can be anything from 10^3 to 10^{12}.\nTraining is the act of choosing \\theta so that f_\\theta does well on some objective. “Does well” is measured by a loss function \\mathcal{L}(\\theta), evaluated on a dataset: \n\\mathcal{L}(\\theta) = \\frac{1}{|D|} \\sum_{(x, y) \\in D} \\ell\\big(f_\\theta(x),\\, y\\big).\nFor regression \\ell is often mean squared error; for classification it is cross-entropy; for language modeling it is the same cross-entropy applied to predicting the next token.",
+    "crumbs": [
+      "Foundations",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>A deep learning primer</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02_dl_primer.html#gradient-descent",
+    "href": "chapters/02_dl_primer.html#gradient-descent",
+    "title": "3  A deep learning primer",
+    "section": "3.2 Gradient descent",
+    "text": "3.2 Gradient descent\nWe minimize \\mathcal{L} by descending its gradient: \n\\theta_{t+1} = \\theta_t - \\eta\\, \\nabla_\\theta \\mathcal{L}(\\theta_t).\n In practice \\mathcal{L} is estimated on a small minibatch of examples (stochastic gradient descent), and the bare update is replaced by an adaptive optimizer — usually Adam or its weight-decoupled variant AdamW. The optimizer state typically doubles or triples the per-parameter memory cost.\nThe learning rate \\eta is the most important hyperparameter in deep learning. Almost all training pipelines schedule it: warmup linearly for a few thousand steps, then decay (cosine, linear, or constant-with-cooldown) over the run.",
+    "crumbs": [
+      "Foundations",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>A deep learning primer</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02_dl_primer.html#backpropagation-in-one-line",
+    "href": "chapters/02_dl_primer.html#backpropagation-in-one-line",
+    "title": "3  A deep learning primer",
+    "section": "3.3 Backpropagation in one line",
+    "text": "3.3 Backpropagation in one line\nComputing \\nabla_\\theta \\mathcal{L} exactly for a deep network is what backprop does. Forward pass: evaluate f_\\theta(x) while saving intermediate activations. Backward pass: apply the chain rule layer by layer, multiplying Jacobians from output to input. The cost of the backward pass is a small constant times the forward pass — call it 2×. This is the only reason training deep networks is tractable.",
+    "crumbs": [
+      "Foundations",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>A deep learning primer</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02_dl_primer.html#what-a-layer-is",
+    "href": "chapters/02_dl_primer.html#what-a-layer-is",
+    "title": "3  A deep learning primer",
+    "section": "3.4 What a layer is",
+    "text": "3.4 What a layer is\nFor our purposes a layer is a parameterized map \\mathbb{R}^d \\to \\mathbb{R}^{d'} that we can differentiate through. The three you must know:\n\nLinear: y = Wx + b.\nNonlinearity: y_i = \\sigma(x_i) for some elementwise \\sigma (ReLU, GELU, SwiGLU).\nLayerNorm: y = \\gamma \\odot (x - \\mu)/\\sigma + \\beta, with \\mu, \\sigma computed over the feature dimension.\n\nThe transformer (Section 4.1) is built almost entirely out of these three plus attention.",
+    "crumbs": [
+      "Foundations",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>A deep learning primer</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02_dl_primer.html#training-at-scale",
+    "href": "chapters/02_dl_primer.html#training-at-scale",
+    "title": "3  A deep learning primer",
+    "section": "3.5 Training at scale",
+    "text": "3.5 Training at scale\nThree things make modern training different from the textbook version:\n\nMixed precision. Weights are kept in 32-bit; activations and gradients in 16-bit (bf16, fp16) or 8-bit (fp8). Halves the memory cost and roughly doubles throughput on modern GPUs.\nDistributed training. The model and/or batch are split across many GPUs. Data parallelism (each GPU sees a different batch), tensor parallelism (each weight matrix is split across GPUs), and pipeline parallelism (different layers on different GPUs) are combined depending on model size.\nGradient accumulation. Effective batch size can exceed what fits in memory by accumulating gradients across micro-batches.\n\nFrontier training runs in 2024–2025 used \\sim 10^4 – 10^5 GPUs for weeks. The infrastructure to make that not fall over is a substantial fraction of the engineering effort.",
+    "crumbs": [
+      "Foundations",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>A deep learning primer</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02_dl_primer.html#the-rest-of-the-book",
+    "href": "chapters/02_dl_primer.html#the-rest-of-the-book",
+    "title": "3  A deep learning primer",
+    "section": "3.6 The rest of the book",
+    "text": "3.6 The rest of the book\nEverything from here on assumes you are comfortable with: a model is a function with parameters; we train it by minibatch gradient descent on a loss; the only hard part is doing it at scale. If that sentence is fine, the rest of the book is downstream of it.",
+    "crumbs": [
+      "Foundations",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>A deep learning primer</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03_transformer.html",
+    "href": "chapters/03_transformer.html",
+    "title": "4  The transformer",
+    "section": "",
+    "text": "4.1 The residual stream picture\nThe transformer (Vaswani et al. 2017) is the single architecture behind nearly every frontier model in language, vision, audio, and code as of 2026. It is worth understanding not by reading the diagram in the original paper, but by thinking of it as a particular kind of dynamical system on a sequence of vectors.\nA transformer processes a sequence of T tokens. Each token starts as an embedding vector in \\mathbb{R}^d where d is the model dimension (commonly 768 to 16384). Stack them and you have an array X \\in \\mathbb{R}^{T \\times d}.\nThe model is a stack of L identical blocks. Each block does: \nX \\leftarrow X + \\mathrm{Attn}(X), \\qquad X \\leftarrow X + \\mathrm{MLP}(X).\nThat is: every block adds something to the running state X. The cumulative state X is called the residual stream. Each token’s residual stream is a d-dimensional vector that gets refined as it passes through layers — attention writes information from other tokens into it, the MLP processes information already there.\nThe crucial observation is that the residual stream is a linear channel: every component reads its input via a linear projection of the stream and writes its output by addition. This is why mechanistic interpretability talks about “writing to the residual stream” — different components can effectively communicate by writing to and reading from agreed-upon subspaces.",
+    "crumbs": [
+      "Modern architectures",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>The transformer</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03_transformer.html#attention-in-one-equation",
+    "href": "chapters/03_transformer.html#attention-in-one-equation",
+    "title": "4  The transformer",
+    "section": "4.2 Attention in one equation",
+    "text": "4.2 Attention in one equation\nAttention takes the T \\times d array X, projects it three ways into queries, keys, and values: \nQ = X W_Q, \\qquad K = X W_K, \\qquad V = X W_V,\n each of shape T \\times d_{\\text{head}}. Then for each pair of token positions (i, j) it computes an attention weight \nA_{ij} = \\mathrm{softmax}_j\\!\\left(\\frac{Q_i \\cdot K_j}{\\sqrt{d_{\\text{head}}}}\\right),\n and outputs a weighted sum of values: \n\\mathrm{Attn}(X)_i = \\sum_j A_{ij}\\, V_j.\n\nIn words: token i asks a question (its query), every token answers (its key), and token i takes a weighted average of the values, weighted by how well each key matched its query.\nMulti-head attention runs this h times in parallel with different W_Q, W_K, W_V matrices, each producing an output, and concatenates them. The intuition is that different heads can specialize in different relationships between tokens.",
+    "crumbs": [
+      "Modern architectures",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>The transformer</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03_transformer.html#why-this-works",
+    "href": "chapters/03_transformer.html#why-this-works",
+    "title": "4  The transformer",
+    "section": "4.3 Why this works",
+    "text": "4.3 Why this works\nThere is no fully satisfying theory of why attention is the right inductive bias. The two facts that probably matter:\n\nContent-based routing. Unlike convolutions or RNNs, attention lets a token decide which other tokens are relevant on the basis of their content, not their position. This makes long-range dependencies cheap.\nNo recurrence, no convolution. The entire forward pass parallelizes across the sequence dimension on a GPU, which makes attention \\sim 10\\times more efficient to train than an RNN of comparable accuracy.",
+    "crumbs": [
+      "Modern architectures",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>The transformer</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03_transformer.html#the-mlp-block",
+    "href": "chapters/03_transformer.html#the-mlp-block",
+    "title": "4  The transformer",
+    "section": "4.4 The MLP block",
+    "text": "4.4 The MLP block\nSandwiched between attention layers is a position-wise feedforward network — typically a two-layer MLP with an inner dimension of 4d: \n\\mathrm{MLP}(x) = W_2\\, \\sigma(W_1 x).\n\nThis is where most of the parameters live (in a standard transformer, the MLPs are roughly 2/3 of the parameter count). Mechanistic interpretability work suggests the MLPs are doing most of the “knowledge storage” — the attention is the routing, the MLP is the memory.",
+    "crumbs": [
+      "Modern architectures",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>The transformer</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03_transformer.html#causal-masking-and-the-loss",
+    "href": "chapters/03_transformer.html#causal-masking-and-the-loss",
+    "title": "4  The transformer",
+    "section": "4.5 Causal masking and the loss",
+    "text": "4.5 Causal masking and the loss\nFor language modeling we want each position i to predict token i+1 using only tokens \\le i. This is enforced by masking the attention weights A_{ij} to zero for j &gt; i. The loss is then cross-entropy at every position, averaged over the sequence: \n\\mathcal{L} = -\\frac{1}{T} \\sum_{i=1}^T \\log p_\\theta(x_{i+1} \\mid x_{\\le i}).\n\nA single forward pass produces T supervised gradient signals. This is one reason next-token prediction scales so well: every token in your dataset is a training example.",
+    "crumbs": [
+      "Modern architectures",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>The transformer</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03_transformer.html#what-we-havent-covered",
+    "href": "chapters/03_transformer.html#what-we-havent-covered",
+    "title": "4  The transformer",
+    "section": "4.6 What we haven’t covered",
+    "text": "4.6 What we haven’t covered\nPosition encodings (RoPE), normalization placement (pre-norm), modern attention variants (grouped-query, sliding window, sparse, linear), inference-time efficiencies (KV cache — see Section 11.1), and mixture-of-experts MLPs are all important refinements. The core picture — residual stream, attention, MLP — is what you need to follow the rest of the book.\n\n\n\n\nVaswani, Ashish, Noam Shazeer, Niki Parmar, et al. 2017. “Attention Is All You Need.” Advances in Neural Information Processing Systems 30.",
+    "crumbs": [
+      "Modern architectures",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>The transformer</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04_scaling_laws.html",
+    "href": "chapters/04_scaling_laws.html",
+    "title": "5  Scaling laws",
+    "section": "",
+    "text": "5.1 The basic law\nScaling laws are the most physicist-friendly part of modern AI. The empirical claim is simple and quantitative: across many orders of magnitude, the test loss of a language model is a smooth power law in compute, data, and parameters.\nDefine:\nKaplan et al. (Kaplan et al. 2020) found that, holding others fixed, \nL(N) \\approx L_\\infty + \\left(\\frac{N_c}{N}\\right)^{\\alpha_N}, \\qquad\nL(D) \\approx L_\\infty + \\left(\\frac{D_c}{D}\\right)^{\\alpha_D}, \\qquad\nL(C) \\approx L_\\infty + \\left(\\frac{C_c}{C}\\right)^{\\alpha_C},\n with exponents around \\alpha \\sim 0.05–0.1. The constant L_\\infty is the irreducible loss — the entropy of the data distribution itself.\nA physicist will read these and immediately think power-law scaling, like critical phenomena, and proceed to be slightly disappointed because no one has produced a theory that derives the exponents from first principles. They look universal across architectures, datasets, and modalities, but no one knows why.",
+    "crumbs": [
+      "Modern architectures",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Scaling laws</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04_scaling_laws.html#sec-scaling",
+    "href": "chapters/04_scaling_laws.html#sec-scaling",
+    "title": "5  Scaling laws",
+    "section": "",
+    "text": "L — cross-entropy loss on held-out data (in nats per token).\nN — number of non-embedding parameters.\nD — number of training tokens.\nC — total training compute, C \\approx 6 N D FLOPs for a dense transformer.",
+    "crumbs": [
+      "Modern architectures",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Scaling laws</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04_scaling_laws.html#the-compute-optimal-frontier-chinchilla",
+    "href": "chapters/04_scaling_laws.html#the-compute-optimal-frontier-chinchilla",
+    "title": "5  Scaling laws",
+    "section": "5.2 The compute-optimal frontier (Chinchilla)",
+    "text": "5.2 The compute-optimal frontier (Chinchilla)\nKaplan et al. originally argued that for a fixed compute budget C, you should spend most of it on a bigger model and relatively less on data. Hoffmann et al. (Hoffmann et al. 2022) later showed this was wrong because of how the learning rate was scheduled in the original study. Their corrected finding — the Chinchilla law — is:\n\nFor compute-optimal training, N and D should grow at roughly equal rates with C.\n\nConcretely: \nN_{\\text{opt}}(C) \\propto C^{1/2}, \\qquad D_{\\text{opt}}(C) \\propto C^{1/2}.\n The rule of thumb that came out of this is roughly 20 tokens per parameter. A 70B-parameter model should see roughly 1.4 T tokens to be compute-optimal.\nIn practice, frontier models are now trained well past Chinchilla-optimal — sometimes 50× or 100× the optimal token count — because inference cost matters too, and a smaller model trained on more tokens is cheaper to serve.",
+    "crumbs": [
+      "Modern architectures",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Scaling laws</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04_scaling_laws.html#what-the-law-buys-you",
+    "href": "chapters/04_scaling_laws.html#what-the-law-buys-you",
+    "title": "5  Scaling laws",
+    "section": "5.3 What the law buys you",
+    "text": "5.3 What the law buys you\nThe power-law form has two practical consequences:\n\nYou can plan a training run. Measure loss at small scale (10^{17}–10^{19} FLOPs), fit the exponents, and extrapolate loss for a 10^{23} FLOP run with surprisingly tight error bars. Frontier labs do this routinely.\nYou know there is no plateau in sight. As long as the power law holds, doubling compute reliably buys a fixed reduction in \\log L. The question is whether that loss reduction corresponds to a useful capability gain — and the answer turned out to be yes far beyond what most people expected.",
+    "crumbs": [
+      "Modern architectures",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Scaling laws</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04_scaling_laws.html#emergent-capabilities",
+    "href": "chapters/04_scaling_laws.html#emergent-capabilities",
+    "title": "5  Scaling laws",
+    "section": "5.4 Emergent capabilities",
+    "text": "5.4 Emergent capabilities\nA separate phenomenon, often confused with scaling laws, is that certain capabilities (arithmetic, in-context learning, instruction following) appear quite suddenly as a function of scale rather than smoothly. Whether these are genuine phase transitions or artifacts of how we measure them is debated. The smooth loss curve is robust; the emergence of specific capabilities from it is less understood.",
+    "crumbs": [
+      "Modern architectures",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Scaling laws</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04_scaling_laws.html#a-small-fitting-exercise",
+    "href": "chapters/04_scaling_laws.html#a-small-fitting-exercise",
+    "title": "5  Scaling laws",
+    "section": "5.5 A small fitting exercise",
+    "text": "5.5 A small fitting exercise\nSuppose you measure the following losses at different compute budgets. Fit a power law and extrapolate.\n\nimport numpy as np\nimport matplotlib.pyplot as plt\n\n# Toy data\nC = np.array([1e18, 1e19, 1e20, 1e21, 1e22])\nL = 1.7 + 8.0 * C**-0.07 + 0.02*np.random.randn(len(C))\n\n# Fit L = L_inf + a * C^-alpha  (fix L_inf = 1.7 for simplicity)\nlogy = np.log(L - 1.7)\nlogx = np.log(C)\nslope, intercept = np.polyfit(logx, logy, 1)\nalpha = -slope\na = np.exp(intercept)\n\nprint(f\"alpha = {alpha:.3f}, a = {a:.2f}\")\n\nC_plot = np.logspace(17, 24, 100)\nplt.loglog(C, L - 1.7, \"o\", label=\"data\")\nplt.loglog(C_plot, a * C_plot**-alpha, label=f\"fit: $L - 1.7 = {a:.2f} \\\\, C^{{-{alpha:.3f}}}$\")\nplt.xlabel(\"Compute (FLOPs)\")\nplt.ylabel(\"Loss above floor\")\nplt.legend()\nplt.grid(True, which=\"both\", ls=\":\")\nplt.show()\n\nalpha = 0.064, a = 6.12\n\n\n\n\n\n\n\n\n\nReal-world scaling fits use much more careful methodology — multiple seeds, multiple shapes, proper learning-rate scheduling — but the spirit is the same: log-log linear fit, extrapolate carefully.",
+    "crumbs": [
+      "Modern architectures",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Scaling laws</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04_scaling_laws.html#beyond-language",
+    "href": "chapters/04_scaling_laws.html#beyond-language",
+    "title": "5  Scaling laws",
+    "section": "5.6 Beyond language",
+    "text": "5.6 Beyond language\nThe same shape — smooth power-law loss in compute — has been measured for image diffusion models, multimodal models, code, and reinforcement learning from preferences. The exponents differ, but the qualitative picture is consistent. Whether all of intelligence scales like this is the most expensive open question in the field.\n\n\n\n\nHoffmann, Jordan, Sebastian Borgeaud, Arthur Mensch, et al. 2022. “Training Compute-Optimal Large Language Models.” arXiv Preprint arXiv:2203.15556.\n\n\nKaplan, Jared, Sam McCandlish, Tom Henighan, et al. 2020. “Scaling Laws for Neural Language Models.” arXiv Preprint arXiv:2001.08361.",
+    "crumbs": [
+      "Modern architectures",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Scaling laws</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05_pretraining.html",
+    "href": "chapters/05_pretraining.html",
+    "title": "6  Pretraining LLMs",
+    "section": "",
+    "text": "6.1 The objective\n“Pretraining” is the part where you take a freshly initialized transformer with hundreds of billions of parameters and feed it the internet, optimizing next-token cross-entropy until something interesting happens. This chapter is about what that process actually looks like.\nNext-token prediction. Given a sequence of tokens x_1, \\ldots, x_T, minimize \n\\mathcal{L}(\\theta) = -\\sum_{i=1}^{T} \\log p_\\theta(x_i \\mid x_{&lt;i}).\n That is it. Every other capability of an LLM — translating, summarizing, writing code, doing arithmetic, reasoning — emerges as a side effect of being very good at this one task. Whether that should have been surprising in advance is a useful philosophical question that no one has a satisfying answer to.",
+    "crumbs": [
+      "Large language models",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Pretraining LLMs</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05_pretraining.html#tokens-not-characters",
+    "href": "chapters/05_pretraining.html#tokens-not-characters",
+    "title": "6  Pretraining LLMs",
+    "section": "6.2 Tokens, not characters",
+    "text": "6.2 Tokens, not characters\nModels do not see raw text. They see sequences of tokens from a fixed vocabulary of \\sim 50\\text{k}–200\\text{k} symbols, produced by a byte-pair encoding (BPE) or similar subword tokenizer. Roughly: common words are one token, rare words are split into a few tokens, and arbitrary byte sequences fall back to single-byte tokens. Typical English text averages \\sim 0.75 tokens per word.\nTokenization is a leaky abstraction with real consequences:\n\nNumerical reasoning is harder because numbers are tokenized inconsistently (“123” might be one token, “124” two).\nNon-English languages can need 2–5× more tokens for the same content.\nCode, with its many short symbols, tokenizes efficiently.",
+    "crumbs": [
+      "Large language models",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Pretraining LLMs</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05_pretraining.html#the-data",
+    "href": "chapters/05_pretraining.html#the-data",
+    "title": "6  Pretraining LLMs",
+    "section": "6.3 The data",
+    "text": "6.3 The data\nA frontier pretraining dataset in 2025 contains \\sim 10–30 trillion tokens. Composition varies but typically:\n\n~60–80% general web text (Common Crawl, filtered aggressively)\n~10–20% code (GitHub-derived)\n~5–15% high-quality curated text (books, papers, Wikipedia)\n~5–10% multilingual data\nA growing fraction of synthetic data, generated by previous models\n\nFiltering is where the alpha lives. The most important single piece of preprocessing is deduplication — both exact and approximate — which improves loss meaningfully for any fixed training budget. Quality classifiers (small models trained to predict whether a document looks like a “good” page) are used to upweight or downsample.",
+    "crumbs": [
+      "Large language models",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Pretraining LLMs</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05_pretraining.html#the-compute",
+    "href": "chapters/05_pretraining.html#the-compute",
+    "title": "6  Pretraining LLMs",
+    "section": "6.4 The compute",
+    "text": "6.4 The compute\nA frontier 2025 run is on the order of 10^{25}–10^{26} FLOPs, spread across 10^4–10^5 GPUs for weeks. At Chinchilla-optimal ratios (\\sim 20 tokens per parameter) this corresponds to models in the hundreds of billions of parameters trained on tens of trillions of tokens; in practice models are smaller and trained longer because inference matters too.\nA useful conversion: C \\approx 6ND FLOPs of training compute for a dense transformer with N parameters and D tokens. Two FLOPs per multiply-add, factor of 3 for forward + backward + weight gradient.",
+    "crumbs": [
+      "Large language models",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Pretraining LLMs</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05_pretraining.html#curriculum-and-data-ordering",
+    "href": "chapters/05_pretraining.html#curriculum-and-data-ordering",
+    "title": "6  Pretraining LLMs",
+    "section": "6.5 Curriculum and data ordering",
+    "text": "6.5 Curriculum and data ordering\nFor a long time everyone assumed data order did not matter at scale; you just shuffled and trained. Recent work has complicated this picture: data order matters somewhat, especially in the final phase. Data ablations (training small models with subsets of the data and measuring loss) are now a standard tool for deciding what to include.\nMany frontier runs use a two-phase schedule: a long “main” phase on diverse web data with cosine learning-rate decay, followed by a short “cooldown” or “annealing” phase on higher-quality data with the learning rate dropped near zero. The cooldown gives outsized impact for its compute cost.",
+    "crumbs": [
+      "Large language models",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Pretraining LLMs</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05_pretraining.html#what-you-get-after-pretraining",
+    "href": "chapters/05_pretraining.html#what-you-get-after-pretraining",
+    "title": "6  Pretraining LLMs",
+    "section": "6.6 What you get after pretraining",
+    "text": "6.6 What you get after pretraining\nA model that is very good at predicting the next token on documents drawn from a distribution that looks like its training data. That is not the same thing as a useful assistant. The model will continue prompts, complete patterns, repeat itself, and confabulate fluently. It will not refuse harmful requests, follow instructions reliably, or know when to stop.\nTurning a pretrained model into a usable product is the subject of Section 7.1 and Section 8.1.",
+    "crumbs": [
+      "Large language models",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Pretraining LLMs</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06_finetuning.html",
+    "href": "chapters/06_finetuning.html",
+    "title": "7  Fine-tuning",
+    "section": "",
+    "text": "7.1 Supervised fine-tuning (SFT)\nFine-tuning is everything you do to a pretrained model after pretraining. It is enormously cheaper than pretraining — typically &lt;1\\% of the compute — and is where most of the usability of modern LLMs comes from.\nThis chapter covers the supervised side. Reinforcement-learning-based post-training is its own chapter (Section 8.1).\nThe simplest form of post-training: continue training the model on a curated dataset of (prompt, response) pairs, with the loss masked so that gradients flow only on the response tokens. The objective is otherwise identical to pretraining — next-token cross-entropy.\nA typical SFT dataset is 10^4–10^6 examples, hand-written or synthetically generated, demonstrating:\nThe model learns to imitate the style and behavior of the demonstrations. This is enough to turn a base model into a usable assistant for most everyday tasks.",
+    "crumbs": [
+      "Large language models",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Fine-tuning</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06_finetuning.html#sec-finetuning",
+    "href": "chapters/06_finetuning.html#sec-finetuning",
+    "title": "7  Fine-tuning",
+    "section": "",
+    "text": "Following instructions\nRefusing harmful requests\nUsing a consistent format (markdown, code blocks)\nTool use, when relevant",
+    "crumbs": [
+      "Large language models",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Fine-tuning</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06_finetuning.html#why-sft-alone-is-not-enough",
+    "href": "chapters/06_finetuning.html#why-sft-alone-is-not-enough",
+    "title": "7  Fine-tuning",
+    "section": "7.2 Why SFT alone is not enough",
+    "text": "7.2 Why SFT alone is not enough\nSFT can only teach behaviors that are demonstrated. It cannot teach the model to do something better than the demonstrations, and it has no good way to teach the model to avoid a behavior that wasn’t shown. It also tends to make the model overconfident — every response in the SFT data was a “good” response, so the model learns to be assertive even when it should not be.\nThese are the gaps that reinforcement learning (Section 8.1) fills.",
+    "crumbs": [
+      "Large language models",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Fine-tuning</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06_finetuning.html#parameter-efficient-fine-tuning",
+    "href": "chapters/06_finetuning.html#parameter-efficient-fine-tuning",
+    "title": "7  Fine-tuning",
+    "section": "7.3 Parameter-efficient fine-tuning",
+    "text": "7.3 Parameter-efficient fine-tuning\nA full SFT run still updates all N parameters, requiring optimizer state for all of them. For very large models this is expensive. Parameter-efficient fine-tuning (PEFT) methods update only a tiny fraction of parameters.\n\n7.3.1 LoRA\nThe dominant method is LoRA (Hu et al. 2021): for each weight matrix W \\in \\mathbb{R}^{d \\times k} you want to fine-tune, freeze it and add a low-rank update \nW' = W + B A, \\qquad A \\in \\mathbb{R}^{r \\times k}, \\quad B \\in \\mathbb{R}^{d \\times r},\n with r \\ll \\min(d, k). Typical r is 8 to 64. Only A and B are trained — orders of magnitude fewer parameters than W.\nThe implicit assumption is that the update needed to specialize a pretrained model lives on a low-dimensional subspace. Empirically this is almost true. LoRA-fine-tuned models match or slightly underperform full fine-tunes on most benchmarks, at \\sim 100\\times less GPU memory.\n\n\n7.3.2 QLoRA and quantized adapters\nThe combination of 4-bit quantizing the frozen base model and training LoRA adapters on top — QLoRA — lets you fine-tune a 70B model on a single consumer GPU. This is what democratized open-weights fine-tuning.",
+    "crumbs": [
+      "Large language models",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Fine-tuning</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06_finetuning.html#continued-pretraining",
+    "href": "chapters/06_finetuning.html#continued-pretraining",
+    "title": "7  Fine-tuning",
+    "section": "7.4 Continued pretraining",
+    "text": "7.4 Continued pretraining\nA middle ground between pretraining and SFT: keep training the base model on a large, in-domain corpus (medical papers, legal text, your company’s internal data) with the same next-token objective. Useful for adapting the model’s knowledge rather than its behavior. Usually done before SFT, not after.",
+    "crumbs": [
+      "Large language models",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Fine-tuning</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06_finetuning.html#distillation",
+    "href": "chapters/06_finetuning.html#distillation",
+    "title": "7  Fine-tuning",
+    "section": "7.5 Distillation",
+    "text": "7.5 Distillation\nTrain a smaller “student” model to match the output distribution of a larger “teacher”. Concretely, minimize \n\\mathcal{L}_{\\text{distill}} = \\sum_{x,t} \\mathrm{KL}\\!\\left(p_{\\text{teacher}}(\\cdot \\mid x_{&lt;t}) \\,\\Big\\|\\, p_{\\text{student}}(\\cdot \\mid x_{&lt;t})\\right).\n Distillation has become a central technique in the LLM era because frontier models are too expensive to serve at scale. Smaller distilled models (1B–8B parameters) can capture a large fraction of the teacher’s capability at a tiny fraction of inference cost. Most of the open-weights “small” models you see in 2025 are heavily distilled.",
+    "crumbs": [
+      "Large language models",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Fine-tuning</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06_finetuning.html#when-fine-tuning-is-not-the-answer",
+    "href": "chapters/06_finetuning.html#when-fine-tuning-is-not-the-answer",
+    "title": "7  Fine-tuning",
+    "section": "7.6 When fine-tuning is not the answer",
+    "text": "7.6 When fine-tuning is not the answer\nTwo cases where the right answer is not fine-tuning:\n\nRetrieval-augmented generation (RAG). If you need the model to know facts that change frequently or are private, retrieve them at inference time and put them in the prompt. Fine-tuning on facts is a poor knowledge-store.\nPrompting. If a well-written system prompt or a few in-context examples is enough, do that. It is much cheaper, much faster to iterate, and does not lock you into a single model version.\n\nFine-tuning is the right answer when you need to change behavior (format, tone, refusal patterns) or teach a skill (a domain-specific reasoning pattern, a structured output schema) that is too costly to demonstrate at every inference time.\n\n\n\n\nHu, Edward J, Yelong Shen, Phillip Wallis, et al. 2021. “LoRA: Low-Rank Adaptation of Large Language Models.” arXiv Preprint arXiv:2106.09685.",
+    "crumbs": [
+      "Large language models",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Fine-tuning</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/07_rl.html",
+    "href": "chapters/07_rl.html",
+    "title": "8  Reinforcement learning for LLMs",
+    "section": "",
+    "text": "8.1 The setup\nReinforcement learning is how modern LLMs get good. SFT teaches a base model to imitate behavior; RL teaches it to optimize for an outcome. By 2025 the gap between an SFT-only model and a heavily RL-post-trained model is enormous, especially on reasoning, code, and instruction following.\nThis chapter covers RL in the specific context of fine-tuning LLMs. General RL is a much larger field; we treat only the slice that matters here.\nWe have a pretrained-and-SFT’d language model \\pi_\\theta(y \\mid x) — a policy that, given a prompt x, samples a response y. We want to update \\theta to maximize an expected reward: \n\\max_\\theta \\; \\mathbb{E}_{x \\sim \\mathcal{D},\\; y \\sim \\pi_\\theta(\\cdot \\mid x)} \\big[\\, r(x, y) \\,\\big] \\;-\\; \\beta \\, \\mathrm{KL}\\!\\left(\\pi_\\theta \\,\\|\\, \\pi_{\\text{ref}}\\right).\n The reward r comes from somewhere — human preferences, a learned model, a verifier, a unit test. The KL term keeps \\pi_\\theta close to a reference (usually the SFT model) to prevent collapse onto degenerate high-reward outputs.\nThe art is in (a) where the reward comes from, and (b) how we estimate the gradient.",
+    "crumbs": [
+      "Large language models",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Reinforcement learning for LLMs</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/07_rl.html#rlhf-learning-a-reward-model-from-preferences",
+    "href": "chapters/07_rl.html#rlhf-learning-a-reward-model-from-preferences",
+    "title": "8  Reinforcement learning for LLMs",
+    "section": "8.2 RLHF: learning a reward model from preferences",
+    "text": "8.2 RLHF: learning a reward model from preferences\nIn RLHF (Ouyang et al. 2022) the reward is a learned function. The pipeline is:\n\nCollect pairs of model outputs (y_A, y_B) for the same prompt x and have humans pick the preferred one.\nTrain a reward model r_\\phi(x, y) to predict human preferences via the Bradley–Terry likelihood: \nP(y_A \\succ y_B \\mid x) = \\sigma\\!\\big( r_\\phi(x, y_A) - r_\\phi(x, y_B) \\big).\n\nUse r_\\phi as the reward signal, optimize \\pi_\\theta with a policy-gradient algorithm — historically PPO (Schulman et al. 2017).\n\nThis was the recipe behind InstructGPT and the original ChatGPT. It works but is finicky: the reward model is overfittable, the policy is good at gaming it (reward hacking), and PPO has many knobs.",
+    "crumbs": [
+      "Large language models",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Reinforcement learning for LLMs</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/07_rl.html#dpo-skip-the-reward-model",
+    "href": "chapters/07_rl.html#dpo-skip-the-reward-model",
+    "title": "8  Reinforcement learning for LLMs",
+    "section": "8.3 DPO: skip the reward model",
+    "text": "8.3 DPO: skip the reward model\nDirect Preference Optimization (Rafailov et al. 2023) derives a closed-form loss that optimizes the same KL-regularized objective without ever training a reward model. Given a preference pair (y_w, y_l) (winner, loser) for prompt x: \n\\mathcal{L}_{\\text{DPO}} = -\\log \\sigma\\!\\left( \\beta \\log \\frac{\\pi_\\theta(y_w \\mid x)}{\\pi_{\\text{ref}}(y_w \\mid x)} \\;-\\; \\beta \\log \\frac{\\pi_\\theta(y_l \\mid x)}{\\pi_{\\text{ref}}(y_l \\mid x)} \\right).\n This is a supervised loss on preference data. No reward model, no rollouts, no PPO. The derivation is a clean piece of math worth working through; the intuition is that the optimal policy under a KL-regularized reward objective has a specific functional form, and you can invert that form to express the reward in terms of the policy ratios.\nDPO is much cheaper to train than PPO and often matches its quality. It is the default for most open-weights post-training in 2024–2026.",
+    "crumbs": [
+      "Large language models",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Reinforcement learning for LLMs</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/07_rl.html#rlvr-reinforcement-learning-with-verifiable-rewards",
+    "href": "chapters/07_rl.html#rlvr-reinforcement-learning-with-verifiable-rewards",
+    "title": "8  Reinforcement learning for LLMs",
+    "section": "8.4 RLVR: reinforcement learning with verifiable rewards",
+    "text": "8.4 RLVR: reinforcement learning with verifiable rewards\nFor problems where you can check whether an answer is correct — math problems with a known answer, code with unit tests, formal proofs — you do not need humans or learned reward models. Just use the verifier as the reward: \nr(x, y) = \\mathbb{1}\\big[\\text{verifier accepts } y\\big].\n\nThis is RLVR (RL with verifiable rewards), and it is the dominant signal behind reasoning-trained models (covered in Section 9.1). The reward is sparse — one bit per problem — but it is honest: there is no reward hacking against ground truth.\nAlgorithms used here include PPO and, increasingly, GRPO (Group Relative Policy Optimization): for each prompt, sample G completions, compute their rewards, and use the in-group mean as the baseline instead of training a separate value network. GRPO avoids the value-network instability of PPO and is computationally lean.",
+    "crumbs": [
+      "Large language models",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Reinforcement learning for LLMs</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/07_rl.html#policy-gradient-in-one-paragraph",
+    "href": "chapters/07_rl.html#policy-gradient-in-one-paragraph",
+    "title": "8  Reinforcement learning for LLMs",
+    "section": "8.5 Policy gradient in one paragraph",
+    "text": "8.5 Policy gradient in one paragraph\nIf you have never seen the policy gradient, here is the entire idea. Let J(\\theta) = \\mathbb{E}_{y \\sim \\pi_\\theta} [r(y)]. Then \n\\nabla_\\theta J = \\mathbb{E}_{y \\sim \\pi_\\theta} \\big[\\, r(y)\\, \\nabla_\\theta \\log \\pi_\\theta(y) \\,\\big].\n You sample, you score, you weight the log-probability gradient by the score. Subtracting a baseline b (any function not depending on y) keeps the estimator unbiased and reduces variance. PPO, GRPO, REINFORCE — they are all variations on this, with different choices of baseline and different ways of clipping or trust-regioning the update to avoid policy collapse.",
+    "crumbs": [
+      "Large language models",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Reinforcement learning for LLMs</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/07_rl.html#what-changed-in-20242026",
+    "href": "chapters/07_rl.html#what-changed-in-20242026",
+    "title": "8  Reinforcement learning for LLMs",
+    "section": "8.6 What changed in 2024–2026",
+    "text": "8.6 What changed in 2024–2026\nThe biggest shift is that RL on verifiable rewards became the central training paradigm for frontier capabilities, not just a polish layer. Models like o1, R1, and their successors are mostly defined by their RL stage, not their pretraining. This is the topic of Section 9.1.\n\n\n\n\nOuyang, Long, Jeff Wu, Xu Jiang, et al. 2022. “Training Language Models to Follow Instructions with Human Feedback.” Advances in Neural Information Processing Systems 35.\n\n\nRafailov, Rafael, Archit Sharma, Eric Mitchell, Stefano Ermon, Christopher D Manning, and Chelsea Finn. 2023. “Direct Preference Optimization: Your Language Model Is Secretly a Reward Model.” NeurIPS.\n\n\nSchulman, John, Filip Wolski, Prafulla Dhariwal, Alec Radford, and Oleg Klimov. 2017. “Proximal Policy Optimization Algorithms.” arXiv Preprint arXiv:1707.06347.",
+    "crumbs": [
+      "Large language models",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Reinforcement learning for LLMs</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08_reasoning.html",
+    "href": "chapters/08_reasoning.html",
+    "title": "9  Reasoning and test-time compute",
+    "section": "",
+    "text": "9.1 Chain-of-thought\nUntil 2023, the way to make an LLM smarter was to make it bigger. In 2024–2025 a second axis opened up: spend more compute at inference time. A small model that is allowed to “think” for ten thousand tokens before answering can outperform a much larger model that answers immediately.\nThis chapter is about how that works and why it changed the trajectory of the field.\nThe seed of the idea is chain-of-thought (CoT) prompting: ask the model to “think step by step” before giving a final answer. Empirically, simply allocating more tokens before the answer improves accuracy on math, logic, and multi-step reasoning, even without any training change. The model has learned, from pretraining, that texts containing reasoning steps tend to reach correct conclusions, and prompting it to produce such text routes the computation through that distribution.\nThis observation alone — that there is an entire dimension of capability per query the model is not using by default — was enough to motivate the next step.",
+    "crumbs": [
+      "Large language models",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Reasoning and test-time compute</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08_reasoning.html#reasoning-models",
+    "href": "chapters/08_reasoning.html#reasoning-models",
+    "title": "9  Reasoning and test-time compute",
+    "section": "9.2 Reasoning models",
+    "text": "9.2 Reasoning models\nA reasoning model is one that has been post-trained, typically with RLVR, to produce long chains of thought before answering. The training objective is something like:\n\nTake a problem with a known answer.\nSample a long completion (often 10^3–10^5 tokens) ending in a final answer.\nReward = 1 if the final answer is correct, 0 otherwise.\nOptimize the policy with GRPO or PPO against this reward.\n\nCrucially, the model is not supervised on the intermediate reasoning steps — only on whether the final answer is right. The model invents whatever reasoning trajectory works. The resulting traces often look strange: backtracking (“Wait, that’s not right, let me reconsider…”), self-questioning, exploring multiple branches, sometimes thousands of tokens of dead-end calculation before the right answer.",
+    "crumbs": [
+      "Large language models",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Reasoning and test-time compute</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08_reasoning.html#why-this-is-a-different-kind-of-scaling",
+    "href": "chapters/08_reasoning.html#why-this-is-a-different-kind-of-scaling",
+    "title": "9  Reasoning and test-time compute",
+    "section": "9.3 Why this is a different kind of scaling",
+    "text": "9.3 Why this is a different kind of scaling\nFor pretraining, capability scales as a power law in training compute. For reasoning, an analogous power-law-shaped curve appears in inference compute for a fixed model: accuracy on hard problems improves smoothly as you let the model generate more tokens per problem.\nThis is qualitatively new. It means there are two knobs to spend on:\n\nTrain a bigger model on more data (more train compute).\nLet the existing model think for longer (more inference compute).\n\nThese trade off. For many domains, a small reasoning-trained model with a large test-time budget is cheaper per-correct-answer than a giant model that one-shots the answer. This has reshaped how labs allocate compute.",
+    "crumbs": [
+      "Large language models",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Reasoning and test-time compute</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08_reasoning.html#self-consistency-and-majority-vote",
+    "href": "chapters/08_reasoning.html#self-consistency-and-majority-vote",
+    "title": "9  Reasoning and test-time compute",
+    "section": "9.4 Self-consistency and majority vote",
+    "text": "9.4 Self-consistency and majority vote\nA simpler form of test-time scaling, predating reasoning training: sample k independent answers and take the majority vote (for problems with verifiable answers) or the most common rationale (for open-ended). Accuracy improves with k. This is essentially the same idea — spend more inference compute, get a better answer — without changing the model.",
+    "crumbs": [
+      "Large language models",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Reasoning and test-time compute</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08_reasoning.html#verifiers-and-search",
+    "href": "chapters/08_reasoning.html#verifiers-and-search",
+    "title": "9  Reasoning and test-time compute",
+    "section": "9.5 Verifiers and search",
+    "text": "9.5 Verifiers and search\nBeyond raw sampling, a model can use a verifier to score its own outputs:\n\nFor math: a separate “process reward model” or step-checker.\nFor code: literally running the code against test cases.\nFor proofs: a formal proof assistant.\n\nWith a verifier you can do tree search, beam search, or best-of-N sampling. This is one of the main reasons code and math benchmarks have moved faster than other domains in 2024–2026: the verifier is cheap and reliable.",
+    "crumbs": [
+      "Large language models",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Reasoning and test-time compute</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08_reasoning.html#what-this-changed",
+    "href": "chapters/08_reasoning.html#what-this-changed",
+    "title": "9  Reasoning and test-time compute",
+    "section": "9.6 What this changed",
+    "text": "9.6 What this changed\nThree things, broadly:\n\nThe frontier moved. Problems that were 30% solvable in 2023 (competition math, hard code, scientific reasoning) became 80–95% solvable in 2025 — almost entirely from RL-on-reasoning, not from bigger pretraining.\nInference cost matters more. A frontier reasoning model can spend 10^4–10^6 tokens per query. Serving them efficiently is now a first-class problem (see Section 11.1).\nThe unit of “model capability” is no longer just parameters. It is parameters \\times token budget. Reporting one without the other is increasingly meaningless.",
+    "crumbs": [
+      "Large language models",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Reasoning and test-time compute</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08_reasoning.html#open-questions",
+    "href": "chapters/08_reasoning.html#open-questions",
+    "title": "9  Reasoning and test-time compute",
+    "section": "9.7 Open questions",
+    "text": "9.7 Open questions\nTwo big ones, as of 2026:\n\nHow far does this scale on non-verifiable tasks? Verifiable rewards (math, code) cleanly drove the gains. For open-ended reasoning (research, persuasion, planning) it is less clear what the reward signal is, and progress is correspondingly slower.\nWhat is actually happening in the long thinking traces? Some of it is genuine search; some of it looks like the model performing for its training reward in ways that may or may not generalize. The interpretability work here is active and unsettled.",
+    "crumbs": [
+      "Large language models",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Reasoning and test-time compute</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/09_diffusion.html",
+    "href": "chapters/09_diffusion.html",
+    "title": "10  Diffusion and score-based models",
+    "section": "",
+    "text": "10.1 The forward process\nDiffusion models are the part of modern AI most directly continuous with statistical physics, which makes this chapter unusually easy to write for the intended audience.\nThe underlying idea: define a stochastic process that gradually destroys data into noise, then learn to reverse it. The forward process is fixed and analytical; the reverse process is the learned model. Sampling is integration of the reverse process from pure noise back to data.\nStart with a sample x_0 \\sim p_{\\text{data}}. Define a noising process indexed by time t \\in [0, T]. The simplest version is the variance-preserving SDE: \ndx_t = -\\tfrac{1}{2}\\, \\beta(t)\\, x_t\\, dt + \\sqrt{\\beta(t)}\\, dW_t,\n which interpolates between x_0 (data) and approximately \\mathcal{N}(0, I) at t = T. The noise schedule \\beta(t) is a design choice.\nThe marginal at any time t has a closed form, \nx_t = \\sqrt{\\bar{\\alpha}_t}\\, x_0 + \\sqrt{1 - \\bar{\\alpha}_t}\\, \\epsilon, \\qquad \\epsilon \\sim \\mathcal{N}(0, I),\n where \\bar{\\alpha}_t = \\exp\\!\\left(-\\int_0^t \\beta(s)\\, ds\\right). This is the discrete-time DDPM formulation (Ho et al. 2020).",
+    "crumbs": [
+      "Generative models beyond LLMs",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Diffusion and score-based models</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/09_diffusion.html#the-reverse-process",
+    "href": "chapters/09_diffusion.html#the-reverse-process",
+    "title": "10  Diffusion and score-based models",
+    "section": "10.2 The reverse process",
+    "text": "10.2 The reverse process\nAnderson’s theorem gives the reverse-time SDE of the above: \ndx_t = \\left[ -\\tfrac{1}{2}\\, \\beta(t)\\, x_t - \\beta(t)\\, \\nabla_{x_t} \\log p_t(x_t) \\right] dt + \\sqrt{\\beta(t)}\\, d\\bar{W}_t,\n where \\nabla_{x_t} \\log p_t(x_t) is the score function of the marginal at time t and \\bar{W} is reverse-time Brownian motion. If we know the score at every (x_t, t), we can integrate this SDE backward from x_T \\sim \\mathcal{N}(0, I) to a sample x_0 \\sim p_{\\text{data}}.\nThe score function is what we learn.",
+    "crumbs": [
+      "Generative models beyond LLMs",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Diffusion and score-based models</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/09_diffusion.html#the-training-objective",
+    "href": "chapters/09_diffusion.html#the-training-objective",
+    "title": "10  Diffusion and score-based models",
+    "section": "10.3 The training objective",
+    "text": "10.3 The training objective\nTrain a neural network s_\\theta(x, t) \\approx \\nabla_x \\log p_t(x) via denoising score matching (Song et al. 2021): \n\\mathcal{L}_{\\text{DSM}}(\\theta) = \\mathbb{E}_{t,\\, x_0,\\, \\epsilon}\\!\\left[\\, \\big\\| s_\\theta(x_t, t) - \\nabla_{x_t} \\log p_t(x_t \\mid x_0) \\big\\|^2 \\,\\right],\n where the conditional score has a closed form \n\\nabla_{x_t} \\log p_t(x_t \\mid x_0) = -\\frac{x_t - \\sqrt{\\bar{\\alpha}_t}\\, x_0}{1 - \\bar{\\alpha}_t} = -\\frac{\\epsilon}{\\sqrt{1 - \\bar{\\alpha}_t}}.\n\nSubstituting, the objective becomes “predict the noise”: \n\\mathcal{L}(\\theta) = \\mathbb{E}_{t,\\, x_0,\\, \\epsilon}\\!\\left[\\, \\big\\| \\epsilon - \\epsilon_\\theta(x_t, t) \\big\\|^2 \\,\\right].\n That is literally the training loss of a diffusion model. A network that takes a noisy image and the timestep, and tries to predict the noise. Train it for millions of steps and you have a generative model.",
+    "crumbs": [
+      "Generative models beyond LLMs",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Diffusion and score-based models</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/09_diffusion.html#probability-flow-ode",
+    "href": "chapters/09_diffusion.html#probability-flow-ode",
+    "title": "10  Diffusion and score-based models",
+    "section": "10.4 Probability-flow ODE",
+    "text": "10.4 Probability-flow ODE\nThe reverse SDE has a deterministic counterpart, the probability-flow ODE, with the same marginal at every t: \n\\frac{dx_t}{dt} = -\\tfrac{1}{2}\\, \\beta(t)\\, x_t - \\tfrac{1}{2}\\, \\beta(t)\\, \\nabla_{x_t} \\log p_t(x_t).\n This is what most production samplers use, because deterministic ODE integration (DDIM, DPM-Solver, Heun) converges in 10–50 steps versus thousands for naive SDE integration. The ODE perspective also makes diffusion models look like continuous normalizing flows with a learned vector field, and unifies them with flow matching — the currently dominant variant.",
+    "crumbs": [
+      "Generative models beyond LLMs",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Diffusion and score-based models</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/09_diffusion.html#flow-matching",
+    "href": "chapters/09_diffusion.html#flow-matching",
+    "title": "10  Diffusion and score-based models",
+    "section": "10.5 Flow matching",
+    "text": "10.5 Flow matching\nA more direct framing: pick a path p_t interpolating between noise (t=0) and data (t=1), and learn a vector field v_\\theta(x, t) that pushes p_0 to p_1. The training objective is again a regression — match v_\\theta to the conditional velocity that takes a noise sample to a data sample along the chosen path.\nFlow matching with linear (or rectified) paths, \nx_t = (1 - t)\\, \\epsilon + t\\, x_0,\n is the recipe behind most large-scale image and video generators in 2024–2026 (Stable Diffusion 3, recent video models). It produces straighter sampling trajectories than DDPM and converges in fewer steps.",
+    "crumbs": [
+      "Generative models beyond LLMs",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Diffusion and score-based models</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/09_diffusion.html#conditioning-and-guidance",
+    "href": "chapters/09_diffusion.html#conditioning-and-guidance",
+    "title": "10  Diffusion and score-based models",
+    "section": "10.6 Conditioning and guidance",
+    "text": "10.6 Conditioning and guidance\nFor conditional generation (text-to-image, class-conditional, image-to-image) you train a score s_\\theta(x, t, c) that takes a condition c. At sampling time, classifier-free guidance amplifies the conditional signal: \n\\tilde{s}(x, t, c) = (1 + w)\\, s_\\theta(x, t, c) - w\\, s_\\theta(x, t, \\emptyset),\n trading sample diversity for closer adherence to the condition. The same model is trained with c randomly dropped to \\emptyset during training so it learns both heads.",
+    "crumbs": [
+      "Generative models beyond LLMs",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Diffusion and score-based models</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/09_diffusion.html#latent-diffusion",
+    "href": "chapters/09_diffusion.html#latent-diffusion",
+    "title": "10  Diffusion and score-based models",
+    "section": "10.7 Latent diffusion",
+    "text": "10.7 Latent diffusion\nFor high-resolution images, diffusing in pixel space is prohibitively expensive. Latent diffusion instead trains an autoencoder to compress images to a smaller latent space (e.g., 64 \\times 64 instead of 1024 \\times 1024), and runs the diffusion model entirely in latent space. This is the architecture of Stable Diffusion and most production text-to-image systems.",
+    "crumbs": [
+      "Generative models beyond LLMs",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Diffusion and score-based models</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/09_diffusion.html#why-physicists-should-care",
+    "href": "chapters/09_diffusion.html#why-physicists-should-care",
+    "title": "10  Diffusion and score-based models",
+    "section": "10.8 Why physicists should care",
+    "text": "10.8 Why physicists should care\nThree reasons beyond cultural affinity:\n\nThe math is the cleanest in modern generative modeling: well-defined SDEs, exact training losses, no adversarial training, no mode collapse.\nThe connection to non-equilibrium statistical mechanics is real — the original DDPM paper was inspired by Sohl-Dickstein’s earlier work on non-equilibrium thermodynamics.\nDiffusion-style models are spreading beyond images: video, audio, 3D structures, molecules, protein backbones, materials design. Anywhere there is a continuous data manifold and you want to sample from it, this is currently the dominant approach.\n\n\n\n\n\nHo, Jonathan, Ajay Jain, and Pieter Abbeel. 2020. “Denoising Diffusion Probabilistic Models.” Advances in Neural Information Processing Systems 33.\n\n\nSong, Yang, Jascha Sohl-Dickstein, Diederik P Kingma, Abhishek Kumar, Stefano Ermon, and Ben Poole. 2021. “Score-Based Generative Modeling Through Stochastic Differential Equations.” ICLR.",
+    "crumbs": [
+      "Generative models beyond LLMs",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Diffusion and score-based models</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/10_inference.html",
+    "href": "chapters/10_inference.html",
+    "title": "11  Inference",
+    "section": "",
+    "text": "11.1 What makes LLM inference different\nTraining a model and serving a model are completely different problems. This chapter is about the second.\nIt matters because (a) it dominates the cost of any deployed system, often by 100× over its training cost amortized across queries; and (b) the techniques used in production now bleed back into training-time decisions (model shape, head count, attention variant).\nTwo phases per request:\nThe asymmetry is the source of every interesting inference optimization. Modern GPUs are vastly over-provisioned for FLOPs relative to memory bandwidth during decode. Almost every technique below is about squeezing more useful work out of each weight read.",
+    "crumbs": [
+      "Practice",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Inference</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/10_inference.html#sec-inference",
+    "href": "chapters/10_inference.html#sec-inference",
+    "title": "11  Inference",
+    "section": "",
+    "text": "Prefill. Run the prompt through the model once to populate the key-value cache. This is a single forward pass over T_{\\text{prompt}} tokens — compute-bound, similar to training in cost structure.\nDecode. Generate output tokens one at a time. Each step is a forward pass over one token, using the cached keys/values for all previous positions. This is memory-bandwidth-bound, not compute-bound, because you read all model weights from HBM to compute one token.",
+    "crumbs": [
+      "Practice",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Inference</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/10_inference.html#the-kv-cache",
+    "href": "chapters/10_inference.html#the-kv-cache",
+    "title": "11  Inference",
+    "section": "11.2 The KV cache",
+    "text": "11.2 The KV cache\nFor a transformer of L layers with hidden dimension d, attending over T context tokens, the cache size per request is roughly \n\\text{KV cache} \\approx 2 \\cdot L \\cdot T \\cdot d \\cdot \\text{bytes per element}.\n For a 70B model with 80 layers, d = 8192, fp16, and a 32k-context window, this is \\sim 80 GB per request. The KV cache often dwarfs the model weights themselves at long context.\nConsequences:\n\nGrouped-query attention (GQA) and multi-query attention (MQA) share keys/values across multiple query heads, shrinking the cache by 4–8×.\nSliding window attention caps how far back each token attends, making the cache size constant in T rather than linear.\nKV cache quantization to int8 or int4 is now standard.",
+    "crumbs": [
+      "Practice",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Inference</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/10_inference.html#batching-especially-continuous-batching",
+    "href": "chapters/10_inference.html#batching-especially-continuous-batching",
+    "title": "11  Inference",
+    "section": "11.3 Batching, especially continuous batching",
+    "text": "11.3 Batching, especially continuous batching\nGPUs reach their efficiency only when many requests are processed in parallel. Static batching — wait for N requests, run them together — wastes time because requests have wildly different lengths. Continuous batching (a.k.a. inflight batching) instead schedules generation step-by-step: as soon as a request finishes, slot a new one in.\nThis is the single most important serving optimization. The throughput improvement over naive serving is typically 5–20×.",
+    "crumbs": [
+      "Practice",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Inference</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/10_inference.html#pagedattention",
+    "href": "chapters/10_inference.html#pagedattention",
+    "title": "11  Inference",
+    "section": "11.4 PagedAttention",
+    "text": "11.4 PagedAttention\nThe KV cache for many requests of varying lengths fragments GPU memory badly. PagedAttention (vLLM) borrows the idea of virtual memory pages: store the cache in fixed-size blocks with a logical-to-physical mapping. Zero fragmentation, easy to share cache blocks across requests with the same prefix.\nThis is why vLLM became the dominant open-source serving stack — PagedAttention plus continuous batching gives you most of the throughput of a hand-tuned inference engine for free.",
+    "crumbs": [
+      "Practice",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Inference</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/10_inference.html#speculative-decoding",
+    "href": "chapters/10_inference.html#speculative-decoding",
+    "title": "11  Inference",
+    "section": "11.5 Speculative decoding",
+    "text": "11.5 Speculative decoding\nUse a small draft model to generate k candidate tokens, then verify them with one forward pass of the big target model. If the target agrees with the first j drafts, accept all j and move on. If not, accept up to the first disagreement and use the target’s prediction for the next token.\nThis is exact — the output distribution is unchanged — and the speedup is bounded by how often the draft model agrees with the target. In practice 2–4× faster decoding on standard hardware. Variants include medusa heads (the draft is a small parallel head on the target itself), lookahead decoding, and EAGLE.",
+    "crumbs": [
+      "Practice",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Inference</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/10_inference.html#quantization",
+    "href": "chapters/10_inference.html#quantization",
+    "title": "11  Inference",
+    "section": "11.6 Quantization",
+    "text": "11.6 Quantization\nRun the model at lower precision than it was trained in. The interesting regimes for LLMs:\n\nint8 weights, fp16 activations. Nearly free quality loss, ~2× memory and bandwidth savings. Standard.\nint4 weights (GPTQ, AWQ). ~4× memory savings, small quality cost. Standard for serving on consumer hardware.\nfp8 weights and activations. Native support on H100/B200, lets you cut inference cost roughly in half versus fp16 with negligible quality loss. Standard at frontier labs in 2025.\nint4 / fp4 with KV cache quantization. The cutting edge; can sometimes hurt quality on long contexts.",
+    "crumbs": [
+      "Practice",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Inference</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/10_inference.html#mixture-of-experts",
+    "href": "chapters/10_inference.html#mixture-of-experts",
+    "title": "11  Inference",
+    "section": "11.7 Mixture of experts",
+    "text": "11.7 Mixture of experts\nMany frontier models use sparse mixture-of-experts (MoE): each MLP block has E “expert” sub-networks, and a router picks the top-k (k=2 typically) for each token. Total parameter count N_{\\text{total}} is large, but active parameters per token N_{\\text{active}} is much smaller (often 1/8 to 1/4 of the total).\nFor inference this is great in principle: only the active experts are used per token. In practice the routing is uneven, the cache requirements grow, and serving efficiently requires careful work. The win is real but smaller than the raw N_{\\text{total}} / N_{\\text{active}} ratio suggests.",
+    "crumbs": [
+      "Practice",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Inference</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/10_inference.html#prefix-caching",
+    "href": "chapters/10_inference.html#prefix-caching",
+    "title": "11  Inference",
+    "section": "11.8 Prefix caching",
+    "text": "11.8 Prefix caching\nMany requests share the same long system prompt. If you can cache the KV state at the end of that prompt, every subsequent request that starts with it skips the prefill entirely. This is a 10–100× speedup for short queries against a long system prompt — common in RAG, agent loops, and chat — and is supported natively by most modern serving stacks.",
+    "crumbs": [
+      "Practice",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Inference</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/10_inference.html#why-this-all-matters",
+    "href": "chapters/10_inference.html#why-this-all-matters",
+    "title": "11  Inference",
+    "section": "11.9 Why this all matters",
+    "text": "11.9 Why this all matters\nReasoning models (Section 9.1) generate 10^4–10^6 tokens per query. Without continuous batching, PagedAttention, speculative decoding, and quantization, serving them at scale would not be economically viable. The inference stack and the training stack co-evolve: a new attention variant or a new precision format gets adopted because it makes serving cheaper, which means the model shape is downstream of inference economics, not just training economics.",
+    "crumbs": [
+      "Practice",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Inference</span>"
+    ]
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "12  References",
+    "section": "",
+    "text": "Ho, Jonathan, Ajay Jain, and Pieter Abbeel. 2020. “Denoising\nDiffusion Probabilistic Models.” Advances in Neural\nInformation Processing Systems 33.\n\n\nHoffmann, Jordan, Sebastian Borgeaud, Arthur\nMensch, et al. 2022. “Training Compute-Optimal Large\nLanguage Models.” arXiv Preprint arXiv:2203.15556.\n\n\nHu, Edward J, Yelong Shen, Phillip Wallis, et al. 2021. “LoRA:\nLow-Rank Adaptation of Large Language Models.” arXiv Preprint\narXiv:2106.09685.\n\n\nKaplan, Jared, Sam McCandlish, Tom Henighan, et al. 2020. “Scaling\nLaws for Neural Language Models.” arXiv Preprint\narXiv:2001.08361.\n\n\nOuyang, Long, Jeff Wu, Xu Jiang, et al.\n2022. “Training Language Models to Follow Instructions with Human\nFeedback.” Advances in Neural Information Processing\nSystems 35.\n\n\nRafailov, Rafael, Archit Sharma, Eric Mitchell, Stefano Ermon,\nChristopher D Manning, and Chelsea Finn. 2023. “Direct Preference\nOptimization: Your Language Model Is Secretly a Reward Model.”\nNeurIPS.\n\n\nSchulman, John, Filip Wolski, Prafulla Dhariwal, Alec Radford, and Oleg\nKlimov. 2017. “Proximal Policy Optimization Algorithms.”\narXiv Preprint arXiv:1707.06347.\n\n\nSong, Yang, Jascha Sohl-Dickstein, Diederik P Kingma, Abhishek Kumar,\nStefano Ermon, and Ben Poole. 2021. “Score-Based Generative\nModeling Through Stochastic Differential Equations.”\nICLR.\n\n\nSutton, Richard. 2019. “The Bitter Lesson.” Incomplete\nIdeas (Blog).\n\n\nVaswani, Ashish, Noam Shazeer, Niki Parmar, et al. 2017.\n“Attention Is All You Need.” Advances in Neural\nInformation Processing Systems 30.",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>References</span>"
+    ]
+  }
+]

@@ -1,0 +1,65 @@
+---
+title: "Fine-tuning"
+---
+
+Fine-tuning is everything you do to a pretrained model after pretraining. It is enormously cheaper than pretraining — typically $<1\%$ of the compute — and is where most of the *usability* of modern LLMs comes from.
+
+This chapter covers the supervised side. Reinforcement-learning-based post-training is its own chapter (@sec-rl).
+
+## Supervised fine-tuning (SFT) {#sec-finetuning}
+
+The simplest form of post-training: continue training the model on a curated dataset of `(prompt, response)` pairs, with the loss masked so that gradients flow only on the response tokens. The objective is otherwise identical to pretraining — next-token cross-entropy.
+
+A typical SFT dataset is $10^4$–$10^6$ examples, hand-written or synthetically generated, demonstrating:
+
+- Following instructions
+- Refusing harmful requests
+- Using a consistent format (markdown, code blocks)
+- Tool use, when relevant
+
+The model learns to imitate the style and behavior of the demonstrations. This is enough to turn a base model into a usable assistant for most everyday tasks.
+
+## Why SFT alone is not enough
+
+SFT can only teach behaviors that are *demonstrated*. It cannot teach the model to do something better than the demonstrations, and it has no good way to teach the model to *avoid* a behavior that wasn't shown. It also tends to make the model overconfident — every response in the SFT data was a "good" response, so the model learns to be assertive even when it should not be.
+
+These are the gaps that reinforcement learning (@sec-rl) fills.
+
+## Parameter-efficient fine-tuning
+
+A full SFT run still updates all $N$ parameters, requiring optimizer state for all of them. For very large models this is expensive. **Parameter-efficient fine-tuning (PEFT)** methods update only a tiny fraction of parameters.
+
+### LoRA
+
+The dominant method is **LoRA** [@hu2021lora]: for each weight matrix $W \in \mathbb{R}^{d \times k}$ you want to fine-tune, freeze it and add a low-rank update
+$$
+W' = W + B A, \qquad A \in \mathbb{R}^{r \times k}, \quad B \in \mathbb{R}^{d \times r},
+$$
+with $r \ll \min(d, k)$. Typical $r$ is 8 to 64. Only $A$ and $B$ are trained — orders of magnitude fewer parameters than $W$.
+
+The implicit assumption is that the update needed to specialize a pretrained model lives on a low-dimensional subspace. Empirically this is *almost* true. LoRA-fine-tuned models match or slightly underperform full fine-tunes on most benchmarks, at $\sim 100\times$ less GPU memory.
+
+### QLoRA and quantized adapters
+
+The combination of 4-bit quantizing the frozen base model and training LoRA adapters on top — **QLoRA** — lets you fine-tune a 70B model on a single consumer GPU. This is what democratized open-weights fine-tuning.
+
+## Continued pretraining
+
+A middle ground between pretraining and SFT: keep training the base model on a large, in-domain corpus (medical papers, legal text, your company's internal data) with the same next-token objective. Useful for adapting the model's *knowledge* rather than its *behavior*. Usually done before SFT, not after.
+
+## Distillation
+
+Train a smaller "student" model to match the output distribution of a larger "teacher". Concretely, minimize
+$$
+\mathcal{L}_{\text{distill}} = \sum_{x,t} \mathrm{KL}\!\left(p_{\text{teacher}}(\cdot \mid x_{<t}) \,\Big\|\, p_{\text{student}}(\cdot \mid x_{<t})\right).
+$$
+Distillation has become a central technique in the LLM era because frontier models are too expensive to serve at scale. Smaller distilled models (1B–8B parameters) can capture a large fraction of the teacher's capability at a tiny fraction of inference cost. Most of the open-weights "small" models you see in 2025 are heavily distilled.
+
+## When fine-tuning is not the answer
+
+Two cases where the right answer is *not* fine-tuning:
+
+- **Retrieval-augmented generation (RAG).** If you need the model to know facts that change frequently or are private, retrieve them at inference time and put them in the prompt. Fine-tuning on facts is a poor knowledge-store.
+- **Prompting.** If a well-written system prompt or a few in-context examples is enough, do that. It is much cheaper, much faster to iterate, and does not lock you into a single model version.
+
+Fine-tuning is the right answer when you need to change *behavior* (format, tone, refusal patterns) or teach a *skill* (a domain-specific reasoning pattern, a structured output schema) that is too costly to demonstrate at every inference time.

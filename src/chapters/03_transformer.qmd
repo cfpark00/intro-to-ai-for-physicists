@@ -1,0 +1,66 @@
+---
+title: "The transformer"
+---
+
+The transformer [@vaswani2017attention] is the single architecture behind nearly every frontier model in language, vision, audio, and code as of 2026. It is worth understanding not by reading the diagram in the original paper, but by thinking of it as a particular kind of dynamical system on a sequence of vectors.
+
+## The residual stream picture {#sec-transformer}
+
+A transformer processes a sequence of $T$ tokens. Each token starts as an embedding vector in $\mathbb{R}^d$ where $d$ is the *model dimension* (commonly 768 to 16384). Stack them and you have an array $X \in \mathbb{R}^{T \times d}$.
+
+The model is a stack of $L$ identical blocks. Each block does:
+$$
+X \leftarrow X + \mathrm{Attn}(X), \qquad X \leftarrow X + \mathrm{MLP}(X).
+$$
+
+That is: every block **adds** something to the running state $X$. The cumulative state $X$ is called the **residual stream**. Each token's residual stream is a $d$-dimensional vector that gets refined as it passes through layers — attention writes information from other tokens into it, the MLP processes information already there.
+
+The crucial observation is that the residual stream is a *linear* channel: every component reads its input via a linear projection of the stream and writes its output by addition. This is why mechanistic interpretability talks about "writing to the residual stream" — different components can effectively communicate by writing to and reading from agreed-upon subspaces.
+
+## Attention in one equation
+
+Attention takes the $T \times d$ array $X$, projects it three ways into queries, keys, and values:
+$$
+Q = X W_Q, \qquad K = X W_K, \qquad V = X W_V,
+$$
+each of shape $T \times d_{\text{head}}$. Then for each pair of token positions $(i, j)$ it computes an attention weight
+$$
+A_{ij} = \mathrm{softmax}_j\!\left(\frac{Q_i \cdot K_j}{\sqrt{d_{\text{head}}}}\right),
+$$
+and outputs a weighted sum of values:
+$$
+\mathrm{Attn}(X)_i = \sum_j A_{ij}\, V_j.
+$$
+
+In words: token $i$ asks a question (its query), every token answers (its key), and token $i$ takes a weighted average of the values, weighted by how well each key matched its query.
+
+**Multi-head attention** runs this $h$ times in parallel with different $W_Q, W_K, W_V$ matrices, each producing an output, and concatenates them. The intuition is that different heads can specialize in different relationships between tokens.
+
+## Why this works
+
+There is no fully satisfying theory of *why* attention is the right inductive bias. The two facts that probably matter:
+
+1. **Content-based routing.** Unlike convolutions or RNNs, attention lets a token decide *which other tokens* are relevant on the basis of their content, not their position. This makes long-range dependencies cheap.
+2. **No recurrence, no convolution.** The entire forward pass parallelizes across the sequence dimension on a GPU, which makes attention $\sim 10\times$ more efficient to train than an RNN of comparable accuracy.
+
+## The MLP block
+
+Sandwiched between attention layers is a position-wise feedforward network — typically a two-layer MLP with an inner dimension of $4d$:
+$$
+\mathrm{MLP}(x) = W_2\, \sigma(W_1 x).
+$$
+
+This is where most of the parameters live (in a standard transformer, the MLPs are roughly $2/3$ of the parameter count). Mechanistic interpretability work suggests the MLPs are doing most of the "knowledge storage" — the attention is the routing, the MLP is the memory.
+
+## Causal masking and the loss
+
+For language modeling we want each position $i$ to predict token $i+1$ using only tokens $\le i$. This is enforced by **masking** the attention weights $A_{ij}$ to zero for $j > i$. The loss is then cross-entropy at every position, averaged over the sequence:
+$$
+\mathcal{L} = -\frac{1}{T} \sum_{i=1}^T \log p_\theta(x_{i+1} \mid x_{\le i}).
+$$
+
+A single forward pass produces $T$ supervised gradient signals. This is one reason next-token prediction scales so well: every token in your dataset is a training example.
+
+## What we haven't covered
+
+Position encodings (RoPE), normalization placement (pre-norm), modern attention variants (grouped-query, sliding window, sparse, linear), inference-time efficiencies (KV cache — see @sec-inference), and mixture-of-experts MLPs are all important refinements. The core picture — residual stream, attention, MLP — is what you need to follow the rest of the book.

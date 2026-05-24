@@ -1,0 +1,20 @@
+/* Tighten body text width for readability */
+main {
+  max-width: 820px;
+}
+
+/* Slightly softer code block background in light mode */
+.quarto-light pre code:not(.sourceCode) {
+  background-color: #f7f7f7;
+}
+
+/* Make inline math a touch larger so it lines up with surrounding text */
+.katex { font-size: 1.02em; }
+
+/* Subtle chapter part labels */
+.sidebar-item-section > .sidebar-item-text {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.78em;
+  opacity: 0.7;
+}

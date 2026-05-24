@@ -1,0 +1,65 @@
+project:
+  type: book
+  output-dir: _site
+  resources:
+    - CNAME
+
+book:
+  title: "Intro to AI for Physicists"
+  subtitle: "A short, modern introduction to ML, deep learning, and large-scale AI — for people who already know calculus, linear algebra, and a bit of statistics."
+  author: "cfpark00"
+  date: today
+  site-url: https://scienceofdl.com
+  repo-url: https://github.com/cfpark00/intro-to-ai-for-physicists
+  repo-actions: [edit, issue]
+  search: true
+  page-navigation: true
+  sidebar:
+    style: docked
+    collapse-level: 1
+  chapters:
+    - index.qmd
+    - part: "Foundations"
+      chapters:
+        - chapters/01_landscape.qmd
+        - chapters/02_dl_primer.qmd
+    - part: "Modern architectures"
+      chapters:
+        - chapters/03_transformer.qmd
+        - chapters/04_scaling_laws.qmd
+    - part: "Large language models"
+      chapters:
+        - chapters/05_pretraining.qmd
+        - chapters/06_finetuning.qmd
+        - chapters/07_rl.qmd
+        - chapters/08_reasoning.qmd
+    - part: "Generative models beyond LLMs"
+      chapters:
+        - chapters/09_diffusion.qmd
+    - part: "Practice"
+      chapters:
+        - chapters/10_inference.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: darkly
+    css: styles.css
+    code-copy: true
+    code-overflow: wrap
+    code-link: true
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    html-math-method: katex
+    fig-cap-location: bottom
+    tbl-cap-location: top
+    smooth-scroll: true
+    link-external-newwindow: true
+
+execute:
+  freeze: auto

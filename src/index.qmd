@@ -1,0 +1,49 @@
+---
+title: "Preface"
+---
+
+This is a short, modern introduction to AI/ML/DL written for physicists. It is **not** a survey of classical machine learning — there are already excellent books for SVMs, decision trees, and kernel methods, and they are no longer the bottleneck for understanding what is happening in AI today.
+
+Instead, this book focuses on the ideas that drive modern AI:
+
+- **Why scale matters.** Why a single recipe — transformers + large compute — has eaten most of the field, and what that means for the next decade.
+- **The transformer**, attention, and the residual stream — the architecture behind nearly every frontier model.
+- **Scaling laws** as empirical physics: power-law behavior of loss in compute, data, and parameters; and what Chinchilla actually said.
+- **Large language models** — pretraining, fine-tuning (SFT, LoRA), and post-training (RLHF, DPO, GRPO, RLVR).
+- **Reasoning and test-time compute** — chain-of-thought, RL on verifiable rewards, and why this changed the trajectory.
+- **Diffusion and score-based generative models** — the part of modern AI most directly continuous with statistical physics.
+- **Inference** — KV cache, speculative decoding, batching: the engineering that decides whether a model is usable.
+
+The treatment is mathematical where it helps and intuitive where it doesn't. Code is included sparingly and only when it is the clearest explanation. Equations use the conventions a physicist already knows — sums over indices, derivatives, expectations — and avoid the notational tics of ML papers when they don't add anything.
+
+## Who this is for
+
+Anyone comfortable with:
+
+- Linear algebra (matrices, eigendecompositions)
+- Calculus and basic optimization (gradients, chain rule)
+- Probability (expectations, KL divergence, sampling)
+
+You do **not** need prior ML background. If you have written `optimizer.zero_grad()` in your life, you may skim the early chapters.
+
+## What this is not
+
+- **Not a research survey.** Citations are minimal and chosen for pedagogy, not credit assignment.
+- **Not a software manual.** We will not teach PyTorch, JAX, or distributed training systems in depth.
+- **Not opinion-free.** Where the field has converged on a view, this book takes that view rather than presenting all historical alternatives equally.
+
+## How to read it
+
+Chapters build on each other but most can be read out of order if you already have the basics. The dependency graph is roughly:
+
+```
+landscape → dl_primer → transformer → scaling_laws → pretraining → finetuning → rl → reasoning
+                                                  ↘
+                                                   diffusion (mostly independent)
+                                                  ↘
+                                                   inference
+```
+
+## Source and contributions
+
+Source for this book lives at [github.com/cfpark00/intro-to-ai-for-physicists](https://github.com/cfpark00/intro-to-ai-for-physicists). Issues and PRs are welcome.

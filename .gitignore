@@ -1,0 +1,41 @@
+# Scratch - temporary work (contents ignored, directory kept)
+scratch/*
+!scratch/.gitkeep
+
+# Resources - external reference materials (contents ignored, directory kept)
+resources/*
+!resources/.gitkeep
+
+# Data - derived/precomputed data (shared via DVC)
+data/**
+!data/**/
+!data/**/*.dvc
+!data/.gitkeep
+
+# Environment & secrets
+.env
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Quarto build artifacts
+src/_site/
+src/.quarto/
+src/_freeze/
+*_files/
+.quarto/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/

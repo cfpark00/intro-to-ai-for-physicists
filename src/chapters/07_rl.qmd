@@ -1,0 +1,63 @@
+---
+title: "Reinforcement learning for LLMs"
+---
+
+Reinforcement learning is how modern LLMs get *good*. SFT teaches a base model to imitate behavior; RL teaches it to optimize for an outcome. By 2025 the gap between an SFT-only model and a heavily RL-post-trained model is enormous, especially on reasoning, code, and instruction following.
+
+This chapter covers RL in the specific context of fine-tuning LLMs. General RL is a much larger field; we treat only the slice that matters here.
+
+## The setup {#sec-rl}
+
+We have a pretrained-and-SFT'd language model $\pi_\theta(y \mid x)$ — a policy that, given a prompt $x$, samples a response $y$. We want to update $\theta$ to maximize an expected reward:
+$$
+\max_\theta \; \mathbb{E}_{x \sim \mathcal{D},\; y \sim \pi_\theta(\cdot \mid x)} \big[\, r(x, y) \,\big] \;-\; \beta \, \mathrm{KL}\!\left(\pi_\theta \,\|\, \pi_{\text{ref}}\right).
+$$
+The reward $r$ comes from somewhere — human preferences, a learned model, a verifier, a unit test. The KL term keeps $\pi_\theta$ close to a reference (usually the SFT model) to prevent collapse onto degenerate high-reward outputs.
+
+The art is in (a) where the reward comes from, and (b) how we estimate the gradient.
+
+## RLHF: learning a reward model from preferences
+
+In **RLHF** [@ouyang2022instructgpt] the reward is a learned function. The pipeline is:
+
+1. Collect pairs of model outputs $(y_A, y_B)$ for the same prompt $x$ and have humans pick the preferred one.
+2. Train a **reward model** $r_\phi(x, y)$ to predict human preferences via the Bradley–Terry likelihood:
+$$
+P(y_A \succ y_B \mid x) = \sigma\!\big( r_\phi(x, y_A) - r_\phi(x, y_B) \big).
+$$
+3. Use $r_\phi$ as the reward signal, optimize $\pi_\theta$ with a policy-gradient algorithm — historically **PPO** [@schulman2017ppo].
+
+This was the recipe behind InstructGPT and the original ChatGPT. It works but is finicky: the reward model is overfittable, the policy is good at gaming it (*reward hacking*), and PPO has many knobs.
+
+## DPO: skip the reward model
+
+Direct Preference Optimization [@rafailov2023dpo] derives a closed-form loss that optimizes the same KL-regularized objective without ever training a reward model. Given a preference pair $(y_w, y_l)$ (winner, loser) for prompt $x$:
+$$
+\mathcal{L}_{\text{DPO}} = -\log \sigma\!\left( \beta \log \frac{\pi_\theta(y_w \mid x)}{\pi_{\text{ref}}(y_w \mid x)} \;-\; \beta \log \frac{\pi_\theta(y_l \mid x)}{\pi_{\text{ref}}(y_l \mid x)} \right).
+$$
+This is a supervised loss on preference data. No reward model, no rollouts, no PPO. The derivation is a clean piece of math worth working through; the intuition is that the optimal policy under a KL-regularized reward objective has a specific functional form, and you can invert that form to express the reward in terms of the policy ratios.
+
+DPO is much cheaper to train than PPO and often matches its quality. It is the default for most open-weights post-training in 2024–2026.
+
+## RLVR: reinforcement learning with verifiable rewards
+
+For problems where you can *check* whether an answer is correct — math problems with a known answer, code with unit tests, formal proofs — you do not need humans or learned reward models. Just use the verifier as the reward:
+$$
+r(x, y) = \mathbb{1}\big[\text{verifier accepts } y\big].
+$$
+
+This is **RLVR** (RL with verifiable rewards), and it is the dominant signal behind reasoning-trained models (covered in @sec-reasoning). The reward is sparse — one bit per problem — but it is *honest*: there is no reward hacking against ground truth.
+
+Algorithms used here include PPO and, increasingly, **GRPO** (Group Relative Policy Optimization): for each prompt, sample $G$ completions, compute their rewards, and use the in-group mean as the baseline instead of training a separate value network. GRPO avoids the value-network instability of PPO and is computationally lean.
+
+## Policy gradient in one paragraph
+
+If you have never seen the policy gradient, here is the entire idea. Let $J(\theta) = \mathbb{E}_{y \sim \pi_\theta} [r(y)]$. Then
+$$
+\nabla_\theta J = \mathbb{E}_{y \sim \pi_\theta} \big[\, r(y)\, \nabla_\theta \log \pi_\theta(y) \,\big].
+$$
+You sample, you score, you weight the log-probability gradient by the score. Subtracting a baseline $b$ (any function not depending on $y$) keeps the estimator unbiased and reduces variance. PPO, GRPO, REINFORCE — they are all variations on this, with different choices of baseline and different ways of clipping or trust-regioning the update to avoid policy collapse.
+
+## What changed in 2024–2026
+
+The biggest shift is that **RL on verifiable rewards became the central training paradigm for frontier capabilities**, not just a polish layer. Models like o1, R1, and their successors are mostly defined by their RL stage, not their pretraining. This is the topic of @sec-reasoning.

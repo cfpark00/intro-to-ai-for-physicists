@@ -549,7 +549,7 @@ window.Quarto = {
 </header>
 
 
-<p><a href="https://github.com/cfpark00/science-of-dl/tree/main/src/code/06_llm_posttraining" class="btn btn-outline-secondary btn-sm" role="button">Chapter code on GitHub →</a></p>
+<p><a href="https://github.com/cfpark00/science-of-dl/tree/main/src/code/chapters/06_llm_posttraining" class="btn btn-outline-secondary btn-sm" role="button"><i class="bi bi-github"></i>&nbsp;Chapter code on GitHub →</a></p>
 <p>The previous chapter ended with a fine-tuned base model, capable, adapted to some task, and still not quite what gets shipped. The gap between “fine-tuned base model” and “production assistant / reasoning system / agent” is the territory of <strong>post-training</strong>: reward modeling, preference optimization, reasoning training, and the orchestration moves that turn a language model into a system that actually does things.</p>
 <p>A small honest framing point first. The phrase “RL post-training” is everywhere in modern LLM discussion, and it does some genuine work, but it is also a little misleading. <strong>RLHF is not really RL in the sense <a href="../chapters/09_rl.html">Chapter 9</a> cares about.</strong> It is, mechanically, a reward model plus what amounts to weighted supervised fine-tuning. The author’s blunt summary, kept here verbatim: <em>RLHF is meh, it’s reward model and just weighted SFT, kinda.</em> The genuinely hard problems of RL, credit assignment over long horizons, sparse reward, exploration vs.&nbsp;exploitation, the data-distribution-shifts-as-the-policy-shifts feedback loop, show up only mildly here. They get full treatment when we do real RL in Chapter 9.</p>
 <p>This chapter covers what does show up: the post-training methods, the reasoning paradigm, agents, RAG, and evals.</p>

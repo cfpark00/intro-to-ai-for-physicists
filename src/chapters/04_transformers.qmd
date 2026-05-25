@@ -1,5 +1,5 @@
 ---
-title: "Transformers"
+title: "4  Transformers"
 ---
 
 The previous chapter framed the transformer as the no-compression extreme of memory in sequence models. This chapter pays that off in mechanism. We will work through what is actually inside a transformer — attention, the residual stream, multi-head processing, MLPs, positional encoding — and end with the practical economics (KV caches, mixture of experts) that decide what is feasible at scale.

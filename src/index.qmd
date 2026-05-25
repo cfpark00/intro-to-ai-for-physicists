@@ -1,12 +1,17 @@
 ---
-title: "Preface"
+title: "0  Preface"
+number-sections: false
 ---
-
-This is a short web textbook on the **science of deep learning** — modern AI treated as a *scientific object*, surfaced through controlled synthetic experiments, mechanistic probing, and phenomenology. It is the companion to the experimentalist half of a Harvard Physics graduate course taught from this material; the theoretical half (NTK, neural manifold capacity, high-dimensional geometry) is covered separately and deliberately not duplicated here.
 
 ## What this book is
 
-Neural networks as **model organisms.** The guiding methodology — taught in [Chapter 1](chapters/01_intro.qmd) and revisited in the two "Science of DL" chapters ([Chapter 7](chapters/07_scidl_training.qmd) and [Chapter 11](chapters/11_scidl_concepts.qmd)) — mirrors how physicists study biological systems via neuroethology:
+This book has two aims.
+
+The **first** is to bring a quantitatively literate reader up to date on where AI is in 2026 — to cover the unknown unknowns rather than the textbook basics, and to leave the reader able to grasp the main concepts of modern deep learning and follow the conversation at the research frontier.
+
+The **second** is to introduce the **experimental physicist's approach to understanding neural networks** — neural networks treated as a *scientific object*, studied via controlled synthetic experiments, mechanistic probing, and phenomenology. The methodology borrows heavily from the practice of **neuroethology**: the study of natural behavior in its ecological context, transposed to networks-in-their-natural-habitat. Neural networks as model organisms.
+
+The guiding methodology — taught in [Chapter 1](chapters/01_intro.qmd) and revisited in the two "Science of DL" chapters ([Chapter 7](chapters/07_scidl_training.qmd) and [Chapter 11](chapters/11_scidl_concepts.qmd)) — is five steps:
 
 1. Notice a phenomenon in a real network.
 2. Explore broadly to sharpen the question.
@@ -18,12 +23,12 @@ The chapters move through the dominant model classes — image classifiers, sequ
 
 ## Who this is for
 
-Physicists comfortable with linear algebra, calculus, probability, and statistical mechanics. No prior ML background is required, but the pace assumes graduate-physics-level fluency with quantitative thinking — the book does not re-derive things you already know.
+Anyone comfortable with linear algebra, calculus, probability, and a bit of statistical mechanics. No prior ML background is required, but the pace assumes graduate-level fluency with quantitative thinking — the book does not re-derive things you already know.
 
 ## What this is not
 
 - **Not a classical-ML survey.** SVMs, kNN, decision trees, kernel methods — covered well elsewhere and skipped here.
-- **Not a theory exposition.** Generalization bounds, NTK, capacity calculations — handled by a different course.
+- **Not a theory exposition.** Generalization bounds, NTK, capacity calculations — important, but a different book.
 - **Not a software tutorial.** PyTorch, JAX, kubernetes, MLOps — recipes, not science.
 
 ## Source and contributions

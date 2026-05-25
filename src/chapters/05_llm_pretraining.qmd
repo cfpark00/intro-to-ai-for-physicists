@@ -1,5 +1,5 @@
 ---
-title: "Large language models I: pretraining and fine-tuning"
+title: "5  Large language models I: pretraining and fine-tuning"
 ---
 
 The previous chapter built up the transformer; this chapter scales it. Large language models are what you get when you take the next-token-prediction objective from [Chapter 3](03_sequence_modeling.qmd), the transformer architecture from [Chapter 4](04_transformers.qmd), and a substantial fraction of the readable internet — and then keep adding compute until something interesting happens.

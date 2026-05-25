@@ -48,7 +48,7 @@ format:
     code-link: true
     toc: true
     toc-depth: 3
-    number-sections: true
+    number-sections: false
     html-math-method: katex
     fig-cap-location: bottom
     tbl-cap-location: top

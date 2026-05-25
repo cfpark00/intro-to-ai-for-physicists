@@ -1,5 +1,5 @@
 ---
-title: "Reinforcement learning"
+title: "9  Reinforcement learning"
 ---
 
 This chapter is **real RL**, in the sense that distinguishes it from the RLHF treatment in [Chapter 6](06_llm_posttraining.qmd). RLHF, as we discussed, is closer to reward-weighted supervised fine-tuning than to RL proper. It works fine for short-horizon preference-following, and it does not encounter the genuinely hard problems that RL was set up to face. This chapter is about those hard problems.

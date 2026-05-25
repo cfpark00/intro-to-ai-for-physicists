@@ -1,5 +1,5 @@
 ---
-title: "Science of intelligence"
+title: "12  Science of intelligence"
 ---
 
 We have spent eleven chapters working through the science of one particular thing: gradient-trained neural networks, mostly transformers, trained on large amounts of data with self-supervised objectives. The previous chapter ended with a reframing — *learning happens at different abstraction scales*. This chapter takes the natural next step. If learning lives at multiple scales, then **intelligence** — whatever it is — is broader than any single learning process.

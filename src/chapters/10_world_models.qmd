@@ -1,12 +1,12 @@
 ---
-title: "World models"
+title: "10  World models and continual learning"
 ---
 
 A **world model** is, roughly, a learned representation of the environment that supports prediction, planning, or counterfactual reasoning. The phrase is doing a lot of work and we should be honest that it is also doing some hand-waving. There is no clean operational definition of "world model" that everyone in the field accepts, and you will hear the term applied to everything from a small dynamics model inside a Dreamer agent to whatever transformers do when they appear to track the state of a chess board they were never explicitly shown.
 
-This chapter takes that fuzziness seriously. We will (a) discuss the technical work where world models are concrete and useful — primarily in model-based RL — and (b) discuss the more open question of whether large transformers learn *world representations* from pure next-token prediction, which is the author's current research thread.
+This chapter takes that fuzziness seriously. We will (a) discuss the technical work where world models are concrete and useful — primarily in model-based RL — (b) discuss the more open question of whether large transformers learn *world representations* from pure next-token prediction, which is the author's current research thread, and (c) treat **continual learning** as the companion problem: keeping a world model accurate and updatable as the world changes. The hard version of continual learning is structurally a world-model problem, which is why it lives here rather than next to the concept-learning material in [Chapter 11](11_scidl_concepts.qmd).
 
-A meta-lesson runs underneath: how to do good science on slippery questions. The author's framing, kept here: *"Does X have a world model? Does X have theory of mind, consciousness, creativity?" is always going to be a shit show. But one can contribute to this question meaningfully and incrementally — i.e., how to build taste in ill-defined debates is itself a skill worth teaching.* Most of the consciousness/creativity end of the debates is deferred to [Chapter 12](12_intelligence.qmd); here we keep the world-model and theory-of-mind subset.
+A meta-lesson runs underneath: how to do good science on slippery questions. The author's framing, kept here: *"Does X have a world model? Does X have theory of mind, consciousness, creativity?" is always going to be a shit show. But one can contribute to this question meaningfully and incrementally — i.e., how to build taste in ill-defined debates is itself a skill worth teaching.* Most of the consciousness/creativity end of the debates is deferred to [Chapter 12](12_intelligence.qmd); here we keep the world-model, theory-of-mind, and continual-learning subset.
 
 ## What does "world model" mean?
 
@@ -56,6 +56,28 @@ The author's *Origins and Roles of World Representations in Transformers* resear
 The thread is open in the literal sense — the research is happening now, and the picture is still forming. What we can say firmly is that the *phenomenon* — world representations emerging from next-token prediction — is real and reproducible in several settings. What we cannot yet say is when it generalizes, what the dependencies on training data structure are, and how robust the representations are to distribution shift.
 
 This is also where transformers connect to model-based RL conceptually. If a transformer trained on data from an environment learns something like a world model implicitly, then the line between "model-free LLM that happens to predict the world" and "world-model-based agent" blurs. Several active research directions explore this convergence.
+
+## Continual learning
+
+A world model is only useful if it stays accurate. The world changes; new evidence comes in; old beliefs get refuted. **Continual learning** is the problem of acquiring new knowledge over time without forgetting what was already learned — and in the framing of this chapter, it is most naturally the problem of *keeping a world model updatable*.
+
+Classically, the baseline failure mode is **catastrophic forgetting**: train a network on task A, then on task B, and its performance on A degrades or collapses. The optimizer happily overwrites the structure it built earlier, because nothing in the objective rewards keeping it.
+
+There is a *soft* sense of continual learning and a *hard* sense, and they are worth distinguishing.
+
+The **soft** version is the one most current research targets: avoid loss of plasticity, prevent forgetting, keep training stable as data distributions shift. The standard toolkit is **rehearsal** (mix old data with new during training), **regularization** (penalize weight changes in directions important for old tasks — EWC and its descendants), and **modular methods** (add new parameters or new sub-networks for new tasks, leaving the old ones frozen). These mitigate forgetting; they do not, on their own, solve the deeper problem.
+
+The **hard** version is what the world-model framing here makes precise: *continually adapt to a changing environment by maintaining an internal model that updates correctly when the world updates*. This is very different from passively absorbing a non-stationary stream of gradient updates. A competent biological agent does it; we do not yet know how to make a frontier ML system do it well at scale. The hard problem requires mechanisms for **revising** prior knowledge when new evidence contradicts it — not merely averaging old and new, and not merely freezing the old, but something more like Bayesian updating of a structured model. This is unsolved.
+
+The structural connections are everywhere in the book:
+
+- To **RL** ([Chapter 9](09_rl.qmd)) — RL on a non-stationary environment *is*, structurally, continual learning. The policy has to keep tracking a target that changes. The same is true for the agent's implicit value estimates.
+- To **concept learning** ([Chapter 11](11_scidl_concepts.qmd)) — concepts are sticky representations the model is reluctant to overwrite. That stickiness is good for stability and bad for adaptability. The tension between the two is one of the field's central unresolved problems.
+- To **world representations in transformers** (above) — if a pretrained transformer has built an internal world model from its training data, continual learning is the problem of keeping that model in sync as the world drifts past the training cutoff. We do not have a satisfying answer for how to do this without retraining.
+
+::: {.callout-note appearance="simple" icon=false}
+**[Plot]** Performance on Task A vs. training step, across a sequence of tasks A → B → C. Classical baseline (catastrophic forgetting): Task A performance drops to near-zero as soon as Task B training starts. With rehearsal / regularization: partial preservation. The "hard" regime — graceful adaptation with full preservation of past structure — is the empty quadrant of the plot, gestured at as the open problem.
+:::
 
 ## The "shit-show debates" subset
 

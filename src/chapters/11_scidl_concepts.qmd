@@ -1,10 +1,10 @@
 ---
-title: "Science of deep learning II: concept learning"
+title: "11  Science of deep learning II: concept learning"
 ---
 
 This is the second of the two named "Science of DL" pillars. The first, [Chapter 7](07_scidl_training.qmd), was about *training-dynamics phenomena* — what happens during training, what happens as you scale, the surprising temporal structure of how networks learn. This one is about *concept-acquisition phenomena* — what networks actually learn, in what kinds of units, and what we can say about the *content* of those learned representations.
 
-The lecture has the most distinctive voice in the book. It deliberately drifts from concrete-technical to philosophical-open, and the pacing is part of the argument. We start with three technical phenomena — **concept learning**, **compositional generalization**, and **continual learning** — and end up at the deep question that lurks under all of them: *what is a concept, anyway?* The answer is ill-defined, and that ill-definition is the bridge into [Chapter 12](12_intelligence.qmd).
+The lecture has the most distinctive voice in the book. It deliberately drifts from concrete-technical to philosophical-open, and the pacing is part of the argument. We start with two technical phenomena — **concept learning** and **compositional generalization** — and end up at the deep question that lurks under both: *what is a concept, anyway?* The answer is ill-defined, and that ill-definition is the bridge into [Chapter 12](12_intelligence.qmd). (The companion problem of **continual learning** lives in [Chapter 10](10_world_models.qmd), bundled with world models — keeping concepts stable enough to be useful, and updatable enough to track a changing world, is structurally a world-model problem.)
 
 The 5-step methodology from [Chapter 1](01_intro.qmd) is on display here for the second case study. The first case study was in Chapter 7 (training-dynamics phenomena via small model systems). This one is concept-acquisition phenomena, also via small model systems. The repetition is the point: when you see the methodology cash out twice, on different territory, with non-trivial results both times, you have something like a research methodology.
 
@@ -36,16 +36,6 @@ Concepts are useful in proportion to how well they *compose*. A network that has
 The **SIM (Structured Identity Mapping) task** is the model system used in this line of work. Choose a structured factorization of inputs (e.g., color × shape × position), train a network to predict outputs that depend compositionally on the factors, and observe how the network's representation of those factors evolves over training. The task is small enough to instrument fully, structured enough to produce interesting phenomena, and aligned enough with the broader question of "how do networks acquire compositional structure" that the results have implications well beyond the model system itself.
 
 The deeper lesson: compositional generalization is not free. It requires that the network develop a representation that *factors* in the right way, and that factorization develops in a particular sequence over training. There is real *structure* to how networks come to compose, and the structure is studyable.
-
-## Continual learning
-
-**Continual learning** is the problem of acquiring new concepts (or skills, or task capabilities) over time without forgetting the old ones. Classically, the baseline failure mode is **catastrophic forgetting**: train a network on task A, then on task B, and its performance on A degrades or collapses.
-
-There is a *soft* sense of continual learning — avoid loss of plasticity, prevent forgetting — and a *hard* sense. The soft version has standard solutions: rehearsal (mix old data with new), regularization (constrain weight changes), modular methods (add new parameters for new tasks). They mitigate forgetting; they do not solve the deeper problem.
-
-The hard version is the one worth stating clearly: *continually adapt to new worlds by maintaining a good updatable representation, the way a competent biological agent does in a changing environment.* This is very different from passive gradient updates on a non-stationary stream of data. It requires something like an updatable world model (cf. [Chapter 10](10_world_models.qmd)), with mechanisms for revising prior knowledge when new evidence contradicts it. It is unsolved at scale.
-
-Note the structural connection back to RL ([Chapter 9](09_rl.qmd)) — RL on a non-stationary environment is, structurally, continual learning. And to world models ([Chapter 10](10_world_models.qmd)) — if a network has a world model, continual learning is the problem of keeping that world model accurate and updatable. Concepts are sticky representations the model is reluctant to overwrite, which is good for stability and bad for adaptability. The tension between the two is one of the central unresolved problems in the field.
 
 ## The drift: what is a concept, anyway?
 

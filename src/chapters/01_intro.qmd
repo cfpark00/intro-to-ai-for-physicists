@@ -1,5 +1,5 @@
 ---
-title: "Introduction"
+title: "1  Introduction"
 ---
 
 Welcome. This book is the experimentalist's half of a course on modern AI for physicists. The theoretical half — NTK, neural manifold capacity, high-dimensional geometry, capacity calculations — is in good hands elsewhere. Here we get our hands dirty.
@@ -86,6 +86,6 @@ The arc of the book is two parts.
 
 **Part I (Chapters 1–7): fundamentals and methods.** We work through the dominant model classes in roughly the order they matter for modern AI — image classifiers, sequence models, transformers, large language models pre- and post-training — and then in Chapter 7 we step back for the first of two phenomenology pillars, on training dynamics. The first part is "what to know" plus "how to do science on it."
 
-**Part II (Chapters 8–12): beyond LLMs.** Diffusion, real reinforcement learning, world models, the second phenomenology pillar (concept learning), and finally a capstone chapter on intelligence-shaped phenomena that go beyond gradient-trained single-agent learning.
+**Part II (Chapters 8–12): beyond LLMs.** Diffusion, real reinforcement learning, world models and continual learning, the second phenomenology pillar (concept learning), and finally a capstone chapter on intelligence-shaped phenomena that go beyond gradient-trained single-agent learning.
 
 By the end of the book you should not feel that you have *covered* deep learning. You should feel that you have entered an open scientific frontier — and that you have the taste to recognize good questions in it, and the tools to start answering them.

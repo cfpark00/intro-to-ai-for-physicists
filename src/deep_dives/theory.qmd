@@ -3,6 +3,8 @@ title: "Theoretical foundations of deep learning"
 number-sections: false
 ---
 
+[<i class="bi bi-github"></i>&nbsp;Deep-dive code on GitHub →](https://github.com/cfpark00/science-of-dl/tree/main/src/code/deep_dives/theory){.btn .btn-outline-secondary .btn-sm role="button"}
+
 The main spine of this book deliberately treats neural networks as objects of *phenomenology*, things to study experimentally, with model-organism methodology. The theoretical-foundations field takes the opposite vantage point: it asks what one can *prove* about networks as mathematical objects, and how to derive the qualitative behavior we observe from analyzable limits and structural arguments.
 
 This is a serious technical field with its own toolkit, its own conferences, and its own intellectual culture. A short chapter cannot do justice to it. What follows is a map.

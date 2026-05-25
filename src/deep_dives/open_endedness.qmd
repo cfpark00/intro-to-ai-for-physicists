@@ -3,6 +3,8 @@ title: "Open-endedness"
 number-sections: false
 ---
 
+[<i class="bi bi-github"></i>&nbsp;Deep-dive code on GitHub →](https://github.com/cfpark00/science-of-dl/tree/main/src/code/deep_dives/open_endedness){.btn .btn-outline-secondary .btn-sm role="button"}
+
 [Chapter 12](../chapters/12_intelligence.qmd) introduced **open-endedness** as the aspiration of building learning processes that keep generating new challenges and new capabilities *indefinitely*. This chapter is the closer look at the field that takes that aspiration as its central research question.
 
 The motivating observation is simple and stunning. Biological evolution has been running for billions of years and is still inventing new niches, new body plans, new ecosystems. It has not converged. It has not stagnated. It produces novelty at every scale, on every timeline. Nothing we have built in ML comes close to this. The question of *how* to build a process that keeps surprising itself is one of the most consequential research questions in the field, and one of the least solved.

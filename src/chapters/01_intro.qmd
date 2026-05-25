@@ -2,7 +2,7 @@
 title: "1  Introduction"
 ---
 
-[Chapter code on GitHub →](https://github.com/cfpark00/science-of-dl/tree/main/src/code/01_intro){.btn .btn-outline-secondary .btn-sm role="button"}
+[<i class="bi bi-github"></i>&nbsp;Chapter code on GitHub →](https://github.com/cfpark00/science-of-dl/tree/main/src/code/chapters/01_intro){.btn .btn-outline-secondary .btn-sm role="button"}
 
 Welcome. This book is the experimentalist's half of a course on modern AI for physicists. The theoretical half, NTK, neural manifold capacity, high-dimensional geometry, capacity calculations, is in good hands elsewhere. Here we get our hands dirty.
 

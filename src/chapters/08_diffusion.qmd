@@ -2,7 +2,7 @@
 title: "8  Diffusion models"
 ---
 
-[Chapter code on GitHub →](https://github.com/cfpark00/science-of-dl/tree/main/src/code/08_diffusion){.btn .btn-outline-secondary .btn-sm role="button"}
+[<i class="bi bi-github"></i>&nbsp;Chapter code on GitHub →](https://github.com/cfpark00/science-of-dl/tree/main/src/code/chapters/08_diffusion){.btn .btn-outline-secondary .btn-sm role="button"}
 
 We have spent the last few chapters in the LLM block, transformers, scaling, post-training, the science of training dynamics. This chapter and the next two step into different paradigms: **diffusion models** (probabilistic generation), **reinforcement learning** (real RL, not RLHF), and **world models**. The methodology of [Chapter 1](01_intro.qmd) keeps applying. The architectures and objectives change.
 

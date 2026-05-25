@@ -2,7 +2,7 @@
 title: "2  Neural networks and image classification"
 ---
 
-[Chapter code on GitHub →](https://github.com/cfpark00/science-of-dl/tree/main/src/code/02_image_classification){.btn .btn-outline-secondary .btn-sm role="button"}
+[<i class="bi bi-github"></i>&nbsp;Chapter code on GitHub →](https://github.com/cfpark00/science-of-dl/tree/main/src/code/chapters/02_image_classification){.btn .btn-outline-secondary .btn-sm role="button"}
 
 Most introductions to modern AI start with large language models. We are going to start with image classification instead. There are two reasons. The first is historical: the deep learning revolution kicked off in vision in 2012, and the patterns the field worked out there, depth, scale, normalization, residual connections, GPU-friendly architectures, are recapitulated in everything that comes later. The second is pedagogical: image classification is the cleanest setting to actually introduce a neural network. You can see what the input is, you can see what the output is, you can see what the layers in the middle are doing.
 

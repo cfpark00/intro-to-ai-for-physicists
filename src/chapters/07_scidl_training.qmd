@@ -2,7 +2,7 @@
 title: "7  Science of deep learning I: training dynamics"
 ---
 
-[Chapter code on GitHub →](https://github.com/cfpark00/science-of-dl/tree/main/src/code/07_scidl_training){.btn .btn-outline-secondary .btn-sm role="button"}
+[<i class="bi bi-github"></i>&nbsp;Chapter code on GitHub →](https://github.com/cfpark00/science-of-dl/tree/main/src/code/chapters/07_scidl_training){.btn .btn-outline-secondary .btn-sm role="button"}
 
 This is the first of two named "Science of DL" chapters. It is where the methodology of [Chapter 1](01_intro.qmd), notice a phenomenon, build a model system, instrument it, cross-check, cashes out for the first time. We will revisit the methodology explicitly, with concrete examples, and then tour the canonical training-dynamics phenomena: **double descent**, the **generalization mystery**, **in-context learning** (as phenomenon, not as machinery), **grokking**, and a handful of related phenomena that round out the picture.
 

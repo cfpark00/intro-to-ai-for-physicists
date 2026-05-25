@@ -43,4 +43,4 @@ So: feel free to look at the solutions. Feel free to ignore them. Feel free to w
 
 ## Source and contributions
 
-Source for this book lives at [github.com/cfpark00/science-of-dl](https://github.com/cfpark00/science-of-dl). Errata, suggestions, and plot-quality reports are welcome via the issue templates.
+Source for this book lives at [github.com/cfpark00/science-of-dl](https://github.com/cfpark00/science-of-dl). Errata, suggestions, and plot-quality reports are welcome via the [issue templates](https://github.com/cfpark00/science-of-dl/issues/new/choose).

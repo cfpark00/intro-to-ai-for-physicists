@@ -3,6 +3,8 @@ title: "Mechanism design and society"
 number-sections: false
 ---
 
+[<i class="bi bi-github"></i>&nbsp;Deep-dive code on GitHub →](https://github.com/cfpark00/science-of-dl/tree/main/src/code/deep_dives/mechanism_design){.btn .btn-outline-secondary .btn-sm role="button"}
+
 This chapter sits at the most uncomfortable edge of the book, the place where deep learning stops being a contained scientific subject and becomes part of a much larger socio-technical system. The framing here is **mechanism design and multi-agent game theory**: the formal study of how systems composed of strategic agents (humans, institutions, AI systems) can be designed so that the outcomes they produce are useful, fair, or stable.
 
 Most of the book has treated AI systems as roughly singular objects, one model, one training run, one set of evaluations. The reality is that production AI lives in *multi-agent* environments by default. A deployed LLM interacts with millions of users with competing objectives; trading systems interact with each other in markets; autonomous systems share roads, networks, and economies. The science of how such systems behave is well-developed in some traditions (economics, game theory, mechanism design) and barely touched by the deep-learning literature. This chapter is a launching point into the connection.

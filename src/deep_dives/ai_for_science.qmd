@@ -3,6 +3,8 @@ title: "AI for science"
 number-sections: false
 ---
 
+[<i class="bi bi-github"></i>&nbsp;Deep-dive code on GitHub →](https://github.com/cfpark00/science-of-dl/tree/main/src/code/deep_dives/ai_for_science){.btn .btn-outline-secondary .btn-sm role="button"}
+
 **AI for science**, the application of deep-learning tools to actual scientific problems, is in some ways the most consequential downstream use of the methods this book covers. It is also a field with its own culture and its own evaluation standards, distinct from the rest of ML. This chapter is a launching point.
 
 The framing of this book has been that neural networks are themselves objects of scientific study. The framing of AI for science is the inverse: neural networks as *tools* deployed in service of scientific questions outside ML. Both framings can coexist. The skills overlap. The criteria for success do not.

@@ -10,7 +10,7 @@ From the repo root:
 
 ```bash
 uv sync                  # one-time, installs deps (skip if already done)
-uv run python src/code/02_image_classification/gabor_demo.py
+uv run python src/code/chapters/02_image_classification/gabor_demo.py
 ```
 
 CPU is fine, training takes a few minutes. CIFAR-10 (~170 MB) downloads on first run to `data/cifar10/` (gitignored).

@@ -3,6 +3,8 @@ title: "Advanced LLM architectures"
 number-sections: false
 ---
 
+[<i class="bi bi-github"></i>&nbsp;Deep-dive code on GitHub →](https://github.com/cfpark00/science-of-dl/tree/main/src/code/deep_dives/llm_architectures){.btn .btn-outline-secondary .btn-sm role="button"}
+
 [Chapter 4](../chapters/04_transformers.qmd) covered the transformer at the level of "what it is and why it works." That is enough to follow the rest of the main spine, but it is not the whole architectural picture. There is a substantial second-pass set of ideas, variants, refinements, and outright departures, that frontier practice has accumulated over the years since the original transformer paper [@vaswani2017attention]. This chapter is a launching point into that territory.
 
 ## The KV cache, revisited

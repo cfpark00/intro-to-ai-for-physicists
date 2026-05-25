@@ -2,7 +2,7 @@
 title: "6  Large language models II: post-training and agents"
 ---
 
-[Chapter code on GitHub →](https://github.com/cfpark00/science-of-dl/tree/main/src/code/06_llm_posttraining){.btn .btn-outline-secondary .btn-sm role="button"}
+[<i class="bi bi-github"></i>&nbsp;Chapter code on GitHub →](https://github.com/cfpark00/science-of-dl/tree/main/src/code/chapters/06_llm_posttraining){.btn .btn-outline-secondary .btn-sm role="button"}
 
 The previous chapter ended with a fine-tuned base model, capable, adapted to some task, and still not quite what gets shipped. The gap between "fine-tuned base model" and "production assistant / reasoning system / agent" is the territory of **post-training**: reward modeling, preference optimization, reasoning training, and the orchestration moves that turn a language model into a system that actually does things.
 

@@ -3,6 +3,8 @@ title: "Cognitive science"
 number-sections: false
 ---
 
+[<i class="bi bi-github"></i>&nbsp;Deep-dive code on GitHub →](https://github.com/cfpark00/science-of-dl/tree/main/src/code/deep_dives/cogsci){.btn .btn-outline-secondary .btn-sm role="button"}
+
 **Cognitive science** is the interdisciplinary field that studies how minds work, biological, artificial, or otherwise. It draws on psychology, linguistics, philosophy, neuroscience, and AI, and it has been a productive intellectual partner of deep learning research since both fields existed. [Chapter 11](../chapters/11_scidl_concepts.qmd) gestured at the connection; this chapter is the launching point into the field itself.
 
 ## Why this matters for someone reading a DL textbook

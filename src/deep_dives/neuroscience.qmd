@@ -3,6 +3,8 @@ title: "Neuroscience"
 number-sections: false
 ---
 
+[<i class="bi bi-github"></i>&nbsp;Deep-dive code on GitHub →](https://github.com/cfpark00/science-of-dl/tree/main/src/code/deep_dives/neuroscience){.btn .btn-outline-secondary .btn-sm role="button"}
+
 The relationship between **neuroscience** and **artificial neural networks** is older than most people realize, more bidirectional than is usually acknowledged, and richer than the surface-level "brains and ANNs both have neurons, isn't that suggestive" claim. This chapter is a launching point into the field and its connections to deep learning.
 
 ## The historical thread

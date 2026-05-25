@@ -11,10 +11,10 @@ the interaction between (a) translation-equivariant convolutional
 inductive bias and (b) the statistics of natural images.
 
 Usage:
-    uv run python src/code/02_image_classification/gabor_demo.py
+    uv run python src/code/chapters/02_image_classification/gabor_demo.py
 
 Output:
-    src/code/02_image_classification/gabor_filters.png
+    src/code/chapters/02_image_classification/gabor_filters.png
 """
 
 from pathlib import Path
@@ -28,9 +28,19 @@ from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 
 
+def _repo_root() -> Path:
+    """Walk up from this file until we find pyproject.toml."""
+    here = Path(__file__).resolve().parent
+    while here != here.parent:
+        if (here / "pyproject.toml").exists():
+            return here
+        here = here.parent
+    raise RuntimeError("repo root with pyproject.toml not found")
+
+
 def main(n_epochs: int = 3, batch_size: int = 128, seed: int = 0) -> None:
     here = Path(__file__).resolve().parent
-    repo_root = here.parents[3]
+    repo_root = _repo_root()
     data_root = repo_root / "data" / "cifar10"
     data_root.mkdir(parents=True, exist_ok=True)
 

@@ -3,6 +3,8 @@ title: "Interpretability"
 number-sections: false
 ---
 
+[<i class="bi bi-github"></i>&nbsp;Deep-dive code on GitHub →](https://github.com/cfpark00/science-of-dl/tree/main/src/code/deep_dives/interpretability){.btn .btn-outline-secondary .btn-sm role="button"}
+
 **Interpretability**, the field that asks "what is the trained network actually doing, mechanistically?", has its own toolkit, its own conferences, and its own ongoing methodological reckoning. It is also one of the closest neighbors of the science of deep learning, since the model-organism methodology in [Chapter 7](../chapters/07_scidl_training.qmd) leans heavily on interpretability tools. This chapter is the more careful map of the field.
 
 ## Early history (and dead salmons)

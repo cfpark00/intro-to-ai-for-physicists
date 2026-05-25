@@ -3,6 +3,8 @@ title: "Data-centric ML"
 number-sections: false
 ---
 
+[<i class="bi bi-github"></i>&nbsp;Deep-dive code on GitHub →](https://github.com/cfpark00/science-of-dl/tree/main/src/code/deep_dives/data_centric){.btn .btn-outline-secondary .btn-sm role="button"}
+
 A claim that is mostly true and not stated loudly enough in the main spine: **most of the recent capability gains in deep learning are gains in the data, not gains in the architecture or the optimizer.** Transformers from 2017 are still mostly transformers in 2026, with refinements but not revolutions. What changed underneath the field's leaderboard was the data, its quantity, its quality, its curation, its mixture, and the cleverness with which models were trained on synthetic and human-augmented variants of it.
 
 This chapter is a launching point for the field that takes data as the primary object of study.

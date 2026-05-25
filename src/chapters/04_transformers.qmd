@@ -2,7 +2,7 @@
 title: "4  Transformers"
 ---
 
-[Chapter code on GitHub →](https://github.com/cfpark00/science-of-dl/tree/main/src/code/04_transformers){.btn .btn-outline-secondary .btn-sm role="button"}
+[<i class="bi bi-github"></i>&nbsp;Chapter code on GitHub →](https://github.com/cfpark00/science-of-dl/tree/main/src/code/chapters/04_transformers){.btn .btn-outline-secondary .btn-sm role="button"}
 
 The previous chapter framed the transformer as the no-compression extreme of memory in sequence models. This chapter pays that off in mechanism. We will work through what is actually inside a transformer, attention, the residual stream, multi-head processing, MLPs, positional encoding, and end with the practical economics (KV caches, mixture of experts) that decide what is feasible at scale.
 

@@ -3,6 +3,8 @@ title: "AI agents and science"
 number-sections: false
 ---
 
+[<i class="bi bi-github"></i>&nbsp;Deep-dive code on GitHub →](https://github.com/cfpark00/science-of-dl/tree/main/src/code/deep_dives/ai_agents){.btn .btn-outline-secondary .btn-sm role="button"}
+
 This is an opinionated chapter. The agent paradigm is one of the most hyped and most contested topics in 2026 AI, and pretending otherwise would be dishonest. What follows is a take, not a neutral survey, readers are encouraged to form their own.
 
 The framing of an AI agent, mechanically, is in [Chapter 6](../chapters/06_llm_posttraining.qmd): an LLM that takes actions in a loop, calling tools, reading results, planning, retrying, until some goal is achieved or it gives up. The architectural picture is uncontroversial. What is controversial is what to make of the resulting systems: how capable they actually are, what they reveal about the underlying models, and what role they will play in science.

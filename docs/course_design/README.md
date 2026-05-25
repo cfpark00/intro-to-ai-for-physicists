@@ -1,8 +1,8 @@
-# Layout
+# Course Design
 
-Working layout for the 12-lecture spine. Each `lN/content.md` is the gist of what that lecture covers — verbose enough that someone reading just that file (with this README) can understand the lecture's purpose, content, and pedagogical intent.
+Course-wide context and the 12-lecture spine. Each `lN/content.md` is the gist of what that lecture covers — verbose enough that someone reading just that file (with this README) can understand the lecture's purpose, content, and pedagogical intent.
 
-**Next session must read this README first, then read `next_session.md`, then visit individual `lN/content.md` files.** The next session starts with ZERO context — everything needed lives in this folder, in `docs/context.md`, and in `docs/course_design/`.
+**Next session must read this README first, then read `next_session.md`, then visit individual `lN/content.md` files.** The next session starts with ZERO context — everything needed lives in this folder and in `docs/context.md`.
 
 ---
 
@@ -122,9 +122,8 @@ Flag these at content-writing time.
 ## Locations of related artifacts
 
 - `docs/context.md` — overall project context (tech stack, deployment, scope)
-- `docs/course_design/topics_dump.md` — raw keyword list (will become the glossary seed)
-- `docs/course_design/lecture_outline.md` — earlier outline summary (may be slightly behind v5)
-- `docs/layout/lN/content.md` — per-lecture gist (this folder)
-- `docs/layout/next_session.md` — what to do next
+- `topics_dump.md` — raw keyword list (will become the glossary seed)
+- `lN/content.md` — per-lecture gist (this folder)
+- `next_session.md` — what to do next
 - `resources/core_park_web_context/` — author bio/CV (gitignored)
 - `src/` — the Quarto book itself (mostly empty scaffolding currently)

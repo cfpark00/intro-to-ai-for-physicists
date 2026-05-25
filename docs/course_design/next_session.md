@@ -7,15 +7,13 @@ The next session starts with **ZERO context** from prior conversations. This fil
 Course design is at the **12-lecture spine + per-lecture gist** stage. We have:
 
 1. **`docs/context.md`** — overall project context (Quarto book, scienceofdl.com, science-of-DL genre).
-2. **`docs/course_design/`**:
-   - `topics_dump.md` — raw keyword brain-dump (future glossary seed).
-   - `lecture_outline.md` — earlier outline summary (note: may be slightly behind v5; treat `docs/layout/` as authoritative for current spine).
-3. **`docs/layout/`** *(this folder)*:
+2. **`docs/course_design/`** *(this folder — AUTHORITATIVE for current spine)*:
    - `README.md` — course-wide context, 12-lecture spine, philosophy, audience, scope. **Read this first.**
    - `l1/content.md` through `l12/content.md` — verbose per-lecture gist files. Each is intended to be readable standalone with the README.
+   - `topics_dump.md` — raw keyword brain-dump (future glossary seed).
    - `next_session.md` — this file.
-4. **`resources/core_park_web_context/`** *(gitignored)* — author bio, CV, publications, GitHub repos. Local-only reference for who the author is and what voice the book should have.
-5. **`src/`** — the Quarto book scaffolding. **Mostly empty** — no actual lecture content has been written yet. The book deploys to <https://scienceofdl.com> but is currently the default Quarto starter.
+3. **`resources/core_park_web_context/`** *(gitignored)* — author bio, CV, publications, GitHub repos. Local-only reference for who the author is and what voice the book should have.
+4. **`src/`** — the Quarto book scaffolding. **Mostly empty** — no actual lecture content has been written yet. The book deploys to <https://scienceofdl.com> but is currently the default Quarto starter.
 
 ## What to do next
 
@@ -23,7 +21,7 @@ The natural next step is **content authoring** — start drafting the actual lec
 
 ### Recommended sequence
 
-1. **Read `docs/layout/README.md`** (course-wide context).
+1. **Read `docs/course_design/README.md`** (course-wide context).
 2. **Read `docs/context.md`** (project context — tech stack, deployment).
 3. **Pick a starting lecture.** Strong candidates:
    - **L1 (Introduction)** — most context already captured; sets the tone for everything else. Lowest risk to start here.
@@ -51,7 +49,7 @@ Before drafting **any** lecture, confirm:
 
 ### Bigger-picture pending work (not for next session, but worth knowing)
 - HW design for L2, L3, L4, L7, L8, L9, L10, L11, L12 (currently TBD).
-- Glossary build-out — `docs/course_design/topics_dump.md` is the seed. When lectures crystallize, convert to `src/glossary.qmd`.
+- Glossary build-out — `topics_dump.md` is the seed. When lectures crystallize, convert to `src/glossary.qmd`.
 - Quarto sidebar / TOC structure: 12 lecture chapters + appendix glossary + references.
 - References.bib — build out as lectures cite papers.
 - Slides separately, if author wants them. The book is markdown; slides could be Reveal.js via Quarto.
@@ -71,12 +69,10 @@ docs/
 ├── context.md                       # project context
 ├── repo_usage.md                    # conventions
 ├── start.md / closing_tasks.md      # session hooks
-├── course_design/
-│   ├── topics_dump.md
-│   └── lecture_outline.md           # may lag v5
-├── layout/                          # AUTHORITATIVE for current spine
+├── course_design/                   # AUTHORITATIVE for current spine
 │   ├── README.md                    # READ FIRST
 │   ├── next_session.md              # this file
+│   ├── topics_dump.md               # glossary seed
 │   └── l{1..12}/content.md
 └── logs/                            # session logs
 

@@ -488,17 +488,17 @@ ul.task-list li input[type="checkbox"] {
 <p>The relationship between <strong>neuroscience</strong> and <strong>artificial neural networks</strong> is older than most people realize, more bidirectional than is usually acknowledged, and richer than the surface-level “brains and ANNs both have neurons, isn’t that suggestive” claim. This chapter is a launching point into the field and its connections to deep learning.</p>
 <section id="the-historical-thread" class="level2">
 <h2 class="anchored" data-anchor-id="the-historical-thread">The historical thread</h2>
-<p>Neural networks as a computational idea were <em>named</em> after biological neurons. The McCulloch–Pitts neuron, the perceptron, the connectionist program of the 1980s — all of these took (some level of) inspiration from biology. The relationship was always loose: real neurons are far more complicated than the units in any artificial network, and even the most careful “biologically plausible” models leave out vast amounts of detail (dendritic computation, neuromodulation, glia, the temporal dynamics of spike trains, the chemistry).</p>
+<p>Neural networks as a computational idea were <em>named</em> after biological neurons. The McCulloch–Pitts neuron, the perceptron, the connectionist program of the 1980s, all of these took (some level of) inspiration from biology. The relationship was always loose: real neurons are far more complicated than the units in any artificial network, and even the most careful “biologically plausible” models leave out vast amounts of detail (dendritic computation, neuromodulation, glia, the temporal dynamics of spike trains, the chemistry).</p>
 <p>The relationship has also been culturally up-and-down. There were periods (the early connectionism era, the early deep-learning era) when neuroscience-inspired ideas were <em>exciting</em>; there were periods (most of the 2010s) when the engineering-driven AI community could afford to mostly ignore biology because gradient-trained networks at scale were eating every benchmark in sight. The current moment is in between: there is renewed interest in the biology-AI interface, partly because some of the recent science-of-DL findings (representational geometry, learning dynamics, the role of feedback) rhyme with neuroscience in suggestive ways.</p>
 </section>
 <section id="where-the-two-fields-actually-overlap" class="level2">
 <h2 class="anchored" data-anchor-id="where-the-two-fields-actually-overlap">Where the two fields actually overlap</h2>
 <p>The substantive overlaps, as of 2026:</p>
 <p><strong>Receptive fields and feature emergence.</strong> As <a href="../chapters/02_image_classification.html">Chapter 2</a> discussed, the first-layer filters of a trained CNN converge to Gabor-like oriented edge detectors that look much like the receptive fields measured in V1 of biological visual cortex. This is one of the cleanest cross-domain results: a learning system trained on natural images, with broad but generic inductive bias, finds the same primitives that biology found over evolutionary time. It is one of the foundational pieces of evidence that something about the structure of natural images, more than the architecture, is doing this work.</p>
-<p><strong>Representational geometry.</strong> Tools from computational neuroscience — representational similarity analysis, manifold capacity calculations, decoding from population activity — are now used heavily in the analysis of ANN internals. The intellectual lineage runs from systems-neuroscience theorists like Yamins, DiCarlo, Saxe, Cohen, and Chung; the tools are now standard in deep-learning interpretability.</p>
+<p><strong>Representational geometry.</strong> Tools from computational neuroscience, representational similarity analysis, manifold capacity calculations, decoding from population activity, are now used heavily in the analysis of ANN internals. The intellectual lineage runs from systems-neuroscience theorists like Yamins, DiCarlo, Saxe, Cohen, and Chung; the tools are now standard in deep-learning interpretability.</p>
 <p><strong>Predictive coding.</strong> The hypothesis that the brain is constantly generating predictions about the next sensory state, and that learning is driven by where those predictions fail. This is, structurally, what next-token-prediction-style self-supervised learning is doing. The neuroscience literature on predictive coding (Friston, Rao, Ballard, and a long subsequent tradition) is intellectually adjacent to the modern self-supervised-learning literature, with periodic explicit cross-pollinations.</p>
 <p><strong>Place cells, grid cells, and world models.</strong> As mentioned in <a href="../chapters/10_world_models.html">Chapter 10</a>, biological place and grid cells encode spatial structure in a way that resembles what one would design for a world model. Several recent papers have shown grid-cell-like structure emerging in trained ANN representations under appropriate task conditions.</p>
-<p><strong>The motor side.</strong> Action selection, motor control, and the cerebellum’s role as a forward model — all of these have analogues in model-based RL and in the more agentic side of modern AI.</p>
+<p><strong>The motor side.</strong> Action selection, motor control, and the cerebellum’s role as a forward model, all of these have analogues in model-based RL and in the more agentic side of modern AI.</p>
 </section>
 <section id="where-the-two-fields-do-not-overlap-and-shouldnt-be-expected-to" class="level2">
 <h2 class="anchored" data-anchor-id="where-the-two-fields-do-not-overlap-and-shouldnt-be-expected-to">Where the two fields <em>do not</em> overlap (and shouldn’t be expected to)</h2>
@@ -510,7 +510,7 @@ ul.task-list li input[type="checkbox"] {
 <p>A few things the main spine of this book cannot replace:</p>
 <ul>
 <li>A mature handling of <em>what neurons actually do</em>, including dendritic computation, neuromodulation, and the role of timing.</li>
-<li>Hands-on experience with experimental data — electrophysiology, calcium imaging, fMRI — and the methodological rigor that working with biological data demands.</li>
+<li>Hands-on experience with experimental data, electrophysiology, calcium imaging, fMRI, and the methodological rigor that working with biological data demands.</li>
 <li>A historical sense of how the field has handled its own foundational puzzles, which has lessons for how to handle ours.</li>
 <li>The animal-experiment tradition (which is the actual neuroethology the main book’s methodology is named after).</li>
 </ul>
@@ -521,9 +521,9 @@ ul.task-list li input[type="checkbox"] {
 <li>Graduate-level computational neuroscience courses (Dayan &amp; Abbott’s textbook is a canonical entry point).</li>
 <li>The NeurIPS / NeurReps / Cosyne literature for the AI/neuroscience interface.</li>
 <li>The neuroAI community has produced a growing volume of review papers framing the intersection thoughtfully.</li>
-<li>Direct experimental neuroscience training, if you can do it — the <em>practice</em> of designing a neuroscience experiment is the most efficient way to absorb what the field’s methodology actually is.</li>
+<li>Direct experimental neuroscience training, if you can do it, the <em>practice</em> of designing a neuroscience experiment is the most efficient way to absorb what the field’s methodology actually is.</li>
 </ul>
-<p>This chapter is a pointer, not a substitute. If the “networks as model organisms” framing of the main book interested you, the real neuroethology — done on animals, with stakes, in labs — is the source material that framing was drawn from.</p>
+<p>This chapter is a pointer, not a substitute. If the “networks as model organisms” framing of the main book interested you, the real neuroethology, done on animals, with stakes, in labs, is the source material that framing was drawn from.</p>
 
 
 </section>

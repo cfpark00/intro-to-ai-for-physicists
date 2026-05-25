@@ -484,7 +484,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>The main spine of this book deliberately treats neural networks as objects of <em>phenomenology</em> — things to study experimentally, with model-organism methodology. The theoretical-foundations field takes the opposite vantage point: it asks what one can <em>prove</em> about networks as mathematical objects, and how to derive the qualitative behavior we observe from analyzable limits and structural arguments.</p>
+<p>The main spine of this book deliberately treats neural networks as objects of <em>phenomenology</em>, things to study experimentally, with model-organism methodology. The theoretical-foundations field takes the opposite vantage point: it asks what one can <em>prove</em> about networks as mathematical objects, and how to derive the qualitative behavior we observe from analyzable limits and structural arguments.</p>
 <p>This is a serious technical field with its own toolkit, its own conferences, and its own intellectual culture. A short chapter cannot do justice to it. What follows is a map.</p>
 <section id="what-the-field-studies" class="level2">
 <h2 class="anchored" data-anchor-id="what-the-field-studies">What the field studies</h2>
@@ -494,7 +494,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Optimization landscape</strong>: what is the geometry of the loss surface? Why does gradient descent find good minima? When and why does the implicit bias of SGD matter more than the explicit objective?</li>
 <li><strong>Representational capacity</strong>: what functions can a network of given width and depth realize, and how does depth interact with width?</li>
 <li><strong>Infinite-width limits</strong>: the <em>neural tangent kernel</em> (NTK) describes networks of infinite width as Gaussian processes with a particular kernel, making training dynamics analytically tractable. The infinite-width limit clarifies what <em>initialization</em> does, what <em>feature learning</em> requires (and why NTK does <em>not</em> capture it), and how scaling affects representational dynamics.</li>
-<li><strong>High-dimensional geometry</strong>: capacity arguments inspired by statistical mechanics — neural manifold capacity, replica calculations, mean-field analyses — describe how representations partition high-dimensional space.</li>
+<li><strong>High-dimensional geometry</strong>: capacity arguments inspired by statistical mechanics, neural manifold capacity, replica calculations, mean-field analyses, describe how representations partition high-dimensional space.</li>
 <li><strong>Sharpness, flatness, and implicit regularization</strong>: characterizations of the local geometry of solutions found by SGD, and the connection between flatness and generalization.</li>
 <li><strong>Lottery tickets and sparsity</strong>: why do sparse subnetworks at initialization train as well as the dense network? What does this say about overparameterization?</li>
 <li><strong>Sample complexity bounds</strong>: PAC-Bayes, Rademacher complexity, and other classical tools applied to deep networks, with their characteristic looseness on modern scales.</li>
@@ -503,18 +503,18 @@ ul.task-list li input[type="checkbox"] {
 <section id="what-kind-of-training-the-field-requires" class="level2">
 <h2 class="anchored" data-anchor-id="what-kind-of-training-the-field-requires">What kind of training the field requires</h2>
 <p>Most foundational work draws on linear algebra and functional analysis (the heavy machinery for capacity and representation), probability theory (for generalization bounds and concentration arguments), optimization theory (for landscape analysis), and increasingly <strong>statistical physics</strong> (for the high-dimensional and replica-theoretic results that have proved especially productive on neural networks). Anyone moving deep into the field benefits from a working fluency with random matrix theory, the geometry of high-dimensional probability, and information theory.</p>
-<p>The cultural overlap with statistical physics is real and recent. Several of the most productive lines of work — capacity calculations, sharpness analyses, scaling-law derivations — were imported (or re-derived) by physicists who recognized neural networks as statistical-mechanical systems.</p>
+<p>The cultural overlap with statistical physics is real and recent. Several of the most productive lines of work, capacity calculations, sharpness analyses, scaling-law derivations, were imported (or re-derived) by physicists who recognized neural networks as statistical-mechanical systems.</p>
 </section>
 <section id="where-this-field-is-in-2026" class="level2">
 <h2 class="anchored" data-anchor-id="where-this-field-is-in-2026">Where this field is, in 2026</h2>
-<p>The honest summary: the theoretical-foundations field has made <em>real</em> progress over the last decade — NTK has clarified what training dynamics look like in the wide limit, implicit regularization arguments have provided plausible accounts of why over-parametrized networks generalize, capacity calculations are increasingly quantitative. The field is also still <strong>incomplete</strong> in places that matter for practitioners: there is no fully predictive theory of feature learning at finite width, no general theory of why scaling laws have the empirical exponents they do, and no settled account of emergence.</p>
+<p>The honest summary: the theoretical-foundations field has made <em>real</em> progress over the last decade, NTK has clarified what training dynamics look like in the wide limit, implicit regularization arguments have provided plausible accounts of why over-parametrized networks generalize, capacity calculations are increasingly quantitative. The field is also still <strong>incomplete</strong> in places that matter for practitioners: there is no fully predictive theory of feature learning at finite width, no general theory of why scaling laws have the empirical exponents they do, and no settled account of emergence.</p>
 <p>This is the natural counterpart course to the experimental approach taken in the main spine. The two are complementary, not opposed: phenomenology surfaces the puzzles, theory closes them. A reader who has gone through the experimentalist’s chapters will recognize many of the open questions theory is currently trying to settle.</p>
 </section>
 <section id="where-to-go-next" class="level2">
 <h2 class="anchored" data-anchor-id="where-to-go-next">Where to go next</h2>
 <p>Look for:</p>
 <ul>
-<li>Graduate-level courses on “Mathematics of deep learning” or “Statistical learning theory” — these are the closest to a single-semester immersion.</li>
+<li>Graduate-level courses on “Mathematics of deep learning” or “Statistical learning theory”, these are the closest to a single-semester immersion.</li>
 <li>Theory-focused workshops and conferences (e.g., COLT, the theory tracks at NeurIPS/ICML).</li>
 <li>The classical statistical learning theory literature for background on PAC-Bayes, Rademacher complexity, and capacity bounds.</li>
 <li>Recent reviews on NTK, infinite-width networks, and the neural-network/statistical-physics interface.</li>

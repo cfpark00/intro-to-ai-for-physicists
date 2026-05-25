@@ -484,24 +484,24 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>The main spine of this book skips the toolkit that was the <em>core</em> of machine learning before deep learning took over: support vector machines, kernel methods, decision trees, random forests, gradient boosting, kNN, naive Bayes, mixture models, the EM algorithm, principal component analysis, and a long list of friends. The omission is deliberate — these methods are covered well by other textbooks, are no longer where the most interesting questions in modern AI live, and would crowd out the science-of-DL focus the book is trying to keep clean.</p>
+<p>The main spine of this book skips the toolkit that was the <em>core</em> of machine learning before deep learning took over: support vector machines, kernel methods, decision trees, random forests, gradient boosting, kNN, naive Bayes, mixture models, the EM algorithm, principal component analysis, and a long list of friends. The omission is deliberate, these methods are covered well by other textbooks, are no longer where the most interesting questions in modern AI live, and would crowd out the science-of-DL focus the book is trying to keep clean.</p>
 <p>But classical ML has not disappeared. It still wins on small structured datasets where neural networks are wasteful, it still underpins the statistical reasoning that anyone in ML should have, and a handful of its ideas have quietly become load-bearing infrastructure inside modern systems (gradient boosting in feature pipelines, EM as the prototype of all latent-variable inference, kernel methods reborn as NTK in theory work).</p>
 <section id="what-the-field-gives-you" class="level2">
 <h2 class="anchored" data-anchor-id="what-the-field-gives-you">What the field gives you</h2>
 <p>A reader who has gone through a classical-ML course leaves with three things the main spine does not provide:</p>
-<p><strong>A grammar of inductive biases.</strong> SVMs, kernels, decision trees, and graphical models each express a distinct view of what <em>structure in data</em> looks like. Studying them side by side trains taste for which prior to bring to which problem — taste that survives the shift to deep learning, even when the specific methods do not.</p>
-<p><strong>Statistical-learning vocabulary.</strong> Bias-variance, capacity, VC dimension, regularization, cross-validation, kernel tricks, dual formulations, conjugate priors, posterior inference. The vocabulary is universal — modern ML papers use it implicitly even when their methods do not.</p>
-<p><strong>Tractable model systems.</strong> Classical methods are small, fast, and analyzable. They are excellent <em>teaching</em> models for what learning is and what it isn’t — a small SVM on a 2D problem is a much better first encounter with the bias-variance tradeoff than a transformer on the web.</p>
+<p><strong>A grammar of inductive biases.</strong> SVMs, kernels, decision trees, and graphical models each express a distinct view of what <em>structure in data</em> looks like. Studying them side by side trains taste for which prior to bring to which problem, taste that survives the shift to deep learning, even when the specific methods do not.</p>
+<p><strong>Statistical-learning vocabulary.</strong> Bias-variance, capacity, VC dimension, regularization, cross-validation, kernel tricks, dual formulations, conjugate priors, posterior inference. The vocabulary is universal, modern ML papers use it implicitly even when their methods do not.</p>
+<p><strong>Tractable model systems.</strong> Classical methods are small, fast, and analyzable. They are excellent <em>teaching</em> models for what learning is and what it isn’t, a small SVM on a 2D problem is a much better first encounter with the bias-variance tradeoff than a transformer on the web.</p>
 </section>
 <section id="what-stays-load-bearing" class="level2">
 <h2 class="anchored" data-anchor-id="what-stays-load-bearing">What stays load-bearing</h2>
 <p>A few classical techniques continue to do real work in 2026:</p>
 <ul>
-<li><strong>Gradient-boosted trees</strong> (XGBoost, LightGBM and descendants) — still beat neural networks routinely on small tabular data and remain the default for many industrial-prediction pipelines.</li>
-<li><strong>EM algorithm</strong> — the canonical method for learning latent-variable models, still used directly in mixture models, topic models, and as a conceptual scaffold for understanding amortized variational inference.</li>
-<li><strong>PCA and friends</strong> (kernel PCA, sparse PCA) — exploratory analysis, dimensionality reduction, and the conceptual entry point for the geometry of representations.</li>
-<li><strong>Kernel methods</strong> — now mostly important <em>theoretically</em>: the NTK results (mentioned in the <a href="../deep_dives/theory.html">theory deep dive</a>) connect infinite-width networks to kernel regression.</li>
-<li><strong>Gaussian processes</strong> — still the gold-standard probabilistic model when calibrated uncertainty matters more than predictive accuracy.</li>
+<li><strong>Gradient-boosted trees</strong> (XGBoost, LightGBM and descendants), still beat neural networks routinely on small tabular data and remain the default for many industrial-prediction pipelines.</li>
+<li><strong>EM algorithm</strong>, the canonical method for learning latent-variable models, still used directly in mixture models, topic models, and as a conceptual scaffold for understanding amortized variational inference.</li>
+<li><strong>PCA and friends</strong> (kernel PCA, sparse PCA), exploratory analysis, dimensionality reduction, and the conceptual entry point for the geometry of representations.</li>
+<li><strong>Kernel methods</strong>, now mostly important <em>theoretically</em>: the NTK results (mentioned in the <a href="../deep_dives/theory.html">theory deep dive</a>) connect infinite-width networks to kernel regression.</li>
+<li><strong>Gaussian processes</strong>, still the gold-standard probabilistic model when calibrated uncertainty matters more than predictive accuracy.</li>
 </ul>
 </section>
 <section id="where-this-field-is-culturally" class="level2">
@@ -511,7 +511,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="where-to-go-next" class="level2">
 <h2 class="anchored" data-anchor-id="where-to-go-next">Where to go next</h2>
 <p>The standard graduate-level entry points (Bishop’s <em>Pattern Recognition and Machine Learning</em>, Murphy’s <em>Machine Learning: a Probabilistic Perspective</em>, Hastie–Tibshirani–Friedman’s <em>Elements of Statistical Learning</em>) are well-known. Any of them covers the territory thoroughly. A standalone semester course on statistical learning is the standard immersion. Past that point, the field is mature enough that the marginal next book is mostly diminishing returns.</p>
-<p>This chapter is a pointer, and an acknowledgment: classical ML is not below modern deep learning — it is the language modern deep learning emerged from, and is still spoken fluently by everyone in the field, even when nobody is writing it down.</p>
+<p>This chapter is a pointer, and an acknowledgment: classical ML is not below modern deep learning, it is the language modern deep learning emerged from, and is still spoken fluently by everyone in the field, even when nobody is writing it down.</p>
 
 
 </section>

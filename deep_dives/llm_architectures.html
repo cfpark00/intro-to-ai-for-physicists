@@ -548,27 +548,27 @@ window.Quarto = {
 </header>
 
 
-<p><a href="../chapters/04_transformers.html">Chapter 4</a> covered the transformer at the level of “what it is and why it works.” That is enough to follow the rest of the main spine, but it is not the whole architectural picture. There is a substantial second-pass set of ideas — variants, refinements, and outright departures — that frontier practice has accumulated over the years since the original transformer paper <span class="citation" data-cites="vaswani2017attention">(<a href="../references.html#ref-vaswani2017attention" role="doc-biblioref">Vaswani et al. 2017</a>)</span>. This chapter is a launching point into that territory.</p>
+<p><a href="../chapters/04_transformers.html">Chapter 4</a> covered the transformer at the level of “what it is and why it works.” That is enough to follow the rest of the main spine, but it is not the whole architectural picture. There is a substantial second-pass set of ideas, variants, refinements, and outright departures, that frontier practice has accumulated over the years since the original transformer paper <span class="citation" data-cites="vaswani2017attention">(<a href="../references.html#ref-vaswani2017attention" role="doc-biblioref">Vaswani et al. 2017</a>)</span>. This chapter is a launching point into that territory.</p>
 <section id="the-kv-cache-revisited" class="level2">
 <h2 class="anchored" data-anchor-id="the-kv-cache-revisited">The KV cache, revisited</h2>
-<p>The KV cache was introduced in Chapter 4 as an inference optimization. It is also a <em>design constraint</em> that shapes architecture choices at the frontier. Cache memory grows linearly with sequence length and proportionally with model width, and at long context it can dominate the per-request memory budget more than the model weights themselves do. A surprising amount of recent architectural work — grouped-query attention (GQA), multi-query attention (MQA), various sliding-window or sparse attention schemes — is best understood as <strong>trying to reduce KV cache footprint without sacrificing capability</strong>.</p>
+<p>The KV cache was introduced in Chapter 4 as an inference optimization. It is also a <em>design constraint</em> that shapes architecture choices at the frontier. Cache memory grows linearly with sequence length and proportionally with model width, and at long context it can dominate the per-request memory budget more than the model weights themselves do. A surprising amount of recent architectural work, grouped-query attention (GQA), multi-query attention (MQA), various sliding-window or sparse attention schemes, is best understood as <strong>trying to reduce KV cache footprint without sacrificing capability</strong>.</p>
 <p>This is one of those cases where serving constraints (the <a href="llm_engineering.qmd">LLM engineering deep dive</a>) reach back upstream and shape what counts as a “good” architecture.</p>
 </section>
 <section id="linear-attention-and-the-sub-quadratic-alternatives" class="level2">
 <h2 class="anchored" data-anchor-id="linear-attention-and-the-sub-quadratic-alternatives">Linear attention and the sub-quadratic alternatives</h2>
 <p>The vanilla attention operator is <span class="math inline">O(N^2)</span> in sequence length, which is the bottleneck that drives so much architectural experimentation. <strong>Linear attention</strong> is the family of approximations that try to compute attention in <span class="math inline">O(N)</span> time, typically by reformulating the softmax-of-dot-products into something kernel-shaped that admits an associative restructure of the computation. Variants in this family include feature-map-based linear attentions, kernelized softmax approximations, and various hardware-conscious approximations.</p>
-<p>Linear attention has a long history of <em>almost</em> working at scale. Each generation matches the quality of vanilla attention on some benchmarks while underperforming on others, and the gap is often associated with the kinds of long-range exact-recall tasks where the softmax’s sharpness matters. The state-space hybrids — discussed in <a href="../chapters/03_sequence_modeling.html">Chapter 3</a> — are partially a response to this: combine state-space-like linear-time blocks with selective attention layers to get the benefits of both.</p>
+<p>Linear attention has a long history of <em>almost</em> working at scale. Each generation matches the quality of vanilla attention on some benchmarks while underperforming on others, and the gap is often associated with the kinds of long-range exact-recall tasks where the softmax’s sharpness matters. The state-space hybrids, discussed in <a href="../chapters/03_sequence_modeling.html">Chapter 3</a>, are partially a response to this: combine state-space-like linear-time blocks with selective attention layers to get the benefits of both.</p>
 </section>
 <section id="mixture-of-experts" class="level2">
 <h2 class="anchored" data-anchor-id="mixture-of-experts">Mixture of experts</h2>
 <p>MoE was introduced in <a href="../chapters/04_transformers.html">Chapter 4</a> at the level of “what it is.” The architectural design space is richer than that section suggested. Key axes:</p>
 <ul>
-<li><strong>Routing strategy</strong> — top-<span class="math inline">k</span> routing, hash-based routing, learned routers, or a mix. Different choices have different load-balancing properties and different training dynamics.</li>
-<li><strong>Expert granularity</strong> — coarse experts (each is a full MLP block) vs.&nbsp;fine experts (each is a fraction of the MLP, and many experts activate per token). Recent work has moved toward finer granularity.</li>
-<li><strong>Shared experts</strong> — a small number of always-on experts that all tokens go through, in addition to the sparsely-activated ones. This stabilizes training and gives the model a “shared substrate.”</li>
-<li><strong>Auxiliary losses</strong> — load-balancing losses, router z-losses, and so on, that keep the routing from collapsing onto a few favored experts.</li>
+<li><strong>Routing strategy</strong>, top-<span class="math inline">k</span> routing, hash-based routing, learned routers, or a mix. Different choices have different load-balancing properties and different training dynamics.</li>
+<li><strong>Expert granularity</strong>, coarse experts (each is a full MLP block) vs.&nbsp;fine experts (each is a fraction of the MLP, and many experts activate per token). Recent work has moved toward finer granularity.</li>
+<li><strong>Shared experts</strong>, a small number of always-on experts that all tokens go through, in addition to the sparsely-activated ones. This stabilizes training and gives the model a “shared substrate.”</li>
+<li><strong>Auxiliary losses</strong>, load-balancing losses, router z-losses, and so on, that keep the routing from collapsing onto a few favored experts.</li>
 </ul>
-<p>MoE is one of the architectural moves that has scaled best in the post-Chinchilla era — it offers a way to keep growing parameter count without paying for it on every token. Most frontier proprietary models are MoE under the hood.</p>
+<p>MoE is one of the architectural moves that has scaled best in the post-Chinchilla era, it offers a way to keep growing parameter count without paying for it on every token. Most frontier proprietary models are MoE under the hood.</p>
 </section>
 <section id="positional-encoding-in-depth" class="level2">
 <h2 class="anchored" data-anchor-id="positional-encoding-in-depth">Positional encoding, in depth</h2>
@@ -576,17 +576,17 @@ window.Quarto = {
 <p>The choice of positional encoding does much more than tell the model what order tokens are in. It also controls <strong>how well the model extrapolates to sequences longer than it was trained on</strong>, <strong>what the effective attention pattern looks like at long distances</strong>, and <strong>how the model interpolates between tokens it has and tokens it has not seen at training time</strong>.</p>
 <p>The main schools:</p>
 <ul>
-<li><strong>Sinusoidal</strong> — fixed sinusoidal functions of position added to embeddings. Parameter-free, somewhat extrapolatable. The original transformer’s choice.</li>
-<li><strong>Learned absolute</strong> — a learned vector per position. Simple, does not extrapolate beyond training-time lengths.</li>
-<li><strong>Relative position biases</strong> — biases on the attention logits that depend on the offset between positions. Friendly to extrapolation.</li>
-<li><strong>Rotary (RoPE)</strong> — apply position-dependent rotations to query and key vectors so that the resulting attention depends only on relative offset. The current frontier default.</li>
-<li><strong>ALiBi (attention with linear biases)</strong> — a linear decay in attention as positions get further apart, with no learned parameters for position at all. Sometimes wins on length-extrapolation tasks.</li>
+<li><strong>Sinusoidal</strong>, fixed sinusoidal functions of position added to embeddings. Parameter-free, somewhat extrapolatable. The original transformer’s choice.</li>
+<li><strong>Learned absolute</strong>, a learned vector per position. Simple, does not extrapolate beyond training-time lengths.</li>
+<li><strong>Relative position biases</strong>, biases on the attention logits that depend on the offset between positions. Friendly to extrapolation.</li>
+<li><strong>Rotary (RoPE)</strong>, apply position-dependent rotations to query and key vectors so that the resulting attention depends only on relative offset. The current frontier default.</li>
+<li><strong>ALiBi (attention with linear biases)</strong>, a linear decay in attention as positions get further apart, with no learned parameters for position at all. Sometimes wins on length-extrapolation tasks.</li>
 </ul>
 <p>Beyond the standard schools, recent work has explored interpolation/extrapolation tricks (position interpolation, NTK-aware scaling of RoPE frequencies, YaRN-style schemes) that let pretrained models work at sequence lengths well beyond what they saw during training. The space of options is still moving.</p>
 </section>
 <section id="what-this-chapter-is-gesturing-at" class="level2">
 <h2 class="anchored" data-anchor-id="what-this-chapter-is-gesturing-at">What this chapter is gesturing at</h2>
-<p>The transformer is not a single architecture — it is an <em>architectural design space</em>. Every choice (attention variant, normalization placement, positional encoding, expert structure, head configuration) is a design decision, and the frontier is the moving target of which set of decisions performs best at current scale.</p>
+<p>The transformer is not a single architecture, it is an <em>architectural design space</em>. Every choice (attention variant, normalization placement, positional encoding, expert structure, head configuration) is a design decision, and the frontier is the moving target of which set of decisions performs best at current scale.</p>
 </section>
 <section id="where-to-go-next" class="level2">
 <h2 class="anchored" data-anchor-id="where-to-go-next">Where to go next</h2>
@@ -594,7 +594,7 @@ window.Quarto = {
 <ul>
 <li>Recent survey papers on attention variants and MoE.</li>
 <li>Frontier-lab technical reports (their architecture sections are usually the most precise public statements).</li>
-<li>Mechanistic-interpretability work — much of it now reveals architectural choices in terms of what they let the model represent.</li>
+<li>Mechanistic-interpretability work, much of it now reveals architectural choices in terms of what they let the model represent.</li>
 </ul>
 <p>If you finished Chapter 4 wanting more, this chapter is a sketch of where the real depth lives.</p>
 

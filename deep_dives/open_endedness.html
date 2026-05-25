@@ -486,13 +486,13 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p><a href="../chapters/12_intelligence.html">Chapter 12</a> introduced <strong>open-endedness</strong> as the aspiration of building learning processes that keep generating new challenges and new capabilities <em>indefinitely</em>. This chapter is the closer look at the field that takes that aspiration as its central research question.</p>
-<p>The motivating observation is simple and stunning. Biological evolution has been running for billions of years and is still inventing new niches, new body plans, new ecosystems. It has not converged. It has not stagnated. It produces novelty at every scale, on every timeline. Nothing we have built in ML comes close to this. The question of <em>how</em> to build a process that keeps surprising itself is one of the most consequential research questions in the field — and one of the least solved.</p>
+<p>The motivating observation is simple and stunning. Biological evolution has been running for billions of years and is still inventing new niches, new body plans, new ecosystems. It has not converged. It has not stagnated. It produces novelty at every scale, on every timeline. Nothing we have built in ML comes close to this. The question of <em>how</em> to build a process that keeps surprising itself is one of the most consequential research questions in the field, and one of the least solved.</p>
 <section id="what-open-endedness-means-operationally" class="level2">
 <h2 class="anchored" data-anchor-id="what-open-endedness-means-operationally">What “open-endedness” means, operationally</h2>
 <p>The casual sense of the term is “keeps producing new stuff forever.” The operational sense is more particular. An open-ended process is one that:</p>
 <ul>
 <li>Generates novel artifacts (solutions, behaviors, agents) over time, where “novel” is measured against the history of what it has already produced.</li>
-<li>Maintains the capacity to keep generating novelty — i.e., does not converge to a stable distribution.</li>
+<li>Maintains the capacity to keep generating novelty, i.e., does not converge to a stable distribution.</li>
 <li>Does so without external curation or hand-designed curricula.</li>
 </ul>
 <p>Each of these conditions is harder than it looks. Most ML systems converge. Most that do not converge oscillate or collapse. Designing a system that <em>productively</em> keeps moving is the open problem.</p>
@@ -502,22 +502,22 @@ ul.task-list li input[type="checkbox"] {
 <p>A non-exhaustive map:</p>
 <p><strong>Quality-diversity (QD).</strong> The cluster of methods that explicitly optimize for <em>diverse</em> high-quality solutions rather than the single best one. <strong>Novelty search</strong> rewards behaviors that have not been seen before, decoupling exploration from the task reward entirely. <strong>MAP-Elites</strong> maintains a grid of behavioral descriptors and keeps the best solution per cell, producing an <em>archive</em> of distinct strategies. QD has been useful for robotics (where many distinct gaits and strategies each have their use), for design exploration, and as a substrate for more elaborate open-ended systems.</p>
 <p><strong>Co-evolutionary environment generation.</strong> Train an agent and an environment-generator at the same time. As the agent gets better, the environment-generator proposes harder challenges. <strong>POET</strong> (Paired Open-Ended Trailblazer, Wang et al.) is one early instantiation; more recent variants have refined the basic idea. The hard problem is keeping the environment-generator from collapsing into either trivially-easy or impossibly-hard challenges.</p>
-<p><strong>OMNI / OMNI-EPIC and successors.</strong> Recent work that uses learned models to predict whether a candidate task is <em>interestingly</em> hard for a given agent — a learned curriculum signal that can substitute for hand-designed difficulty progression. This is an active and fast-moving subfield.</p>
-<p><strong>Stanley and Lehman’s broader program.</strong> The line of thought that gave us novelty search has also produced a broader philosophical stance, articulated most prominently in <em>Why Greatness Cannot Be Planned</em> — the claim that <em>objective-driven search</em> is a surprisingly limited paradigm, and that interesting discoveries (in evolution, in human creativity, in research) emerge from non-objective-driven processes. Open-endedness is the technical instantiation of this stance.</p>
+<p><strong>OMNI / OMNI-EPIC and successors.</strong> Recent work that uses learned models to predict whether a candidate task is <em>interestingly</em> hard for a given agent, a learned curriculum signal that can substitute for hand-designed difficulty progression. This is an active and fast-moving subfield.</p>
+<p><strong>Stanley and Lehman’s broader program.</strong> The line of thought that gave us novelty search has also produced a broader philosophical stance, articulated most prominently in <em>Why Greatness Cannot Be Planned</em>, the claim that <em>objective-driven search</em> is a surprisingly limited paradigm, and that interesting discoveries (in evolution, in human creativity, in research) emerge from non-objective-driven processes. Open-endedness is the technical instantiation of this stance.</p>
 </section>
 <section id="why-open-endedness-is-hard" class="level2">
 <h2 class="anchored" data-anchor-id="why-open-endedness-is-hard">Why open-endedness is hard</h2>
 <p>A few structural reasons:</p>
 <ul>
-<li><strong>It is hard to measure.</strong> Most ML benchmarks are bounded — a finite test set, a fixed task. An open-ended system, by definition, is producing things outside any pre-specified evaluation. Evaluating an open-ended system requires either an open-ended evaluator or accepting that the evaluation is itself an exercise in taste.</li>
-<li><strong>It is hard to engineer.</strong> Most optimization processes converge or collapse. The interventions that keep a system “open” — explicit novelty rewards, environment co-evolution, intrinsic motivation — are themselves prone to gaming, collapse, or stagnation.</li>
+<li><strong>It is hard to measure.</strong> Most ML benchmarks are bounded, a finite test set, a fixed task. An open-ended system, by definition, is producing things outside any pre-specified evaluation. Evaluating an open-ended system requires either an open-ended evaluator or accepting that the evaluation is itself an exercise in taste.</li>
+<li><strong>It is hard to engineer.</strong> Most optimization processes converge or collapse. The interventions that keep a system “open”, explicit novelty rewards, environment co-evolution, intrinsic motivation, are themselves prone to gaming, collapse, or stagnation.</li>
 <li><strong>It interfaces awkwardly with goals.</strong> A truly open-ended system may produce useful things, but it is not <em>for</em> producing useful things. The tension between “open-ended exploration” and “task-directed performance” is genuine and not yet resolved.</li>
 </ul>
 </section>
 <section id="where-the-field-is-in-2026" class="level2">
 <h2 class="anchored" data-anchor-id="where-the-field-is-in-2026">Where the field is in 2026</h2>
-<p>Open-endedness is a small, productive, mostly research-flavored field. It has not yet produced a system that runs indefinitely without engineering intervention, but it has produced a growing collection of <em>partial successes</em> — systems that stay open longer than naive baselines, that produce qualitatively novel artifacts at intermediate scales, that point at the right structural ingredients.</p>
-<p>The intersection with <strong>LLMs as creative substrates</strong> is one of the most interesting recent currents. Foundation models can be used as <em>generators</em> of candidate tasks, candidate environments, candidate solutions — and several recent open-endedness systems use LLMs in this role, with promising early results.</p>
+<p>Open-endedness is a small, productive, mostly research-flavored field. It has not yet produced a system that runs indefinitely without engineering intervention, but it has produced a growing collection of <em>partial successes</em>, systems that stay open longer than naive baselines, that produce qualitatively novel artifacts at intermediate scales, that point at the right structural ingredients.</p>
+<p>The intersection with <strong>LLMs as creative substrates</strong> is one of the most interesting recent currents. Foundation models can be used as <em>generators</em> of candidate tasks, candidate environments, candidate solutions, and several recent open-endedness systems use LLMs in this role, with promising early results.</p>
 </section>
 <section id="where-to-go-next" class="level2">
 <h2 class="anchored" data-anchor-id="where-to-go-next">Where to go next</h2>
@@ -527,7 +527,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Recent OMNI-EPIC-style work for the learned-curriculum side.</li>
 <li><em>Why Greatness Cannot Be Planned</em> (Stanley and Lehman) for the philosophical positioning.</li>
 </ul>
-<p>If you finished Chapter 12 wanting to actually engage with this work — rather than just gesture at it — this chapter is the launching point.</p>
+<p>If you finished Chapter 12 wanting to actually engage with this work, rather than just gesture at it, this chapter is the launching point.</p>
 
 
 </section>

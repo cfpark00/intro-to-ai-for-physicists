@@ -528,21 +528,21 @@ window.Quarto = {
 </header>
 
 
-<p>The main spine of this book is mostly frequentist by default. Loss functions, gradient descent, evaluation by metrics on held-out data — the vocabulary is point-estimate-flavored. The <strong>Bayesian</strong> tradition asks different questions: what does the data tell us about the <em>posterior</em> over models, parameters, or predictions, given a prior? How should beliefs be updated as evidence accumulates? When does it matter to track full uncertainty rather than just a point estimate?</p>
+<p>The main spine of this book is mostly frequentist by default. Loss functions, gradient descent, evaluation by metrics on held-out data, the vocabulary is point-estimate-flavored. The <strong>Bayesian</strong> tradition asks different questions: what does the data tell us about the <em>posterior</em> over models, parameters, or predictions, given a prior? How should beliefs be updated as evidence accumulates? When does it matter to track full uncertainty rather than just a point estimate?</p>
 <p>This is a substantial and well-developed field with its own intellectual culture. This chapter is a launching point into it, with particular attention to the connections that matter for someone reading a deep-learning textbook.</p>
 <section id="why-bayes-matters-for-ml" class="level2">
 <h2 class="anchored" data-anchor-id="why-bayes-matters-for-ml">Why Bayes matters for ML</h2>
 <p>A few honest motivations:</p>
-<p><strong>Uncertainty is sometimes load-bearing.</strong> A point prediction is fine when downstream decisions are insensitive to confidence. When they are not — medical decisions, safety-critical control, scientific inference, expensive bets — knowing <em>how uncertain</em> the model is can matter more than the prediction itself. Bayesian methods give you a principled posterior over predictions; frequentist methods can give you confidence intervals, but the framing is different.</p>
+<p><strong>Uncertainty is sometimes load-bearing.</strong> A point prediction is fine when downstream decisions are insensitive to confidence. When they are not, medical decisions, safety-critical control, scientific inference, expensive bets, knowing <em>how uncertain</em> the model is can matter more than the prediction itself. Bayesian methods give you a principled posterior over predictions; frequentist methods can give you confidence intervals, but the framing is different.</p>
 <p><strong>Priors are inductive biases.</strong> The Bayesian framing makes the role of priors explicit. Every learning method has inductive biases; Bayesian methods declare them and reason about how they shape posteriors. This is sometimes a strength (you can be explicit about what you assume) and sometimes a weakness (the priors that make the math tractable are often not the priors that capture your actual beliefs).</p>
-<p><strong>Probabilistic generative models are Bayesian by structure.</strong> The diffusion models of <a href="../chapters/08_diffusion.html">Chapter 8</a> are most cleanly understood in probabilistic terms — they learn a score function, which is a gradient of a log-density, which is a Bayesian object. The variational tradition that produced VAEs is even more directly Bayesian. The connections are not cosmetic.</p>
-<p><strong>Latent-variable models live here.</strong> Mixture models, topic models, factor models, state-space models — these are all Bayesian (or Bayesian-flavored) latent-variable models. The EM algorithm, mentioned in <a href="../chapters/05_llm_pretraining.html">Chapter 5</a>, is the canonical recipe for fitting them.</p>
+<p><strong>Probabilistic generative models are Bayesian by structure.</strong> The diffusion models of <a href="../chapters/08_diffusion.html">Chapter 8</a> are most cleanly understood in probabilistic terms, they learn a score function, which is a gradient of a log-density, which is a Bayesian object. The variational tradition that produced VAEs is even more directly Bayesian. The connections are not cosmetic.</p>
+<p><strong>Latent-variable models live here.</strong> Mixture models, topic models, factor models, state-space models, these are all Bayesian (or Bayesian-flavored) latent-variable models. The EM algorithm, mentioned in <a href="../chapters/05_llm_pretraining.html">Chapter 5</a>, is the canonical recipe for fitting them.</p>
 </section>
 <section id="what-mcmc-actually-does" class="level2">
 <h2 class="anchored" data-anchor-id="what-mcmc-actually-does">What MCMC actually does</h2>
 <p><strong>Markov chain Monte Carlo (MCMC)</strong> is the practical workhorse of Bayesian inference whenever the posterior is too complex to evaluate analytically. The idea, stated tersely:</p>
 <p>You have a target distribution <span class="math inline">p(x)</span> you cannot sample from directly. You construct a Markov chain whose <em>stationary distribution</em> is <span class="math inline">p(x)</span>. You run the chain. After a burn-in period, the samples it produces are (asymptotically) samples from <span class="math inline">p</span>.</p>
-<p>The art is in constructing chains that mix well — that explore the support of <span class="math inline">p</span> efficiently without getting stuck. The major flavors:</p>
+<p>The art is in constructing chains that mix well, that explore the support of <span class="math inline">p</span> efficiently without getting stuck. The major flavors:</p>
 <ul>
 <li><strong>Metropolis-Hastings.</strong> The classical recipe: propose a new state, accept or reject based on the ratio of densities. Simple, general, often slow.</li>
 <li><strong>Gibbs sampling.</strong> Iteratively sample each coordinate from its conditional given the others. Useful when conditionals are tractable.</li>
@@ -555,23 +555,23 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="the-connections-to-deep-learning">The connections to deep learning</h2>
 <p>The interface has been productive in both directions:</p>
 <p><strong>Approximate Bayesian methods on neural networks.</strong> Bayesian neural networks (BNNs) put posteriors over the network’s weights and propagate uncertainty into predictions. Exact inference is intractable; the practical methods (variational BNN, Monte Carlo dropout, Laplace approximations, deep ensembles as approximate posteriors) are all compromises in different directions. Whether any of these reach the <em>calibration</em> that pure Bayes would offer is an active question.</p>
-<p><strong>Diffusion as score matching.</strong> The score function <span class="math inline">\nabla \log p(x)</span> — central to diffusion — is a Bayesian quantity. The connection between diffusion models and Bayesian inference goes deep, especially in inverse-problem applications (see <a href="../chapters/08_diffusion.html">Chapter 8</a> and the <a href="../deep_dives/ai_for_science.html">AI for science</a> deep dive).</p>
+<p><strong>Diffusion as score matching.</strong> The score function <span class="math inline">\nabla \log p(x)</span>, central to diffusion, is a Bayesian quantity. The connection between diffusion models and Bayesian inference goes deep, especially in inverse-problem applications (see <a href="../chapters/08_diffusion.html">Chapter 8</a> and the <a href="../deep_dives/ai_for_science.html">AI for science</a> deep dive).</p>
 <p><strong>Probabilistic programming.</strong> Languages like Stan, PyMC, and NumPyro let you specify a Bayesian model declaratively and let the software handle the inference (typically HMC or NUTS). They are quietly load-bearing in many areas of scientific research, and they are an effective way to absorb the Bayesian workflow if you have not done so already.</p>
 <p><strong>Calibration.</strong> Even outside fully Bayesian methods, the question of whether a model’s confidences match its accuracy is a Bayesian-flavored one. LLMs are famously poorly calibrated after RLHF (see <a href="../chapters/06_llm_posttraining.html">Chapter 6</a>), and recovering calibration is an active research question.</p>
 </section>
 <section id="what-this-chapter-is-not" class="level2">
 <h2 class="anchored" data-anchor-id="what-this-chapter-is-not">What this chapter is not</h2>
-<p>It is not a substitute for a Bayesian-statistics course. The depth of the field — convergence theory of MCMC, prior elicitation, hierarchical modeling, posterior predictive checks, model comparison via Bayes factors or LOO-CV — is far more than a deep-dive chapter can cover.</p>
+<p>It is not a substitute for a Bayesian-statistics course. The depth of the field, convergence theory of MCMC, prior elicitation, hierarchical modeling, posterior predictive checks, model comparison via Bayes factors or LOO-CV, is far more than a deep-dive chapter can cover.</p>
 </section>
 <section id="where-to-go-next" class="level2">
 <h2 class="anchored" data-anchor-id="where-to-go-next">Where to go next</h2>
 <ul>
 <li>A graduate-level Bayesian statistics course or textbook (Gelman et al.’s <em>Bayesian Data Analysis</em> is canonical).</li>
-<li>Documentation and tutorials for Stan, PyMC, or NumPyro — the probabilistic-programming entry points.</li>
+<li>Documentation and tutorials for Stan, PyMC, or NumPyro, the probabilistic-programming entry points.</li>
 <li>Specialized references on MCMC theory (Robert and Casella, etc.) for the convergence and design side.</li>
-<li>The connection between Bayesian methods and modern deep learning is well-covered in recent survey papers — look for “Bayesian deep learning” overviews.</li>
+<li>The connection between Bayesian methods and modern deep learning is well-covered in recent survey papers, look for “Bayesian deep learning” overviews.</li>
 </ul>
-<p>For a physicist, much of this material rhymes with statistical mechanics in productive ways — MCMC is literally a stat-mech import, the variational free energy is the same kind of object on both sides. The cross-fluency is real and worth cultivating.</p>
+<p>For a physicist, much of this material rhymes with statistical mechanics in productive ways, MCMC is literally a stat-mech import, the variational free energy is the same kind of object on both sides. The cross-fluency is real and worth cultivating.</p>
 
 
 </section>

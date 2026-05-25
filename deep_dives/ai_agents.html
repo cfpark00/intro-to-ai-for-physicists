@@ -456,7 +456,7 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#the-honest-assessment-2026-edition" id="toc-the-honest-assessment-2026-edition" class="nav-link active" data-scroll-target="#the-honest-assessment-2026-edition">The honest assessment, 2026 edition</a></li>
   <li><a href="#why-agents-matter-scientifically" id="toc-why-agents-matter-scientifically" class="nav-link" data-scroll-target="#why-agents-matter-scientifically">Why agents matter scientifically</a></li>
-  <li><a href="#agents-and-science-the-bidirectional-question" id="toc-agents-and-science-the-bidirectional-question" class="nav-link" data-scroll-target="#agents-and-science-the-bidirectional-question">Agents and science — the bidirectional question</a></li>
+  <li><a href="#agents-and-science-the-bidirectional-question" id="toc-agents-and-science-the-bidirectional-question" class="nav-link" data-scroll-target="#agents-and-science-the-bidirectional-question">Agents and science, the bidirectional question</a></li>
   <li><a href="#what-this-chapter-is-not" id="toc-what-this-chapter-is-not" class="nav-link" data-scroll-target="#what-this-chapter-is-not">What this chapter is not</a></li>
   <li><a href="#where-to-go-next" id="toc-where-to-go-next" class="nav-link" data-scroll-target="#where-to-go-next">Where to go next</a></li>
   </ul>
@@ -485,22 +485,22 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This is an opinionated chapter. The agent paradigm is one of the most hyped and most contested topics in 2026 AI, and pretending otherwise would be dishonest. What follows is a take, not a neutral survey — readers are encouraged to form their own.</p>
-<p>The framing of an AI agent, mechanically, is in <a href="../chapters/06_llm_posttraining.html">Chapter 6</a>: an LLM that takes actions in a loop — calling tools, reading results, planning, retrying — until some goal is achieved or it gives up. The architectural picture is uncontroversial. What is controversial is what to make of the resulting systems: how capable they actually are, what they reveal about the underlying models, and what role they will play in science.</p>
+<p>This is an opinionated chapter. The agent paradigm is one of the most hyped and most contested topics in 2026 AI, and pretending otherwise would be dishonest. What follows is a take, not a neutral survey, readers are encouraged to form their own.</p>
+<p>The framing of an AI agent, mechanically, is in <a href="../chapters/06_llm_posttraining.html">Chapter 6</a>: an LLM that takes actions in a loop, calling tools, reading results, planning, retrying, until some goal is achieved or it gives up. The architectural picture is uncontroversial. What is controversial is what to make of the resulting systems: how capable they actually are, what they reveal about the underlying models, and what role they will play in science.</p>
 <section id="the-honest-assessment-2026-edition" class="level2">
 <h2 class="anchored" data-anchor-id="the-honest-assessment-2026-edition">The honest assessment, 2026 edition</h2>
 <p>Agents work better than they did a year ago. They also fail in characteristic ways that the main-spine treatment of LLMs would not predict. A short list of patterns:</p>
 <ul>
 <li><strong>Single-step competence is high, multi-step competence is much lower.</strong> A model that handles a one-turn task at near-human level can compound small errors over multi-step trajectories into very-not-human outcomes. The base capability is there; the <em>robustness</em> is not.</li>
 <li><strong>Long-horizon behavior is the bottleneck.</strong> Tasks that require holding a coherent plan over many steps, recovering from setbacks, and revising strategy mid-execution are where agents fall apart. This is structurally the same problem as long-horizon RL (<a href="../chapters/09_rl.html">Chapter 9</a>), and it has the same lack of clean solutions.</li>
-<li><strong>Tool-use brittleness is real.</strong> Even with good tools available, agents misuse them, fail to error-check tool outputs, and confidently proceed on bad inputs. The failure modes are often <em>systematic</em> — a particular agent will get the same step wrong reliably — which is bad news for the “just retry until it works” mitigation strategy.</li>
+<li><strong>Tool-use brittleness is real.</strong> Even with good tools available, agents misuse them, fail to error-check tool outputs, and confidently proceed on bad inputs. The failure modes are often <em>systematic</em>, a particular agent will get the same step wrong reliably, which is bad news for the “just retry until it works” mitigation strategy.</li>
 <li><strong>Evaluation is hard.</strong> Agent trajectories vary enormously. Benchmarks tend to either be too easy (saturated quickly) or too narrow (a specific app, a specific tool, a specific decision tree). A general “agent-competence” measure that the field agrees on does not yet exist.</li>
 </ul>
-<p>These are not knocks on the field — they are descriptions of where the work actually is. The state of agents in 2026 is roughly where the state of single-turn LLMs was around 2021: useful, surprising, getting better fast, and failing in ways that the optimistic press coverage does not foreground.</p>
+<p>These are not knocks on the field, they are descriptions of where the work actually is. The state of agents in 2026 is roughly where the state of single-turn LLMs was around 2021: useful, surprising, getting better fast, and failing in ways that the optimistic press coverage does not foreground.</p>
 </section>
 <section id="why-agents-matter-scientifically" class="level2">
 <h2 class="anchored" data-anchor-id="why-agents-matter-scientifically">Why agents matter scientifically</h2>
-<p>Most discussion of agents is product-flavored. The science question is more interesting. An agent is a <em>system</em> that combines a base model, a tool set, a memory mechanism, and a control loop. Studying what it does is studying <em>how the base model’s capabilities compose under sustained autonomous use</em> — which is much closer to how those capabilities would matter in any realistic deployment than the single-turn benchmark setting.</p>
+<p>Most discussion of agents is product-flavored. The science question is more interesting. An agent is a <em>system</em> that combines a base model, a tool set, a memory mechanism, and a control loop. Studying what it does is studying <em>how the base model’s capabilities compose under sustained autonomous use</em>, which is much closer to how those capabilities would matter in any realistic deployment than the single-turn benchmark setting.</p>
 <p>A few specific scientific questions agents surface:</p>
 <ul>
 <li>What is the relationship between a model’s single-turn capability and its trajectory-level capability? Why do they diverge?</li>
@@ -508,24 +508,24 @@ ul.task-list li input[type="checkbox"] {
 <li>When does an agent’s behavior become legibly <em>strategic</em> (planning, conditional branching) and when does it look more like surface mimicry of strategic behavior?</li>
 <li>How does the model’s representation of <em>its own ongoing task</em> shape what it does? (This connects to world-modeling, <a href="../chapters/10_world_models.html">Chapter 10</a>.)</li>
 </ul>
-<p>These are real research questions. Several of them are accessible to the model-organism methodology of <a href="../chapters/07_scidl_training.html">Chapter 7</a> — simulated agent environments with full instrumentation are exactly the kind of small synthetic settings where careful science can be done.</p>
+<p>These are real research questions. Several of them are accessible to the model-organism methodology of <a href="../chapters/07_scidl_training.html">Chapter 7</a>, simulated agent environments with full instrumentation are exactly the kind of small synthetic settings where careful science can be done.</p>
 </section>
 <section id="agents-and-science-the-bidirectional-question" class="level2">
-<h2 class="anchored" data-anchor-id="agents-and-science-the-bidirectional-question">Agents and science — the bidirectional question</h2>
+<h2 class="anchored" data-anchor-id="agents-and-science-the-bidirectional-question">Agents and science, the bidirectional question</h2>
 <p>There are two ways agents intersect with the science enterprise.</p>
-<p><strong>Agents <em>for</em> science.</strong> Can an autonomous system actually do scientific work — formulating hypotheses, designing experiments, analyzing results, updating beliefs? The aspirational answer is yes; the current reality is closer to “agents are useful for narrow scientific subtasks (literature review, data cleaning, hypothesis-class enumeration) and not yet ready for end-to-end discovery.” The closely related <a href="../deep_dives/ai_for_science.html">AI for science</a> deep dive covers more.</p>
-<p><strong>Agents <em>as</em> a science.</strong> The scientific study of agents themselves — their failure modes, their training dynamics, their internal world models — is a young and underdeveloped subfield. It is also where some of the more interesting research opportunities lie. The agent setting is rich, behaviorally varied, and largely uncharted; the next several years will probably produce a lot of clean phenomenology here.</p>
+<p><strong>Agents <em>for</em> science.</strong> Can an autonomous system actually do scientific work, formulating hypotheses, designing experiments, analyzing results, updating beliefs? The aspirational answer is yes; the current reality is closer to “agents are useful for narrow scientific subtasks (literature review, data cleaning, hypothesis-class enumeration) and not yet ready for end-to-end discovery.” The closely related <a href="../deep_dives/ai_for_science.html">AI for science</a> deep dive covers more.</p>
+<p><strong>Agents <em>as</em> a science.</strong> The scientific study of agents themselves, their failure modes, their training dynamics, their internal world models, is a young and underdeveloped subfield. It is also where some of the more interesting research opportunities lie. The agent setting is rich, behaviorally varied, and largely uncharted; the next several years will probably produce a lot of clean phenomenology here.</p>
 </section>
 <section id="what-this-chapter-is-not" class="level2">
 <h2 class="anchored" data-anchor-id="what-this-chapter-is-not">What this chapter is not</h2>
-<p>It is not a list of agent frameworks. The frameworks change every six months, the wrapper code is not the science, and a textbook is the wrong medium for that conversation. It is also not a take on the safety/alignment dimension of agentic systems — that conversation belongs in a different chapter.</p>
+<p>It is not a list of agent frameworks. The frameworks change every six months, the wrapper code is not the science, and a textbook is the wrong medium for that conversation. It is also not a take on the safety/alignment dimension of agentic systems, that conversation belongs in a different chapter.</p>
 </section>
 <section id="where-to-go-next" class="level2">
 <h2 class="anchored" data-anchor-id="where-to-go-next">Where to go next</h2>
 <ul>
 <li>Recent agent benchmark papers and the criticisms of those benchmarks.</li>
 <li>The model-organism-style studies that are starting to appear on agent behavior in simulated environments.</li>
-<li>The model-based-RL and long-horizon literature (<a href="../chapters/09_rl.html">Chapter 9</a>) — the structural problems are shared.</li>
+<li>The model-based-RL and long-horizon literature (<a href="../chapters/09_rl.html">Chapter 9</a>), the structural problems are shared.</li>
 <li>Frontier-lab releases on agent capability and the technical reports that accompany them.</li>
 </ul>
 <p>This is the most-revisable chapter in the book. The state of agents in 2027 will look meaningfully different from the state of agents in 2026, and not all of the predictions implicit here will age well. That is what writing about a moving frontier looks like.</p>

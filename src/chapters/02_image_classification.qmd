@@ -8,7 +8,7 @@ Most introductions to modern AI start with large language models. We are going t
 
 We will skip classical machine learning entirely. SVMs, kNN, decision trees, kernel methods, these are covered well in other books and they are no longer where the interesting questions live in modern AI. The historical thread that matters is the one that goes neural-networks → convolutional neural networks → ImageNet → AlexNet → ResNet → vision transformers.
 
-Two phenomena will hang over the chapter. The first is "**why did it take so long?**" Neural networks were proposed in the 1940s and 60s. They beat hand-crafted features on ImageNet only in 2012. What changed? The second is **Gabor-filter emergence**: when you train a CNN end-to-end on natural images, the first-layer filters reliably look like Gabor wavelets, the same primitives that show up in V1 of biological visual cortex. Nobody told the network to do this. It is a phenomenon. We will keep coming back to this kind of thing.
+One question will hang over the chapter: "**why did it take so long?**" Neural networks were proposed in the 1940s and 60s. They beat hand-crafted features on ImageNet only in 2012. What changed in between, depth, scale, normalization, initialization, residual connections, GPU-amenable architectures, is the actual subject matter of the chapter.
 
 ## Neural networks, properly
 
@@ -71,18 +71,6 @@ Two framings, both useful:
 - **Compression**, training pushes the network to find a *compact representation* of the data that preserves task-relevant structure. Useful features are reused across many examples; useless ones get pruned.
 
 These framings are not in opposition. The inductive bias decides *what kind* of compressions are accessible; training decides *which one* the network actually finds. For a physicist, this is reminiscent of the way symmetries in a physical system constrain the form of solutions without dictating which solution the system finds.
-
-## The phenomenon: Gabor filters
-
-Here is the phenomenon that gives the chapter its science-of-DL anchor. When you train a CNN end-to-end on natural images, the first-layer convolutional filters reliably converge to oriented, localized, wavelet-like patterns, the same Gabor filters that show up in classical models of V1 in biological visual cortex.
-
-Nobody put Gabor filters into the architecture. The architecture has translation equivariance and locality and not much else. The Gabor structure *emerges* from the interaction of that inductive bias with the statistics of natural images.
-
-This is a small but illuminating instance of the model-organism methodology from Chapter 1. The phenomenon is striking, reproducible, and surprising enough to investigate. A natural follow-up question is whether the *higher* layers of a trained network learn primitives that are recognizable from neuroscience too, and the answer is partially yes, partially no, and in any case a research program. We will see this kind of "the network learned something we recognize" pattern again in [Chapter 7](07_scidl_training.qmd) (training-dynamics phenomena) and [Chapter 11](11_scidl_concepts.qmd) (concept learning).
-
-::: {.callout-note appearance="simple" icon=false}
-**[Plot]** A grid of first-layer convolutional filters from a CNN trained on a natural-image dataset, alongside classical Gabor wavelets at matched orientations and scales. The visual punchline is that the two grids look strikingly similar.
-:::
 
 ## The first bitter lesson: bigger is better
 

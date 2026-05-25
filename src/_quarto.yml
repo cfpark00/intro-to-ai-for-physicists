@@ -21,22 +21,18 @@ book:
     collapse-level: 1
   chapters:
     - index.qmd
-    - part: "Fundamentals and methods"
-      chapters:
-        - chapters/01_intro.qmd
-        - chapters/02_image_classification.qmd
-        - chapters/03_sequence_modeling.qmd
-        - chapters/04_transformers.qmd
-        - chapters/05_llm_pretraining.qmd
-        - chapters/06_llm_posttraining.qmd
-        - chapters/07_scidl_training.qmd
-    - part: "Beyond LLMs"
-      chapters:
-        - chapters/08_diffusion.qmd
-        - chapters/09_rl.qmd
-        - chapters/10_world_models.qmd
-        - chapters/11_scidl_concepts.qmd
-        - chapters/12_intelligence.qmd
+    - chapters/01_intro.qmd
+    - chapters/02_image_classification.qmd
+    - chapters/03_sequence_modeling.qmd
+    - chapters/04_transformers.qmd
+    - chapters/05_llm_pretraining.qmd
+    - chapters/06_llm_posttraining.qmd
+    - chapters/07_scidl_training.qmd
+    - chapters/08_diffusion.qmd
+    - chapters/09_rl.qmd
+    - chapters/10_world_models.qmd
+    - chapters/11_scidl_concepts.qmd
+    - chapters/12_intelligence.qmd
     - references.qmd
 
 bibliography: references.bib

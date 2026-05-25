@@ -2,122 +2,122 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://scienceofdl.com/index.html</loc>
-    <lastmod>2026-05-25T20:09:13.438Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.612Z</lastmod>
   </url>
   <url>
     <loc>https://scienceofdl.com/chapters/01_intro.html</loc>
-    <lastmod>2026-05-25T20:09:13.435Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.610Z</lastmod>
   </url>
   <url>
     <loc>https://scienceofdl.com/chapters/02_image_classification.html</loc>
-    <lastmod>2026-05-25T20:09:13.436Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.611Z</lastmod>
   </url>
   <url>
     <loc>https://scienceofdl.com/chapters/03_sequence_modeling.html</loc>
-    <lastmod>2026-05-25T20:09:13.436Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.611Z</lastmod>
   </url>
   <url>
     <loc>https://scienceofdl.com/chapters/04_transformers.html</loc>
-    <lastmod>2026-05-25T20:09:13.436Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.611Z</lastmod>
   </url>
   <url>
     <loc>https://scienceofdl.com/chapters/05_llm_pretraining.html</loc>
-    <lastmod>2026-05-25T20:09:13.436Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.611Z</lastmod>
   </url>
   <url>
     <loc>https://scienceofdl.com/chapters/06_llm_posttraining.html</loc>
-    <lastmod>2026-05-25T20:09:13.436Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.611Z</lastmod>
   </url>
   <url>
     <loc>https://scienceofdl.com/chapters/07_scidl_training.html</loc>
-    <lastmod>2026-05-25T20:09:13.436Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.611Z</lastmod>
   </url>
   <url>
     <loc>https://scienceofdl.com/chapters/08_diffusion.html</loc>
-    <lastmod>2026-05-25T20:09:13.436Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.611Z</lastmod>
   </url>
   <url>
     <loc>https://scienceofdl.com/chapters/09_rl.html</loc>
-    <lastmod>2026-05-25T20:09:13.436Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.611Z</lastmod>
   </url>
   <url>
     <loc>https://scienceofdl.com/chapters/10_world_models.html</loc>
-    <lastmod>2026-05-25T20:09:13.436Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.611Z</lastmod>
   </url>
   <url>
     <loc>https://scienceofdl.com/chapters/11_scidl_concepts.html</loc>
-    <lastmod>2026-05-25T20:09:13.436Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.611Z</lastmod>
   </url>
   <url>
     <loc>https://scienceofdl.com/chapters/12_intelligence.html</loc>
-    <lastmod>2026-05-25T20:09:13.436Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.611Z</lastmod>
   </url>
   <url>
     <loc>https://scienceofdl.com/deep_dives/systems.html</loc>
-    <lastmod>2026-05-25T20:09:13.438Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.612Z</lastmod>
   </url>
   <url>
     <loc>https://scienceofdl.com/deep_dives/llm_architectures.html</loc>
-    <lastmod>2026-05-25T20:09:13.438Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.612Z</lastmod>
   </url>
   <url>
     <loc>https://scienceofdl.com/deep_dives/data_centric.html</loc>
-    <lastmod>2026-05-25T20:09:13.438Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.612Z</lastmod>
   </url>
   <url>
     <loc>https://scienceofdl.com/deep_dives/multimodal.html</loc>
-    <lastmod>2026-05-25T20:09:13.438Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.612Z</lastmod>
   </url>
   <url>
     <loc>https://scienceofdl.com/deep_dives/interpretability.html</loc>
-    <lastmod>2026-05-25T20:09:13.438Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.612Z</lastmod>
   </url>
   <url>
     <loc>https://scienceofdl.com/deep_dives/theory.html</loc>
-    <lastmod>2026-05-25T20:09:13.438Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.612Z</lastmod>
   </url>
   <url>
     <loc>https://scienceofdl.com/deep_dives/bayesian_mcmc.html</loc>
-    <lastmod>2026-05-25T20:09:13.438Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.612Z</lastmod>
   </url>
   <url>
     <loc>https://scienceofdl.com/deep_dives/classical_ml.html</loc>
-    <lastmod>2026-05-25T20:09:13.438Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.612Z</lastmod>
   </url>
   <url>
     <loc>https://scienceofdl.com/deep_dives/neuroethology.html</loc>
-    <lastmod>2026-05-25T20:09:13.438Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.612Z</lastmod>
   </url>
   <url>
     <loc>https://scienceofdl.com/deep_dives/neuroscience.html</loc>
-    <lastmod>2026-05-25T20:09:13.438Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.612Z</lastmod>
   </url>
   <url>
     <loc>https://scienceofdl.com/deep_dives/cogsci.html</loc>
-    <lastmod>2026-05-25T20:09:13.438Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.612Z</lastmod>
   </url>
   <url>
     <loc>https://scienceofdl.com/deep_dives/open_endedness.html</loc>
-    <lastmod>2026-05-25T20:09:13.438Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.612Z</lastmod>
   </url>
   <url>
     <loc>https://scienceofdl.com/deep_dives/ai_for_science.html</loc>
-    <lastmod>2026-05-25T20:09:13.438Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.612Z</lastmod>
   </url>
   <url>
     <loc>https://scienceofdl.com/deep_dives/ai_agents.html</loc>
-    <lastmod>2026-05-25T20:09:13.437Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.612Z</lastmod>
   </url>
   <url>
     <loc>https://scienceofdl.com/deep_dives/mechanism_design.html</loc>
-    <lastmod>2026-05-25T20:09:13.438Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.612Z</lastmod>
   </url>
   <url>
     <loc>https://scienceofdl.com/references.html</loc>
-    <lastmod>2026-05-25T20:09:13.438Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.612Z</lastmod>
   </url>
   <url>
     <loc>https://scienceofdl.com/glossary.html</loc>
-    <lastmod>2026-05-25T20:09:13.438Z</lastmod>
+    <lastmod>2026-05-25T20:16:57.612Z</lastmod>
   </url>
 </urlset>

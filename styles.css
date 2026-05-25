@@ -20,8 +20,8 @@ main {
 }
 
 /* Horizontal rule above the Deep Dives part header in the sidebar */
-.sidebar nav li.sidebar-item.sidebar-item-section {
-  border-top: 1px solid rgba(128, 128, 128, 0.35);
-  margin-top: 1rem;
-  padding-top: 1rem;
+li.sidebar-item.sidebar-item-section {
+  border-top: 1px solid rgba(128, 128, 128, 0.35) !important;
+  margin-top: 1rem !important;
+  padding-top: 1rem !important;
 }

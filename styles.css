@@ -37,15 +37,15 @@ li.sidebar-item:has(> div > a[href$="references.html"]) {
 /* ---------- Preface visual TOC: grid of square tiles ---------- */
 .toc-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.7rem;
-  margin: 1rem 0 1.75rem 0;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.45rem;
+  margin: 0.75rem 0 1.4rem 0;
 }
 @media (max-width: 720px) {
-  .toc-grid { grid-template-columns: repeat(3, 1fr); }
+  .toc-grid { grid-template-columns: repeat(4, 1fr); }
 }
 @media (max-width: 460px) {
-  .toc-grid { grid-template-columns: repeat(2, 1fr); }
+  .toc-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 a.toc-tile {
@@ -56,9 +56,9 @@ a.toc-tile {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 0.7rem 0.55rem;
+  padding: 0.35rem 0.3rem;
   border: 1px solid rgba(128, 128, 128, 0.28);
-  border-radius: 12px;
+  border-radius: 9px;
   background: rgba(128, 128, 128, 0.045);
   color: inherit !important;
   text-decoration: none !important;
@@ -66,10 +66,10 @@ a.toc-tile {
               background 0.14s ease, box-shadow 0.14s ease;
 }
 a.toc-tile:hover {
-  transform: translateY(-2px);
+  transform: translateY(-1.5px);
   border-color: rgba(13, 110, 253, 0.55);
   background: rgba(13, 110, 253, 0.07);
-  box-shadow: 0 4px 14px rgba(13, 110, 253, 0.10);
+  box-shadow: 0 3px 10px rgba(13, 110, 253, 0.10);
 }
 .quarto-dark a.toc-tile {
   background: rgba(255, 255, 255, 0.03);
@@ -78,32 +78,32 @@ a.toc-tile:hover {
 .quarto-dark a.toc-tile:hover {
   border-color: rgba(120, 170, 255, 0.55);
   background: rgba(120, 170, 255, 0.08);
-  box-shadow: 0 4px 14px rgba(120, 170, 255, 0.12);
+  box-shadow: 0 3px 10px rgba(120, 170, 255, 0.12);
 }
 
 .toc-tile .toc-num {
   position: absolute;
-  top: 8px;
-  left: 11px;
-  font-size: 0.74rem;
+  top: 4px;
+  left: 6px;
+  font-size: 0.62rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   opacity: 0.5;
   font-variant-numeric: tabular-nums;
 }
 .toc-tile .toc-icon {
-  font-size: 1.85rem;
+  font-size: 1.3rem;
   line-height: 1;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
   opacity: 0.88;
 }
 .toc-tile:hover .toc-icon { opacity: 1; }
 .toc-tile .toc-title {
-  font-size: 0.83rem;
-  line-height: 1.2;
+  font-size: 0.66rem;
+  line-height: 1.15;
   font-weight: 500;
   display: block;
 }
 
 /* Deep-dive tiles: slightly smaller icon, same footprint, no number */
-.toc-grid-dd .toc-tile .toc-icon { font-size: 1.6rem; }
+.toc-grid-dd .toc-tile .toc-icon { font-size: 1.2rem; }

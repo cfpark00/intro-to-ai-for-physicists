@@ -11,10 +11,10 @@ the interaction between (a) translation-equivariant convolutional
 inductive bias and (b) the statistics of natural images.
 
 Usage:
-    uv run python src/code/chapters/02_image_classification/gabor_demo.py
+    uv run python src/code/chapters/02_image_classification/course/gabor_demo.py
 
 Output:
-    src/code/chapters/02_image_classification/gabor_filters.png
+    src/code/chapters/02_image_classification/course/gabor_filters.png
 """
 
 from pathlib import Path

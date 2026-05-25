@@ -46,4 +46,4 @@ landscape → dl_primer → transformer → scaling_laws → pretraining → fin
 
 ## Source and contributions
 
-Source for this book lives at [github.com/cfpark00/intro-to-ai-for-physicists](https://github.com/cfpark00/intro-to-ai-for-physicists). Issues and PRs are welcome.
+Source for this book lives at [github.com/cfpark00/science-of-dl](https://github.com/cfpark00/science-of-dl). Issues and PRs are welcome.

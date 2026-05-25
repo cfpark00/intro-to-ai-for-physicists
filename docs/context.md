@@ -12,7 +12,7 @@ A short, modern web textbook: **"Intro to AI for Physicists"** — companion to 
 - Software/engineering tutorials ("how to train your LLM," kubernetes, MLOps) — these are recipes, not science.
 
 Live site: <https://scienceofdl.com>
-Source: <https://github.com/cfpark00/intro-to-ai-for-physicists>
+Source: <https://github.com/cfpark00/science-of-dl>
 
 ## Target Users
 

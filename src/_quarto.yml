@@ -10,7 +10,7 @@ book:
   author: "cfpark00"
   date: today
   site-url: https://scienceofdl.com
-  repo-url: https://github.com/cfpark00/intro-to-ai-for-physicists
+  repo-url: https://github.com/cfpark00/science-of-dl
   repo-actions: [edit, issue]
   search: true
   page-navigation: true

@@ -3,7 +3,7 @@ title: "AI for science"
 number-sections: false
 ---
 
-**AI for science** — the application of deep-learning tools to actual scientific problems — is in some ways the most consequential downstream use of the methods this book covers. It is also a field with its own culture and its own evaluation standards, distinct from the rest of ML. This chapter is a launching point.
+**AI for science**, the application of deep-learning tools to actual scientific problems, is in some ways the most consequential downstream use of the methods this book covers. It is also a field with its own culture and its own evaluation standards, distinct from the rest of ML. This chapter is a launching point.
 
 The framing of this book has been that neural networks are themselves objects of scientific study. The framing of AI for science is the inverse: neural networks as *tools* deployed in service of scientific questions outside ML. Both framings can coexist. The skills overlap. The criteria for success do not.
 
@@ -11,11 +11,11 @@ The framing of this book has been that neural networks are themselves objects of
 
 A useful working partition:
 
-**Surrogate models.** Train a neural network to approximate an expensive simulation — a fluid-dynamics solver, a quantum-chemistry computation, a cosmological N-body run. The network is enormously faster than the simulation but inherits some of its accuracy. Surrogates have become standard infrastructure in computational science wherever a costly forward model exists.
+**Surrogate models.** Train a neural network to approximate an expensive simulation, a fluid-dynamics solver, a quantum-chemistry computation, a cosmological N-body run. The network is enormously faster than the simulation but inherits some of its accuracy. Surrogates have become standard infrastructure in computational science wherever a costly forward model exists.
 
 **Inverse problems.** Given partial or noisy observations, recover the underlying parameters or structure that generated them. Diffusion models (see [Chapter 8](../chapters/08_diffusion.qmd)) have become a default tool here, because the probabilistic structure of the problem maps cleanly to the probabilistic structure of diffusion. Applications run from cosmological field reconstruction to medical imaging to molecular structure determination.
 
-**Discovery-flavored applications.** Cases where the AI is not just *evaluating* a known forward model but is *finding* something the scientists did not yet know — protein structures (the AlphaFold lineage), materials with desired properties (active learning in materials databases), mathematical conjectures, novel chemistry.
+**Discovery-flavored applications.** Cases where the AI is not just *evaluating* a known forward model but is *finding* something the scientists did not yet know, protein structures (the AlphaFold lineage), materials with desired properties (active learning in materials databases), mathematical conjectures, novel chemistry.
 
 **Scientific text and data understanding.** Using language models to digest the scientific literature, to extract structured knowledge, to draft sections of papers, to assist with peer review. The mundane utility here is large and growing.
 
@@ -26,7 +26,7 @@ A useful working partition:
 A few honest observations about how this field operates differently:
 
 - **The evaluation criteria are stricter and stranger.** Predictive accuracy is the central ML benchmark; in scientific applications, *calibrated uncertainty*, *physical-law respect*, *out-of-distribution behavior*, and *interpretability* all matter at least as much. A model that scores well on average but fails catastrophically and silently on rare cases is sometimes useless to the science.
-- **The relationship to domain experts is load-bearing.** Most successful AI-for-science work is led by — or done in close collaboration with — actual domain scientists. Pure-ML approaches that ignore domain structure typically underperform.
+- **The relationship to domain experts is load-bearing.** Most successful AI-for-science work is led by, or done in close collaboration with, actual domain scientists. Pure-ML approaches that ignore domain structure typically underperform.
 - **Reproducibility expectations are higher.** Scientific results are expected to be reproducible. ML papers, historically, less so. The interface is a source of friction.
 - **The questions asked are not benchmark questions.** "How well does our model do on benchmark X?" is the ML default. "Does this model help us discover/explain/predict something we could not before?" is the science default. They are not the same metric.
 
@@ -34,23 +34,23 @@ A few honest observations about how this field operates differently:
 
 AI for science has graduated from a sub-genre of conference papers to a genuine working subfield. AlphaFold-class successes have happened in multiple domains. Surrogate models are standard infrastructure in many sciences. Foundation models for protein design, materials, mathematics, and weather forecasting are mature enough to be deployed.
 
-The honest assessment is also that the *transformative* uses — AI that meaningfully accelerates scientific discovery rather than just speeding up known computations — are still rarer than the press coverage would suggest, and the conditions under which they happen are not yet generalized.
+The honest assessment is also that the *transformative* uses, AI that meaningfully accelerates scientific discovery rather than just speeding up known computations, are still rarer than the press coverage would suggest, and the conditions under which they happen are not yet generalized.
 
 Open questions the field is wrestling with:
 
 - How much of a domain do you need to bake into the architecture or training procedure vs. let the model learn? Different domains have given different answers.
-- How does AI for science interact with the broader scientific process — peer review, hypothesis generation, theory building? The current answer is mostly "minimally," and that may need to change.
+- How does AI for science interact with the broader scientific process, peer review, hypothesis generation, theory building? The current answer is mostly "minimally," and that may need to change.
 - Where are the limits? There are scientific questions that current ML methods cannot help with (e.g., where there is no available training data), and being clear about those limits is part of the field's honesty.
 
 ## What the author's long-term work is pointing at
 
-A note on positioning, since the main spine ([Chapter 12](../chapters/12_intelligence.qmd)) mentioned it: the long-term research vision of *AI for open-ended scientific discovery* — building systems that can do the work of an experimental scientist, including formulating hypotheses, designing experiments, and updating beliefs based on results — sits at the intersection of AI for science, open-endedness, and intelligence-as-a-broader-phenomenon. It is currently more of an aspirational research direction than a working set of techniques. Whether it becomes the latter is one of the more important open questions of the decade.
+A note on positioning, since the main spine ([Chapter 12](../chapters/12_intelligence.qmd)) mentioned it: the long-term research vision of *AI for open-ended scientific discovery*, building systems that can do the work of an experimental scientist, including formulating hypotheses, designing experiments, and updating beliefs based on results, sits at the intersection of AI for science, open-endedness, and intelligence-as-a-broader-phenomenon. It is currently more of an aspirational research direction than a working set of techniques. Whether it becomes the latter is one of the more important open questions of the decade.
 
 ## Where to go next
 
 - The relevant domain literatures: AlphaFold and its descendants for protein modeling; the surrogate-modeling literature in physics, chemistry, and climate; the materials-discovery literature.
 - The growing AI-for-Science workshops at major ML conferences.
-- Direct conversations with domain scientists actually doing this work — far more useful than the marketing-flavored coverage of AI-for-science achievements.
+- Direct conversations with domain scientists actually doing this work, far more useful than the marketing-flavored coverage of AI-for-science achievements.
 - For the philosophical / aspirational side: read what people working on autonomous scientific discovery are writing.
 
 This is a chapter of pointers. The actual work is in the labs.

@@ -3,17 +3,17 @@ title: "Interpretability"
 number-sections: false
 ---
 
-**Interpretability** — the field that asks "what is the trained network actually doing, mechanistically?" — has its own toolkit, its own conferences, and its own ongoing methodological reckoning. It is also one of the closest neighbors of the science of deep learning, since the model-organism methodology in [Chapter 7](../chapters/07_scidl_training.qmd) leans heavily on interpretability tools. This chapter is the more careful map of the field.
+**Interpretability**, the field that asks "what is the trained network actually doing, mechanistically?", has its own toolkit, its own conferences, and its own ongoing methodological reckoning. It is also one of the closest neighbors of the science of deep learning, since the model-organism methodology in [Chapter 7](../chapters/07_scidl_training.qmd) leans heavily on interpretability tools. This chapter is the more careful map of the field.
 
 ## Early history (and dead salmons)
 
-Interpretability is older than deep learning, and it inherits both methodological assets and methodological warnings from the older neuroscience literature on probing biological brains. The most famous warning is the **dead salmon experiment**: Craig Bennett and colleagues (2009, IgNobel-winning) ran an fMRI scan on a dead Atlantic salmon shown emotional images, and — without multiple-comparisons correction — found apparent "activity" in its brain. The result is funny on the surface and deadly serious underneath: if you probe enough channels of high-dimensional data, you will find spurious patterns that survive uncorrected significance tests. This is a real and recurring failure mode in interpretability work on neural networks. Probing-based claims need their statistical guardrails.
+Interpretability is older than deep learning, and it inherits both methodological assets and methodological warnings from the older neuroscience literature on probing biological brains. The most famous warning is the **dead salmon experiment**: Craig Bennett and colleagues (2009, IgNobel-winning) ran an fMRI scan on a dead Atlantic salmon shown emotional images, and, without multiple-comparisons correction, found apparent "activity" in its brain. The result is funny on the surface and deadly serious underneath: if you probe enough channels of high-dimensional data, you will find spurious patterns that survive uncorrected significance tests. This is a real and recurring failure mode in interpretability work on neural networks. Probing-based claims need their statistical guardrails.
 
 The early DL-interpretability literature was visual: saliency maps, occlusion sensitivity, deconvolutions. These methods are still in use; many of them have known reproducibility and reliability issues, and the field has gotten more careful about them over time.
 
 ## The linear representation hypothesis
 
-A useful working assumption in much modern interpretability work: **features of interest are encoded as linear directions in the model's representation space.** "Sentiment," "topic," "the location of a chess piece on a board" — to the extent these are represented in the network at all, they live as approximately-linear subspaces of some intermediate activation. The hypothesis is not theoretically derived; it is an empirical regularity that has held up in many settings, and the field has built tooling around it.
+A useful working assumption in much modern interpretability work: **features of interest are encoded as linear directions in the model's representation space.** "Sentiment," "topic," "the location of a chess piece on a board", to the extent these are represented in the network at all, they live as approximately-linear subspaces of some intermediate activation. The hypothesis is not theoretically derived; it is an empirical regularity that has held up in many settings, and the field has built tooling around it.
 
 The linear-representation hypothesis is not universally true. There are documented cases of features encoded in genuinely nonlinear ways (cyclic features, polysemantic neurons that encode multiple features in superposition, hierarchical features that require multiple layers of decoding). The field's working stance is roughly: linear-by-default, nonlinear-when-necessary, and stay alert to the difference.
 
@@ -22,21 +22,21 @@ The linear-representation hypothesis is not universally true. There are document
 If features are linear directions, two natural operations follow:
 
 - **Linear probing**: train a linear classifier on internal activations to detect a feature of interest. If it works above chance, the feature is at least linearly accessible at that layer. Cheap, scalable, and the workhorse of representational analysis.
-- **Steering vectors**: identify a linear direction associated with a behavior or feature, then add a multiple of it back into the residual stream at inference time to *push* the model in that direction. Behaviorally, this works — sometimes well enough to be alarming about what it implies about how robust alignment training is.
+- **Steering vectors**: identify a linear direction associated with a behavior or feature, then add a multiple of it back into the residual stream at inference time to *push* the model in that direction. Behaviorally, this works, sometimes well enough to be alarming about what it implies about how robust alignment training is.
 
 Both methods have known limitations and subtle failure modes. They are useful tools, not finished products.
 
 ## Circuit discovery
 
-A more ambitious agenda: identify the **circuit** — the specific subset of attention heads, MLP neurons, and connections between them — that implements a particular behavior. This is the "mechanistic interpretability" line, and it has produced some real victories: circuits for indirect object identification, for modular arithmetic, for in-context learning of simple patterns. The methodology involves activation patching, ablation studies, and careful causal arguments about *which* component is doing *which* part of the work.
+A more ambitious agenda: identify the **circuit**, the specific subset of attention heads, MLP neurons, and connections between them, that implements a particular behavior. This is the "mechanistic interpretability" line, and it has produced some real victories: circuits for indirect object identification, for modular arithmetic, for in-context learning of simple patterns. The methodology involves activation patching, ablation studies, and careful causal arguments about *which* component is doing *which* part of the work.
 
 Circuits are hard to scale. The clean cases tend to be small, synthetic, or unusually well-isolated. Whether the same techniques scale to frontier-model behaviors remains an open empirical question.
 
 ## Sparse autoencoders (SAEs)
 
-A more recent technique that has reshaped the field. The intuition: many neural-network features live in **superposition** — a single neuron is polysemantic, encoding several distinct features at once because the network has more features it wants to represent than dimensions to do so. SAEs train a sparse, overcomplete decomposition of the activations, hoping that each learned "feature" picks out one human-interpretable concept.
+A more recent technique that has reshaped the field. The intuition: many neural-network features live in **superposition**, a single neuron is polysemantic, encoding several distinct features at once because the network has more features it wants to represent than dimensions to do so. SAEs train a sparse, overcomplete decomposition of the activations, hoping that each learned "feature" picks out one human-interpretable concept.
 
-SAEs have been one of the most exciting recent developments in interpretability — they produce *interpretable* features at scale, in a way that earlier probing methods did not. They are also still being calibrated: questions about feature stability, completeness, and how much of the model's behavior they actually explain are active research areas.
+SAEs have been one of the most exciting recent developments in interpretability, they produce *interpretable* features at scale, in a way that earlier probing methods did not. They are also still being calibrated: questions about feature stability, completeness, and how much of the model's behavior they actually explain are active research areas.
 
 ## Meta-comments on the field
 

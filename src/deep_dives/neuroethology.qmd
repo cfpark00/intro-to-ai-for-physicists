@@ -3,17 +3,17 @@ title: "Neuroethology"
 number-sections: false
 ---
 
-The main spine of this book takes its methodology — *notice a phenomenon, find a model system, instrument it, cross-check* — from **neuroethology**: the study of the neural basis of natural animal behavior in its ecological context. This chapter is the launching point into the actual field, in case you wanted to know more about the source material that the methodology was lifted from.
+The main spine of this book takes its methodology, *notice a phenomenon, find a model system, instrument it, cross-check*, from **neuroethology**: the study of the neural basis of natural animal behavior in its ecological context. This chapter is the launching point into the actual field, in case you wanted to know more about the source material that the methodology was lifted from.
 
-Neuroethology is a beautiful field. It is also, in its purest form, a field made out of striking anecdotes — *animal does surprising thing → biologist finds the neural mechanism that makes the surprising thing possible* — far more than it is a field made out of clean theoretical principles. That structure is part of why the methodology transfers to deep learning so naturally: both fields are richer in *phenomena worth explaining* than in *theory tight enough to derive everything from*.
+Neuroethology is a beautiful field. It is also, in its purest form, a field made out of striking anecdotes, *animal does surprising thing → biologist finds the neural mechanism that makes the surprising thing possible*, far more than it is a field made out of clean theoretical principles. That structure is part of why the methodology transfers to deep learning so naturally: both fields are richer in *phenomena worth explaining* than in *theory tight enough to derive everything from*.
 
 ## The shape of the science
 
 The classical neuroethology workflow:
 
-1. **Observe.** Find an animal doing something interesting in its natural environment. Not in a lab setting designed to extract a behavior — in the wild, where the behavior is *for* something.
+1. **Observe.** Find an animal doing something interesting in its natural environment. Not in a lab setting designed to extract a behavior, in the wild, where the behavior is *for* something.
 2. **Characterize.** Document the behavior carefully. When does it happen? What triggers it? How does it vary?
-3. **Find a model species.** Many neuroethological breakthroughs came from picking species where the relevant computation is *easily accessible* — flies and *C. elegans* for nervous-system tractability, electric fish for accessible neural communication, songbirds for vocal learning, owls for accessible auditory computation.
+3. **Find a model species.** Many neuroethological breakthroughs came from picking species where the relevant computation is *easily accessible*, flies and *C. elegans* for nervous-system tractability, electric fish for accessible neural communication, songbirds for vocal learning, owls for accessible auditory computation.
 4. **Trace the mechanism.** Move from behavior to brain. Find the neurons involved. Record from them, lesion them, stimulate them, model them.
 5. **Cross-check.** Do the lessons from the model species transfer to other species? To humans? To analogous computations elsewhere in biology?
 
@@ -23,17 +23,17 @@ The classical successes of the field share a common structure: a striking behavi
 
 These are the kinds of anecdotes neuroethology is built out of. They are also fun.
 
-**The barn owl and sound localization.** Owls can locate prey in total darkness based purely on the timing differences between sounds arriving at their two ears. The mechanism — coincidence-detector neurons in the nucleus laminaris that fire when signals from the two ears arrive simultaneously — is a clean, comprehensible piece of biological signal processing. The same principle of coincidence detection appears throughout neuroscience.
+**The barn owl and sound localization.** Owls can locate prey in total darkness based purely on the timing differences between sounds arriving at their two ears. The mechanism, coincidence-detector neurons in the nucleus laminaris that fire when signals from the two ears arrive simultaneously, is a clean, comprehensible piece of biological signal processing. The same principle of coincidence detection appears throughout neuroscience.
 
-**The bat and echolocation.** Bats emit ultrasonic chirps and process the returning echoes to navigate and hunt. The neural machinery for this — including the specialized cortical regions that compute Doppler shifts and target distance — is one of the most elegantly characterized sensory systems in biology.
+**The bat and echolocation.** Bats emit ultrasonic chirps and process the returning echoes to navigate and hunt. The neural machinery for this, including the specialized cortical regions that compute Doppler shifts and target distance, is one of the most elegantly characterized sensory systems in biology.
 
-**The cricket and song recognition.** Female crickets pick the male of their species based on the temporal pattern of his chirps. The neural circuits that classify these patterns — including specialized delay-line neurons that lock onto particular inter-pulse intervals — were among the first cases where a behaviorally meaningful neural computation was traced end-to-end.
+**The cricket and song recognition.** Female crickets pick the male of their species based on the temporal pattern of his chirps. The neural circuits that classify these patterns, including specialized delay-line neurons that lock onto particular inter-pulse intervals, were among the first cases where a behaviorally meaningful neural computation was traced end-to-end.
 
-**The electric fish and jamming avoidance.** Several species of weakly electric fish navigate and communicate using self-generated electric fields. When two fish are close enough that their fields interfere, they adjust their frequencies to avoid the jamming — a behavior whose neural mechanism (a clever computation involving the relative phase and amplitude differences at different parts of the body) was worked out in the Heiligenberg laboratory, and is one of the cleanest examples of how a *behavioral computation* maps onto an *identifiable neural circuit*.
+**The electric fish and jamming avoidance.** Several species of weakly electric fish navigate and communicate using self-generated electric fields. When two fish are close enough that their fields interfere, they adjust their frequencies to avoid the jamming, a behavior whose neural mechanism (a clever computation involving the relative phase and amplitude differences at different parts of the body) was worked out in the Heiligenberg laboratory, and is one of the cleanest examples of how a *behavioral computation* maps onto an *identifiable neural circuit*.
 
-**Wulst, place cells, and grid cells.** The discovery (by O'Keefe and the Mosers and successors) that mammalian brains contain dedicated cells for spatial location — place cells in the hippocampus, grid cells in entorhinal cortex — turned navigation from a behavioral mystery into a question with concrete neural answers. (Nobel Prize, 2014. Also: place and grid cells are now showing up in ANN representations under appropriate training conditions, as touched on in [Chapter 10](../chapters/10_world_models.qmd).)
+**Wulst, place cells, and grid cells.** The discovery (by O'Keefe and the Mosers and successors) that mammalian brains contain dedicated cells for spatial location, place cells in the hippocampus, grid cells in entorhinal cortex, turned navigation from a behavioral mystery into a question with concrete neural answers. (Nobel Prize, 2014. Also: place and grid cells are now showing up in ANN representations under appropriate training conditions, as touched on in [Chapter 10](../chapters/10_world_models.qmd).)
 
-**The waggle dance.** Honeybee foragers communicate the direction and distance of food sources to nestmates through a particular figure-eight dance. The behavior is so specific that it can be decoded by an observer with a protractor and a watch. The neural and sensory underpinnings — sun-compass orientation, polarized-light detection, distance estimation by optic flow — have been worked out across decades.
+**The waggle dance.** Honeybee foragers communicate the direction and distance of food sources to nestmates through a particular figure-eight dance. The behavior is so specific that it can be decoded by an observer with a protractor and a watch. The neural and sensory underpinnings, sun-compass orientation, polarized-light detection, distance estimation by optic flow, have been worked out across decades.
 
 There are dozens more. The genre of neuroethology paper is recognizable: a striking, specific, ecologically-meaningful behavior is the hook, the species-of-study is justified, the neural recordings or interventions are made, and the mechanism gets nailed down. The pattern is exactly what science of deep learning is reaching for in transferring the methodology to networks.
 
@@ -41,15 +41,15 @@ There are dozens more. The genre of neuroethology paper is recognizable: a strik
 
 A few specific lessons:
 
-- **Pick the right model system.** *C. elegans* has 302 neurons. That makes some questions tractable that would be impossible in a vertebrate brain. The same logic motivates the small synthetic tasks of [Chapter 7](../chapters/07_scidl_training.qmd) — pick a setting where the system is small enough to fully instrument.
+- **Pick the right model system.** *C. elegans* has 302 neurons. That makes some questions tractable that would be impossible in a vertebrate brain. The same logic motivates the small synthetic tasks of [Chapter 7](../chapters/07_scidl_training.qmd), pick a setting where the system is small enough to fully instrument.
 - **The behavior comes first.** Neuroethology never starts with the brain. It starts with what the animal *does*. The same discipline applies to networks: phenomena come first, mechanism comes later.
 - **Cross-species cross-check is load-bearing.** A result in *Drosophila* matters more if it generalizes to *C. elegans* or zebrafish. A result in a small synthetic transformer matters more if it generalizes to a larger one.
 - **Anecdotes are not embarrassing.** A great neuroethology paper is a great story about an animal. The science is in the careful follow-through, not in the story being absent.
 
 ## Where to go next
 
-- Tinbergen's *The Study of Instinct* — foundational text for the field.
-- Heiligenberg's *Neural Nets in Electric Fish* — a beautiful long-form case study of one of the canonical neuroethology programs.
+- Tinbergen's *The Study of Instinct*, foundational text for the field.
+- Heiligenberg's *Neural Nets in Electric Fish*, a beautiful long-form case study of one of the canonical neuroethology programs.
 - Animal-behavior textbooks and current ethology journals.
 - The neuroAI community for the active interface with deep learning.
 

@@ -3,44 +3,44 @@ title: "Data-centric ML"
 number-sections: false
 ---
 
-A claim that is mostly true and not stated loudly enough in the main spine: **most of the recent capability gains in deep learning are gains in the data, not gains in the architecture or the optimizer.** Transformers from 2017 are still mostly transformers in 2026, with refinements but not revolutions. What changed underneath the field's leaderboard was the data — its quantity, its quality, its curation, its mixture, and the cleverness with which models were trained on synthetic and human-augmented variants of it.
+A claim that is mostly true and not stated loudly enough in the main spine: **most of the recent capability gains in deep learning are gains in the data, not gains in the architecture or the optimizer.** Transformers from 2017 are still mostly transformers in 2026, with refinements but not revolutions. What changed underneath the field's leaderboard was the data, its quantity, its quality, its curation, its mixture, and the cleverness with which models were trained on synthetic and human-augmented variants of it.
 
 This chapter is a launching point for the field that takes data as the primary object of study.
 
 ## Why "data-centric" is a real reframing
 
-The shorthand: in classical ML research, you fix the dataset and vary the model. In **data-centric ML**, you fix the model architecture and vary the data — exploring how mixture composition, curation, deduplication, ordering, and augmentation change what the model becomes. Once you take this view seriously, a lot of the usual narrative gets revised.
+The shorthand: in classical ML research, you fix the dataset and vary the model. In **data-centric ML**, you fix the model architecture and vary the data, exploring how mixture composition, curation, deduplication, ordering, and augmentation change what the model becomes. Once you take this view seriously, a lot of the usual narrative gets revised.
 
 A few examples of how the data-centric framing reads the recent record:
 
 - **"Reasoning" capability is reasoning data.** The recent boost in chain-of-thought-style reasoning from RL-on-verifiable-rewards is, at the end of the day, training on rollouts of *successful reasoning*. The model is not learning to reason from first principles; it is being shown a lot of *examples of reasoning that worked* and absorbing the surface form. (Whether that constitutes "real" reasoning is a different question, and a fair amount of the controversy in the field is downstream of how you answer it. See [Chapter 6](../chapters/06_llm_posttraining.qmd) on what RL post-training actually teaches.)
 - **Many strong base models are strong because of their data.** Pretraining corpora are not commodities. Two labs with the same architecture and similar compute will produce noticeably different base models because their data pipelines, deduplication strategies, and quality filters were different. The architecture is mostly settled; the data pipeline is the moat.
-- **Specialized capabilities track specialized data.** As a concrete example: code models — *including Claude Code, which you may be using to read this book* — are strong at programming tasks largely because their post-training pipeline includes large volumes of high-quality coding demonstrations and feedback from expert engineers. The model is "good at code" because someone curated a lot of good code data and trained on it carefully.
+- **Specialized capabilities track specialized data.** As a concrete example: code models, *including Claude Code, which you may be using to read this book*, are strong at programming tasks largely because their post-training pipeline includes large volumes of high-quality coding demonstrations and feedback from expert engineers. The model is "good at code" because someone curated a lot of good code data and trained on it carefully.
 
-The deeper consequence: **scaling laws are all conditional on the data distribution.** Kaplan and Chinchilla scaling [@kaplan2020scaling; @hoffmann2022chinchilla] derive an empirical relationship between compute, parameters, and loss — *for a given data distribution*. Change the data and you can shift the curves; the relationship is not a law of nature about networks, it is a law of nature about networks + a specific dataset.
+The deeper consequence: **scaling laws are all conditional on the data distribution.** Kaplan and Chinchilla scaling [@kaplan2020scaling; @hoffmann2022chinchilla] derive an empirical relationship between compute, parameters, and loss, *for a given data distribution*. Change the data and you can shift the curves; the relationship is not a law of nature about networks, it is a law of nature about networks + a specific dataset.
 
 ## What the field actually studies
 
 A short and incomplete map of what people in the data-centric corner of the field work on:
 
 - **Deduplication and quality filtering.** Repetition destabilizes training; low-quality content wastes capacity. Both have become careful disciplines.
-- **Mixture design.** How much code, how much math, how much general web text, how much instruction-following data — and how these proportions interact with downstream capability.
-- **Synthetic data and data augmentation.** Using models to generate training data for other models. Closely tied to the **model collapse** phenomenon from [Chapter 8](../chapters/08_diffusion.qmd) — the limits and traps are real.
+- **Mixture design.** How much code, how much math, how much general web text, how much instruction-following data, and how these proportions interact with downstream capability.
+- **Synthetic data and data augmentation.** Using models to generate training data for other models. Closely tied to the **model collapse** phenomenon from [Chapter 8](../chapters/08_diffusion.qmd), the limits and traps are real.
 - **Active and curriculum data selection.** Choosing *which* examples to train on, in what order. Easy in principle, surprisingly subtle at scale.
 - **Evaluation of data, not just models.** Methods to measure the "value" of a corpus or a data-pipeline change before paying for a full training run.
 - **Provenance and rights.** A field-shaping social/legal layer that gets less discussion in research papers than in courts. Mentioned here for honesty.
 
 ## Where this field is, culturally
 
-Data-centric ML is the part of the field where the public-academic literature lags the most behind frontier practice. Frontier labs guard their data pipelines as closely as their architectures, and sometimes more closely — for both competitive and legal reasons. The published research is real and growing, but the *practice* at the frontier is mostly invisible.
+Data-centric ML is the part of the field where the public-academic literature lags the most behind frontier practice. Frontier labs guard their data pipelines as closely as their architectures, and sometimes more closely, for both competitive and legal reasons. The published research is real and growing, but the *practice* at the frontier is mostly invisible.
 
 ## Where to go next
 
 The legible entry points:
 
 - Papers and blog posts on specific data-pipeline interventions (deduplication, quality filtering, mixture design).
-- Open data initiatives (FineWeb, RefinedWeb, the open code corpora) — their documentation is a curriculum on what data work looks like.
+- Open data initiatives (FineWeb, RefinedWeb, the open code corpora), their documentation is a curriculum on what data work looks like.
 - The model-collapse literature, which is one of the clearest examples of the data-centric mode of thinking.
-- Frontier-lab technical reports — their data sections are usually heavily redacted, but the redactions themselves are informative.
+- Frontier-lab technical reports, their data sections are usually heavily redacted, but the redactions themselves are informative.
 
 If you finished the main spine with the impression that *the scientific question of deep learning is about networks*, this chapter is a counterweight: a serious fraction of the scientific question is about the *data* networks are trained on.

@@ -2,7 +2,7 @@
 title: "3  Sequence modeling"
 ---
 
-Image classification has a clean input shape: a fixed-size grid of pixels. Sequence modeling does not. The input is a variable-length series of tokens — words, sub-word pieces, audio frames, time steps in a control problem — and the network has to make a prediction at each position using whatever has come before. This sounds like a minor logistical difference. It is in fact a deep one. The question that organizes everything in this chapter is:
+Image classification has a clean input shape: a fixed-size grid of pixels. Sequence modeling does not. The input is a variable-length series of tokens, words, sub-word pieces, audio frames, time steps in a control problem, and the network has to make a prediction at each position using whatever has come before. This sounds like a minor logistical difference. It is in fact a deep one. The question that organizes everything in this chapter is:
 
 **How does a network remember?**
 
@@ -20,12 +20,12 @@ h_t = f_\theta(h_{t-1}, x_t), \qquad \hat y_t = g_\theta(h_t).
 $$
 The size of $h_t$ is the *memory budget*. Information about the past gets compressed into that budget. Anything that does not fit gets thrown away. This family includes the original RNNs, LSTMs, GRUs, and the modern state-space revival (S4, Mamba, etc.).
 
-**Transformer-style: do not compress.** Keep the whole history around and let the model attend to whichever past tokens it needs at each new step. There is no fixed-size state. The "memory" *is* the context window. The transformer's philosophy, stated bluntly: *forget about state — just train a function over the whole sequence, and let scale do the rest.*
+**Transformer-style: do not compress.** Keep the whole history around and let the model attend to whichever past tokens it needs at each new step. There is no fixed-size state. The "memory" *is* the context window. The transformer's philosophy, stated bluntly: *forget about state, just train a function over the whole sequence, and let scale do the rest.*
 
 These two philosophies trade off in predictable ways:
 
 - **Efficiency.** SSM-style is $\mathcal{O}(N)$ in sequence length (a fixed-cost update per step). Transformer-style is naively $\mathcal{O}(N^2)$ from all-pairs attention (and inference amortizes to roughly $\mathcal{O}(N)$ per generated token with a KV cache, but the cache itself grows linearly).
-- **Expressivity.** Transformers can attend to any past token, regardless of how far back. SSMs are bounded by what fits in $h_t$ — long-range dependencies are squeezed through the compression bottleneck.
+- **Expressivity.** Transformers can attend to any past token, regardless of how far back. SSMs are bounded by what fits in $h_t$, long-range dependencies are squeezed through the compression bottleneck.
 - **Generalization to longer contexts.** Surprisingly, SSMs sometimes generalize better to sequences longer than what they were trained on, precisely because the state-update step is the same at every position.
 - **Training vs inference cost.** They have different shapes. Transformers are expensive in attention at long contexts but trivially parallel across the sequence at training time. SSMs are cheap at long contexts but inherently sequential at inference.
 
@@ -39,13 +39,13 @@ Before attention, sequence modeling meant recurrent networks. These are worth kn
 
 **Recurrent neural networks (RNNs).** The original move: take an MLP and feed its hidden state back as input at the next step. Trained by backpropagation through time, which is just backpropagation through the unrolled computation. The fatal practical issue was the **vanishing/exploding gradient problem**: products of many Jacobians either shrink to nothing or blow up, depending on the spectrum. Long-range dependencies were not learnable in practice.
 
-**LSTMs and GRUs.** The response was to add **gating** — learned multiplicative gates that control what flows into the state, what gets forgotten, and what gets read out. The long short-term memory (LSTM) and the gated recurrent unit (GRU) are the two designs that worked. They extended the effective horizon by orders of magnitude over vanilla RNNs and were the workhorse of sequence modeling for a long time. But there is still a fundamental compression bottleneck — the state is finite — and beyond a certain horizon, useful information leaks out.
+**LSTMs and GRUs.** The response was to add **gating**, learned multiplicative gates that control what flows into the state, what gets forgotten, and what gets read out. The long short-term memory (LSTM) and the gated recurrent unit (GRU) are the two designs that worked. They extended the effective horizon by orders of magnitude over vanilla RNNs and were the workhorse of sequence modeling for a long time. But there is still a fundamental compression bottleneck, the state is finite, and beyond a certain horizon, useful information leaks out.
 
 We are not going to derive the gating equations here. They are pre-attention archaeology. The intuition you should take away is: people spent a lot of effort engineering recurrence to behave better, and it helped, and it was still not enough.
 
 ## The state-space resurgence
 
-What is surprising is that SSMs came back. The modern revival — Mamba, S4, and their relatives — takes the recurrent-state idea seriously and rebuilds it with linear-state-space-model ideas borrowed from control theory and dynamical systems. The state update is engineered to be expressive but efficient. Some variants have a "**selective**" mechanism that lets the model decide what to remember based on the input itself, recovering one of the things attention gives you for free.
+What is surprising is that SSMs came back. The modern revival, Mamba, S4, and their relatives, takes the recurrent-state idea seriously and rebuilds it with linear-state-space-model ideas borrowed from control theory and dynamical systems. The state update is engineered to be expressive but efficient. Some variants have a "**selective**" mechanism that lets the model decide what to remember based on the input itself, recovering one of the things attention gives you for free.
 
 The reason SSMs came back is not theoretical purity. It is **long-context efficiency**. Attention is expensive at long context lengths, and the bottleneck is becoming the limit on what frontier models can do. SSMs offer linear-time alternatives that may or may not catch up at scale. As of the time of writing, hybrid architectures that combine SSM-style blocks with sparse attention are an active research direction.
 
@@ -53,11 +53,11 @@ For a physicist, the state-space framing is also conceptually friendly: $h_t$ is
 
 ## Attention as the move that unlocked it
 
-Attention solved the memory problem by *refusing to solve it*. Instead of compressing the past into a fixed state, attention keeps the whole past around and computes a learned weighted average of it at each step — where the weights are decided by content, not position. We will work through the actual mechanics in [Chapter 4](04_transformers.qmd). The point worth making here is just that the *philosophy* of attention is the no-compression extreme.
+Attention solved the memory problem by *refusing to solve it*. Instead of compressing the past into a fixed state, attention keeps the whole past around and computes a learned weighted average of it at each step, where the weights are decided by content, not position. We will work through the actual mechanics in [Chapter 4](04_transformers.qmd). The point worth making here is just that the *philosophy* of attention is the no-compression extreme.
 
-The reason this philosophy paid off so dramatically is downstream of two facts. First, content-based routing is a *much* more useful inductive bias than recurrence for the kinds of structured patterns that show up in language and code — a query at position $t$ can find exactly the relevant past token instead of having to dig it out of a compressed state. Second, attention parallelizes across the sequence dimension at training time, which means GPUs can chew through it efficiently. Both facts are needed: the inductive bias matters, and so does the hardware match.
+The reason this philosophy paid off so dramatically is downstream of two facts. First, content-based routing is a *much* more useful inductive bias than recurrence for the kinds of structured patterns that show up in language and code, a query at position $t$ can find exactly the relevant past token instead of having to dig it out of a compressed state. Second, attention parallelizes across the sequence dimension at training time, which means GPUs can chew through it efficiently. Both facts are needed: the inductive bias matters, and so does the hardware match.
 
-So the question that opens [Chapter 4](04_transformers.qmd) is: *if attention solves the memory problem by not compressing, what does the next chapter — the deep dive on transformers — actually look like in detail?* The answer is most of modern AI.
+So the question that opens [Chapter 4](04_transformers.qmd) is: *if attention solves the memory problem by not compressing, what does the next chapter, the deep dive on transformers, actually look like in detail?* The answer is most of modern AI.
 
 ## Next-token prediction
 
@@ -69,7 +69,7 @@ Given a sequence, predict the next element. The model is scored on how high a pr
 
 There are two things worth saying about this objective.
 
-The first is that it provides an enormous training signal density. Every token in your dataset is a labeled example: the input is the history before it, the label is the token itself. A single sequence of length $T$ provides $T$ gradient signals. This is one reason next-token prediction scales so well — there is a *lot* of supervision for free, with no human labels needed.
+The first is that it provides an enormous training signal density. Every token in your dataset is a labeled example: the input is the history before it, the label is the token itself. A single sequence of length $T$ provides $T$ gradient signals. This is one reason next-token prediction scales so well, there is a *lot* of supervision for free, with no human labels needed.
 
 The second is that it is mysterious how much you can squeeze out of this objective. You are not telling the model anything about grammar, semantics, world knowledge, or reasoning. You are telling it to fill in the blank. And yet, at sufficient scale, the model develops syntax, semantics, world knowledge, and reasoning-like behaviors anyway. This is the phenomenon that opens up [Chapter 5](05_llm_pretraining.qmd): why does this almost-stupidly-simple objective produce so much capability, and what does that tell us about the structure of language and of cognition?
 
@@ -81,4 +81,4 @@ The argument of this chapter has been: sequence modeling is fundamentally about 
 
 We have not yet looked at how the transformer actually works under the hood. That is [Chapter 4](04_transformers.qmd). We have also not looked at what happens when you scale next-token prediction to hundreds of billions of parameters and the entire internet. That is [Chapter 5](05_llm_pretraining.qmd). Both are downstream of the simple choice this chapter laid out.
 
-Memory will keep returning as a theme. When we get to world models in [Chapter 10](10_world_models.qmd), we will revisit memory architectures with higher stakes — updatable world models, hard continual learning — and the SSM-vs-transformer distinction will look different from how it looks here.
+Memory will keep returning as a theme. When we get to world models in [Chapter 10](10_world_models.qmd), we will revisit memory architectures with higher stakes, updatable world models, hard continual learning, and the SSM-vs-transformer distinction will look different from how it looks here.

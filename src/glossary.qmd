@@ -5,7 +5,7 @@ number-sections: false
 
 A seed glossary of terms used in the book. Definitions are being filled in as the chapters mature; this page is currently closer to an index of the vocabulary you should be able to use comfortably by the end of the book than a finished reference.
 
-If a term you saw in the text is missing here, that's a bug — please file an issue.
+If a term you saw in the text is missing here, that's a bug, please file an issue.
 
 ## Architectures and building blocks
 

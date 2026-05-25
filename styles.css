@@ -18,3 +18,9 @@ main {
   font-size: 0.78em;
   opacity: 0.7;
 }
+
+/* Visual gap before the first Deep Dive entry in the sidebar */
+.sidebar nav li.sidebar-item:has(> div > a[href*="deep_dives/systems"]),
+.sidebar nav li.sidebar-item:has(> a[href*="deep_dives/systems"]) {
+  margin-top: 1.5rem;
+}

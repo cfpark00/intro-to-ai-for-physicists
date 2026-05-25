@@ -33,3 +33,77 @@ li.sidebar-item:has(> div > a[href$="references.html"]) {
   margin-top: 1rem !important;
   padding-top: 1rem !important;
 }
+
+/* ---------- Preface visual TOC: grid of square tiles ---------- */
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.7rem;
+  margin: 1rem 0 1.75rem 0;
+}
+@media (max-width: 720px) {
+  .toc-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 460px) {
+  .toc-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+a.toc-tile {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0.7rem 0.55rem;
+  border: 1px solid rgba(128, 128, 128, 0.28);
+  border-radius: 12px;
+  background: rgba(128, 128, 128, 0.045);
+  color: inherit !important;
+  text-decoration: none !important;
+  transition: transform 0.14s ease, border-color 0.14s ease,
+              background 0.14s ease, box-shadow 0.14s ease;
+}
+a.toc-tile:hover {
+  transform: translateY(-2px);
+  border-color: rgba(13, 110, 253, 0.55);
+  background: rgba(13, 110, 253, 0.07);
+  box-shadow: 0 4px 14px rgba(13, 110, 253, 0.10);
+}
+.quarto-dark a.toc-tile {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.13);
+}
+.quarto-dark a.toc-tile:hover {
+  border-color: rgba(120, 170, 255, 0.55);
+  background: rgba(120, 170, 255, 0.08);
+  box-shadow: 0 4px 14px rgba(120, 170, 255, 0.12);
+}
+
+.toc-tile .toc-num {
+  position: absolute;
+  top: 8px;
+  left: 11px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  opacity: 0.5;
+  font-variant-numeric: tabular-nums;
+}
+.toc-tile .toc-icon {
+  font-size: 1.85rem;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  opacity: 0.88;
+}
+.toc-tile:hover .toc-icon { opacity: 1; }
+.toc-tile .toc-title {
+  font-size: 0.83rem;
+  line-height: 1.2;
+  font-weight: 500;
+  display: block;
+}
+
+/* Deep-dive tiles: slightly smaller icon, same footprint, no number */
+.toc-grid-dd .toc-tile .toc-icon { font-size: 1.6rem; }

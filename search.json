@@ -4,7 +4,17 @@
     "href": "index.html",
     "title": "Intro to AI for Physicists",
     "section": "",
-    "text": "What this book is\nThis book has two aims.\nThe first is to bring a quantitatively literate reader up to date on where AI is in 2026, to cover the unknown unknowns rather than the textbook basics, and to leave the reader able to grasp the main concepts of modern deep learning and follow the conversation at the research frontier.\nThe second is to introduce the experimental physicist’s approach to understanding neural networks, neural networks treated as a scientific object, studied via controlled synthetic experiments, mechanistic probing, and phenomenology. The methodology borrows heavily from the practice of neuroethology: the study of natural behavior in its ecological context, transposed to networks-in-their-natural-habitat. Neural networks as model organisms.\nThe guiding methodology, taught in Chapter 1 and revisited in the two “Science of DL” chapters (Chapter 7 and Chapter 11), is five steps:\nThe chapters move through the dominant model classes (image classifiers, sequence models, the transformer, large language models pre- and post-training, diffusion, reinforcement learning, world models) and through two pillar chapters on the phenomenology of training dynamics and concept acquisition. The final chapter widens the frame to intelligence beyond task-learning: multi-agent dynamics, evolution, open-endedness.\nAfter the main twelve chapters comes a section of Deep Dives. Each Deep Dive is a full chapter on a single topic that did not fit the main flow but stands on its own. If you want to go deeper on theoretical foundations, LLM systems engineering, interpretability, neuroscience, cognitive science, or any of the other adjacent fields, that is where to look. Treat them as optional but first-class material, not as appendices.",
+    "text": "Contents",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>0  Preface</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#contents",
+    "href": "index.html#contents",
+    "title": "Intro to AI for Physicists",
+    "section": "",
+    "text": "1Introduction\n  2Image classification\n  3Sequence modeling\n  4Transformers\n  5LLM pretraining\n  6LLM post-training\n  7Training dynamics\n  8Diffusion\n  9Reinforcement learning\n  10World models\n  11Concept learning\n  12Intelligence\n\n\nDeep Dives\n\n  Systems & infra\n  LLM architectures\n  Data-centric ML\n  Multimodal\n  Interpretability\n  Theory\n  Bayesian & MCMC\n  Classical ML\n  Neuroethology\n  Neuroscience\n  Cognitive science\n  Open-endedness\n  AI for science\n  AI agents\n  Mechanism design",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>0  Preface</span>"
     ]
@@ -13,8 +23,8 @@
     "objectID": "index.html#what-this-book-is",
     "href": "index.html#what-this-book-is",
     "title": "Intro to AI for Physicists",
-    "section": "",
-    "text": "Notice a phenomenon in a real network.\nExplore broadly to sharpen the question.\nBuild a synthetic model system you can fully instrument.\nRun experiments the original network does not allow.\nBring the findings back to the original system.",
+    "section": "What this book is",
+    "text": "What this book is\nThis book has two aims.\nThe first is to bring a quantitatively literate reader up to date on where AI is in 2026, to cover the unknown unknowns rather than the textbook basics, and to leave the reader able to grasp the main concepts of modern deep learning and follow the conversation at the research frontier.\nThe second is to introduce the experimental physicist’s approach to understanding neural networks, neural networks treated as a scientific object, studied via controlled synthetic experiments, mechanistic probing, and phenomenology. The methodology borrows heavily from the practice of neuroethology: the study of natural behavior in its ecological context, transposed to networks-in-their-natural-habitat. Neural networks as model organisms.\nThe guiding methodology, taught in Chapter 1 and revisited in the two “Science of DL” chapters (Chapter 7 and Chapter 11), is five steps:\n\nNotice a phenomenon in a real network.\nExplore broadly to sharpen the question.\nBuild a synthetic model system you can fully instrument.\nRun experiments the original network does not allow.\nBring the findings back to the original system.\n\nThe chapters move through the dominant model classes (image classifiers, sequence models, the transformer, large language models pre- and post-training, diffusion, reinforcement learning, world models) and through two pillar chapters on the phenomenology of training dynamics and concept acquisition. The final chapter widens the frame to intelligence beyond task-learning: multi-agent dynamics, evolution, open-endedness.\nAfter the main twelve chapters comes a section of Deep Dives. Each Deep Dive is a full chapter on a single topic that did not fit the main flow but stands on its own. If you want to go deeper on theoretical foundations, LLM systems engineering, interpretability, neuroscience, cognitive science, or any of the other adjacent fields, that is where to look. Treat them as optional but first-class material, not as appendices.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>0  Preface</span>"
     ]

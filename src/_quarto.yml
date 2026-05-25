@@ -35,8 +35,6 @@ book:
     - chapters/10_world_models.qmd
     - chapters/11_scidl_concepts.qmd
     - chapters/12_intelligence.qmd
-    - references.qmd
-    - glossary.qmd
     - part: "Deep Dives"
       chapters:
         - deep_dives/systems.qmd
@@ -54,6 +52,8 @@ book:
         - deep_dives/ai_for_science.qmd
         - deep_dives/ai_agents.qmd
         - deep_dives/mechanism_design.qmd
+    - references.qmd
+    - glossary.qmd
 
 bibliography: references.bib
 

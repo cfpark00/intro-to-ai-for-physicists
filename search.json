@@ -1052,831 +1052,914 @@
   {
     "objectID": "deep_dives/systems.html",
     "href": "deep_dives/systems.html",
-    "title": "Deep Dive: Systems and infrastructure for deep learning",
+    "title": "Systems and infrastructure for deep learning",
     "section": "",
     "text": "Hardware\nThe main spine of this book treats training compute, model size, and serving as parameters. In practice, making compute actually run — efficiently, reliably, at scale — is a deep engineering field with its own research culture, its own conferences, and its own set of unsolved problems. Frontier models do not exist without it.\nThis chapter is a pointer into that field. It is deliberately separate from the science of deep learning because it is a different kind of work: systems engineering with ML-shaped problems, rather than science of the trained network. It is also the place where a serious fraction of recent capability gains actually came from.\nGPUs, TPUs, and increasingly diverse accelerators. The memory hierarchy (HBM, on-chip SRAM, register files) and what it costs to move tensors across it. The arithmetic intensity of attention, of MLP blocks, of convolutions. Why FlashAttention is a hardware-aware algorithm and not just a clever software optimization. The economics of frontier compute and how they constrain what experiments are possible.\nThe honest observation about hardware in 2026: the design space is still moving. Decisions that were defaults two years ago — about precision (FP16 vs. BF16 vs. FP8), about kernel implementations, about which accelerator vendor was the safe choice — have all shifted. The intellectual heritage is closer to high-performance computing and operating systems than to learning theory.",
     "crumbs": [
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Deep Dive: Systems and infrastructure for deep learning</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Systems and infrastructure for deep learning</span>"
     ]
   },
   {
     "objectID": "deep_dives/systems.html#parallelism-and-distributed-training",
     "href": "deep_dives/systems.html#parallelism-and-distributed-training",
-    "title": "Deep Dive: Systems and infrastructure for deep learning",
+    "title": "Systems and infrastructure for deep learning",
     "section": "Parallelism and distributed training",
     "text": "Parallelism and distributed training\nData parallelism, tensor parallelism, pipeline parallelism, expert parallelism, fully-sharded data parallelism (FSDP). How communication primitives — all-reduce, all-gather, ring topologies — shape the design of large training runs. How parallelism strategies compose, and where they break down.\nA frontier-scale training run is, in practice, a parallelism choice. The same model can be trained with very different aggregate compute budgets and wall-clock times depending on how parallelism is configured, how communication overlaps with computation, and how robust the system is to inevitable node failures over a multi-week run.",
     "crumbs": [
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Deep Dive: Systems and infrastructure for deep learning</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Systems and infrastructure for deep learning</span>"
     ]
   },
   {
     "objectID": "deep_dives/systems.html#scaling-laws-in-practice",
     "href": "deep_dives/systems.html#scaling-laws-in-practice",
-    "title": "Deep Dive: Systems and infrastructure for deep learning",
+    "title": "Systems and infrastructure for deep learning",
     "section": "Scaling laws, in practice",
     "text": "Scaling laws, in practice\nThe textbook scaling-law story from Chapter 5 is the Kaplan vs. Chinchilla arc. Kaplan et al. (2020) (Kaplan et al. 2020) argued for a particular allocation of compute between model size and training tokens. Hoffmann et al. (2022) (Hoffmann et al. 2022) — the Chinchilla paper — revised it: for a fixed compute budget, the optimal model is smaller and trained on more tokens than Kaplan suggested.\nWhat the textbook story understates is what has happened in practice since. Frontier production has moved beyond Chinchilla-optimal in a specific, deliberate direction: modern frontier models are often over-trained relative to the Chinchilla optimum — trained on far more tokens per parameter than the training-compute-optimal recipe would suggest. The reason is honest: training is a one-time cost, inference is amortized over millions of deployed conversations, and a smaller-but-more-trained model is cheaper to serve at comparable quality. The compute-optimal point for the training run is not the same as the cost-optimal point for the deployed system.\nTwo important caveats:\n\nOvertraining is conditional on the data distribution. Train more tokens on a fixed corpus and you start hitting repetition; the value of each marginal token drops. The “right” amount of overtraining depends on how much high-quality data you have, not just how many tokens. (See the data-centric ML deep dive for more.)\nPost-trainability is another axis. A heavily over-trained model can be more “rigid” in some senses — harder to nudge with subsequent SFT and RLHF, more committed to its pretraining distribution. There is a real tradeoff between pretraining capability and post-training malleability that is only partially understood.\n\nThis is not a settled topic. The exact exponents and trade frontiers depend on the data mixture, the architecture details, and the post-training pipeline.",
     "crumbs": [
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Deep Dive: Systems and infrastructure for deep learning</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Systems and infrastructure for deep learning</span>"
     ]
   },
   {
     "objectID": "deep_dives/systems.html#inference-and-serving",
     "href": "deep_dives/systems.html#inference-and-serving",
-    "title": "Deep Dive: Systems and infrastructure for deep learning",
+    "title": "Systems and infrastructure for deep learning",
     "section": "Inference and serving",
     "text": "Inference and serving\nA trained model still has to be served — to handle requests, generate tokens, share compute across concurrent users. The serving stack is its own engineering discipline:\n\nKV cache (covered briefly in Chapter 4) is the central data structure. Managing it efficiently — paged allocation, prefix sharing, eviction strategies — is most of what high-performance LLM serving is about.\nContinuous batching lets you mix in-flight requests at different stages of generation in the same batch, which is the difference between idle accelerators and saturated accelerators.\nSpeculative decoding uses a small draft model to propose multiple tokens that the large model verifies in parallel, gaining a multiplier on throughput when the draft is good.\nQuantization (INT8, INT4, FP8 and friends) compresses weights and activations enough that bigger models fit on smaller hardware, at the cost of some quality.\nRequest scheduling and prefill/decode separation — managing the very different characteristics of the prefill phase (compute-bound, parallelizable) vs. the decode phase (memory-bound, sequential).\n\nOpen-source serving systems like vLLM and SGLang have become standard practitioner reference points; the frontier-lab equivalents are proprietary but follow the same algorithmic ideas. The intellectual core of the field is in papers, the working knowledge is in the code.",
     "crumbs": [
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Deep Dive: Systems and infrastructure for deep learning</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Systems and infrastructure for deep learning</span>"
     ]
   },
   {
     "objectID": "deep_dives/systems.html#data-and-training-pipelines",
     "href": "deep_dives/systems.html#data-and-training-pipelines",
-    "title": "Deep Dive: Systems and infrastructure for deep learning",
+    "title": "Systems and infrastructure for deep learning",
     "section": "Data and training pipelines",
     "text": "Data and training pipelines\nPetabyte-scale data ingestion, deduplication, quality filtering, mixture sampling. Checkpoint management. Failure recovery in multi-week, thousand-GPU runs. Observability for training (when has the loss diverged? when has a node failed silently? when has the data loader stalled and nobody noticed?).\nThe data-pipeline side is where engineering meets the data-centric story directly (see Data-centric ML for the science). The decisions made in the data pipeline are some of the most consequential ones a frontier training run makes — often more consequential than architectural choices.",
     "crumbs": [
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Deep Dive: Systems and infrastructure for deep learning</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Systems and infrastructure for deep learning</span>"
     ]
   },
   {
     "objectID": "deep_dives/systems.html#why-this-is-its-own-field",
     "href": "deep_dives/systems.html#why-this-is-its-own-field",
-    "title": "Deep Dive: Systems and infrastructure for deep learning",
+    "title": "Systems and infrastructure for deep learning",
     "section": "Why this is its own field",
     "text": "Why this is its own field\nThe skills required overlap with, but do not reduce to, ML skills. A strong ML systems engineer thinks in terms of memory bandwidth, network topology, kernel-launch overhead, and numerical-stability tradeoffs in low-precision arithmetic. The work is also where a lot of frontier capability actually comes from. The reason a previously-untrainable model size becomes trainable is rarely a new architectural idea — it is usually a parallelism strategy, a kernel rewrite, a precision change, or an infrastructure tool that made the previously-impossible run.\nThis is not the same field as the science of deep learning. The science asks what trained networks do; the engineering asks how to make them exist at all. Both are necessary.",
     "crumbs": [
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Deep Dive: Systems and infrastructure for deep learning</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Systems and infrastructure for deep learning</span>"
     ]
   },
   {
     "objectID": "deep_dives/systems.html#what-this-chapter-does-not-do",
     "href": "deep_dives/systems.html#what-this-chapter-does-not-do",
-    "title": "Deep Dive: Systems and infrastructure for deep learning",
+    "title": "Systems and infrastructure for deep learning",
     "section": "What this chapter does not do",
     "text": "What this chapter does not do\nIt is not a recipe book. We do not show you how to set up a distributed training run, configure DeepSpeed or Megatron-LM, deploy a vLLM server, or pick the right number of pipeline stages for your model. Those are tutorial concerns and they age fast — the tools change every six months.",
     "crumbs": [
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Deep Dive: Systems and infrastructure for deep learning</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Systems and infrastructure for deep learning</span>"
     ]
   },
   {
     "objectID": "deep_dives/systems.html#where-to-go-next",
     "href": "deep_dives/systems.html#where-to-go-next",
-    "title": "Deep Dive: Systems and infrastructure for deep learning",
+    "title": "Systems and infrastructure for deep learning",
     "section": "Where to go next",
     "text": "Where to go next\n\nThe MLSys conference proceedings.\nThe high-performance-computing and operating-systems literature, applied with ML in mind.\nFrontier-lab engineering blogs and technical reports (they are deeply technical, often more so than papers).\nOpen-source frameworks (PyTorch internals, JAX internals, Triton, CUDA programming) — these are themselves a curriculum.\n\nIf the main spine convinced you the interesting questions in deep learning are scientific, this chapter is a reminder that the load-bearing questions in frontier deep learning are equally engineering. Both views are correct, and both are necessary.\n\n\n\n\nHoffmann, Jordan, Sebastian Borgeaud, Arthur Mensch, et al. 2022. “Training Compute-Optimal Large Language Models.” arXiv Preprint arXiv:2203.15556.\n\n\nKaplan, Jared, Sam McCandlish, Tom Henighan, et al. 2020. “Scaling Laws for Neural Language Models.” arXiv Preprint arXiv:2001.08361.",
     "crumbs": [
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Deep Dive: Systems and infrastructure for deep learning</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Systems and infrastructure for deep learning</span>"
     ]
   },
   {
     "objectID": "deep_dives/llm_architectures.html",
     "href": "deep_dives/llm_architectures.html",
-    "title": "Deep Dive: Advanced LLM architectures",
+    "title": "Advanced LLM architectures",
     "section": "",
     "text": "The KV cache, revisited\nChapter 4 covered the transformer at the level of “what it is and why it works.” That is enough to follow the rest of the main spine, but it is not the whole architectural picture. There is a substantial second-pass set of ideas — variants, refinements, and outright departures — that frontier practice has accumulated over the years since the original transformer paper (Vaswani et al. 2017). This chapter is a launching point into that territory.\nThe KV cache was introduced in Chapter 4 as an inference optimization. It is also a design constraint that shapes architecture choices at the frontier. Cache memory grows linearly with sequence length and proportionally with model width, and at long context it can dominate the per-request memory budget more than the model weights themselves do. A surprising amount of recent architectural work — grouped-query attention (GQA), multi-query attention (MQA), various sliding-window or sparse attention schemes — is best understood as trying to reduce KV cache footprint without sacrificing capability.\nThis is one of those cases where serving constraints (the LLM engineering deep dive) reach back upstream and shape what counts as a “good” architecture.",
     "crumbs": [
-      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Deep Dive: Advanced LLM architectures</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Advanced LLM architectures</span>"
     ]
   },
   {
     "objectID": "deep_dives/llm_architectures.html#linear-attention-and-the-sub-quadratic-alternatives",
     "href": "deep_dives/llm_architectures.html#linear-attention-and-the-sub-quadratic-alternatives",
-    "title": "Deep Dive: Advanced LLM architectures",
+    "title": "Advanced LLM architectures",
     "section": "Linear attention and the sub-quadratic alternatives",
     "text": "Linear attention and the sub-quadratic alternatives\nThe vanilla attention operator is O(N^2) in sequence length, which is the bottleneck that drives so much architectural experimentation. Linear attention is the family of approximations that try to compute attention in O(N) time, typically by reformulating the softmax-of-dot-products into something kernel-shaped that admits an associative restructure of the computation. Variants in this family include feature-map-based linear attentions, kernelized softmax approximations, and various hardware-conscious approximations.\nLinear attention has a long history of almost working at scale. Each generation matches the quality of vanilla attention on some benchmarks while underperforming on others, and the gap is often associated with the kinds of long-range exact-recall tasks where the softmax’s sharpness matters. The state-space hybrids — discussed in Chapter 3 — are partially a response to this: combine state-space-like linear-time blocks with selective attention layers to get the benefits of both.",
     "crumbs": [
-      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Deep Dive: Advanced LLM architectures</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Advanced LLM architectures</span>"
     ]
   },
   {
     "objectID": "deep_dives/llm_architectures.html#mixture-of-experts",
     "href": "deep_dives/llm_architectures.html#mixture-of-experts",
-    "title": "Deep Dive: Advanced LLM architectures",
+    "title": "Advanced LLM architectures",
     "section": "Mixture of experts",
     "text": "Mixture of experts\nMoE was introduced in Chapter 4 at the level of “what it is.” The architectural design space is richer than that section suggested. Key axes:\n\nRouting strategy — top-k routing, hash-based routing, learned routers, or a mix. Different choices have different load-balancing properties and different training dynamics.\nExpert granularity — coarse experts (each is a full MLP block) vs. fine experts (each is a fraction of the MLP, and many experts activate per token). Recent work has moved toward finer granularity.\nShared experts — a small number of always-on experts that all tokens go through, in addition to the sparsely-activated ones. This stabilizes training and gives the model a “shared substrate.”\nAuxiliary losses — load-balancing losses, router z-losses, and so on, that keep the routing from collapsing onto a few favored experts.\n\nMoE is one of the architectural moves that has scaled best in the post-Chinchilla era — it offers a way to keep growing parameter count without paying for it on every token. Most frontier proprietary models are MoE under the hood.",
     "crumbs": [
-      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Deep Dive: Advanced LLM architectures</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Advanced LLM architectures</span>"
     ]
   },
   {
     "objectID": "deep_dives/llm_architectures.html#positional-encoding-in-depth",
     "href": "deep_dives/llm_architectures.html#positional-encoding-in-depth",
-    "title": "Deep Dive: Advanced LLM architectures",
+    "title": "Advanced LLM architectures",
     "section": "Positional encoding, in depth",
     "text": "Positional encoding, in depth\nThe positional-encoding story in Chapter 4 was a single paragraph. It deserves more.\nThe choice of positional encoding does much more than tell the model what order tokens are in. It also controls how well the model extrapolates to sequences longer than it was trained on, what the effective attention pattern looks like at long distances, and how the model interpolates between tokens it has and tokens it has not seen at training time.\nThe main schools:\n\nSinusoidal — fixed sinusoidal functions of position added to embeddings. Parameter-free, somewhat extrapolatable. The original transformer’s choice.\nLearned absolute — a learned vector per position. Simple, does not extrapolate beyond training-time lengths.\nRelative position biases — biases on the attention logits that depend on the offset between positions. Friendly to extrapolation.\nRotary (RoPE) — apply position-dependent rotations to query and key vectors so that the resulting attention depends only on relative offset. The current frontier default.\nALiBi (attention with linear biases) — a linear decay in attention as positions get further apart, with no learned parameters for position at all. Sometimes wins on length-extrapolation tasks.\n\nBeyond the standard schools, recent work has explored interpolation/extrapolation tricks (position interpolation, NTK-aware scaling of RoPE frequencies, YaRN-style schemes) that let pretrained models work at sequence lengths well beyond what they saw during training. The space of options is still moving.",
     "crumbs": [
-      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Deep Dive: Advanced LLM architectures</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Advanced LLM architectures</span>"
     ]
   },
   {
     "objectID": "deep_dives/llm_architectures.html#what-this-chapter-is-gesturing-at",
     "href": "deep_dives/llm_architectures.html#what-this-chapter-is-gesturing-at",
-    "title": "Deep Dive: Advanced LLM architectures",
+    "title": "Advanced LLM architectures",
     "section": "What this chapter is gesturing at",
     "text": "What this chapter is gesturing at\nThe transformer is not a single architecture — it is an architectural design space. Every choice (attention variant, normalization placement, positional encoding, expert structure, head configuration) is a design decision, and the frontier is the moving target of which set of decisions performs best at current scale.",
     "crumbs": [
-      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Deep Dive: Advanced LLM architectures</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Advanced LLM architectures</span>"
     ]
   },
   {
     "objectID": "deep_dives/llm_architectures.html#where-to-go-next",
     "href": "deep_dives/llm_architectures.html#where-to-go-next",
-    "title": "Deep Dive: Advanced LLM architectures",
+    "title": "Advanced LLM architectures",
     "section": "Where to go next",
     "text": "Where to go next\nThe relevant literature lives mostly in arXiv preprints and conference papers; textbooks are months behind. Useful entry points:\n\nRecent survey papers on attention variants and MoE.\nFrontier-lab technical reports (their architecture sections are usually the most precise public statements).\nMechanistic-interpretability work — much of it now reveals architectural choices in terms of what they let the model represent.\n\nIf you finished Chapter 4 wanting more, this chapter is a sketch of where the real depth lives.\n\n\n\n\nVaswani, Ashish, Noam Shazeer, Niki Parmar, et al. 2017. “Attention Is All You Need.” Advances in Neural Information Processing Systems 30.",
     "crumbs": [
-      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Deep Dive: Advanced LLM architectures</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Advanced LLM architectures</span>"
     ]
   },
   {
     "objectID": "deep_dives/data_centric.html",
     "href": "deep_dives/data_centric.html",
-    "title": "Deep Dive: Data-centric ML",
+    "title": "Data-centric ML",
     "section": "",
     "text": "Why “data-centric” is a real reframing\nA claim that is mostly true and not stated loudly enough in the main spine: most of the recent capability gains in deep learning are gains in the data, not gains in the architecture or the optimizer. Transformers from 2017 are still mostly transformers in 2026, with refinements but not revolutions. What changed underneath the field’s leaderboard was the data — its quantity, its quality, its curation, its mixture, and the cleverness with which models were trained on synthetic and human-augmented variants of it.\nThis chapter is a launching point for the field that takes data as the primary object of study.\nThe shorthand: in classical ML research, you fix the dataset and vary the model. In data-centric ML, you fix the model architecture and vary the data — exploring how mixture composition, curation, deduplication, ordering, and augmentation change what the model becomes. Once you take this view seriously, a lot of the usual narrative gets revised.\nA few examples of how the data-centric framing reads the recent record:\nThe deeper consequence: scaling laws are all conditional on the data distribution. Kaplan and Chinchilla scaling (Kaplan et al. 2020; Hoffmann et al. 2022) derive an empirical relationship between compute, parameters, and loss — for a given data distribution. Change the data and you can shift the curves; the relationship is not a law of nature about networks, it is a law of nature about networks + a specific dataset.",
     "crumbs": [
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Deep Dive: Data-centric ML</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Data-centric ML</span>"
     ]
   },
   {
     "objectID": "deep_dives/data_centric.html#why-data-centric-is-a-real-reframing",
     "href": "deep_dives/data_centric.html#why-data-centric-is-a-real-reframing",
-    "title": "Deep Dive: Data-centric ML",
+    "title": "Data-centric ML",
     "section": "",
     "text": "“Reasoning” capability is reasoning data. The recent boost in chain-of-thought-style reasoning from RL-on-verifiable-rewards is, at the end of the day, training on rollouts of successful reasoning. The model is not learning to reason from first principles; it is being shown a lot of examples of reasoning that worked and absorbing the surface form. (Whether that constitutes “real” reasoning is a different question, and a fair amount of the controversy in the field is downstream of how you answer it. See Chapter 6 on what RL post-training actually teaches.)\nMany strong base models are strong because of their data. Pretraining corpora are not commodities. Two labs with the same architecture and similar compute will produce noticeably different base models because their data pipelines, deduplication strategies, and quality filters were different. The architecture is mostly settled; the data pipeline is the moat.\nSpecialized capabilities track specialized data. As a concrete example: code models — including Claude Code, which you may be using to read this book — are strong at programming tasks largely because their post-training pipeline includes large volumes of high-quality coding demonstrations and feedback from expert engineers. The model is “good at code” because someone curated a lot of good code data and trained on it carefully.",
     "crumbs": [
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Deep Dive: Data-centric ML</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Data-centric ML</span>"
     ]
   },
   {
     "objectID": "deep_dives/data_centric.html#what-the-field-actually-studies",
     "href": "deep_dives/data_centric.html#what-the-field-actually-studies",
-    "title": "Deep Dive: Data-centric ML",
+    "title": "Data-centric ML",
     "section": "What the field actually studies",
     "text": "What the field actually studies\nA short and incomplete map of what people in the data-centric corner of the field work on:\n\nDeduplication and quality filtering. Repetition destabilizes training; low-quality content wastes capacity. Both have become careful disciplines.\nMixture design. How much code, how much math, how much general web text, how much instruction-following data — and how these proportions interact with downstream capability.\nSynthetic data and data augmentation. Using models to generate training data for other models. Closely tied to the model collapse phenomenon from Chapter 8 — the limits and traps are real.\nActive and curriculum data selection. Choosing which examples to train on, in what order. Easy in principle, surprisingly subtle at scale.\nEvaluation of data, not just models. Methods to measure the “value” of a corpus or a data-pipeline change before paying for a full training run.\nProvenance and rights. A field-shaping social/legal layer that gets less discussion in research papers than in courts. Mentioned here for honesty.",
     "crumbs": [
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Deep Dive: Data-centric ML</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Data-centric ML</span>"
     ]
   },
   {
     "objectID": "deep_dives/data_centric.html#where-this-field-is-culturally",
     "href": "deep_dives/data_centric.html#where-this-field-is-culturally",
-    "title": "Deep Dive: Data-centric ML",
+    "title": "Data-centric ML",
     "section": "Where this field is, culturally",
     "text": "Where this field is, culturally\nData-centric ML is the part of the field where the public-academic literature lags the most behind frontier practice. Frontier labs guard their data pipelines as closely as their architectures, and sometimes more closely — for both competitive and legal reasons. The published research is real and growing, but the practice at the frontier is mostly invisible.",
     "crumbs": [
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Deep Dive: Data-centric ML</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Data-centric ML</span>"
     ]
   },
   {
     "objectID": "deep_dives/data_centric.html#where-to-go-next",
     "href": "deep_dives/data_centric.html#where-to-go-next",
-    "title": "Deep Dive: Data-centric ML",
+    "title": "Data-centric ML",
     "section": "Where to go next",
     "text": "Where to go next\nThe legible entry points:\n\nPapers and blog posts on specific data-pipeline interventions (deduplication, quality filtering, mixture design).\nOpen data initiatives (FineWeb, RefinedWeb, the open code corpora) — their documentation is a curriculum on what data work looks like.\nThe model-collapse literature, which is one of the clearest examples of the data-centric mode of thinking.\nFrontier-lab technical reports — their data sections are usually heavily redacted, but the redactions themselves are informative.\n\nIf you finished the main spine with the impression that the scientific question of deep learning is about networks, this chapter is a counterweight: a serious fraction of the scientific question is about the data networks are trained on.\n\n\n\n\nHoffmann, Jordan, Sebastian Borgeaud, Arthur Mensch, et al. 2022. “Training Compute-Optimal Large Language Models.” arXiv Preprint arXiv:2203.15556.\n\n\nKaplan, Jared, Sam McCandlish, Tom Henighan, et al. 2020. “Scaling Laws for Neural Language Models.” arXiv Preprint arXiv:2001.08361.",
     "crumbs": [
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Deep Dive: Data-centric ML</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Data-centric ML</span>"
     ]
   },
   {
     "objectID": "deep_dives/multimodal.html",
     "href": "deep_dives/multimodal.html",
-    "title": "Deep Dive: Multimodal models",
+    "title": "Multimodal models",
     "section": "",
     "text": "VLMs: vision-language models, demystified\nThe main spine of this book is text-centric, mostly because the most legible scientific progress in the post-2020 era has been on language models. The reality of deployed AI in 2026 is much more multimodal: production systems consume images and text together, audio and text together, video, screen captures, and increasingly all of these in real time. This chapter is a launching point into the multimodal frontier.\nThe basic vision-language model architecture is surprisingly simple to state. Take a transformer that you would otherwise use as a pure language model. Then, when a user provides an image, cut the image up into patches, project each patch into the model’s embedding space, and concatenate those patch-embeddings into the token stream, often with a marker token indicating where the image starts and ends. The transformer treats the image patches as just more tokens — its attention machinery can mix between text tokens and image tokens freely.\nThat is essentially the whole architectural trick at the level a textbook reader needs. The detailed design space is rich (which vision encoder to use upstream, whether to share or separate parameters across modalities, how to resample images of arbitrary aspect ratios, how to handle high-resolution images that would produce too many patches), but the conceptual core is “images become tokens.”\nThe reason this works at all is that the transformer’s content-based attention does not really care what the tokens are. A patch embedding and a word embedding are both just vectors. As long as the joint training distribution has enough cross-modal supervision — image captions, visual question answering, OCR pairs, instruction-following with images — the model learns to use the same attention heads to relate text and image content. This is one of the reasons the transformer has held its position as the architectural substrate of frontier models: it generalizes to new modalities by embedding them, not by re-engineering its core.",
     "crumbs": [
-      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Deep Dive: Multimodal models</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Multimodal models</span>"
     ]
   },
   {
     "objectID": "deep_dives/multimodal.html#beyond-images-and-text",
     "href": "deep_dives/multimodal.html#beyond-images-and-text",
-    "title": "Deep Dive: Multimodal models",
+    "title": "Multimodal models",
     "section": "Beyond images and text",
     "text": "Beyond images and text\nThe story gets richer when you move beyond images.\nSpeech models. Audio is a continuous signal, which makes it less natural to tokenize than images. Two main strategies have emerged. One is to learn a discrete audio tokenizer (a vector-quantized model) that turns audio into a sequence of discrete codes the way BPE turns text into tokens, then use a standard autoregressive transformer over those codes. The other is to feed continuous audio features directly into a model with an architecture adapted to handle them. Both approaches have produced strong speech models in different settings.\nReal-time grounded models. Increasingly, frontier multimodal systems are deployed in settings where they must consume streaming multimodal input — audio coming in continuously, video frames arriving at 30 Hz, possibly with the system generating output in real time as well. These systems push hard against the latency-throughput tradeoffs of the underlying serving stack (see the Systems deep dive) and introduce new architectural concerns: how do you do attention over a stream that has no fixed end? How do you generate output incrementally without waiting for the input to finish? Real-time multimodal is one of the most active engineering frontiers in 2026.\nVideo and embodied models. Video adds a temporal dimension on top of the image structure. Models that consume video at scale typically use spatiotemporal patching (patches over both space and time) and various compressions that throw away redundant temporal information. The frontier here is moving fast and the architectural choices are not yet settled.\nOmni-models. Models that consume and produce any modality — text, image, audio, video — via a unified token space. The architectural commitment is the same as VLMs: project everything into the embedding space and let the transformer treat it all as tokens. The training-distribution challenges (where do you get billions of aligned multimodal examples?) and the evaluation challenges (how do you measure quality across all combinations of input and output modalities?) are non-trivial.",
     "crumbs": [
-      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Deep Dive: Multimodal models</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Multimodal models</span>"
     ]
   },
   {
     "objectID": "deep_dives/multimodal.html#what-this-chapter-does-not-claim",
     "href": "deep_dives/multimodal.html#what-this-chapter-does-not-claim",
-    "title": "Deep Dive: Multimodal models",
+    "title": "Multimodal models",
     "section": "What this chapter does not claim",
     "text": "What this chapter does not claim\nSome honest caveats:\n\n“Multimodal capability” varies enormously by task. A frontier VLM may be excellent at image captioning and bad at fine-grained spatial reasoning. The benchmarks do not capture this asymmetry well.\nThe most ambitious claims about multimodal models — that they have a unified world representation across modalities, that they reason about physical scenes, that their language outputs are grounded in their visual inputs — are partially true under specific conditions and partially overclaimed.\nThe science of multimodal models, in the sense the main spine cares about, is much less developed than the science of text-only LLMs. The phenomena are less well characterized, the model-organism studies less mature.",
     "crumbs": [
-      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Deep Dive: Multimodal models</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Multimodal models</span>"
     ]
   },
   {
     "objectID": "deep_dives/multimodal.html#where-this-fits-in-the-broader-picture",
     "href": "deep_dives/multimodal.html#where-this-fits-in-the-broader-picture",
-    "title": "Deep Dive: Multimodal models",
+    "title": "Multimodal models",
     "section": "Where this fits in the broader picture",
     "text": "Where this fits in the broader picture\nMultimodal models connect back to several other deep dives. Data-centric ML is load-bearing — multimodal training data is harder to collect and clean than pure text, and the quality of the data shapes the result. Interpretability in multimodal models is a research frontier, with new questions about how visual and linguistic concepts are jointly represented. The Vision-Language Models Inherit Human Color Perception result (Park et al., ICLR 2026 workshop), referenced in Chapter 11, is one example of the kind of phenomenology multimodal models invite.",
     "crumbs": [
-      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Deep Dive: Multimodal models</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Multimodal models</span>"
     ]
   },
   {
     "objectID": "deep_dives/multimodal.html#where-to-go-next",
     "href": "deep_dives/multimodal.html#where-to-go-next",
-    "title": "Deep Dive: Multimodal models",
+    "title": "Multimodal models",
     "section": "Where to go next",
     "text": "Where to go next\n\nRecent VLM papers and technical reports (frontier-lab system cards are useful).\nSpeech-model technical reports.\nThe growing literature on streaming and real-time multimodal systems.\nAudio-model open-source releases (their architecture docs are reading-list-worthy).\n\nIf the main book convinced you the science of deep learning is about language models, this chapter is the reminder that “language models” is too narrow a frame for where the frontier already is.",
     "crumbs": [
-      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Deep Dive: Multimodal models</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Multimodal models</span>"
     ]
   },
   {
     "objectID": "deep_dives/interpretability.html",
     "href": "deep_dives/interpretability.html",
-    "title": "Deep Dive: Interpretability",
+    "title": "Interpretability",
     "section": "",
     "text": "Early history (and dead salmons)\nInterpretability — the field that asks “what is the trained network actually doing, mechanistically?” — has its own toolkit, its own conferences, and its own ongoing methodological reckoning. It is also one of the closest neighbors of the science of deep learning, since the model-organism methodology in Chapter 7 leans heavily on interpretability tools. This chapter is the more careful map of the field.\nInterpretability is older than deep learning, and it inherits both methodological assets and methodological warnings from the older neuroscience literature on probing biological brains. The most famous warning is the dead salmon experiment: Craig Bennett and colleagues (2009, IgNobel-winning) ran an fMRI scan on a dead Atlantic salmon shown emotional images, and — without multiple-comparisons correction — found apparent “activity” in its brain. The result is funny on the surface and deadly serious underneath: if you probe enough channels of high-dimensional data, you will find spurious patterns that survive uncorrected significance tests. This is a real and recurring failure mode in interpretability work on neural networks. Probing-based claims need their statistical guardrails.\nThe early DL-interpretability literature was visual: saliency maps, occlusion sensitivity, deconvolutions. These methods are still in use; many of them have known reproducibility and reliability issues, and the field has gotten more careful about them over time.",
     "crumbs": [
-      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Deep Dive: Interpretability</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Interpretability</span>"
     ]
   },
   {
     "objectID": "deep_dives/interpretability.html#the-linear-representation-hypothesis",
     "href": "deep_dives/interpretability.html#the-linear-representation-hypothesis",
-    "title": "Deep Dive: Interpretability",
+    "title": "Interpretability",
     "section": "The linear representation hypothesis",
     "text": "The linear representation hypothesis\nA useful working assumption in much modern interpretability work: features of interest are encoded as linear directions in the model’s representation space. “Sentiment,” “topic,” “the location of a chess piece on a board” — to the extent these are represented in the network at all, they live as approximately-linear subspaces of some intermediate activation. The hypothesis is not theoretically derived; it is an empirical regularity that has held up in many settings, and the field has built tooling around it.\nThe linear-representation hypothesis is not universally true. There are documented cases of features encoded in genuinely nonlinear ways (cyclic features, polysemantic neurons that encode multiple features in superposition, hierarchical features that require multiple layers of decoding). The field’s working stance is roughly: linear-by-default, nonlinear-when-necessary, and stay alert to the difference.",
     "crumbs": [
-      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Deep Dive: Interpretability</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Interpretability</span>"
     ]
   },
   {
     "objectID": "deep_dives/interpretability.html#linear-probing-and-steering",
     "href": "deep_dives/interpretability.html#linear-probing-and-steering",
-    "title": "Deep Dive: Interpretability",
+    "title": "Interpretability",
     "section": "Linear probing and steering",
     "text": "Linear probing and steering\nIf features are linear directions, two natural operations follow:\n\nLinear probing: train a linear classifier on internal activations to detect a feature of interest. If it works above chance, the feature is at least linearly accessible at that layer. Cheap, scalable, and the workhorse of representational analysis.\nSteering vectors: identify a linear direction associated with a behavior or feature, then add a multiple of it back into the residual stream at inference time to push the model in that direction. Behaviorally, this works — sometimes well enough to be alarming about what it implies about how robust alignment training is.\n\nBoth methods have known limitations and subtle failure modes. They are useful tools, not finished products.",
     "crumbs": [
-      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Deep Dive: Interpretability</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Interpretability</span>"
     ]
   },
   {
     "objectID": "deep_dives/interpretability.html#circuit-discovery",
     "href": "deep_dives/interpretability.html#circuit-discovery",
-    "title": "Deep Dive: Interpretability",
+    "title": "Interpretability",
     "section": "Circuit discovery",
     "text": "Circuit discovery\nA more ambitious agenda: identify the circuit — the specific subset of attention heads, MLP neurons, and connections between them — that implements a particular behavior. This is the “mechanistic interpretability” line, and it has produced some real victories: circuits for indirect object identification, for modular arithmetic, for in-context learning of simple patterns. The methodology involves activation patching, ablation studies, and careful causal arguments about which component is doing which part of the work.\nCircuits are hard to scale. The clean cases tend to be small, synthetic, or unusually well-isolated. Whether the same techniques scale to frontier-model behaviors remains an open empirical question.",
     "crumbs": [
-      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Deep Dive: Interpretability</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Interpretability</span>"
     ]
   },
   {
     "objectID": "deep_dives/interpretability.html#sparse-autoencoders-saes",
     "href": "deep_dives/interpretability.html#sparse-autoencoders-saes",
-    "title": "Deep Dive: Interpretability",
+    "title": "Interpretability",
     "section": "Sparse autoencoders (SAEs)",
     "text": "Sparse autoencoders (SAEs)\nA more recent technique that has reshaped the field. The intuition: many neural-network features live in superposition — a single neuron is polysemantic, encoding several distinct features at once because the network has more features it wants to represent than dimensions to do so. SAEs train a sparse, overcomplete decomposition of the activations, hoping that each learned “feature” picks out one human-interpretable concept.\nSAEs have been one of the most exciting recent developments in interpretability — they produce interpretable features at scale, in a way that earlier probing methods did not. They are also still being calibrated: questions about feature stability, completeness, and how much of the model’s behavior they actually explain are active research areas.",
     "crumbs": [
-      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Deep Dive: Interpretability</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Interpretability</span>"
     ]
   },
   {
     "objectID": "deep_dives/interpretability.html#meta-comments-on-the-field",
     "href": "deep_dives/interpretability.html#meta-comments-on-the-field",
-    "title": "Deep Dive: Interpretability",
+    "title": "Interpretability",
     "section": "Meta-comments on the field",
     "text": "Meta-comments on the field\nInterpretability is always debatable. The reasons are structural:\n\nThe ground truth of “what is the network really doing” is not directly accessible. Every claim is an inference from observational data.\nMultiple, mutually-inconsistent interpretations of the same network behavior can be defended with the same methodology. Choosing between them requires careful causal interventions that are often expensive.\nThe field has burned through several “now we have it!” methods over the years (saliency maps, then attention maps, then probing, now SAEs). Each had real contributions and real limitations.\nThe standards for evidence are still settling. What counts as having “interpreted” a behavior is itself contested.\n\nThis is not a knock on the field. It is a description of what it is like to do empirical science on a complex system whose ground truth is mediated by indirect access. The dead-salmon warning sits at the very start of this chapter because every interpretability technique is susceptible to a version of it.",
     "crumbs": [
-      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Deep Dive: Interpretability</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Interpretability</span>"
     ]
   },
   {
     "objectID": "deep_dives/interpretability.html#where-to-go-next",
     "href": "deep_dives/interpretability.html#where-to-go-next",
-    "title": "Deep Dive: Interpretability",
+    "title": "Interpretability",
     "section": "Where to go next",
     "text": "Where to go next\nActive reading paths:\n\nPapers from interpretability-focused groups (Anthropic, Apollo, DeepMind interpretability, MIT, etc.).\nThe recent SAE and dictionary-learning literature for the current frontier.\nOlder mechanistic-interpretability work (induction heads, circuits papers) for the methodological canon.\nProbing and representational-similarity literature for the broader toolkit.\n\nIf you finished Chapter 7 wanting to know more about how one actually probes a trained network, this chapter is a sketch of where that conversation lives.",
     "crumbs": [
-      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Deep Dive: Interpretability</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Interpretability</span>"
     ]
   },
   {
     "objectID": "deep_dives/theory.html",
     "href": "deep_dives/theory.html",
-    "title": "Deep Dive: Theoretical foundations of deep learning",
+    "title": "Theoretical foundations of deep learning",
     "section": "",
     "text": "What the field studies\nThe main spine of this book deliberately treats neural networks as objects of phenomenology — things to study experimentally, with model-organism methodology. The theoretical-foundations field takes the opposite vantage point: it asks what one can prove about networks as mathematical objects, and how to derive the qualitative behavior we observe from analyzable limits and structural arguments.\nThis is a serious technical field with its own toolkit, its own conferences, and its own intellectual culture. A short chapter cannot do justice to it. What follows is a map.\nA non-exhaustive list of central questions:",
     "crumbs": [
-      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Deep Dive: Theoretical foundations of deep learning</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Theoretical foundations of deep learning</span>"
     ]
   },
   {
     "objectID": "deep_dives/theory.html#what-the-field-studies",
     "href": "deep_dives/theory.html#what-the-field-studies",
-    "title": "Deep Dive: Theoretical foundations of deep learning",
+    "title": "Theoretical foundations of deep learning",
     "section": "",
     "text": "Generalization: why do overparameterized networks not overfit? What controls the effective complexity of the function class realized by a trained network?\nOptimization landscape: what is the geometry of the loss surface? Why does gradient descent find good minima? When and why does the implicit bias of SGD matter more than the explicit objective?\nRepresentational capacity: what functions can a network of given width and depth realize, and how does depth interact with width?\nInfinite-width limits: the neural tangent kernel (NTK) describes networks of infinite width as Gaussian processes with a particular kernel, making training dynamics analytically tractable. The infinite-width limit clarifies what initialization does, what feature learning requires (and why NTK does not capture it), and how scaling affects representational dynamics.\nHigh-dimensional geometry: capacity arguments inspired by statistical mechanics — neural manifold capacity, replica calculations, mean-field analyses — describe how representations partition high-dimensional space.\nSharpness, flatness, and implicit regularization: characterizations of the local geometry of solutions found by SGD, and the connection between flatness and generalization.\nLottery tickets and sparsity: why do sparse subnetworks at initialization train as well as the dense network? What does this say about overparameterization?\nSample complexity bounds: PAC-Bayes, Rademacher complexity, and other classical tools applied to deep networks, with their characteristic looseness on modern scales.",
     "crumbs": [
-      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Deep Dive: Theoretical foundations of deep learning</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Theoretical foundations of deep learning</span>"
     ]
   },
   {
     "objectID": "deep_dives/theory.html#what-kind-of-training-the-field-requires",
     "href": "deep_dives/theory.html#what-kind-of-training-the-field-requires",
-    "title": "Deep Dive: Theoretical foundations of deep learning",
+    "title": "Theoretical foundations of deep learning",
     "section": "What kind of training the field requires",
     "text": "What kind of training the field requires\nMost foundational work draws on linear algebra and functional analysis (the heavy machinery for capacity and representation), probability theory (for generalization bounds and concentration arguments), optimization theory (for landscape analysis), and increasingly statistical physics (for the high-dimensional and replica-theoretic results that have proved especially productive on neural networks). Anyone moving deep into the field benefits from a working fluency with random matrix theory, the geometry of high-dimensional probability, and information theory.\nThe cultural overlap with statistical physics is real and recent. Several of the most productive lines of work — capacity calculations, sharpness analyses, scaling-law derivations — were imported (or re-derived) by physicists who recognized neural networks as statistical-mechanical systems.",
     "crumbs": [
-      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Deep Dive: Theoretical foundations of deep learning</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Theoretical foundations of deep learning</span>"
     ]
   },
   {
     "objectID": "deep_dives/theory.html#where-this-field-is-in-2026",
     "href": "deep_dives/theory.html#where-this-field-is-in-2026",
-    "title": "Deep Dive: Theoretical foundations of deep learning",
+    "title": "Theoretical foundations of deep learning",
     "section": "Where this field is, in 2026",
     "text": "Where this field is, in 2026\nThe honest summary: the theoretical-foundations field has made real progress over the last decade — NTK has clarified what training dynamics look like in the wide limit, implicit regularization arguments have provided plausible accounts of why over-parametrized networks generalize, capacity calculations are increasingly quantitative. The field is also still incomplete in places that matter for practitioners: there is no fully predictive theory of feature learning at finite width, no general theory of why scaling laws have the empirical exponents they do, and no settled account of emergence.\nThis is the natural counterpart course to the experimental approach taken in the main spine. The two are complementary, not opposed: phenomenology surfaces the puzzles, theory closes them. A reader who has gone through the experimentalist’s chapters will recognize many of the open questions theory is currently trying to settle.",
     "crumbs": [
-      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Deep Dive: Theoretical foundations of deep learning</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Theoretical foundations of deep learning</span>"
     ]
   },
   {
     "objectID": "deep_dives/theory.html#where-to-go-next",
     "href": "deep_dives/theory.html#where-to-go-next",
-    "title": "Deep Dive: Theoretical foundations of deep learning",
+    "title": "Theoretical foundations of deep learning",
     "section": "Where to go next",
     "text": "Where to go next\nLook for:\n\nGraduate-level courses on “Mathematics of deep learning” or “Statistical learning theory” — these are the closest to a single-semester immersion.\nTheory-focused workshops and conferences (e.g., COLT, the theory tracks at NeurIPS/ICML).\nThe classical statistical learning theory literature for background on PAC-Bayes, Rademacher complexity, and capacity bounds.\nRecent reviews on NTK, infinite-width networks, and the neural-network/statistical-physics interface.\n\nThis chapter is a pointer. A real treatment is a course.",
     "crumbs": [
-      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Deep Dive: Theoretical foundations of deep learning</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Theoretical foundations of deep learning</span>"
     ]
   },
   {
     "objectID": "deep_dives/bayesian_mcmc.html",
     "href": "deep_dives/bayesian_mcmc.html",
-    "title": "Deep Dive: Bayesian inference and MCMC",
+    "title": "Bayesian inference and MCMC",
     "section": "",
     "text": "Why Bayes matters for ML\nThe main spine of this book is mostly frequentist by default. Loss functions, gradient descent, evaluation by metrics on held-out data — the vocabulary is point-estimate-flavored. The Bayesian tradition asks different questions: what does the data tell us about the posterior over models, parameters, or predictions, given a prior? How should beliefs be updated as evidence accumulates? When does it matter to track full uncertainty rather than just a point estimate?\nThis is a substantial and well-developed field with its own intellectual culture. This chapter is a launching point into it, with particular attention to the connections that matter for someone reading a deep-learning textbook.\nA few honest motivations:\nUncertainty is sometimes load-bearing. A point prediction is fine when downstream decisions are insensitive to confidence. When they are not — medical decisions, safety-critical control, scientific inference, expensive bets — knowing how uncertain the model is can matter more than the prediction itself. Bayesian methods give you a principled posterior over predictions; frequentist methods can give you confidence intervals, but the framing is different.\nPriors are inductive biases. The Bayesian framing makes the role of priors explicit. Every learning method has inductive biases; Bayesian methods declare them and reason about how they shape posteriors. This is sometimes a strength (you can be explicit about what you assume) and sometimes a weakness (the priors that make the math tractable are often not the priors that capture your actual beliefs).\nProbabilistic generative models are Bayesian by structure. The diffusion models of Chapter 8 are most cleanly understood in probabilistic terms — they learn a score function, which is a gradient of a log-density, which is a Bayesian object. The variational tradition that produced VAEs is even more directly Bayesian. The connections are not cosmetic.\nLatent-variable models live here. Mixture models, topic models, factor models, state-space models — these are all Bayesian (or Bayesian-flavored) latent-variable models. The EM algorithm, mentioned in Chapter 5, is the canonical recipe for fitting them.",
     "crumbs": [
-      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Deep Dive: Bayesian inference and MCMC</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Bayesian inference and MCMC</span>"
     ]
   },
   {
     "objectID": "deep_dives/bayesian_mcmc.html#what-mcmc-actually-does",
     "href": "deep_dives/bayesian_mcmc.html#what-mcmc-actually-does",
-    "title": "Deep Dive: Bayesian inference and MCMC",
+    "title": "Bayesian inference and MCMC",
     "section": "What MCMC actually does",
     "text": "What MCMC actually does\nMarkov chain Monte Carlo (MCMC) is the practical workhorse of Bayesian inference whenever the posterior is too complex to evaluate analytically. The idea, stated tersely:\nYou have a target distribution p(x) you cannot sample from directly. You construct a Markov chain whose stationary distribution is p(x). You run the chain. After a burn-in period, the samples it produces are (asymptotically) samples from p.\nThe art is in constructing chains that mix well — that explore the support of p efficiently without getting stuck. The major flavors:\n\nMetropolis-Hastings. The classical recipe: propose a new state, accept or reject based on the ratio of densities. Simple, general, often slow.\nGibbs sampling. Iteratively sample each coordinate from its conditional given the others. Useful when conditionals are tractable.\nHamiltonian Monte Carlo (HMC) and NUTS. Use gradient information to propose moves that follow Hamiltonian dynamics on the log-density landscape. Much more efficient on high-dimensional, smooth posteriors. The workhorse for modern Bayesian inference in continuous parameter spaces.\nSequential Monte Carlo (SMC) and particle filters. Maintain a population of weighted samples and update them sequentially as data arrives. Useful for online inference and for state-space models.\nVariational inference (not MCMC, but adjacent). Approximate the intractable posterior by a tractable family and minimize divergence. Trades exactness for tractability and is the basis of VAEs.",
     "crumbs": [
-      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Deep Dive: Bayesian inference and MCMC</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Bayesian inference and MCMC</span>"
     ]
   },
   {
     "objectID": "deep_dives/bayesian_mcmc.html#the-connections-to-deep-learning",
     "href": "deep_dives/bayesian_mcmc.html#the-connections-to-deep-learning",
-    "title": "Deep Dive: Bayesian inference and MCMC",
+    "title": "Bayesian inference and MCMC",
     "section": "The connections to deep learning",
     "text": "The connections to deep learning\nThe interface has been productive in both directions:\nApproximate Bayesian methods on neural networks. Bayesian neural networks (BNNs) put posteriors over the network’s weights and propagate uncertainty into predictions. Exact inference is intractable; the practical methods (variational BNN, Monte Carlo dropout, Laplace approximations, deep ensembles as approximate posteriors) are all compromises in different directions. Whether any of these reach the calibration that pure Bayes would offer is an active question.\nDiffusion as score matching. The score function \\nabla \\log p(x) — central to diffusion — is a Bayesian quantity. The connection between diffusion models and Bayesian inference goes deep, especially in inverse-problem applications (see Chapter 8 and the AI for science deep dive).\nProbabilistic programming. Languages like Stan, PyMC, and NumPyro let you specify a Bayesian model declaratively and let the software handle the inference (typically HMC or NUTS). They are quietly load-bearing in many areas of scientific research, and they are an effective way to absorb the Bayesian workflow if you have not done so already.\nCalibration. Even outside fully Bayesian methods, the question of whether a model’s confidences match its accuracy is a Bayesian-flavored one. LLMs are famously poorly calibrated after RLHF (see Chapter 6), and recovering calibration is an active research question.",
     "crumbs": [
-      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Deep Dive: Bayesian inference and MCMC</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Bayesian inference and MCMC</span>"
     ]
   },
   {
     "objectID": "deep_dives/bayesian_mcmc.html#what-this-chapter-is-not",
     "href": "deep_dives/bayesian_mcmc.html#what-this-chapter-is-not",
-    "title": "Deep Dive: Bayesian inference and MCMC",
+    "title": "Bayesian inference and MCMC",
     "section": "What this chapter is not",
     "text": "What this chapter is not\nIt is not a substitute for a Bayesian-statistics course. The depth of the field — convergence theory of MCMC, prior elicitation, hierarchical modeling, posterior predictive checks, model comparison via Bayes factors or LOO-CV — is far more than a deep-dive chapter can cover.",
     "crumbs": [
-      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Deep Dive: Bayesian inference and MCMC</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Bayesian inference and MCMC</span>"
     ]
   },
   {
     "objectID": "deep_dives/bayesian_mcmc.html#where-to-go-next",
     "href": "deep_dives/bayesian_mcmc.html#where-to-go-next",
-    "title": "Deep Dive: Bayesian inference and MCMC",
+    "title": "Bayesian inference and MCMC",
     "section": "Where to go next",
     "text": "Where to go next\n\nA graduate-level Bayesian statistics course or textbook (Gelman et al.’s Bayesian Data Analysis is canonical).\nDocumentation and tutorials for Stan, PyMC, or NumPyro — the probabilistic-programming entry points.\nSpecialized references on MCMC theory (Robert and Casella, etc.) for the convergence and design side.\nThe connection between Bayesian methods and modern deep learning is well-covered in recent survey papers — look for “Bayesian deep learning” overviews.\n\nFor a physicist, much of this material rhymes with statistical mechanics in productive ways — MCMC is literally a stat-mech import, the variational free energy is the same kind of object on both sides. The cross-fluency is real and worth cultivating.",
     "crumbs": [
-      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Deep Dive: Bayesian inference and MCMC</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Bayesian inference and MCMC</span>"
     ]
   },
   {
     "objectID": "deep_dives/classical_ml.html",
     "href": "deep_dives/classical_ml.html",
-    "title": "Deep Dive: Classical machine learning",
+    "title": "Classical machine learning",
     "section": "",
     "text": "What the field gives you\nThe main spine of this book skips the toolkit that was the core of machine learning before deep learning took over: support vector machines, kernel methods, decision trees, random forests, gradient boosting, kNN, naive Bayes, mixture models, the EM algorithm, principal component analysis, and a long list of friends. The omission is deliberate — these methods are covered well by other textbooks, are no longer where the most interesting questions in modern AI live, and would crowd out the science-of-DL focus the book is trying to keep clean.\nBut classical ML has not disappeared. It still wins on small structured datasets where neural networks are wasteful, it still underpins the statistical reasoning that anyone in ML should have, and a handful of its ideas have quietly become load-bearing infrastructure inside modern systems (gradient boosting in feature pipelines, EM as the prototype of all latent-variable inference, kernel methods reborn as NTK in theory work).\nA reader who has gone through a classical-ML course leaves with three things the main spine does not provide:\nA grammar of inductive biases. SVMs, kernels, decision trees, and graphical models each express a distinct view of what structure in data looks like. Studying them side by side trains taste for which prior to bring to which problem — taste that survives the shift to deep learning, even when the specific methods do not.\nStatistical-learning vocabulary. Bias-variance, capacity, VC dimension, regularization, cross-validation, kernel tricks, dual formulations, conjugate priors, posterior inference. The vocabulary is universal — modern ML papers use it implicitly even when their methods do not.\nTractable model systems. Classical methods are small, fast, and analyzable. They are excellent teaching models for what learning is and what it isn’t — a small SVM on a 2D problem is a much better first encounter with the bias-variance tradeoff than a transformer on the web.",
     "crumbs": [
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Deep Dive: Classical machine learning</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Classical machine learning</span>"
     ]
   },
   {
     "objectID": "deep_dives/classical_ml.html#what-stays-load-bearing",
     "href": "deep_dives/classical_ml.html#what-stays-load-bearing",
-    "title": "Deep Dive: Classical machine learning",
+    "title": "Classical machine learning",
     "section": "What stays load-bearing",
     "text": "What stays load-bearing\nA few classical techniques continue to do real work in 2026:\n\nGradient-boosted trees (XGBoost, LightGBM and descendants) — still beat neural networks routinely on small tabular data and remain the default for many industrial-prediction pipelines.\nEM algorithm — the canonical method for learning latent-variable models, still used directly in mixture models, topic models, and as a conceptual scaffold for understanding amortized variational inference.\nPCA and friends (kernel PCA, sparse PCA) — exploratory analysis, dimensionality reduction, and the conceptual entry point for the geometry of representations.\nKernel methods — now mostly important theoretically: the NTK results (mentioned in the theory deep dive) connect infinite-width networks to kernel regression.\nGaussian processes — still the gold-standard probabilistic model when calibrated uncertainty matters more than predictive accuracy.",
     "crumbs": [
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Deep Dive: Classical machine learning</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Classical machine learning</span>"
     ]
   },
   {
     "objectID": "deep_dives/classical_ml.html#where-this-field-is-culturally",
     "href": "deep_dives/classical_ml.html#where-this-field-is-culturally",
-    "title": "Deep Dive: Classical machine learning",
+    "title": "Classical machine learning",
     "section": "Where this field is, culturally",
     "text": "Where this field is, culturally\nClassical ML has settled into a stable, well-taught discipline with mature textbooks, standard courses, and a clear pedagogical arc. Anyone serious about machine learning as a field benefits from having gone through it once; anyone trying to understand modern deep learning benefits from being able to compare and contrast.",
     "crumbs": [
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Deep Dive: Classical machine learning</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Classical machine learning</span>"
     ]
   },
   {
     "objectID": "deep_dives/classical_ml.html#where-to-go-next",
     "href": "deep_dives/classical_ml.html#where-to-go-next",
-    "title": "Deep Dive: Classical machine learning",
+    "title": "Classical machine learning",
     "section": "Where to go next",
     "text": "Where to go next\nThe standard graduate-level entry points (Bishop’s Pattern Recognition and Machine Learning, Murphy’s Machine Learning: a Probabilistic Perspective, Hastie–Tibshirani–Friedman’s Elements of Statistical Learning) are well-known. Any of them covers the territory thoroughly. A standalone semester course on statistical learning is the standard immersion. Past that point, the field is mature enough that the marginal next book is mostly diminishing returns.\nThis chapter is a pointer, and an acknowledgment: classical ML is not below modern deep learning — it is the language modern deep learning emerged from, and is still spoken fluently by everyone in the field, even when nobody is writing it down.",
     "crumbs": [
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Deep Dive: Classical machine learning</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Classical machine learning</span>"
     ]
   },
   {
     "objectID": "deep_dives/neuroethology.html",
     "href": "deep_dives/neuroethology.html",
-    "title": "Deep Dive: Neuroethology",
+    "title": "Neuroethology",
     "section": "",
     "text": "The shape of the science\nThe main spine of this book takes its methodology — notice a phenomenon, find a model system, instrument it, cross-check — from neuroethology: the study of the neural basis of natural animal behavior in its ecological context. This chapter is the launching point into the actual field, in case you wanted to know more about the source material that the methodology was lifted from.\nNeuroethology is a beautiful field. It is also, in its purest form, a field made out of striking anecdotes — animal does surprising thing → biologist finds the neural mechanism that makes the surprising thing possible — far more than it is a field made out of clean theoretical principles. That structure is part of why the methodology transfers to deep learning so naturally: both fields are richer in phenomena worth explaining than in theory tight enough to derive everything from.\nThe classical neuroethology workflow:\nThe classical successes of the field share a common structure: a striking behavior turns out to have a satisfyingly comprehensible neural mechanism, which then generalizes to a broader principle.",
     "crumbs": [
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Deep Dive: Neuroethology</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Neuroethology</span>"
     ]
   },
   {
     "objectID": "deep_dives/neuroethology.html#the-shape-of-the-science",
     "href": "deep_dives/neuroethology.html#the-shape-of-the-science",
-    "title": "Deep Dive: Neuroethology",
+    "title": "Neuroethology",
     "section": "",
     "text": "Observe. Find an animal doing something interesting in its natural environment. Not in a lab setting designed to extract a behavior — in the wild, where the behavior is for something.\nCharacterize. Document the behavior carefully. When does it happen? What triggers it? How does it vary?\nFind a model species. Many neuroethological breakthroughs came from picking species where the relevant computation is easily accessible — flies and C. elegans for nervous-system tractability, electric fish for accessible neural communication, songbirds for vocal learning, owls for accessible auditory computation.\nTrace the mechanism. Move from behavior to brain. Find the neurons involved. Record from them, lesion them, stimulate them, model them.\nCross-check. Do the lessons from the model species transfer to other species? To humans? To analogous computations elsewhere in biology?",
     "crumbs": [
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Deep Dive: Neuroethology</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Neuroethology</span>"
     ]
   },
   {
     "objectID": "deep_dives/neuroethology.html#some-of-the-canonical-stories",
     "href": "deep_dives/neuroethology.html#some-of-the-canonical-stories",
-    "title": "Deep Dive: Neuroethology",
+    "title": "Neuroethology",
     "section": "Some of the canonical stories",
     "text": "Some of the canonical stories\nThese are the kinds of anecdotes neuroethology is built out of. They are also fun.\nThe barn owl and sound localization. Owls can locate prey in total darkness based purely on the timing differences between sounds arriving at their two ears. The mechanism — coincidence-detector neurons in the nucleus laminaris that fire when signals from the two ears arrive simultaneously — is a clean, comprehensible piece of biological signal processing. The same principle of coincidence detection appears throughout neuroscience.\nThe bat and echolocation. Bats emit ultrasonic chirps and process the returning echoes to navigate and hunt. The neural machinery for this — including the specialized cortical regions that compute Doppler shifts and target distance — is one of the most elegantly characterized sensory systems in biology.\nThe cricket and song recognition. Female crickets pick the male of their species based on the temporal pattern of his chirps. The neural circuits that classify these patterns — including specialized delay-line neurons that lock onto particular inter-pulse intervals — were among the first cases where a behaviorally meaningful neural computation was traced end-to-end.\nThe electric fish and jamming avoidance. Several species of weakly electric fish navigate and communicate using self-generated electric fields. When two fish are close enough that their fields interfere, they adjust their frequencies to avoid the jamming — a behavior whose neural mechanism (a clever computation involving the relative phase and amplitude differences at different parts of the body) was worked out in the Heiligenberg laboratory, and is one of the cleanest examples of how a behavioral computation maps onto an identifiable neural circuit.\nWulst, place cells, and grid cells. The discovery (by O’Keefe and the Mosers and successors) that mammalian brains contain dedicated cells for spatial location — place cells in the hippocampus, grid cells in entorhinal cortex — turned navigation from a behavioral mystery into a question with concrete neural answers. (Nobel Prize, 2014. Also: place and grid cells are now showing up in ANN representations under appropriate training conditions, as touched on in Chapter 10.)\nThe waggle dance. Honeybee foragers communicate the direction and distance of food sources to nestmates through a particular figure-eight dance. The behavior is so specific that it can be decoded by an observer with a protractor and a watch. The neural and sensory underpinnings — sun-compass orientation, polarized-light detection, distance estimation by optic flow — have been worked out across decades.\nThere are dozens more. The genre of neuroethology paper is recognizable: a striking, specific, ecologically-meaningful behavior is the hook, the species-of-study is justified, the neural recordings or interventions are made, and the mechanism gets nailed down. The pattern is exactly what science of deep learning is reaching for in transferring the methodology to networks.",
     "crumbs": [
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Deep Dive: Neuroethology</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Neuroethology</span>"
     ]
   },
   {
     "objectID": "deep_dives/neuroethology.html#what-carries-over-to-deep-learning",
     "href": "deep_dives/neuroethology.html#what-carries-over-to-deep-learning",
-    "title": "Deep Dive: Neuroethology",
+    "title": "Neuroethology",
     "section": "What carries over to deep learning",
     "text": "What carries over to deep learning\nA few specific lessons:\n\nPick the right model system. C. elegans has 302 neurons. That makes some questions tractable that would be impossible in a vertebrate brain. The same logic motivates the small synthetic tasks of Chapter 7 — pick a setting where the system is small enough to fully instrument.\nThe behavior comes first. Neuroethology never starts with the brain. It starts with what the animal does. The same discipline applies to networks: phenomena come first, mechanism comes later.\nCross-species cross-check is load-bearing. A result in Drosophila matters more if it generalizes to C. elegans or zebrafish. A result in a small synthetic transformer matters more if it generalizes to a larger one.\nAnecdotes are not embarrassing. A great neuroethology paper is a great story about an animal. The science is in the careful follow-through, not in the story being absent.",
     "crumbs": [
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Deep Dive: Neuroethology</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Neuroethology</span>"
     ]
   },
   {
     "objectID": "deep_dives/neuroethology.html#where-to-go-next",
     "href": "deep_dives/neuroethology.html#where-to-go-next",
-    "title": "Deep Dive: Neuroethology",
+    "title": "Neuroethology",
     "section": "Where to go next",
     "text": "Where to go next\n\nTinbergen’s The Study of Instinct — foundational text for the field.\nHeiligenberg’s Neural Nets in Electric Fish — a beautiful long-form case study of one of the canonical neuroethology programs.\nAnimal-behavior textbooks and current ethology journals.\nThe neuroAI community for the active interface with deep learning.\n\nIf the methodology of the main spine struck you as productive but you wanted to know what it actually felt like in its source field, this is the launching point. Read about animals. The intuitions will transfer.",
     "crumbs": [
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Deep Dive: Neuroethology</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Neuroethology</span>"
     ]
   },
   {
     "objectID": "deep_dives/neuroscience.html",
     "href": "deep_dives/neuroscience.html",
-    "title": "Deep Dive: Neuroscience",
+    "title": "Neuroscience",
     "section": "",
     "text": "The historical thread\nThe relationship between neuroscience and artificial neural networks is older than most people realize, more bidirectional than is usually acknowledged, and richer than the surface-level “brains and ANNs both have neurons, isn’t that suggestive” claim. This chapter is a launching point into the field and its connections to deep learning.\nNeural networks as a computational idea were named after biological neurons. The McCulloch–Pitts neuron, the perceptron, the connectionist program of the 1980s — all of these took (some level of) inspiration from biology. The relationship was always loose: real neurons are far more complicated than the units in any artificial network, and even the most careful “biologically plausible” models leave out vast amounts of detail (dendritic computation, neuromodulation, glia, the temporal dynamics of spike trains, the chemistry).\nThe relationship has also been culturally up-and-down. There were periods (the early connectionism era, the early deep-learning era) when neuroscience-inspired ideas were exciting; there were periods (most of the 2010s) when the engineering-driven AI community could afford to mostly ignore biology because gradient-trained networks at scale were eating every benchmark in sight. The current moment is in between: there is renewed interest in the biology-AI interface, partly because some of the recent science-of-DL findings (representational geometry, learning dynamics, the role of feedback) rhyme with neuroscience in suggestive ways.",
     "crumbs": [
-      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Deep Dive: Neuroscience</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Neuroscience</span>"
     ]
   },
   {
     "objectID": "deep_dives/neuroscience.html#where-the-two-fields-actually-overlap",
     "href": "deep_dives/neuroscience.html#where-the-two-fields-actually-overlap",
-    "title": "Deep Dive: Neuroscience",
+    "title": "Neuroscience",
     "section": "Where the two fields actually overlap",
     "text": "Where the two fields actually overlap\nThe substantive overlaps, as of 2026:\nReceptive fields and feature emergence. As Chapter 2 discussed, the first-layer filters of a trained CNN converge to Gabor-like oriented edge detectors that look much like the receptive fields measured in V1 of biological visual cortex. This is one of the cleanest cross-domain results: a learning system trained on natural images, with broad but generic inductive bias, finds the same primitives that biology found over evolutionary time. It is one of the foundational pieces of evidence that something about the structure of natural images, more than the architecture, is doing this work.\nRepresentational geometry. Tools from computational neuroscience — representational similarity analysis, manifold capacity calculations, decoding from population activity — are now used heavily in the analysis of ANN internals. The intellectual lineage runs from systems-neuroscience theorists like Yamins, DiCarlo, Saxe, Cohen, and Chung; the tools are now standard in deep-learning interpretability.\nPredictive coding. The hypothesis that the brain is constantly generating predictions about the next sensory state, and that learning is driven by where those predictions fail. This is, structurally, what next-token-prediction-style self-supervised learning is doing. The neuroscience literature on predictive coding (Friston, Rao, Ballard, and a long subsequent tradition) is intellectually adjacent to the modern self-supervised-learning literature, with periodic explicit cross-pollinations.\nPlace cells, grid cells, and world models. As mentioned in Chapter 10, biological place and grid cells encode spatial structure in a way that resembles what one would design for a world model. Several recent papers have shown grid-cell-like structure emerging in trained ANN representations under appropriate task conditions.\nThe motor side. Action selection, motor control, and the cerebellum’s role as a forward model — all of these have analogues in model-based RL and in the more agentic side of modern AI.",
     "crumbs": [
-      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Deep Dive: Neuroscience</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Neuroscience</span>"
     ]
   },
   {
     "objectID": "deep_dives/neuroscience.html#where-the-two-fields-do-not-overlap-and-shouldnt-be-expected-to",
     "href": "deep_dives/neuroscience.html#where-the-two-fields-do-not-overlap-and-shouldnt-be-expected-to",
-    "title": "Deep Dive: Neuroscience",
+    "title": "Neuroscience",
     "section": "Where the two fields do not overlap (and shouldn’t be expected to)",
     "text": "Where the two fields do not overlap (and shouldn’t be expected to)\nSome popular cross-domain claims are weaker than they sound. “Artificial neural networks model the brain” is true at a very abstract level and not at the level most non-specialists imagine. ANNs are not built from biologically realistic neurons; their learning rule (backpropagation) is not what brains use; their architectures are not derived from anatomy. The cross-domain insights are real but selective, and the field has gotten more careful about overclaiming in this direction.\nThe honest stance: ANNs and brains are both large nonlinear adaptive systems that learn from environmental experience. That shared structure makes some intuitions transfer. But the systems are otherwise very different, and the transfers have to be checked, not assumed.",
     "crumbs": [
-      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Deep Dive: Neuroscience</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Neuroscience</span>"
     ]
   },
   {
     "objectID": "deep_dives/neuroscience.html#what-a-real-neuroscience-course-brings-to-a-dl-reader",
     "href": "deep_dives/neuroscience.html#what-a-real-neuroscience-course-brings-to-a-dl-reader",
-    "title": "Deep Dive: Neuroscience",
+    "title": "Neuroscience",
     "section": "What a real neuroscience course brings to a DL reader",
     "text": "What a real neuroscience course brings to a DL reader\nA few things the main spine of this book cannot replace:\n\nA mature handling of what neurons actually do, including dendritic computation, neuromodulation, and the role of timing.\nHands-on experience with experimental data — electrophysiology, calcium imaging, fMRI — and the methodological rigor that working with biological data demands.\nA historical sense of how the field has handled its own foundational puzzles, which has lessons for how to handle ours.\nThe animal-experiment tradition (which is the actual neuroethology the main book’s methodology is named after).",
     "crumbs": [
-      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Deep Dive: Neuroscience</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Neuroscience</span>"
     ]
   },
   {
     "objectID": "deep_dives/neuroscience.html#where-to-go-next",
     "href": "deep_dives/neuroscience.html#where-to-go-next",
-    "title": "Deep Dive: Neuroscience",
+    "title": "Neuroscience",
     "section": "Where to go next",
     "text": "Where to go next\n\nGraduate-level computational neuroscience courses (Dayan & Abbott’s textbook is a canonical entry point).\nThe NeurIPS / NeurReps / Cosyne literature for the AI/neuroscience interface.\nThe neuroAI community has produced a growing volume of review papers framing the intersection thoughtfully.\nDirect experimental neuroscience training, if you can do it — the practice of designing a neuroscience experiment is the most efficient way to absorb what the field’s methodology actually is.\n\nThis chapter is a pointer, not a substitute. If the “networks as model organisms” framing of the main book interested you, the real neuroethology — done on animals, with stakes, in labs — is the source material that framing was drawn from.",
     "crumbs": [
-      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Deep Dive: Neuroscience</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Neuroscience</span>"
     ]
   },
   {
     "objectID": "deep_dives/cogsci.html",
     "href": "deep_dives/cogsci.html",
-    "title": "Deep Dive: Cognitive science",
+    "title": "Cognitive science",
     "section": "",
     "text": "Why this matters for someone reading a DL textbook\nCognitive science is the interdisciplinary field that studies how minds work — biological, artificial, or otherwise. It draws on psychology, linguistics, philosophy, neuroscience, and AI, and it has been a productive intellectual partner of deep learning research since both fields existed. Chapter 11 gestured at the connection; this chapter is the launching point into the field itself.\nA few honest reasons cognitive science is worth knowing about as a deep-learning reader:",
     "crumbs": [
-      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Deep Dive: Cognitive science</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Cognitive science</span>"
     ]
   },
   {
     "objectID": "deep_dives/cogsci.html#why-this-matters-for-someone-reading-a-dl-textbook",
     "href": "deep_dives/cogsci.html#why-this-matters-for-someone-reading-a-dl-textbook",
-    "title": "Deep Dive: Cognitive science",
+    "title": "Cognitive science",
     "section": "",
     "text": "Concepts of mind have long histories. Many of the words that show up in modern AI papers — attention, memory, representation, concept, compositionality, abstraction, theory of mind — have long technical histories in cognitive science, with established usages and known disagreements. Using them without context risks miscommunicating with adjacent fields.\nHumans are an existence proof. Whenever the AI community asks “can a learning system do X?”, there is at least one species (us) that does X. Studying how humans do X is the most efficient way to surface what the structural requirements might be.\nMethodology transfer. Cognitive science has spent decades developing techniques for probing mental processes from behavioral evidence — reaction-time studies, eye tracking, controlled experimental design, careful operationalization of fuzzy constructs. Some of this transfers to the study of trained ANNs, where the system is again behaviorally accessible and internally opaque.",
     "crumbs": [
-      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Deep Dive: Cognitive science</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Cognitive science</span>"
     ]
   },
   {
     "objectID": "deep_dives/cogsci.html#what-the-field-studies",
     "href": "deep_dives/cogsci.html#what-the-field-studies",
-    "title": "Deep Dive: Cognitive science",
+    "title": "Cognitive science",
     "section": "What the field studies",
     "text": "What the field studies\nA non-exhaustive map:\nConcept formation and development. How do humans acquire concepts? Children acquire object permanence, then categories, then more abstract concepts in fairly characteristic developmental sequences. The cognitive-developmental tradition (Piaget, Carey, Spelke, Gopnik) has documented this carefully and produced specific theoretical proposals about the mechanisms involved. The questions they ask — “what is innately specified vs. learned from data?” — are structurally similar to the questions deep learning asks about inductive bias.\nLanguage acquisition. Why do children learn languages so fast and so robustly? What is the role of innate priors (the Chomskyan tradition) vs. statistical regularities of the input (the empiricist tradition)? Recent LLMs have made this debate live again — a system that has none of the cognitive scaffolding children have but learns language very well from data is a data point worth taking seriously, even if it does not settle the debate.\nReasoning and decision-making. The classical literature on heuristics and biases (Tversky and Kahneman), the dual-process framing (System 1 / System 2), the literature on bounded rationality. These give the field an empirical vocabulary for what reasoning actually looks like under realistic conditions — which is more useful for AI work than the idealized logical-reasoning picture often imported from philosophy.\nTheory of mind and social cognition. How do humans model other agents’ beliefs, intentions, and goals? Developmental work has carefully mapped when children acquire theory-of-mind capacities and how it varies across populations. As Chapter 10 noted, theory of mind is structurally a world-modeling problem, and the cognitive-science literature on it is directly relevant to the AI version.\nCategorization, similarity, and conceptual structure. The structure of human conceptual knowledge — prototype theory, exemplar theory, theory-theory of concepts — has technical content beyond the surface-level “humans have categories” framing.\nHuman priors and inductive biases. What humans come pre-loaded with — geometric intuitions, object-tracking abilities, intuitive physics, agency detection. These show up directly in the AI context whenever we ask what a model should “have” to learn things efficiently.",
     "crumbs": [
-      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Deep Dive: Cognitive science</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Cognitive science</span>"
     ]
   },
   {
     "objectID": "deep_dives/cogsci.html#where-cognitive-science-and-ai-feed-each-other",
     "href": "deep_dives/cogsci.html#where-cognitive-science-and-ai-feed-each-other",
-    "title": "Deep Dive: Cognitive science",
+    "title": "Cognitive science",
     "section": "Where cognitive science and AI feed each other",
     "text": "Where cognitive science and AI feed each other\nThe relationship is genuinely bidirectional:\n\nCogsci → AI. Insights about human learning have inspired architectures (e.g., relational reasoning, modular networks), training procedures (e.g., curriculum learning), and inductive-bias design.\nAI → Cogsci. Trained ANNs are now used as models in cognitive science — sometimes as null models (what could a generic learner do?), sometimes as positive proposals about how a particular cognitive capacity might be implemented. The growing use of LLMs as models of language processing is one current example.\n\nThe interface is also where some of the messiest debates live (does an LLM “understand” language? does a network with theory-of-mind-style behavior have theory of mind?). Both fields are still figuring out how to talk to each other carefully about these questions.",
     "crumbs": [
-      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Deep Dive: Cognitive science</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Cognitive science</span>"
     ]
   },
   {
     "objectID": "deep_dives/cogsci.html#what-this-chapter-is-gesturing-at",
     "href": "deep_dives/cogsci.html#what-this-chapter-is-gesturing-at",
-    "title": "Deep Dive: Cognitive science",
+    "title": "Cognitive science",
     "section": "What this chapter is gesturing at",
     "text": "What this chapter is gesturing at\nCognitive science is what you study if you want to take seriously the question of what kinds of computations minds do. Deep learning is studying one instance of a mind-like system; cognitive science is studying many, with a more developed methodology. Anyone working at the frontier of AI is well-served by knowing what cogsci has already established.",
     "crumbs": [
-      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Deep Dive: Cognitive science</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Cognitive science</span>"
     ]
   },
   {
     "objectID": "deep_dives/cogsci.html#where-to-go-next",
     "href": "deep_dives/cogsci.html#where-to-go-next",
-    "title": "Deep Dive: Cognitive science",
+    "title": "Cognitive science",
     "section": "Where to go next",
     "text": "Where to go next\n\nA graduate-level introduction to cognitive science (multiple solid textbook options exist).\nThe developmental psychology literature on concept and language acquisition.\nThe judgment-and-decision-making literature (Tversky, Kahneman, and successors).\nThe newer “neuroAI” and “computational cognitive science” lines, which sit explicitly at the interface.\n\nIf you finished the main spine wondering what was happening underneath the philosophical-sounding language about concepts and reasoning, this chapter is the pointer.",
     "crumbs": [
-      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Deep Dive: Cognitive science</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Cognitive science</span>"
     ]
   },
   {
     "objectID": "deep_dives/open_endedness.html",
     "href": "deep_dives/open_endedness.html",
-    "title": "Deep Dive: Open-endedness",
+    "title": "Open-endedness",
     "section": "",
     "text": "What “open-endedness” means, operationally\nChapter 12 introduced open-endedness as the aspiration of building learning processes that keep generating new challenges and new capabilities indefinitely. This chapter is the closer look at the field that takes that aspiration as its central research question.\nThe motivating observation is simple and stunning. Biological evolution has been running for billions of years and is still inventing new niches, new body plans, new ecosystems. It has not converged. It has not stagnated. It produces novelty at every scale, on every timeline. Nothing we have built in ML comes close to this. The question of how to build a process that keeps surprising itself is one of the most consequential research questions in the field — and one of the least solved.\nThe casual sense of the term is “keeps producing new stuff forever.” The operational sense is more particular. An open-ended process is one that:\nEach of these conditions is harder than it looks. Most ML systems converge. Most that do not converge oscillate or collapse. Designing a system that productively keeps moving is the open problem.",
     "crumbs": [
-      "<span class='chapter-number'>27</span>  <span class='chapter-title'>Deep Dive: Open-endedness</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>27</span>  <span class='chapter-title'>Open-endedness</span>"
     ]
   },
   {
     "objectID": "deep_dives/open_endedness.html#what-open-endedness-means-operationally",
     "href": "deep_dives/open_endedness.html#what-open-endedness-means-operationally",
-    "title": "Deep Dive: Open-endedness",
+    "title": "Open-endedness",
     "section": "",
     "text": "Generates novel artifacts (solutions, behaviors, agents) over time, where “novel” is measured against the history of what it has already produced.\nMaintains the capacity to keep generating novelty — i.e., does not converge to a stable distribution.\nDoes so without external curation or hand-designed curricula.",
     "crumbs": [
-      "<span class='chapter-number'>27</span>  <span class='chapter-title'>Deep Dive: Open-endedness</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>27</span>  <span class='chapter-title'>Open-endedness</span>"
     ]
   },
   {
     "objectID": "deep_dives/open_endedness.html#the-major-lines",
     "href": "deep_dives/open_endedness.html#the-major-lines",
-    "title": "Deep Dive: Open-endedness",
+    "title": "Open-endedness",
     "section": "The major lines",
     "text": "The major lines\nA non-exhaustive map:\nQuality-diversity (QD). The cluster of methods that explicitly optimize for diverse high-quality solutions rather than the single best one. Novelty search rewards behaviors that have not been seen before, decoupling exploration from the task reward entirely. MAP-Elites maintains a grid of behavioral descriptors and keeps the best solution per cell, producing an archive of distinct strategies. QD has been useful for robotics (where many distinct gaits and strategies each have their use), for design exploration, and as a substrate for more elaborate open-ended systems.\nCo-evolutionary environment generation. Train an agent and an environment-generator at the same time. As the agent gets better, the environment-generator proposes harder challenges. POET (Paired Open-Ended Trailblazer, Wang et al.) is one early instantiation; more recent variants have refined the basic idea. The hard problem is keeping the environment-generator from collapsing into either trivially-easy or impossibly-hard challenges.\nOMNI / OMNI-EPIC and successors. Recent work that uses learned models to predict whether a candidate task is interestingly hard for a given agent — a learned curriculum signal that can substitute for hand-designed difficulty progression. This is an active and fast-moving subfield.\nStanley and Lehman’s broader program. The line of thought that gave us novelty search has also produced a broader philosophical stance, articulated most prominently in Why Greatness Cannot Be Planned — the claim that objective-driven search is a surprisingly limited paradigm, and that interesting discoveries (in evolution, in human creativity, in research) emerge from non-objective-driven processes. Open-endedness is the technical instantiation of this stance.",
     "crumbs": [
-      "<span class='chapter-number'>27</span>  <span class='chapter-title'>Deep Dive: Open-endedness</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>27</span>  <span class='chapter-title'>Open-endedness</span>"
     ]
   },
   {
     "objectID": "deep_dives/open_endedness.html#why-open-endedness-is-hard",
     "href": "deep_dives/open_endedness.html#why-open-endedness-is-hard",
-    "title": "Deep Dive: Open-endedness",
+    "title": "Open-endedness",
     "section": "Why open-endedness is hard",
     "text": "Why open-endedness is hard\nA few structural reasons:\n\nIt is hard to measure. Most ML benchmarks are bounded — a finite test set, a fixed task. An open-ended system, by definition, is producing things outside any pre-specified evaluation. Evaluating an open-ended system requires either an open-ended evaluator or accepting that the evaluation is itself an exercise in taste.\nIt is hard to engineer. Most optimization processes converge or collapse. The interventions that keep a system “open” — explicit novelty rewards, environment co-evolution, intrinsic motivation — are themselves prone to gaming, collapse, or stagnation.\nIt interfaces awkwardly with goals. A truly open-ended system may produce useful things, but it is not for producing useful things. The tension between “open-ended exploration” and “task-directed performance” is genuine and not yet resolved.",
     "crumbs": [
-      "<span class='chapter-number'>27</span>  <span class='chapter-title'>Deep Dive: Open-endedness</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>27</span>  <span class='chapter-title'>Open-endedness</span>"
     ]
   },
   {
     "objectID": "deep_dives/open_endedness.html#where-the-field-is-in-2026",
     "href": "deep_dives/open_endedness.html#where-the-field-is-in-2026",
-    "title": "Deep Dive: Open-endedness",
+    "title": "Open-endedness",
     "section": "Where the field is in 2026",
     "text": "Where the field is in 2026\nOpen-endedness is a small, productive, mostly research-flavored field. It has not yet produced a system that runs indefinitely without engineering intervention, but it has produced a growing collection of partial successes — systems that stay open longer than naive baselines, that produce qualitatively novel artifacts at intermediate scales, that point at the right structural ingredients.\nThe intersection with LLMs as creative substrates is one of the most interesting recent currents. Foundation models can be used as generators of candidate tasks, candidate environments, candidate solutions — and several recent open-endedness systems use LLMs in this role, with promising early results.",
     "crumbs": [
-      "<span class='chapter-number'>27</span>  <span class='chapter-title'>Deep Dive: Open-endedness</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>27</span>  <span class='chapter-title'>Open-endedness</span>"
     ]
   },
   {
     "objectID": "deep_dives/open_endedness.html#where-to-go-next",
     "href": "deep_dives/open_endedness.html#where-to-go-next",
-    "title": "Deep Dive: Open-endedness",
+    "title": "Open-endedness",
     "section": "Where to go next",
     "text": "Where to go next\n\nThe novelty-search and quality-diversity literature (look for Stanley, Lehman, Mouret, Clune and collaborators for the canonical references).\nPOET and its descendants for the co-evolutionary environment story.\nRecent OMNI-EPIC-style work for the learned-curriculum side.\nWhy Greatness Cannot Be Planned (Stanley and Lehman) for the philosophical positioning.\n\nIf you finished Chapter 12 wanting to actually engage with this work — rather than just gesture at it — this chapter is the launching point.",
     "crumbs": [
-      "<span class='chapter-number'>27</span>  <span class='chapter-title'>Deep Dive: Open-endedness</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>27</span>  <span class='chapter-title'>Open-endedness</span>"
     ]
   },
   {
     "objectID": "deep_dives/ai_for_science.html",
     "href": "deep_dives/ai_for_science.html",
-    "title": "Deep Dive: AI for science",
+    "title": "AI for science",
     "section": "",
     "text": "What “AI for science” actually covers\nAI for science — the application of deep-learning tools to actual scientific problems — is in some ways the most consequential downstream use of the methods this book covers. It is also a field with its own culture and its own evaluation standards, distinct from the rest of ML. This chapter is a launching point.\nThe framing of this book has been that neural networks are themselves objects of scientific study. The framing of AI for science is the inverse: neural networks as tools deployed in service of scientific questions outside ML. Both framings can coexist. The skills overlap. The criteria for success do not.\nA useful working partition:\nSurrogate models. Train a neural network to approximate an expensive simulation — a fluid-dynamics solver, a quantum-chemistry computation, a cosmological N-body run. The network is enormously faster than the simulation but inherits some of its accuracy. Surrogates have become standard infrastructure in computational science wherever a costly forward model exists.\nInverse problems. Given partial or noisy observations, recover the underlying parameters or structure that generated them. Diffusion models (see Chapter 8) have become a default tool here, because the probabilistic structure of the problem maps cleanly to the probabilistic structure of diffusion. Applications run from cosmological field reconstruction to medical imaging to molecular structure determination.\nDiscovery-flavored applications. Cases where the AI is not just evaluating a known forward model but is finding something the scientists did not yet know — protein structures (the AlphaFold lineage), materials with desired properties (active learning in materials databases), mathematical conjectures, novel chemistry.\nScientific text and data understanding. Using language models to digest the scientific literature, to extract structured knowledge, to draft sections of papers, to assist with peer review. The mundane utility here is large and growing.\nFoundation models for scientific domains. Models pretrained on domain-specific data (protein sequences, small molecules, astronomical surveys, weather observations) that serve as substrates for many downstream tasks within that domain.",
     "crumbs": [
-      "<span class='chapter-number'>28</span>  <span class='chapter-title'>Deep Dive: AI for science</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>28</span>  <span class='chapter-title'>AI for science</span>"
     ]
   },
   {
     "objectID": "deep_dives/ai_for_science.html#what-makes-ai-for-science-culturally-distinct",
     "href": "deep_dives/ai_for_science.html#what-makes-ai-for-science-culturally-distinct",
-    "title": "Deep Dive: AI for science",
+    "title": "AI for science",
     "section": "What makes AI for science culturally distinct",
     "text": "What makes AI for science culturally distinct\nA few honest observations about how this field operates differently:\n\nThe evaluation criteria are stricter and stranger. Predictive accuracy is the central ML benchmark; in scientific applications, calibrated uncertainty, physical-law respect, out-of-distribution behavior, and interpretability all matter at least as much. A model that scores well on average but fails catastrophically and silently on rare cases is sometimes useless to the science.\nThe relationship to domain experts is load-bearing. Most successful AI-for-science work is led by — or done in close collaboration with — actual domain scientists. Pure-ML approaches that ignore domain structure typically underperform.\nReproducibility expectations are higher. Scientific results are expected to be reproducible. ML papers, historically, less so. The interface is a source of friction.\nThe questions asked are not benchmark questions. “How well does our model do on benchmark X?” is the ML default. “Does this model help us discover/explain/predict something we could not before?” is the science default. They are not the same metric.",
     "crumbs": [
-      "<span class='chapter-number'>28</span>  <span class='chapter-title'>Deep Dive: AI for science</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>28</span>  <span class='chapter-title'>AI for science</span>"
     ]
   },
   {
     "objectID": "deep_dives/ai_for_science.html#where-the-field-is-in-2026",
     "href": "deep_dives/ai_for_science.html#where-the-field-is-in-2026",
-    "title": "Deep Dive: AI for science",
+    "title": "AI for science",
     "section": "Where the field is in 2026",
     "text": "Where the field is in 2026\nAI for science has graduated from a sub-genre of conference papers to a genuine working subfield. AlphaFold-class successes have happened in multiple domains. Surrogate models are standard infrastructure in many sciences. Foundation models for protein design, materials, mathematics, and weather forecasting are mature enough to be deployed.\nThe honest assessment is also that the transformative uses — AI that meaningfully accelerates scientific discovery rather than just speeding up known computations — are still rarer than the press coverage would suggest, and the conditions under which they happen are not yet generalized.\nOpen questions the field is wrestling with:\n\nHow much of a domain do you need to bake into the architecture or training procedure vs. let the model learn? Different domains have given different answers.\nHow does AI for science interact with the broader scientific process — peer review, hypothesis generation, theory building? The current answer is mostly “minimally,” and that may need to change.\nWhere are the limits? There are scientific questions that current ML methods cannot help with (e.g., where there is no available training data), and being clear about those limits is part of the field’s honesty.",
     "crumbs": [
-      "<span class='chapter-number'>28</span>  <span class='chapter-title'>Deep Dive: AI for science</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>28</span>  <span class='chapter-title'>AI for science</span>"
     ]
   },
   {
     "objectID": "deep_dives/ai_for_science.html#what-the-authors-long-term-work-is-pointing-at",
     "href": "deep_dives/ai_for_science.html#what-the-authors-long-term-work-is-pointing-at",
-    "title": "Deep Dive: AI for science",
+    "title": "AI for science",
     "section": "What the author’s long-term work is pointing at",
     "text": "What the author’s long-term work is pointing at\nA note on positioning, since the main spine (Chapter 12) mentioned it: the long-term research vision of AI for open-ended scientific discovery — building systems that can do the work of an experimental scientist, including formulating hypotheses, designing experiments, and updating beliefs based on results — sits at the intersection of AI for science, open-endedness, and intelligence-as-a-broader-phenomenon. It is currently more of an aspirational research direction than a working set of techniques. Whether it becomes the latter is one of the more important open questions of the decade.",
     "crumbs": [
-      "<span class='chapter-number'>28</span>  <span class='chapter-title'>Deep Dive: AI for science</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>28</span>  <span class='chapter-title'>AI for science</span>"
     ]
   },
   {
     "objectID": "deep_dives/ai_for_science.html#where-to-go-next",
     "href": "deep_dives/ai_for_science.html#where-to-go-next",
-    "title": "Deep Dive: AI for science",
+    "title": "AI for science",
     "section": "Where to go next",
     "text": "Where to go next\n\nThe relevant domain literatures: AlphaFold and its descendants for protein modeling; the surrogate-modeling literature in physics, chemistry, and climate; the materials-discovery literature.\nThe growing AI-for-Science workshops at major ML conferences.\nDirect conversations with domain scientists actually doing this work — far more useful than the marketing-flavored coverage of AI-for-science achievements.\nFor the philosophical / aspirational side: read what people working on autonomous scientific discovery are writing.\n\nThis is a chapter of pointers. The actual work is in the labs.",
     "crumbs": [
-      "<span class='chapter-number'>28</span>  <span class='chapter-title'>Deep Dive: AI for science</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>28</span>  <span class='chapter-title'>AI for science</span>"
     ]
   },
   {
     "objectID": "deep_dives/ai_agents.html",
     "href": "deep_dives/ai_agents.html",
-    "title": "Deep Dive: AI agents and science",
+    "title": "AI agents and science",
     "section": "",
     "text": "The honest assessment, 2026 edition\nThis is an opinionated chapter. The agent paradigm is one of the most hyped and most contested topics in 2026 AI, and pretending otherwise would be dishonest. What follows is a take, not a neutral survey — readers are encouraged to form their own.\nThe framing of an AI agent, mechanically, is in Chapter 6: an LLM that takes actions in a loop — calling tools, reading results, planning, retrying — until some goal is achieved or it gives up. The architectural picture is uncontroversial. What is controversial is what to make of the resulting systems: how capable they actually are, what they reveal about the underlying models, and what role they will play in science.\nAgents work better than they did a year ago. They also fail in characteristic ways that the main-spine treatment of LLMs would not predict. A short list of patterns:\nThese are not knocks on the field — they are descriptions of where the work actually is. The state of agents in 2026 is roughly where the state of single-turn LLMs was around 2021: useful, surprising, getting better fast, and failing in ways that the optimistic press coverage does not foreground.",
     "crumbs": [
-      "<span class='chapter-number'>29</span>  <span class='chapter-title'>Deep Dive: AI agents and science</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>29</span>  <span class='chapter-title'>AI agents and science</span>"
     ]
   },
   {
     "objectID": "deep_dives/ai_agents.html#the-honest-assessment-2026-edition",
     "href": "deep_dives/ai_agents.html#the-honest-assessment-2026-edition",
-    "title": "Deep Dive: AI agents and science",
+    "title": "AI agents and science",
     "section": "",
     "text": "Single-step competence is high, multi-step competence is much lower. A model that handles a one-turn task at near-human level can compound small errors over multi-step trajectories into very-not-human outcomes. The base capability is there; the robustness is not.\nLong-horizon behavior is the bottleneck. Tasks that require holding a coherent plan over many steps, recovering from setbacks, and revising strategy mid-execution are where agents fall apart. This is structurally the same problem as long-horizon RL (Chapter 9), and it has the same lack of clean solutions.\nTool-use brittleness is real. Even with good tools available, agents misuse them, fail to error-check tool outputs, and confidently proceed on bad inputs. The failure modes are often systematic — a particular agent will get the same step wrong reliably — which is bad news for the “just retry until it works” mitigation strategy.\nEvaluation is hard. Agent trajectories vary enormously. Benchmarks tend to either be too easy (saturated quickly) or too narrow (a specific app, a specific tool, a specific decision tree). A general “agent-competence” measure that the field agrees on does not yet exist.",
     "crumbs": [
-      "<span class='chapter-number'>29</span>  <span class='chapter-title'>Deep Dive: AI agents and science</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>29</span>  <span class='chapter-title'>AI agents and science</span>"
     ]
   },
   {
     "objectID": "deep_dives/ai_agents.html#why-agents-matter-scientifically",
     "href": "deep_dives/ai_agents.html#why-agents-matter-scientifically",
-    "title": "Deep Dive: AI agents and science",
+    "title": "AI agents and science",
     "section": "Why agents matter scientifically",
     "text": "Why agents matter scientifically\nMost discussion of agents is product-flavored. The science question is more interesting. An agent is a system that combines a base model, a tool set, a memory mechanism, and a control loop. Studying what it does is studying how the base model’s capabilities compose under sustained autonomous use — which is much closer to how those capabilities would matter in any realistic deployment than the single-turn benchmark setting.\nA few specific scientific questions agents surface:\n\nWhat is the relationship between a model’s single-turn capability and its trajectory-level capability? Why do they diverge?\nWhat kinds of tool errors does the model fail to notice? What does this say about its grounding?\nWhen does an agent’s behavior become legibly strategic (planning, conditional branching) and when does it look more like surface mimicry of strategic behavior?\nHow does the model’s representation of its own ongoing task shape what it does? (This connects to world-modeling, Chapter 10.)\n\nThese are real research questions. Several of them are accessible to the model-organism methodology of Chapter 7 — simulated agent environments with full instrumentation are exactly the kind of small synthetic settings where careful science can be done.",
     "crumbs": [
-      "<span class='chapter-number'>29</span>  <span class='chapter-title'>Deep Dive: AI agents and science</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>29</span>  <span class='chapter-title'>AI agents and science</span>"
     ]
   },
   {
     "objectID": "deep_dives/ai_agents.html#agents-and-science-the-bidirectional-question",
     "href": "deep_dives/ai_agents.html#agents-and-science-the-bidirectional-question",
-    "title": "Deep Dive: AI agents and science",
+    "title": "AI agents and science",
     "section": "Agents and science — the bidirectional question",
     "text": "Agents and science — the bidirectional question\nThere are two ways agents intersect with the science enterprise.\nAgents for science. Can an autonomous system actually do scientific work — formulating hypotheses, designing experiments, analyzing results, updating beliefs? The aspirational answer is yes; the current reality is closer to “agents are useful for narrow scientific subtasks (literature review, data cleaning, hypothesis-class enumeration) and not yet ready for end-to-end discovery.” The closely related AI for science deep dive covers more.\nAgents as a science. The scientific study of agents themselves — their failure modes, their training dynamics, their internal world models — is a young and underdeveloped subfield. It is also where some of the more interesting research opportunities lie. The agent setting is rich, behaviorally varied, and largely uncharted; the next several years will probably produce a lot of clean phenomenology here.",
     "crumbs": [
-      "<span class='chapter-number'>29</span>  <span class='chapter-title'>Deep Dive: AI agents and science</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>29</span>  <span class='chapter-title'>AI agents and science</span>"
     ]
   },
   {
     "objectID": "deep_dives/ai_agents.html#what-this-chapter-is-not",
     "href": "deep_dives/ai_agents.html#what-this-chapter-is-not",
-    "title": "Deep Dive: AI agents and science",
+    "title": "AI agents and science",
     "section": "What this chapter is not",
     "text": "What this chapter is not\nIt is not a list of agent frameworks. The frameworks change every six months, the wrapper code is not the science, and a textbook is the wrong medium for that conversation. It is also not a take on the safety/alignment dimension of agentic systems — that conversation belongs in a different chapter.",
     "crumbs": [
-      "<span class='chapter-number'>29</span>  <span class='chapter-title'>Deep Dive: AI agents and science</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>29</span>  <span class='chapter-title'>AI agents and science</span>"
     ]
   },
   {
     "objectID": "deep_dives/ai_agents.html#where-to-go-next",
     "href": "deep_dives/ai_agents.html#where-to-go-next",
-    "title": "Deep Dive: AI agents and science",
+    "title": "AI agents and science",
     "section": "Where to go next",
     "text": "Where to go next\n\nRecent agent benchmark papers and the criticisms of those benchmarks.\nThe model-organism-style studies that are starting to appear on agent behavior in simulated environments.\nThe model-based-RL and long-horizon literature (Chapter 9) — the structural problems are shared.\nFrontier-lab releases on agent capability and the technical reports that accompany them.\n\nThis is the most-revisable chapter in the book. The state of agents in 2027 will look meaningfully different from the state of agents in 2026, and not all of the predictions implicit here will age well. That is what writing about a moving frontier looks like.",
     "crumbs": [
-      "<span class='chapter-number'>29</span>  <span class='chapter-title'>Deep Dive: AI agents and science</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>29</span>  <span class='chapter-title'>AI agents and science</span>"
     ]
   },
   {
     "objectID": "deep_dives/mechanism_design.html",
     "href": "deep_dives/mechanism_design.html",
-    "title": "Deep Dive: Mechanism design and society",
+    "title": "Mechanism design and society",
     "section": "",
     "text": "Mechanism design, briefly\nThis chapter sits at the most uncomfortable edge of the book — the place where deep learning stops being a contained scientific subject and becomes part of a much larger socio-technical system. The framing here is mechanism design and multi-agent game theory: the formal study of how systems composed of strategic agents (humans, institutions, AI systems) can be designed so that the outcomes they produce are useful, fair, or stable.\nMost of the book has treated AI systems as roughly singular objects — one model, one training run, one set of evaluations. The reality is that production AI lives in multi-agent environments by default. A deployed LLM interacts with millions of users with competing objectives; trading systems interact with each other in markets; autonomous systems share roads, networks, and economies. The science of how such systems behave is well-developed in some traditions (economics, game theory, mechanism design) and barely touched by the deep-learning literature. This chapter is a launching point into the connection.\nMechanism design is the inverse problem of game theory. Game theory takes a system of strategic agents and asks what equilibria emerge. Mechanism design takes a desired outcome and asks: can you design the rules of the game such that this outcome is the equilibrium agents will reach? The canonical examples are auctions (how do you design an auction so that bidders truthfully reveal their valuations?), voting systems (how do you design a voting rule that aggregates preferences well?), and resource-allocation systems (how do you allocate scarce goods efficiently?).\nThe intellectual heritage is in microeconomics and the formal-theory tradition. The tools — incentive compatibility, individual rationality, social-welfare analysis, Bayesian game theory — are mature and have produced clean results in well-structured settings.",
     "crumbs": [
-      "<span class='chapter-number'>30</span>  <span class='chapter-title'>Deep Dive: Mechanism design and society</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>30</span>  <span class='chapter-title'>Mechanism design and society</span>"
     ]
   },
   {
     "objectID": "deep_dives/mechanism_design.html#why-this-matters-for-ai",
     "href": "deep_dives/mechanism_design.html#why-this-matters-for-ai",
-    "title": "Deep Dive: Mechanism design and society",
+    "title": "Mechanism design and society",
     "section": "Why this matters for AI",
     "text": "Why this matters for AI\nSeveral reasons:\nMulti-agent AI is already here. Algorithmic trading systems, recommender systems, ad-auction systems, ride-share matching systems — these are already multi-agent AI deployments in production. The mechanism-design questions are practical and ongoing.\nAgent ecosystems are coming. As the agent paradigm (AI agents) matures, we will increasingly have AI systems interacting with each other — AI-to-AI negotiation, AI participants in markets, AI-driven communication between organizations. The classical mechanism-design questions become acute: how do you design the interface protocols, the pricing schemes, the trust mechanisms?\nThe training loop itself is a mechanism. RLHF, DPO, and other preference-learning methods can be viewed as mechanisms that aggregate human feedback into a model’s behavior. The design of these aggregation procedures has the same flavor as classical voting and welfare-economics problems — and the same pathologies. Reward hacking (see Chapter 9) is a multi-agent mechanism-design failure: the agent is finding the gap between the proxy reward and the actual intent.\nThe societal-impact questions are mechanism-design questions. “How should social-media recommendation systems be designed so they do not amplify polarization?” is a mechanism-design question. “How should pricing in AI services be structured to avoid concentration?” is a mechanism-design question. “How should disagreement among annotators be aggregated into a reward signal?” is a mechanism-design question. The framing transfers.",
     "crumbs": [
-      "<span class='chapter-number'>30</span>  <span class='chapter-title'>Deep Dive: Mechanism design and society</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>30</span>  <span class='chapter-title'>Mechanism design and society</span>"
     ]
   },
   {
     "objectID": "deep_dives/mechanism_design.html#multi-agent-game-theory-in-deep-learning",
     "href": "deep_dives/mechanism_design.html#multi-agent-game-theory-in-deep-learning",
-    "title": "Deep Dive: Mechanism design and society",
+    "title": "Mechanism design and society",
     "section": "Multi-agent game theory in deep learning",
     "text": "Multi-agent game theory in deep learning\nA growing but still small research area. Some concrete threads:\nSelf-play and emergent equilibria. The AlphaGo / AlphaZero / AlphaStar line of work uses self-play to reach high competence in adversarial settings. The Nash-equilibrium framing makes this rigorous. There are open questions about how self-play interacts with more open-ended settings — see the Open-endedness deep dive.\nCooperative and mixed-motive RL. Multi-agent RL where agents must coordinate (cooperative settings) or where motives are mixed (partial cooperation, partial competition) is much harder than pure adversarial settings. Solution concepts get messier (correlated equilibria, no-regret learning), and the field is still finding its footing.\nMechanism design with learned components. Increasingly, the field is asking: can mechanism design be done by learning mechanisms rather than hand-designing them? This is mostly aspirational but it is a real research direction.\nStrategic behavior of AI systems. As models become more capable, the question of whether and when they engage in strategic behavior — deception, gaming evaluations, anticipating their own training updates — becomes increasingly load-bearing. This connects to alignment concerns and to the broader question of what kind of agents these systems are.",
     "crumbs": [
-      "<span class='chapter-number'>30</span>  <span class='chapter-title'>Deep Dive: Mechanism design and society</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>30</span>  <span class='chapter-title'>Mechanism design and society</span>"
     ]
   },
   {
     "objectID": "deep_dives/mechanism_design.html#what-this-chapter-is-not-doing",
     "href": "deep_dives/mechanism_design.html#what-this-chapter-is-not-doing",
-    "title": "Deep Dive: Mechanism design and society",
+    "title": "Mechanism design and society",
     "section": "What this chapter is not doing",
     "text": "What this chapter is not doing\nIt is not a policy chapter. The translation from technical mechanism-design results to actual policy is a separate, harder problem, and the technical material does not by itself answer questions about regulation, governance, or political legitimacy. A reader who wants those should not stop here.\nIt is also not a comprehensive game-theory primer. The classical literature is vast, mature, and well-taught elsewhere.",
     "crumbs": [
-      "<span class='chapter-number'>30</span>  <span class='chapter-title'>Deep Dive: Mechanism design and society</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>30</span>  <span class='chapter-title'>Mechanism design and society</span>"
     ]
   },
   {
     "objectID": "deep_dives/mechanism_design.html#where-to-go-next",
     "href": "deep_dives/mechanism_design.html#where-to-go-next",
-    "title": "Deep Dive: Mechanism design and society",
+    "title": "Mechanism design and society",
     "section": "Where to go next",
     "text": "Where to go next\n\nA graduate-level course in game theory and mechanism design (Mas-Colell, Whinston, Green’s economics text covers the territory; specialized courses on auction theory and voting theory go deeper).\nThe multi-agent RL literature (recent NeurIPS / ICML / AAMAS papers).\nThe growing AI-and-economics interface, where the questions of strategic AI behavior and mechanism design intersect.\nThe applied mechanism-design literature in computer science (algorithmic mechanism design, AGT).\n\nThis chapter is the most explicitly cross-disciplinary in the book. The reason it is here is that the questions of how AI systems behave in the presence of each other and of humans are not optional. They are part of what understanding modern AI means.",
     "crumbs": [
-      "<span class='chapter-number'>30</span>  <span class='chapter-title'>Deep Dive: Mechanism design and society</span>"
+      "Deep Dives",
+      "<span class='chapter-number'>30</span>  <span class='chapter-title'>Mechanism design and society</span>"
     ]
   }
 ]

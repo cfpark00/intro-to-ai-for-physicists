@@ -19,8 +19,9 @@ main {
   opacity: 0.7;
 }
 
-/* Visual gap before the first Deep Dive entry in the sidebar */
-.sidebar nav li.sidebar-item:has(> div > a[href*="deep_dives/systems"]),
-.sidebar nav li.sidebar-item:has(> a[href*="deep_dives/systems"]) {
-  margin-top: 1.5rem;
+/* Horizontal rule above the Deep Dives part header in the sidebar */
+.sidebar nav li.sidebar-item.sidebar-item-section {
+  border-top: 1px solid rgba(128, 128, 128, 0.35);
+  margin-top: 1rem;
+  padding-top: 1rem;
 }

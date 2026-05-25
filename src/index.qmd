@@ -3,7 +3,10 @@ title: "0  Preface"
 number-sections: false
 ---
 
-## Contents
+<details class="toc-collapse" open>
+<summary>Contents</summary>
+
+### Lectures
 
 ```{=html}
 <div class="toc-grid">
@@ -44,6 +47,8 @@ number-sections: false
   <a class="toc-tile" href="deep_dives/mechanism_design.html"><span class="toc-icon"><i class="bi bi-people"></i></span><span class="toc-title">Mechanism design</span></a>
 </div>
 ```
+
+</details>
 
 ## What this book is
 

@@ -1,5 +1,5 @@
 ---
-title: "Deep Dive: AI agents and science"
+title: "AI agents and science"
 number-sections: false
 ---
 

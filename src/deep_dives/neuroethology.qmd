@@ -1,5 +1,5 @@
 ---
-title: "Deep Dive: Neuroethology"
+title: "Neuroethology"
 number-sections: false
 ---
 

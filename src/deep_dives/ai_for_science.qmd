@@ -1,5 +1,5 @@
 ---
-title: "Deep Dive: AI for science"
+title: "AI for science"
 number-sections: false
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: "Deep Dive: Theoretical foundations of deep learning"
+title: "Theoretical foundations of deep learning"
 number-sections: false
 ---
 

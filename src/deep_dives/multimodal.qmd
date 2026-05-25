@@ -1,5 +1,5 @@
 ---
-title: "Deep Dive: Multimodal models"
+title: "Multimodal models"
 number-sections: false
 ---
 

@@ -37,21 +37,23 @@ book:
     - chapters/12_intelligence.qmd
     - references.qmd
     - glossary.qmd
-    - deep_dives/systems.qmd
-    - deep_dives/llm_architectures.qmd
-    - deep_dives/data_centric.qmd
-    - deep_dives/multimodal.qmd
-    - deep_dives/interpretability.qmd
-    - deep_dives/theory.qmd
-    - deep_dives/bayesian_mcmc.qmd
-    - deep_dives/classical_ml.qmd
-    - deep_dives/neuroethology.qmd
-    - deep_dives/neuroscience.qmd
-    - deep_dives/cogsci.qmd
-    - deep_dives/open_endedness.qmd
-    - deep_dives/ai_for_science.qmd
-    - deep_dives/ai_agents.qmd
-    - deep_dives/mechanism_design.qmd
+    - part: "Deep Dives"
+      chapters:
+        - deep_dives/systems.qmd
+        - deep_dives/llm_architectures.qmd
+        - deep_dives/data_centric.qmd
+        - deep_dives/multimodal.qmd
+        - deep_dives/interpretability.qmd
+        - deep_dives/theory.qmd
+        - deep_dives/bayesian_mcmc.qmd
+        - deep_dives/classical_ml.qmd
+        - deep_dives/neuroethology.qmd
+        - deep_dives/neuroscience.qmd
+        - deep_dives/cogsci.qmd
+        - deep_dives/open_endedness.qmd
+        - deep_dives/ai_for_science.qmd
+        - deep_dives/ai_agents.qmd
+        - deep_dives/mechanism_design.qmd
 
 bibliography: references.bib
 

@@ -1,5 +1,5 @@
 ---
-title: "Deep Dive: Data-centric ML"
+title: "Data-centric ML"
 number-sections: false
 ---
 

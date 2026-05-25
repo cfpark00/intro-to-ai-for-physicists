@@ -1,5 +1,5 @@
 ---
-title: "Deep Dive: Mechanism design and society"
+title: "Mechanism design and society"
 number-sections: false
 ---
 

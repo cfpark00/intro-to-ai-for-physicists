@@ -1,5 +1,5 @@
 ---
-title: "Deep Dive: Advanced LLM architectures"
+title: "Advanced LLM architectures"
 number-sections: false
 ---
 

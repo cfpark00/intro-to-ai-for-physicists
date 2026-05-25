@@ -978,5 +978,229 @@
     "crumbs": [
       "<span class='chapter-number'>14</span>  <span class='chapter-title'>References</span>"
     ]
+  },
+  {
+    "objectID": "glossary.html",
+    "href": "glossary.html",
+    "title": "Glossary",
+    "section": "",
+    "text": "Architectures and building blocks\nA seed glossary of terms used in the book. Definitions are being filled in as the chapters mature; this page is currently closer to an index of the vocabulary you should be able to use comfortably by the end of the book than a finished reference.\nIf a term you saw in the text is missing here, that’s a bug — please file an issue.\nMLP · CNN · RNN · LSTM · GRU · transformer · attention · self-attention · cross-attention · multi-head attention · residual stream · positional encoding · RoPE · KV cache · mixture of experts (MoE) · state space model (SSM) · S4 · Mamba · vision transformer (ViT) · normalization (BatchNorm, LayerNorm) · residual / skip connections.",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Glossary</span>"
+    ]
+  },
+  {
+    "objectID": "glossary.html#training",
+    "href": "glossary.html#training",
+    "title": "Glossary",
+    "section": "Training",
+    "text": "Training\nSGD · momentum · Adam · AdamW · weight decay · learning rate · batch size · dropout · regularization · cross-entropy · next-token prediction · perplexity · self-supervised learning · pretraining · fine-tuning · SFT · LoRA · distillation · context distillation · behavioral cloning · RLHF · RLAIF · DPO · PPO · GRPO · reward model · reward hacking.",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Glossary</span>"
+    ]
+  },
+  {
+    "objectID": "glossary.html#phenomena-and-dynamics",
+    "href": "glossary.html#phenomena-and-dynamics",
+    "title": "Glossary",
+    "section": "Phenomena and dynamics",
+    "text": "Phenomena and dynamics\nscaling laws · Chinchilla scaling · emergence · in-context learning (ICL) · grokking · double descent · lottery ticket · sharpness / flatness · catastrophic forgetting · model collapse · phase transitions in training · representation re-organization · hidden capabilities · swing-by dynamics.",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Glossary</span>"
+    ]
+  },
+  {
+    "objectID": "glossary.html#generative-models",
+    "href": "glossary.html#generative-models",
+    "title": "Glossary",
+    "section": "Generative models",
+    "text": "Generative models\nvariational autoencoder (VAE) · generative adversarial network (GAN) · normalizing flow · energy-based model · diffusion model · DDPM · score matching · flow matching · score-based SDE · NeRF.",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Glossary</span>"
+    ]
+  },
+  {
+    "objectID": "glossary.html#reinforcement-learning",
+    "href": "glossary.html#reinforcement-learning",
+    "title": "Glossary",
+    "section": "Reinforcement learning",
+    "text": "Reinforcement learning\nMarkov decision process (MDP) · policy · value function · Q-function · advantage · policy gradient · REINFORCE · actor-critic · on-policy · off-policy · offline RL · model-based RL · Dreamer · MuZero · credit assignment · sparse reward · exploration vs. exploitation · long horizon · intrinsic motivation · self-play · Nash equilibrium · multi-agent RL · evolutionary methods · quality-diversity (QD) · MAP-Elites · open-endedness.",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Glossary</span>"
+    ]
+  },
+  {
+    "objectID": "glossary.html#concepts-representations-interpretability",
+    "href": "glossary.html#concepts-representations-interpretability",
+    "title": "Glossary",
+    "section": "Concepts, representations, interpretability",
+    "text": "Concepts, representations, interpretability\nconcept · concept space · compositional generalization · continual learning · world model · world representations · theory of mind · probes · steering vectors · dictionary learning · sparse autoencoder · CKA · t-SNE · UMAP · linear probing · activation patching.",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Glossary</span>"
+    ]
+  },
+  {
+    "objectID": "glossary.html#other",
+    "href": "glossary.html#other",
+    "title": "Glossary",
+    "section": "Other",
+    "text": "Other\nLLM · VLM · omni-model · agent · RAG · evals · tokenization · BPE · SentencePiece · vector quantizer · foundation model · alignment · calibration · inference-time compute · chain of thought (CoT) · System 1 / System 2 · knightian uncertainty · aleatory / epistemic uncertainty · active learning · EM algorithm · principal component analysis (PCA) · Mahalanobis distance · bitter lesson.",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Glossary</span>"
+    ]
+  },
+  {
+    "objectID": "deep_dives/index.html",
+    "href": "deep_dives/index.html",
+    "title": "Overview",
+    "section": "",
+    "text": "Deep Dives\nThe twelve chapters of this book take the science-of-deep-learning angle on modern AI: networks as model organisms, phenomena as the object of study, synthetic experiments as the method. There are several adjacent fields the main spine deliberately does not cover in depth — not because they are less important, but because each of them is a discipline in its own right and could fill a textbook of its own.\nThis section collects short standalone chapters on those adjacent fields. The framing is launching points, not summaries: each entry tries to convey what the field is, what its central questions are, what kind of training someone in that field gets, and where to go next if you want to actually learn it. None of these chapters is a substitute for a real course in the field. They are pointers — but considered, opinionated pointers, written for someone who has finished the main spine and now wants to know what else is out there.\nIf you came here looking for what the main book chose to set aside, you’re in the right place.",
+    "crumbs": [
+      "Deep Dives",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Overview</span>"
+    ]
+  },
+  {
+    "objectID": "deep_dives/theory.html",
+    "href": "deep_dives/theory.html",
+    "title": "Theoretical foundations of deep learning",
+    "section": "",
+    "text": "What the field studies\nThe main spine of this book deliberately treats neural networks as objects of phenomenology — things to study experimentally, with model-organism methodology. The theoretical-foundations field takes the opposite vantage point: it asks what one can prove about networks as mathematical objects, and how to derive the qualitative behavior we observe from analyzable limits and structural arguments.\nThis is a serious technical field with its own toolkit, its own conferences, and its own intellectual culture. A short chapter cannot do justice to it. What follows is a map.\nA non-exhaustive list of central questions:",
+    "crumbs": [
+      "Deep Dives",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Theoretical foundations of deep learning</span>"
+    ]
+  },
+  {
+    "objectID": "deep_dives/theory.html#what-the-field-studies",
+    "href": "deep_dives/theory.html#what-the-field-studies",
+    "title": "Theoretical foundations of deep learning",
+    "section": "",
+    "text": "Generalization: why do overparameterized networks not overfit? What controls the effective complexity of the function class realized by a trained network?\nOptimization landscape: what is the geometry of the loss surface? Why does gradient descent find good minima? When and why does the implicit bias of SGD matter more than the explicit objective?\nRepresentational capacity: what functions can a network of given width and depth realize, and how does depth interact with width?\nInfinite-width limits: the neural tangent kernel (NTK) describes networks of infinite width as Gaussian processes with a particular kernel, making training dynamics analytically tractable. The infinite-width limit clarifies what initialization does, what feature learning requires (and why NTK does not capture it), and how scaling affects representational dynamics.\nHigh-dimensional geometry: capacity arguments inspired by statistical mechanics — neural manifold capacity, replica calculations, mean-field analyses — describe how representations partition high-dimensional space.\nSharpness, flatness, and implicit regularization: characterizations of the local geometry of solutions found by SGD, and the connection between flatness and generalization.\nLottery tickets and sparsity: why do sparse subnetworks at initialization train as well as the dense network? What does this say about overparameterization?\nSample complexity bounds: PAC-Bayes, Rademacher complexity, and other classical tools applied to deep networks, with their characteristic looseness on modern scales.",
+    "crumbs": [
+      "Deep Dives",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Theoretical foundations of deep learning</span>"
+    ]
+  },
+  {
+    "objectID": "deep_dives/theory.html#what-kind-of-training-the-field-requires",
+    "href": "deep_dives/theory.html#what-kind-of-training-the-field-requires",
+    "title": "Theoretical foundations of deep learning",
+    "section": "What kind of training the field requires",
+    "text": "What kind of training the field requires\nMost foundational work draws on linear algebra and functional analysis (the heavy machinery for capacity and representation), probability theory (for generalization bounds and concentration arguments), optimization theory (for landscape analysis), and increasingly statistical physics (for the high-dimensional and replica-theoretic results that have proved especially productive on neural networks). Anyone moving deep into the field benefits from a working fluency with random matrix theory, the geometry of high-dimensional probability, and information theory.\nThe cultural overlap with statistical physics is real and recent. Several of the most productive lines of work — capacity calculations, sharpness analyses, scaling-law derivations — were imported (or re-derived) by physicists who recognized neural networks as statistical-mechanical systems.",
+    "crumbs": [
+      "Deep Dives",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Theoretical foundations of deep learning</span>"
+    ]
+  },
+  {
+    "objectID": "deep_dives/theory.html#where-this-field-is-in-2026",
+    "href": "deep_dives/theory.html#where-this-field-is-in-2026",
+    "title": "Theoretical foundations of deep learning",
+    "section": "Where this field is, in 2026",
+    "text": "Where this field is, in 2026\nThe honest summary: the theoretical-foundations field has made real progress over the last decade — NTK has clarified what training dynamics look like in the wide limit, implicit regularization arguments have provided plausible accounts of why over-parametrized networks generalize, capacity calculations are increasingly quantitative. The field is also still incomplete in places that matter for practitioners: there is no fully predictive theory of feature learning at finite width, no general theory of why scaling laws have the empirical exponents they do, and no settled account of emergence.\nThis is the natural counterpart course to the experimental approach taken in the main spine. The two are complementary, not opposed: phenomenology surfaces the puzzles, theory closes them. A reader who has gone through the experimentalist’s chapters will recognize many of the open questions theory is currently trying to settle.",
+    "crumbs": [
+      "Deep Dives",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Theoretical foundations of deep learning</span>"
+    ]
+  },
+  {
+    "objectID": "deep_dives/theory.html#where-to-go-next",
+    "href": "deep_dives/theory.html#where-to-go-next",
+    "title": "Theoretical foundations of deep learning",
+    "section": "Where to go next",
+    "text": "Where to go next\nLook for:\n\nGraduate-level courses on “Mathematics of deep learning” or “Statistical learning theory” — these are the closest to a single-semester immersion.\nTheory-focused workshops and conferences (e.g., COLT, the theory tracks at NeurIPS/ICML).\nThe classical statistical learning theory literature for background on PAC-Bayes, Rademacher complexity, and capacity bounds.\nRecent reviews on NTK, infinite-width networks, and the neural-network/statistical-physics interface.\n\nThis chapter is a pointer. A real treatment is a course.",
+    "crumbs": [
+      "Deep Dives",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Theoretical foundations of deep learning</span>"
+    ]
+  },
+  {
+    "objectID": "deep_dives/classical_ml.html",
+    "href": "deep_dives/classical_ml.html",
+    "title": "Classical machine learning",
+    "section": "",
+    "text": "What the field gives you\nThe main spine of this book skips the toolkit that was the core of machine learning before deep learning took over: support vector machines, kernel methods, decision trees, random forests, gradient boosting, kNN, naive Bayes, mixture models, the EM algorithm, principal component analysis, and a long list of friends. The omission is deliberate — these methods are covered well by other textbooks, are no longer where the most interesting questions in modern AI live, and would crowd out the science-of-DL focus the book is trying to keep clean.\nBut classical ML has not disappeared. It still wins on small structured datasets where neural networks are wasteful, it still underpins the statistical reasoning that anyone in ML should have, and a handful of its ideas have quietly become load-bearing infrastructure inside modern systems (gradient boosting in feature pipelines, EM as the prototype of all latent-variable inference, kernel methods reborn as NTK in theory work).\nA reader who has gone through a classical-ML course leaves with three things the main spine does not provide:\nA grammar of inductive biases. SVMs, kernels, decision trees, and graphical models each express a distinct view of what structure in data looks like. Studying them side by side trains taste for which prior to bring to which problem — taste that survives the shift to deep learning, even when the specific methods do not.\nStatistical-learning vocabulary. Bias-variance, capacity, VC dimension, regularization, cross-validation, kernel tricks, dual formulations, conjugate priors, posterior inference. The vocabulary is universal — modern ML papers use it implicitly even when their methods do not.\nTractable model systems. Classical methods are small, fast, and analyzable. They are excellent teaching models for what learning is and what it isn’t — a small SVM on a 2D problem is a much better first encounter with the bias-variance tradeoff than a transformer on the web.",
+    "crumbs": [
+      "Deep Dives",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Classical machine learning</span>"
+    ]
+  },
+  {
+    "objectID": "deep_dives/classical_ml.html#what-stays-load-bearing",
+    "href": "deep_dives/classical_ml.html#what-stays-load-bearing",
+    "title": "Classical machine learning",
+    "section": "What stays load-bearing",
+    "text": "What stays load-bearing\nA few classical techniques continue to do real work in 2026:\n\nGradient-boosted trees (XGBoost, LightGBM and descendants) — still beat neural networks routinely on small tabular data and remain the default for many industrial-prediction pipelines.\nEM algorithm — the canonical method for learning latent-variable models, still used directly in mixture models, topic models, and as a conceptual scaffold for understanding amortized variational inference.\nPCA and friends (kernel PCA, sparse PCA) — exploratory analysis, dimensionality reduction, and the conceptual entry point for the geometry of representations.\nKernel methods — now mostly important theoretically: the NTK results (mentioned in the theory deep dive) connect infinite-width networks to kernel regression.\nGaussian processes — still the gold-standard probabilistic model when calibrated uncertainty matters more than predictive accuracy.",
+    "crumbs": [
+      "Deep Dives",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Classical machine learning</span>"
+    ]
+  },
+  {
+    "objectID": "deep_dives/classical_ml.html#where-this-field-is-culturally",
+    "href": "deep_dives/classical_ml.html#where-this-field-is-culturally",
+    "title": "Classical machine learning",
+    "section": "Where this field is, culturally",
+    "text": "Where this field is, culturally\nClassical ML has settled into a stable, well-taught discipline with mature textbooks, standard courses, and a clear pedagogical arc. Anyone serious about machine learning as a field benefits from having gone through it once; anyone trying to understand modern deep learning benefits from being able to compare and contrast.",
+    "crumbs": [
+      "Deep Dives",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Classical machine learning</span>"
+    ]
+  },
+  {
+    "objectID": "deep_dives/classical_ml.html#where-to-go-next",
+    "href": "deep_dives/classical_ml.html#where-to-go-next",
+    "title": "Classical machine learning",
+    "section": "Where to go next",
+    "text": "Where to go next\nThe standard graduate-level entry points (Bishop’s Pattern Recognition and Machine Learning, Murphy’s Machine Learning: a Probabilistic Perspective, Hastie–Tibshirani–Friedman’s Elements of Statistical Learning) are well-known. Any of them covers the territory thoroughly. A standalone semester course on statistical learning is the standard immersion. Past that point, the field is mature enough that the marginal next book is mostly diminishing returns.\nThis chapter is a pointer, and an acknowledgment: classical ML is not below modern deep learning — it is the language modern deep learning emerged from, and is still spoken fluently by everyone in the field, even when nobody is writing it down.",
+    "crumbs": [
+      "Deep Dives",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Classical machine learning</span>"
+    ]
+  },
+  {
+    "objectID": "deep_dives/systems.html",
+    "href": "deep_dives/systems.html",
+    "title": "Systems and infrastructure for deep learning",
+    "section": "",
+    "text": "What the field covers\nThe main spine of this book treats training compute as a parameter and stops there. In practice, making compute actually run — efficiently, reliably, at scale — is a deep engineering field with its own research culture, its own conferences, and its own set of unsolved problems. Frontier models do not exist without it.\nThis chapter is a pointer to that field. It is deliberately separate from the science of deep learning because it is a different kind of work: systems engineering with ML-shaped problems, rather than science of the trained network.\nRoughly four overlapping clusters:\nHardware. GPUs, TPUs, and increasingly diverse accelerators. The memory hierarchy (HBM, on-chip SRAM, register files) and what it costs to move tensors across it. The arithmetic intensity of attention, of MLP blocks, of convolutions. Why FlashAttention is a hardware-aware algorithm and not just a clever software optimization. The economics of frontier compute and how they constrain what experiments are possible.\nParallelism and distributed training. Data parallelism, tensor parallelism, pipeline parallelism, expert parallelism, fully-sharded data parallelism (FSDP). How communication primitives (all-reduce, all-gather, ring topologies) shape the design of large training runs. How parallelism strategies compose, and where they break down.\nInference systems. KV caches, continuous batching, speculative decoding, paged attention, request scheduling. Latency-vs-throughput tradeoffs. Quantization (INT8, INT4, FP8) and what it does to model quality. Serving infrastructure for millions of concurrent users.\nData and training pipelines. Petabyte-scale data ingestion, deduplication, quality filtering, mixture sampling. Checkpoint management. Failure recovery in multi-week, thousand-GPU runs. Observability for training (when has the loss diverged? when has a node failed silently?).",
+    "crumbs": [
+      "Deep Dives",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Systems and infrastructure for deep learning</span>"
+    ]
+  },
+  {
+    "objectID": "deep_dives/systems.html#why-this-is-its-own-field",
+    "href": "deep_dives/systems.html#why-this-is-its-own-field",
+    "title": "Systems and infrastructure for deep learning",
+    "section": "Why this is its own field",
+    "text": "Why this is its own field\nThe skills required overlap with but do not reduce to ML skills. A strong ML systems engineer thinks in terms of memory bandwidth, network topology, kernel-launch overhead, and numerical-stability tradeoffs in low-precision arithmetic. The intellectual heritage is closer to high-performance computing and operating systems than to learning theory.\nThe work is also where a lot of frontier capability actually comes from. The reason a 100B-parameter model was trainable when a 10B one was previously the ceiling is rarely a new architectural idea — it is usually a parallelism strategy, a kernel rewrite, a precision change, or an infrastructure tool that made the previously-impossible run.",
+    "crumbs": [
+      "Deep Dives",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Systems and infrastructure for deep learning</span>"
+    ]
+  },
+  {
+    "objectID": "deep_dives/systems.html#what-this-chapter-does-not-do",
+    "href": "deep_dives/systems.html#what-this-chapter-does-not-do",
+    "title": "Systems and infrastructure for deep learning",
+    "section": "What this chapter does not do",
+    "text": "What this chapter does not do\nTwo things this chapter deliberately is not:\nIt is not a recipe book. We do not show you how to set up a distributed training run, configure DeepSpeed or Megatron-LM, deploy a vLLM server, or pick the right number of pipeline stages for your model. Those are tutorial concerns and they age fast — the tools change every six months.\nIt is not a science-of-DL chapter. We can ask scientifically interesting questions about what trained networks do without engaging with how they were trained at scale. The systems work is a precondition for frontier science, not the science itself.",
+    "crumbs": [
+      "Deep Dives",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Systems and infrastructure for deep learning</span>"
+    ]
+  },
+  {
+    "objectID": "deep_dives/systems.html#where-to-go-next",
+    "href": "deep_dives/systems.html#where-to-go-next",
+    "title": "Systems and infrastructure for deep learning",
+    "section": "Where to go next",
+    "text": "Where to go next\nSystems-for-ML is a field that mostly does not teach itself well through textbooks — the canonical references date quickly. Reasonable entry points:\n\nThe MLSys conference proceedings.\nThe high-performance computing and operating-systems literature, applied with ML in mind.\nFrontier-lab engineering blogs and technical reports (they are deeply technical, often more so than papers).\nOpen-source frameworks (PyTorch internals, JAX internals, Triton, CUDA programming) are themselves a curriculum.\n\nIf the science-of-DL chapters in this book convinced you the interesting questions in deep learning are scientific, the systems field will convince you that the load-bearing questions in frontier deep learning are equally engineering. Both views are correct, and both are necessary.",
+    "crumbs": [
+      "Deep Dives",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Systems and infrastructure for deep learning</span>"
+    ]
   }
 ]

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>1 Introduction – Intro to AI for Physicists</title>
+<title>Overview – Intro to AI for Physicists</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,26 +23,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -52,8 +33,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/02_image_classification.html" rel="next">
-<link href="../index.html" rel="prev">
+<link href="../deep_dives/theory.html" rel="next">
+<link href="../glossary.html" rel="prev">
 <link href="../assets/favicon.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -273,7 +254,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01_intro.html"><span class="chapter-title">1 Introduction</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../deep_dives/index.html">Deep Dives</a></li><li class="breadcrumb-item"><a href="../deep_dives/index.html"><span class="chapter-title">Overview</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -309,7 +290,7 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/01_intro.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">1 Introduction</span></a>
+  <a href="../chapters/01_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1 Introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -379,16 +360,16 @@ div.csl-indent {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Deep Dives</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../deep_dives/index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Overview</span></a>
+  <a href="../deep_dives/index.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Overview</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -418,15 +399,7 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#the-thesis-neural-networks-as-model-organisms" id="toc-the-thesis-neural-networks-as-model-organisms" class="nav-link active" data-scroll-target="#the-thesis-neural-networks-as-model-organisms">The thesis: neural networks as model organisms</a></li>
-  <li><a href="#the-5-step-methodology" id="toc-the-5-step-methodology" class="nav-link" data-scroll-target="#the-5-step-methodology">The 5-step methodology</a></li>
-  <li><a href="#a-short-opinionated-history" id="toc-a-short-opinionated-history" class="nav-link" data-scroll-target="#a-short-opinionated-history">A short, opinionated history</a></li>
-  <li><a href="#the-bitter-lesson" id="toc-the-bitter-lesson" class="nav-link" data-scroll-target="#the-bitter-lesson">The bitter lesson</a>
-  <ul class="collapse">
-  <li><a href="#what-the-bitter-lesson-does-not-mean" id="toc-what-the-bitter-lesson-does-not-mean" class="nav-link" data-scroll-target="#what-the-bitter-lesson-does-not-mean">What the bitter lesson does <em>not</em> mean</a></li>
-  </ul></li>
-  <li><a href="#a-very-brief-gesture-at-the-substrate" id="toc-a-very-brief-gesture-at-the-substrate" class="nav-link" data-scroll-target="#a-very-brief-gesture-at-the-substrate">A very brief gesture at the substrate</a></li>
-  <li><a href="#where-we-are-going" id="toc-where-we-are-going" class="nav-link" data-scroll-target="#where-we-are-going">Where we are going</a></li>
+  <li><a href="#deep-dives" id="toc-deep-dives" class="nav-link active" data-scroll-target="#deep-dives">Deep Dives</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -434,9 +407,9 @@ div.csl-indent {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../deep_dives/index.html">Deep Dives</a></li><li class="breadcrumb-item"><a href="../deep_dives/index.html"><span class="chapter-title">Overview</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">1 Introduction</span></h1>
+<h1 class="title"><span class="chapter-title">Overview</span></h1>
 </div>
 
 
@@ -453,90 +426,13 @@ div.csl-indent {
 </header>
 
 
-<p>Welcome. This book is the experimentalist’s half of a course on modern AI for physicists. The theoretical half — NTK, neural manifold capacity, high-dimensional geometry, capacity calculations — is in good hands elsewhere. Here we get our hands dirty.</p>
-<p>Before diving into getting GPUs hot, we’ll spend a little time on philosophy: how to think about deep learning <em>as a scientific object</em>, what it means to do science on a thing that was designed for performance rather than for understanding, and why physicists are unusually well-placed to do this kind of work.</p>
-<section id="the-thesis-neural-networks-as-model-organisms" class="level2">
-<h2 class="anchored" data-anchor-id="the-thesis-neural-networks-as-model-organisms">The thesis: neural networks as model organisms</h2>
-<p>Neural networks in their natural habitat — frontier transformers trained on most of the web, optimized for benchmark performance — are a <strong>big mess</strong>. They are not cleanly defined problems. You cannot derive their behavior from first principles, and you cannot get them to stop surprising you. They are, in every meaningful sense, <em>systems we have built but do not understand</em>.</p>
-<p>The framing this book takes is that this situation is much more like biology than like physics-as-usual, and that it calls for a corresponding methodology. The closest precedent is <strong>neuroethology</strong>: the study of the neural basis of natural animal behavior in its ecological context. Neuroethologists do not start with axioms about brains. They start by noticing a behavior an animal actually does — bat echolocation, the visual cliff response in infants, electric fish jamming each other — and they work backwards.</p>
-<p>The course mostly follows this style. Neural networks are the animals. Their training distributions are the ecology. The phenomena are whatever interesting things they do when nobody is checking.</p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><strong>[Plot]</strong> A side-by-side cartoon: on the left, a real neural network as a tangled mess of weights and activations; on the right, a “model organism” — a small synthetic task with a small network — that reproduces one specific phenomenon from the left. The arrow between them is the methodology this chapter introduces.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="the-5-step-methodology" class="level2">
-<h2 class="anchored" data-anchor-id="the-5-step-methodology">The 5-step methodology</h2>
-<p>The guiding workflow — which we will revisit explicitly in <a href="../chapters/07_scidl_training.html">Chapter 7</a> and <a href="../chapters/11_scidl_concepts.html">Chapter 11</a>, the two named “Science of DL” pillars — is five steps:</p>
-<ol type="1">
-<li><strong>Notice a phenomenon.</strong> Start from a striking, reproducible behavior actually observed in a real neural network. Not a mathematical abstraction — something a network <em>does</em> that surprised someone.</li>
-<li><strong>Explore broadly.</strong> Through extensive, open-ended exploration, narrow the phenomenon down to a clear question. This step is mostly off-script and unglamorous, and it is where most of the actual scientific work lives.</li>
-<li><strong>Build a model system.</strong> Develop a synthetic, controllable model that reproduces the phenomenon — small enough to instrument fully. You should be able to inspect every weight and every activation if you want to.</li>
-<li><strong>Experiment on the model system.</strong> Now that the system is tractable, run the experiments the original network does not allow: ablations, interventions, controlled inputs, exhaustive sweeps.</li>
-<li><strong>Cross-check.</strong> Bring the findings back to the original big monster and verify they hold there.</li>
-</ol>
-<p>The order will not always be strict — sometimes a theoretical hunch comes first, sometimes a model system precedes a crisp question, sometimes you cross-check halfway and have to back up — but this is the guiding shape.</p>
-<p>The direct neuroethology parallel: observe animals → find a specific behavior (better if it is shared across species) → that opens a clear question → run experiments on a <em>model organism</em> (Drosophila, <em>C. elegans</em>, zebrafish) where the experiments are actually possible → bring it back to the species that motivated the question.</p>
-<blockquote class="blockquote">
-<p>Overall, the science here is close in spirit to neurophysics, but takes a heavily experimental approach.</p>
-</blockquote>
-</section>
-<section id="a-short-opinionated-history" class="level2">
-<h2 class="anchored" data-anchor-id="a-short-opinionated-history">A short, opinionated history</h2>
-<p>You will encounter a lot of history in AI/ML/DL if you read the field’s literature. Most of it is not very useful. But a few historical patterns <em>are</em> useful, because they keep recurring.</p>
-<p><strong>Connectionism vs symbolism.</strong> For roughly half a century, two paradigms argued about whether intelligence is best understood as symbol manipulation (with rules, logic, structured representations) or as the emergent behavior of large networks of simple units. The connectionist camp has, for the moment, won — every system you will study in this book is a network of simple units. But the fight is older than this paradigm, and it will probably outlive it too. The current synthesis is uneasy: foundation models are connectionist on the inside and increasingly symbolic on the outside (chain of thought, tool use, agent scaffolding).</p>
-<p><strong>Theory has sometimes been wrong-footed by neural networks — or so I read the history.</strong> Up front: this is the author’s reading, not a neutral consensus. Some researchers, including many fine theorists, will read the same record differently and conclude that theory has been broadly successful and just incomplete in places. Both readings are defensible. I am laying out my version because it shapes the experimentalist stance the rest of the book takes; you should construct your own view.</p>
-<p>The episodes I lean on:</p>
-<ul>
-<li>The <strong>XOR-era impossibility</strong>: a single-layer perceptron cannot represent XOR. This was true, taken seriously, and used by some as an argument that the whole research direction was hopeless. Stacking layers fixed it. The theorem was correct; the broader conclusion drawn from it was not.</li>
-<li><strong>Universal approximation theorems</strong>: existence proofs that a sufficiently wide network can represent any function. These were used both to argue <em>for</em> neural networks (“see, they can do anything!”) and <em>against</em> deeper architectures (“you do not need depth”). On my reading, both readings missed what actually mattered in practice, which was trainability and inductive bias, not raw representational capacity.</li>
-<li><strong>Over-parametrization</strong>: classical statistical learning theory predicted that models with vastly more parameters than data points should overfit catastrophically. They did not. This is still surprising. The phenomena that came out of <em>not</em> overfitting — double descent, grokking, the general “deep learning works much better than it should” — are the substance of <a href="../chapters/07_scidl_training.html">Chapter 7</a>. Modern theory (NTK, capacity arguments, implicit-regularization stories) has made real progress here; “still surprising” is the empirical statement, not a slight on the theoretical work that is closing the gap.</li>
-</ul>
-<p>The pattern I take from this: when a theoretical result seems to say “this cannot work,” sometimes the theorem is correct and the <em>conclusion drawn from it</em> was overconfident — i.e., the theory was not yet general enough to cover the regime that mattered. So, conditionally — and this is my bias as an experimentalist — feel free to also <em>not</em> think in the theory way. There have been cases where theory did not help, and cases where the loose interpretation of a theoretical result actively pointed in the wrong direction.</p>
-<p>The flip side is just as worth saying: this does <em>not</em> mean theory is useless or that theorists have been wrong about the things they actually claimed. It means that for the kind of science this book teaches, theory often ends up downstream of phenomenology. We notice something weird, we characterize it carefully, and <em>then</em> we ask whether existing theory accounts for it. Sometimes it does; sometimes the gap is the research opportunity. Either outcome is good science.</p>
-<p><strong>Things were “hated” at various times.</strong> Neural networks went through more than one AI winter. There were stretches of decades when working on connectionist models was a career-limiting move. If you are entering the field now, when it feels like a settled paradigm with massive industrial investment, it is worth knowing that the people who built what you are about to study did so under very different incentives. The current consensus is recent and may not be permanent.</p>
-</section>
-<section id="the-bitter-lesson" class="level2">
-<h2 class="anchored" data-anchor-id="the-bitter-lesson">The bitter lesson</h2>
-<p>The lecture closes on a single recurring lesson from the history of AI: scaling general methods consistently beats clever hand-engineering of priors <span class="citation" data-cites="sutton2019bitter">(<a href="../references.html#ref-sutton2019bitter" role="doc-biblioref">Sutton 2019</a>)</span>. Rich Sutton’s “bitter lesson” essay is the canonical statement; the pattern is older. People kept trying to encode their domain knowledge into AI systems — grammars for language, hand-designed features for vision, hand-coded heuristics for chess and Go — and at every scale, the methods that won were the ones that threw the hand-engineering out and let a generic learner consume more compute and more data.</p>
-<p>This will be the connecting thread through the next several chapters. The “first bitter lesson” — <em>bigger nets are better</em> — surfaces in <a href="../chapters/02_image_classification.html">Chapter 2</a> before scaling laws were a phrase, and gets the full treatment in <a href="../chapters/05_llm_pretraining.html">Chapter 5</a> once we have the LLM context to motivate the actual functional forms.</p>
-<section id="what-the-bitter-lesson-does-not-mean" class="level3">
-<h3 class="anchored" data-anchor-id="what-the-bitter-lesson-does-not-mean">What the bitter lesson does <em>not</em> mean</h3>
-<p>The bitter lesson is often misread as nihilism: “never think, just scale.” This is not what it says, and treating it that way is bad for science.</p>
-<p>What the bitter lesson actually says is more limited and more useful: <em>do not bake in clever priors when scale will get there anyway</em>. It is a warning against premature specialization, not a license to stop thinking. There are still places where careful methodology, careful priors, and careful architecture pay off — the entire point of the methodology in the previous section is that <em>understanding why things work</em> is itself a valuable activity, and you cannot scale your way to understanding.</p>
-<p>So: scale matters, but science is not just scaling. We will spend many chapters of this book on phenomena that scale does not explain.</p>
-</section>
-</section>
-<section id="a-very-brief-gesture-at-the-substrate" class="level2">
-<h2 class="anchored" data-anchor-id="a-very-brief-gesture-at-the-substrate">A very brief gesture at the substrate</h2>
-<p>This is a Harvard physics grad audience. You already know what a neural network is in the basic sense — a stack of differentiable parameterized functions, trained by gradient descent on a loss. You already know what SGD is. You have computed gradients in your sleep. We are not going to spend a lecture re-establishing this.</p>
-<p>A few terms that will recur often, just for terminology:</p>
-<ul>
-<li>A <strong>foundation model</strong> is a large model pretrained on broad data such that it can be adapted (often via fine-tuning or prompting) to many downstream tasks. The term is doing real work; we will see why in Chapters 5 and 6.</li>
-<li><strong>Self-supervised learning</strong> is training with labels that are derived from the data itself — predicting the next token, predicting masked patches, predicting one view of an image from another.</li>
-<li><strong>Pretraining</strong> and <strong>fine-tuning</strong> are the two main stages of the modern recipe. The cost asymmetry is enormous.</li>
-</ul>
-<p>Five minutes total. If any of this is unfamiliar, the rest of the book will fill it in implicitly, and you can use the glossary.</p>
-</section>
-<section id="where-we-are-going" class="level2">
-<h2 class="anchored" data-anchor-id="where-we-are-going">Where we are going</h2>
-<p>The arc of the book is two parts.</p>
-<p><strong>Part I (Chapters 1–7): fundamentals and methods.</strong> We work through the dominant model classes in roughly the order they matter for modern AI — image classifiers, sequence models, transformers, large language models pre- and post-training — and then in Chapter 7 we step back for the first of two phenomenology pillars, on training dynamics. The first part is “what to know” plus “how to do science on it.”</p>
-<p><strong>Part II (Chapters 8–12): beyond LLMs.</strong> Diffusion, real reinforcement learning, world models and continual learning, the second phenomenology pillar (concept learning), and finally a capstone chapter on intelligence-shaped phenomena that go beyond gradient-trained single-agent learning.</p>
-<p>By the end of the book you should not feel that you have <em>covered</em> deep learning. You should feel that you have entered an open scientific frontier — and that you have the taste to recognize good questions in it, and the tools to start answering them.</p>
+<section id="deep-dives" class="level1">
+<h1>Deep Dives</h1>
+<p>The twelve chapters of this book take the science-of-deep-learning angle on modern AI: networks as model organisms, phenomena as the object of study, synthetic experiments as the method. There are several <strong>adjacent fields</strong> the main spine deliberately does not cover in depth — not because they are less important, but because each of them is <em>a discipline in its own right</em> and could fill a textbook of its own.</p>
+<p>This section collects short standalone chapters on those adjacent fields. The framing is <strong>launching points, not summaries</strong>: each entry tries to convey what the field is, what its central questions are, what kind of training someone in that field gets, and where to go next if you want to actually learn it. None of these chapters is a substitute for a real course in the field. They are pointers — but considered, opinionated pointers, written for someone who has finished the main spine and now wants to know what <em>else</em> is out there.</p>
+<p>If you came here looking for what the main book chose to set aside, you’re in the right place.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
-<div id="ref-sutton2019bitter" class="csl-entry" role="listitem">
-Sutton, Richard. 2019. <span>“The Bitter Lesson.”</span> <em>Incomplete Ideas (Blog)</em>.
-</div>
-</div>
 </section>
 
 </main> <!-- /main -->
@@ -960,13 +856,13 @@ Sutton, Richard. 2019. <span>“The Bitter Lesson.”</span> <em>Incomplete Idea
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../index.html" class="pagination-link" aria-label="0  Preface">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">0 Preface</span></span>
+      <a href="../glossary.html" class="pagination-link" aria-label="Glossary">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Glossary</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/02_image_classification.html" class="pagination-link" aria-label="2  Neural networks and image classification">
-        <span class="nav-page-text"><span class="chapter-title">2 Neural networks and image classification</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../deep_dives/theory.html" class="pagination-link" aria-label="Theoretical foundations of deep learning">
+        <span class="nav-page-text"><span class="chapter-title">Theoretical foundations of deep learning</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>8&nbsp; Reinforcement learning for LLMs – Intro to AI for Physicists</title>
+<title>3&nbsp; Neural networks and image classification – Intro to AI for Physicists</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -52,8 +52,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/08_reasoning.html" rel="next">
-<link href="../chapters/06_finetuning.html" rel="prev">
+<link href="../chapters/03_sequence_modeling.html" rel="next">
+<link href="../chapters/01_intro.html" rel="prev">
 <link href="../assets/favicon.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -316,7 +316,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/05_pretraining.html">Large language models</a></li><li class="breadcrumb-item"><a href="../chapters/07_rl.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Reinforcement learning for LLMs</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01_intro.html">Fundamentals and methods</a></li><li class="breadcrumb-item"><a href="../chapters/02_image_classification.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Neural networks and image classification</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -353,23 +353,53 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
- <span class="menu-text">Foundations</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Fundamentals and methods</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/01_landscape.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The modern AI landscape</span></span></a>
+  <a href="../chapters/01_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/02_dl_primer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">A deep learning primer</span></span></a>
+  <a href="../chapters/02_image_classification.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Neural networks and image classification</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/03_sequence_modeling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sequence modeling</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/04_transformers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Transformers</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/05_llm_pretraining.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Large language models I: pretraining and fine-tuning</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/06_llm_posttraining.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Large language models II: post-training and agents</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/07_scidl_training.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Science of deep learning I: training dynamics</span></span></a>
   </div>
 </li>
       </ul>
@@ -377,7 +407,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
- <span class="menu-text">Modern architectures</span></a>
+ <span class="menu-text">Beyond LLMs</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -385,83 +415,32 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/03_transformer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The transformer</span></span></a>
+  <a href="../chapters/08_diffusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Diffusion models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/04_scaling_laws.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Scaling laws</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Large language models</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/05_pretraining.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Pretraining LLMs</span></span></a>
+  <a href="../chapters/09_rl.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Reinforcement learning</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/06_finetuning.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Fine-tuning</span></span></a>
+  <a href="../chapters/10_world_models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">World models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/07_rl.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Reinforcement learning for LLMs</span></span></a>
+  <a href="../chapters/11_scidl_concepts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Science of deep learning II: concept learning</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/08_reasoning.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Reasoning and test-time compute</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
- <span class="menu-text">Generative models beyond LLMs</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/09_diffusion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Diffusion and score-based models</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
- <span class="menu-text">Practice</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/10_inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Inference</span></span></a>
+  <a href="../chapters/12_intelligence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Science of intelligence</span></span></a>
   </div>
 </li>
       </ul>
@@ -469,7 +448,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">References</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">References</span></span></a>
   </div>
 </li>
     </ul>
@@ -482,22 +461,21 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-rl" id="toc-sec-rl" class="nav-link active" data-scroll-target="#sec-rl"><span class="header-section-number">8.1</span> The setup</a></li>
-  <li><a href="#rlhf-learning-a-reward-model-from-preferences" id="toc-rlhf-learning-a-reward-model-from-preferences" class="nav-link" data-scroll-target="#rlhf-learning-a-reward-model-from-preferences"><span class="header-section-number">8.2</span> RLHF: learning a reward model from preferences</a></li>
-  <li><a href="#dpo-skip-the-reward-model" id="toc-dpo-skip-the-reward-model" class="nav-link" data-scroll-target="#dpo-skip-the-reward-model"><span class="header-section-number">8.3</span> DPO: skip the reward model</a></li>
-  <li><a href="#rlvr-reinforcement-learning-with-verifiable-rewards" id="toc-rlvr-reinforcement-learning-with-verifiable-rewards" class="nav-link" data-scroll-target="#rlvr-reinforcement-learning-with-verifiable-rewards"><span class="header-section-number">8.4</span> RLVR: reinforcement learning with verifiable rewards</a></li>
-  <li><a href="#policy-gradient-in-one-paragraph" id="toc-policy-gradient-in-one-paragraph" class="nav-link" data-scroll-target="#policy-gradient-in-one-paragraph"><span class="header-section-number">8.5</span> Policy gradient in one paragraph</a></li>
-  <li><a href="#what-changed-in-20242026" id="toc-what-changed-in-20242026" class="nav-link" data-scroll-target="#what-changed-in-20242026"><span class="header-section-number">8.6</span> What changed in 2024–2026</a></li>
+  <li><a href="#neural-networks-properly" id="toc-neural-networks-properly" class="nav-link active" data-scroll-target="#neural-networks-properly"><span class="header-section-number">3.1</span> Neural networks, properly</a></li>
+  <li><a href="#image-classification-specifically" id="toc-image-classification-specifically" class="nav-link" data-scroll-target="#image-classification-specifically"><span class="header-section-number">3.2</span> Image classification, specifically</a></li>
+  <li><a href="#inductive-bias-vs-compression" id="toc-inductive-bias-vs-compression" class="nav-link" data-scroll-target="#inductive-bias-vs-compression"><span class="header-section-number">3.3</span> Inductive bias vs compression</a></li>
+  <li><a href="#the-phenomenon-gabor-filters" id="toc-the-phenomenon-gabor-filters" class="nav-link" data-scroll-target="#the-phenomenon-gabor-filters"><span class="header-section-number">3.4</span> The phenomenon: Gabor filters</a></li>
+  <li><a href="#the-first-bitter-lesson-bigger-is-better" id="toc-the-first-bitter-lesson-bigger-is-better" class="nav-link" data-scroll-target="#the-first-bitter-lesson-bigger-is-better"><span class="header-section-number">3.5</span> The first bitter lesson: bigger is better</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/cfpark00/science-of-dl/edit/main/chapters/07_rl.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/05_pretraining.html">Large language models</a></li><li class="breadcrumb-item"><a href="../chapters/07_rl.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Reinforcement learning for LLMs</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01_intro.html">Fundamentals and methods</a></li><li class="breadcrumb-item"><a href="../chapters/02_image_classification.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Neural networks and image classification</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Reinforcement learning for LLMs</span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Neural networks and image classification</span></h1>
 </div>
 
 
@@ -514,62 +492,89 @@ window.Quarto = {
 </header>
 
 
-<p>Reinforcement learning is how modern LLMs get <em>good</em>. SFT teaches a base model to imitate behavior; RL teaches it to optimize for an outcome. By 2025 the gap between an SFT-only model and a heavily RL-post-trained model is enormous, especially on reasoning, code, and instruction following.</p>
-<p>This chapter covers RL in the specific context of fine-tuning LLMs. General RL is a much larger field; we treat only the slice that matters here.</p>
-<section id="sec-rl" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="sec-rl"><span class="header-section-number">8.1</span> The setup</h2>
-<p>We have a pretrained-and-SFT’d language model <span class="math inline">\pi_\theta(y \mid x)</span> — a policy that, given a prompt <span class="math inline">x</span>, samples a response <span class="math inline">y</span>. We want to update <span class="math inline">\theta</span> to maximize an expected reward: <span class="math display">
-\max_\theta \; \mathbb{E}_{x \sim \mathcal{D},\; y \sim \pi_\theta(\cdot \mid x)} \big[\, r(x, y) \,\big] \;-\; \beta \, \mathrm{KL}\!\left(\pi_\theta \,\|\, \pi_{\text{ref}}\right).
-</span> The reward <span class="math inline">r</span> comes from somewhere — human preferences, a learned model, a verifier, a unit test. The KL term keeps <span class="math inline">\pi_\theta</span> close to a reference (usually the SFT model) to prevent collapse onto degenerate high-reward outputs.</p>
-<p>The art is in (a) where the reward comes from, and (b) how we estimate the gradient.</p>
+<p>Most introductions to modern AI start with large language models. We are going to start with image classification instead. There are two reasons. The first is historical: the deep learning revolution kicked off in vision in 2012, and the patterns the field worked out there — depth, scale, normalization, residual connections, GPU-friendly architectures — are recapitulated in everything that comes later. The second is pedagogical: image classification is the cleanest setting to actually introduce a neural network. You can see what the input is, you can see what the output is, you can see what the layers in the middle are doing.</p>
+<p>We will skip classical machine learning entirely. SVMs, kNN, decision trees, kernel methods — these are covered well in other books and they are no longer where the interesting questions live in modern AI. The historical thread that matters is the one that goes neural-networks → convolutional neural networks → ImageNet → AlexNet → ResNet → vision transformers.</p>
+<p>Two phenomena will hang over the chapter. The first is “<strong>why did it take so long?</strong>” Neural networks were proposed in the 1940s and 60s. They beat hand-crafted features on ImageNet only in 2012. What changed? The second is <strong>Gabor-filter emergence</strong>: when you train a CNN end-to-end on natural images, the first-layer filters reliably look like Gabor wavelets — the same primitives that show up in V1 of biological visual cortex. Nobody told the network to do this. It is a phenomenon. We will keep coming back to this kind of thing.</p>
+<section id="neural-networks-properly" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="neural-networks-properly"><span class="header-section-number">3.1</span> Neural networks, properly</h2>
+<p>A neural network is a parameterized differentiable function <span class="math inline">f_\theta: \mathcal{X} \to \mathcal{Y}</span> trained by gradient descent on some loss. You know this. What is worth doing carefully here is naming the ingredients that the field had to discover before deep learning actually worked.</p>
+<p>A <strong>multi-layer perceptron</strong> (MLP) is the simplest case: an alternating stack of affine transformations and elementwise nonlinearities, <span class="math display">
+h_{\ell+1} = \sigma(W_\ell h_\ell + b_\ell),
+</span> with the output produced from the final hidden state by another linear projection. The <strong>universal approximation theorem</strong> says that for any reasonable function on a compact domain, you can find an MLP that approximates it arbitrarily well by making it wide enough. As discussed in the previous chapter, this theorem is correct and largely useless — it tells you nothing about how to <em>find</em> the weights, how <em>deep</em> you need to go, or what <em>inductive biases</em> matter. It is a good example of theory being technically true and practically misleading.</p>
+<p>The actual machinery that makes deep networks work, in the order it had to be invented:</p>
+<p><strong>Stochastic gradient descent.</strong> You estimate the loss gradient on a minibatch of examples and step. The noise is not a bug — it acts as an implicit regularizer and helps you escape sharp minima. For classification, the loss is cross-entropy, <span class="math display">
+\mathcal{L}(\theta) = -\frac{1}{N} \sum_{i=1}^N \log p_\theta(y_i \mid x_i),
+</span> which is just the negative log-likelihood under the model.</p>
+<p><strong>Optimizers.</strong> Vanilla SGD works but is slow and finicky. Adding momentum smooths the trajectory. Adam adapts the step size per parameter using running estimates of first and second gradient moments. AdamW decouples weight decay from the adaptive step. By default you reach for AdamW; you can get fancier when you need to.</p>
+<p><strong>Initialization.</strong> This was a real bottleneck for a long time. If you initialize the weights too small, signals vanish through the depth; too large, they explode. The Glorot and He schemes set the variance of each layer’s weights so that the activations and gradients keep a roughly stable scale across depth. Without this, deep networks simply did not train.</p>
+<p><strong>Normalization layers.</strong> Batch normalization made deeper networks trainable by stabilizing the distribution of activations across the batch. Layer normalization replaced it in most modern architectures because it does not depend on batch size, which matters for sequence models and small-batch training. The point of normalization layers is not theoretical elegance — it is that <em>without them, the optimization problem is much harder</em>.</p>
+<p><strong>Residual connections.</strong> A residual block computes <span class="math inline">x \mapsto x + F(x)</span>. This is the move that unlocked very deep networks. It changes the inductive bias from “learn the function” to “learn the <em>correction</em> from the function so far,” and it lets gradients flow through the depth without vanishing. The same idea — a <strong>residual stream</strong> that components read from and write to — is the computational substrate of the transformer in <a href="../chapters/04_transformers.html">Chapter 4</a>.</p>
+<p><strong>Hyperparameters that matter.</strong> Learning rate is the one you will tune most. Batch size interacts with learning rate (larger batches generally tolerate larger steps). Weight decay regularizes implicitly. Dropout is less universal than it once was but still useful. The general advice is: tune learning rate first, batch size second, everything else later.</p>
+<p><strong>Why GPUs.</strong> Neural networks are matrix multiplications and elementwise operations on tensors. GPUs are devices that do exactly that, very fast, in parallel. CPUs are not. Almost every important architectural choice in modern deep learning is a choice about what is easy to compute efficiently on a GPU — this is where the “bitter lesson” of <a href="../chapters/01_intro.html">Chapter 1</a> cashes out architecturally.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>[Plot]</strong> A schematic showing depth on the x-axis and “trainable / not trainable” on the y-axis, with the introduction of (initialization, normalization, residual connections) shifting the trainability frontier deeper. Not real numbers — a conceptual diagram of which inventions unlocked which depth regime.</p>
+</div>
+</div>
+</div>
 </section>
-<section id="rlhf-learning-a-reward-model-from-preferences" class="level2" data-number="8.2">
-<h2 data-number="8.2" class="anchored" data-anchor-id="rlhf-learning-a-reward-model-from-preferences"><span class="header-section-number">8.2</span> RLHF: learning a reward model from preferences</h2>
-<p>In <strong>RLHF</strong> <span class="citation" data-cites="ouyang2022instructgpt">(<a href="../references.html#ref-ouyang2022instructgpt" role="doc-biblioref"><span class="nocase">Ouyang et al.</span> 2022</a>)</span> the reward is a learned function. The pipeline is:</p>
-<ol type="1">
-<li>Collect pairs of model outputs <span class="math inline">(y_A, y_B)</span> for the same prompt <span class="math inline">x</span> and have humans pick the preferred one.</li>
-<li>Train a <strong>reward model</strong> <span class="math inline">r_\phi(x, y)</span> to predict human preferences via the Bradley–Terry likelihood: <span class="math display">
-P(y_A \succ y_B \mid x) = \sigma\!\big( r_\phi(x, y_A) - r_\phi(x, y_B) \big).
-</span></li>
-<li>Use <span class="math inline">r_\phi</span> as the reward signal, optimize <span class="math inline">\pi_\theta</span> with a policy-gradient algorithm — historically <strong>PPO</strong> <span class="citation" data-cites="schulman2017ppo">(<a href="../references.html#ref-schulman2017ppo" role="doc-biblioref">Schulman et al. 2017</a>)</span>.</li>
-</ol>
-<p>This was the recipe behind InstructGPT and the original ChatGPT. It works but is finicky: the reward model is overfittable, the policy is good at gaming it (<em>reward hacking</em>), and PPO has many knobs.</p>
+<section id="image-classification-specifically" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="image-classification-specifically"><span class="header-section-number">3.2</span> Image classification, specifically</h2>
+<p>Image classification is the task: given an image, output a category label. The history is dense, the architectures rhyme, and a small number of ideas do all the work.</p>
+<p><strong>Convolutional neural networks (CNNs)</strong> encode a powerful inductive bias: translation equivariance and locality. A convolution slides the same small filter over the entire image, so a feature detected in the top-left and the bottom-right is detected by the same weights. This is the canonical example of building a <strong>prior</strong> into the architecture. It is also a useful instance of a recurring tension: priors save you data when they are right, and hurt you when they are wrong. Vision transformers, later, drop the prior and recover the performance from data.</p>
+<p><strong>ImageNet</strong> is the dataset that organized the field. Roughly a million labeled images across a thousand object categories, with a competition that ran from 2010. It mattered because everyone trained on the same data and could compare numbers directly. The history of image classification on ImageNet is in some sense the history of deep learning kicking off.</p>
+<p><strong>The historical arc.</strong></p>
+<ul>
+<li><strong>AlexNet</strong> showed that a deep CNN trained on GPUs could beat hand-engineered features by a wide margin on ImageNet. This is the year deep learning “started working” by everyone’s reckoning.</li>
+<li><strong>VGG</strong> demonstrated that <em>deeper but simpler</em> (uniform 3×3 convolutions, more layers) was a productive direction.</li>
+<li><strong>ResNet</strong> introduced residual connections at scale and made networks with many tens or hundreds of layers trainable. This is the architecture that pushed image classification past human-level accuracy on ImageNet.</li>
+<li><strong>Vision transformers (ViT)</strong> revisited the whole stack later, dropping convolutions in favor of attention on image patches. They needed more data to compensate for the weaker inductive bias, but at scale they matched or beat CNNs. The deeper machinery is in <a href="../chapters/04_transformers.html">Chapter 4</a>.</li>
+</ul>
+<p>The arc is not random. Each step swapped a hand-engineered choice for a more general one and let scale do the work. That is the bitter lesson in image-classification clothes.</p>
 </section>
-<section id="dpo-skip-the-reward-model" class="level2" data-number="8.3">
-<h2 data-number="8.3" class="anchored" data-anchor-id="dpo-skip-the-reward-model"><span class="header-section-number">8.3</span> DPO: skip the reward model</h2>
-<p>Direct Preference Optimization <span class="citation" data-cites="rafailov2023dpo">(<a href="../references.html#ref-rafailov2023dpo" role="doc-biblioref">Rafailov et al. 2023</a>)</span> derives a closed-form loss that optimizes the same KL-regularized objective without ever training a reward model. Given a preference pair <span class="math inline">(y_w, y_l)</span> (winner, loser) for prompt <span class="math inline">x</span>: <span class="math display">
-\mathcal{L}_{\text{DPO}} = -\log \sigma\!\left( \beta \log \frac{\pi_\theta(y_w \mid x)}{\pi_{\text{ref}}(y_w \mid x)} \;-\; \beta \log \frac{\pi_\theta(y_l \mid x)}{\pi_{\text{ref}}(y_l \mid x)} \right).
-</span> This is a supervised loss on preference data. No reward model, no rollouts, no PPO. The derivation is a clean piece of math worth working through; the intuition is that the optimal policy under a KL-regularized reward objective has a specific functional form, and you can invert that form to express the reward in terms of the policy ratios.</p>
-<p>DPO is much cheaper to train than PPO and often matches its quality. It is the default for most open-weights post-training in 2024–2026.</p>
+<section id="inductive-bias-vs-compression" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="inductive-bias-vs-compression"><span class="header-section-number">3.3</span> Inductive bias vs compression</h2>
+<p>The deeper question lurking under image classification is: <strong>what does a trained network actually learn?</strong></p>
+<p>Two framings, both useful:</p>
+<ul>
+<li><strong>Inductive bias</strong> — the architecture and training procedure prefer certain functions over others. CNNs prefer translation-equivariant, hierarchical, locally structured functions. This is <em>prior knowledge baked into the model</em>.</li>
+<li><strong>Compression</strong> — training pushes the network to find a <em>compact representation</em> of the data that preserves task-relevant structure. Useful features are reused across many examples; useless ones get pruned.</li>
+</ul>
+<p>These framings are not in opposition. The inductive bias decides <em>what kind</em> of compressions are accessible; training decides <em>which one</em> the network actually finds. For a physicist, this is reminiscent of the way symmetries in a physical system constrain the form of solutions without dictating which solution the system finds.</p>
 </section>
-<section id="rlvr-reinforcement-learning-with-verifiable-rewards" class="level2" data-number="8.4">
-<h2 data-number="8.4" class="anchored" data-anchor-id="rlvr-reinforcement-learning-with-verifiable-rewards"><span class="header-section-number">8.4</span> RLVR: reinforcement learning with verifiable rewards</h2>
-<p>For problems where you can <em>check</em> whether an answer is correct — math problems with a known answer, code with unit tests, formal proofs — you do not need humans or learned reward models. Just use the verifier as the reward: <span class="math display">
-r(x, y) = \mathbb{1}\big[\text{verifier accepts } y\big].
-</span></p>
-<p>This is <strong>RLVR</strong> (RL with verifiable rewards), and it is the dominant signal behind reasoning-trained models (covered in <a href="08_reasoning.html#sec-reasoning" class="quarto-xref"><span>Section 9.1</span></a>). The reward is sparse — one bit per problem — but it is <em>honest</em>: there is no reward hacking against ground truth.</p>
-<p>Algorithms used here include PPO and, increasingly, <strong>GRPO</strong> (Group Relative Policy Optimization): for each prompt, sample <span class="math inline">G</span> completions, compute their rewards, and use the in-group mean as the baseline instead of training a separate value network. GRPO avoids the value-network instability of PPO and is computationally lean.</p>
+<section id="the-phenomenon-gabor-filters" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="the-phenomenon-gabor-filters"><span class="header-section-number">3.4</span> The phenomenon: Gabor filters</h2>
+<p>Here is the phenomenon that gives the chapter its science-of-DL anchor. When you train a CNN end-to-end on natural images, the first-layer convolutional filters reliably converge to oriented, localized, wavelet-like patterns — the same Gabor filters that show up in classical models of V1 in biological visual cortex.</p>
+<p>Nobody put Gabor filters into the architecture. The architecture has translation equivariance and locality and not much else. The Gabor structure <em>emerges</em> from the interaction of that inductive bias with the statistics of natural images.</p>
+<p>This is a small but illuminating instance of the model-organism methodology from Chapter 1. The phenomenon is striking, reproducible, and surprising enough to investigate. A natural follow-up question is whether the <em>higher</em> layers of a trained network learn primitives that are recognizable from neuroscience too — and the answer is partially yes, partially no, and in any case a research program. We will see this kind of “the network learned something we recognize” pattern again in <a href="../chapters/07_scidl_training.html">Chapter 7</a> (training-dynamics phenomena) and <a href="../chapters/11_scidl_concepts.html">Chapter 11</a> (concept learning).</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>[Plot]</strong> A grid of first-layer convolutional filters from a CNN trained on a natural-image dataset, alongside classical Gabor wavelets at matched orientations and scales. The visual punchline is that the two grids look strikingly similar.</p>
+</div>
+</div>
+</div>
 </section>
-<section id="policy-gradient-in-one-paragraph" class="level2" data-number="8.5">
-<h2 data-number="8.5" class="anchored" data-anchor-id="policy-gradient-in-one-paragraph"><span class="header-section-number">8.5</span> Policy gradient in one paragraph</h2>
-<p>If you have never seen the policy gradient, here is the entire idea. Let <span class="math inline">J(\theta) = \mathbb{E}_{y \sim \pi_\theta} [r(y)]</span>. Then <span class="math display">
-\nabla_\theta J = \mathbb{E}_{y \sim \pi_\theta} \big[\, r(y)\, \nabla_\theta \log \pi_\theta(y) \,\big].
-</span> You sample, you score, you weight the log-probability gradient by the score. Subtracting a baseline <span class="math inline">b</span> (any function not depending on <span class="math inline">y</span>) keeps the estimator unbiased and reduces variance. PPO, GRPO, REINFORCE — they are all variations on this, with different choices of baseline and different ways of clipping or trust-regioning the update to avoid policy collapse.</p>
-</section>
-<section id="what-changed-in-20242026" class="level2" data-number="8.6">
-<h2 data-number="8.6" class="anchored" data-anchor-id="what-changed-in-20242026"><span class="header-section-number">8.6</span> What changed in 2024–2026</h2>
-<p>The biggest shift is that <strong>RL on verifiable rewards became the central training paradigm for frontier capabilities</strong>, not just a polish layer. Models like o1, R1, and their successors are mostly defined by their RL stage, not their pretraining. This is the topic of <a href="08_reasoning.html#sec-reasoning" class="quarto-xref"><span>Section 9.1</span></a>.</p>
+<section id="the-first-bitter-lesson-bigger-is-better" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="the-first-bitter-lesson-bigger-is-better"><span class="header-section-number">3.5</span> The first bitter lesson: bigger is better</h2>
+<p>Long before “scaling laws” became a coherent research subfield, image classification had already absorbed its own preview of the lesson: bigger networks, trained on more data with more compute, were just <em>better</em>. The improvement was not marginal and not noisy — it was consistent across years, across architectures, and across teams.</p>
+<p>This is the first taste of a pattern that gets the full treatment in <a href="../chapters/05_llm_pretraining.html">Chapter 5</a>, where we look at the actual functional form of the loss as a function of compute, data, and parameters <span class="citation" data-cites="kaplan2020scaling hoffmann2022chinchilla">(<a href="../references.html#ref-kaplan2020scaling" role="doc-biblioref">Kaplan et al. 2020</a>; <a href="../references.html#ref-hoffmann2022chinchilla" role="doc-biblioref"><span class="nocase">Hoffmann et al.</span> 2022</a>)</span>. For now, just note the pattern: in image classification, the people who won the benchmark were the people who trained bigger networks on more data with better hardware. The architectural cleverness mattered, but it mattered less than the scaling.</p>
+<p>That is the cliffhanger for the next several chapters: if scale is doing this much work, what <em>exactly</em> is it doing, and what is left for science to do once scale has done its part? That is the entire question of this book.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
-<div id="ref-ouyang2022instructgpt" class="csl-entry" role="listitem">
-<span class="nocase">Ouyang, Long, Jeff Wu, Xu Jiang, et al.</span> 2022. <span>“Training Language Models to Follow Instructions with Human Feedback.”</span> <em>Advances in Neural Information Processing Systems</em> 35.
+<div id="ref-hoffmann2022chinchilla" class="csl-entry" role="listitem">
+<span class="nocase">Hoffmann, Jordan, Sebastian Borgeaud, Arthur Mensch, et al.</span> 2022. <span>“Training Compute-Optimal Large Language Models.”</span> <em>arXiv Preprint arXiv:2203.15556</em>.
 </div>
-<div id="ref-rafailov2023dpo" class="csl-entry" role="listitem">
-Rafailov, Rafael, Archit Sharma, Eric Mitchell, Stefano Ermon, Christopher D Manning, and Chelsea Finn. 2023. <span>“Direct Preference Optimization: Your Language Model Is Secretly a Reward Model.”</span> <em>NeurIPS</em>.
-</div>
-<div id="ref-schulman2017ppo" class="csl-entry" role="listitem">
-Schulman, John, Filip Wolski, Prafulla Dhariwal, Alec Radford, and Oleg Klimov. 2017. <span>“Proximal Policy Optimization Algorithms.”</span> <em>arXiv Preprint arXiv:1707.06347</em>.
+<div id="ref-kaplan2020scaling" class="csl-entry" role="listitem">
+Kaplan, Jared, Sam McCandlish, Tom Henighan, et al. 2020. <span>“Scaling Laws for Neural Language Models.”</span> <em>arXiv Preprint arXiv:2001.08361</em>.
 </div>
 </div>
 </section>
@@ -995,13 +1000,13 @@ Schulman, John, Filip Wolski, Prafulla Dhariwal, Alec Radford, and Oleg Klimov. 
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/06_finetuning.html" class="pagination-link" aria-label="Fine-tuning">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Fine-tuning</span></span>
+      <a href="../chapters/01_intro.html" class="pagination-link" aria-label="Introduction">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/08_reasoning.html" class="pagination-link" aria-label="Reasoning and test-time compute">
-        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Reasoning and test-time compute</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/03_sequence_modeling.html" class="pagination-link" aria-label="Sequence modeling">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sequence modeling</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1010,5 +1015,5 @@ Schulman, John, Filip Wolski, Prafulla Dhariwal, Alec Radford, and Oleg Klimov. 
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cfpark00/science-of-dl/edit/main/chapters/07_rl.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer><script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

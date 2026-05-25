@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>7&nbsp; Fine-tuning – Intro to AI for Physicists</title>
+<title>6&nbsp; Large language models I: pretraining and fine-tuning – Intro to AI for Physicists</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -52,8 +52,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/07_rl.html" rel="next">
-<link href="../chapters/05_pretraining.html" rel="prev">
+<link href="../chapters/06_llm_posttraining.html" rel="next">
+<link href="../chapters/04_transformers.html" rel="prev">
 <link href="../assets/favicon.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -316,7 +316,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/05_pretraining.html">Large language models</a></li><li class="breadcrumb-item"><a href="../chapters/06_finetuning.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Fine-tuning</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01_intro.html">Fundamentals and methods</a></li><li class="breadcrumb-item"><a href="../chapters/05_llm_pretraining.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Large language models I: pretraining and fine-tuning</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -353,23 +353,53 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
- <span class="menu-text">Foundations</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Fundamentals and methods</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/01_landscape.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The modern AI landscape</span></span></a>
+  <a href="../chapters/01_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/02_dl_primer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">A deep learning primer</span></span></a>
+  <a href="../chapters/02_image_classification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Neural networks and image classification</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/03_sequence_modeling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sequence modeling</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/04_transformers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Transformers</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/05_llm_pretraining.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Large language models I: pretraining and fine-tuning</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/06_llm_posttraining.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Large language models II: post-training and agents</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/07_scidl_training.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Science of deep learning I: training dynamics</span></span></a>
   </div>
 </li>
       </ul>
@@ -377,7 +407,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
- <span class="menu-text">Modern architectures</span></a>
+ <span class="menu-text">Beyond LLMs</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -385,83 +415,32 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/03_transformer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The transformer</span></span></a>
+  <a href="../chapters/08_diffusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Diffusion models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/04_scaling_laws.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Scaling laws</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Large language models</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/05_pretraining.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Pretraining LLMs</span></span></a>
+  <a href="../chapters/09_rl.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Reinforcement learning</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/06_finetuning.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Fine-tuning</span></span></a>
+  <a href="../chapters/10_world_models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">World models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/07_rl.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Reinforcement learning for LLMs</span></span></a>
+  <a href="../chapters/11_scidl_concepts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Science of deep learning II: concept learning</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/08_reasoning.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Reasoning and test-time compute</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
- <span class="menu-text">Generative models beyond LLMs</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/09_diffusion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Diffusion and score-based models</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
- <span class="menu-text">Practice</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/10_inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Inference</span></span></a>
+  <a href="../chapters/12_intelligence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Science of intelligence</span></span></a>
   </div>
 </li>
       </ul>
@@ -469,7 +448,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">References</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">References</span></span></a>
   </div>
 </li>
     </ul>
@@ -482,26 +461,22 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-finetuning" id="toc-sec-finetuning" class="nav-link active" data-scroll-target="#sec-finetuning"><span class="header-section-number">7.1</span> Supervised fine-tuning (SFT)</a></li>
-  <li><a href="#why-sft-alone-is-not-enough" id="toc-why-sft-alone-is-not-enough" class="nav-link" data-scroll-target="#why-sft-alone-is-not-enough"><span class="header-section-number">7.2</span> Why SFT alone is not enough</a></li>
-  <li><a href="#parameter-efficient-fine-tuning" id="toc-parameter-efficient-fine-tuning" class="nav-link" data-scroll-target="#parameter-efficient-fine-tuning"><span class="header-section-number">7.3</span> Parameter-efficient fine-tuning</a>
-  <ul class="collapse">
-  <li><a href="#lora" id="toc-lora" class="nav-link" data-scroll-target="#lora"><span class="header-section-number">7.3.1</span> LoRA</a></li>
-  <li><a href="#qlora-and-quantized-adapters" id="toc-qlora-and-quantized-adapters" class="nav-link" data-scroll-target="#qlora-and-quantized-adapters"><span class="header-section-number">7.3.2</span> QLoRA and quantized adapters</a></li>
-  </ul></li>
-  <li><a href="#continued-pretraining" id="toc-continued-pretraining" class="nav-link" data-scroll-target="#continued-pretraining"><span class="header-section-number">7.4</span> Continued pretraining</a></li>
-  <li><a href="#distillation" id="toc-distillation" class="nav-link" data-scroll-target="#distillation"><span class="header-section-number">7.5</span> Distillation</a></li>
-  <li><a href="#when-fine-tuning-is-not-the-answer" id="toc-when-fine-tuning-is-not-the-answer" class="nav-link" data-scroll-target="#when-fine-tuning-is-not-the-answer"><span class="header-section-number">7.6</span> When fine-tuning is not the answer</a></li>
+  <li><a href="#pretraining" id="toc-pretraining" class="nav-link active" data-scroll-target="#pretraining"><span class="header-section-number">6.1</span> Pretraining</a></li>
+  <li><a href="#the-scaling-story" id="toc-the-scaling-story" class="nav-link" data-scroll-target="#the-scaling-story"><span class="header-section-number">6.2</span> The scaling story</a></li>
+  <li><a href="#emergence-at-scale" id="toc-emergence-at-scale" class="nav-link" data-scroll-target="#emergence-at-scale"><span class="header-section-number">6.3</span> Emergence at scale</a></li>
+  <li><a href="#in-context-learning" id="toc-in-context-learning" class="nav-link" data-scroll-target="#in-context-learning"><span class="header-section-number">6.4</span> In-context learning</a></li>
+  <li><a href="#fine-tuning" id="toc-fine-tuning" class="nav-link" data-scroll-target="#fine-tuning"><span class="header-section-number">6.5</span> Fine-tuning</a></li>
+  <li><a href="#where-the-llm-story-continues" id="toc-where-the-llm-story-continues" class="nav-link" data-scroll-target="#where-the-llm-story-continues"><span class="header-section-number">6.6</span> Where the LLM story continues</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/cfpark00/science-of-dl/edit/main/chapters/06_finetuning.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/05_pretraining.html">Large language models</a></li><li class="breadcrumb-item"><a href="../chapters/06_finetuning.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Fine-tuning</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01_intro.html">Fundamentals and methods</a></li><li class="breadcrumb-item"><a href="../chapters/05_llm_pretraining.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Large language models I: pretraining and fine-tuning</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Fine-tuning</span></h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Large language models I: pretraining and fine-tuning</span></h1>
 </div>
 
 
@@ -518,63 +493,89 @@ window.Quarto = {
 </header>
 
 
-<p>Fine-tuning is everything you do to a pretrained model after pretraining. It is enormously cheaper than pretraining — typically <span class="math inline">&lt;1\%</span> of the compute — and is where most of the <em>usability</em> of modern LLMs comes from.</p>
-<p>This chapter covers the supervised side. Reinforcement-learning-based post-training is its own chapter (<a href="07_rl.html#sec-rl" class="quarto-xref"><span>Section 8.1</span></a>).</p>
-<section id="sec-finetuning" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="sec-finetuning"><span class="header-section-number">7.1</span> Supervised fine-tuning (SFT)</h2>
-<p>The simplest form of post-training: continue training the model on a curated dataset of <code>(prompt, response)</code> pairs, with the loss masked so that gradients flow only on the response tokens. The objective is otherwise identical to pretraining — next-token cross-entropy.</p>
-<p>A typical SFT dataset is <span class="math inline">10^4</span>–<span class="math inline">10^6</span> examples, hand-written or synthetically generated, demonstrating:</p>
+<p>The previous chapter built up the transformer; this chapter scales it. Large language models are what you get when you take the next-token-prediction objective from <a href="../chapters/03_sequence_modeling.html">Chapter 3</a>, the transformer architecture from <a href="../chapters/04_transformers.html">Chapter 4</a>, and a substantial fraction of the readable internet — and then keep adding compute until something interesting happens.</p>
+<p>This chapter covers the <strong>supervised half</strong> of the modern LLM pipeline: <strong>pretraining</strong> (next-token prediction at massive scale) and <strong>fine-tuning</strong> (adapting the resulting base model to specific tasks). The post-training half — reward modeling, RLHF, DPO, reasoning, agents — lives in <a href="../chapters/06_llm_posttraining.html">Chapter 6</a>.</p>
+<p>The phenomena introduced here are some of the headline results in modern AI: <strong>scaling laws</strong>, <strong>emergence at scale</strong>, and <strong>in-context learning</strong>. They are introduced as phenomena here; they get dissected scientifically in <a href="../chapters/07_scidl_training.html">Chapter 7</a> (training-dynamics view) and revisited again in <a href="../chapters/11_scidl_concepts.html">Chapter 11</a> (concept-acquisition view).</p>
+<section id="pretraining" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="pretraining"><span class="header-section-number">6.1</span> Pretraining</h2>
+<p>A large language model is, mechanically, a decoder-only transformer trained on next-token prediction. We saw that objective in <a href="../chapters/03_sequence_modeling.html">Chapter 3</a>. What changes when you scale it up?</p>
+<p><strong>Tokenization.</strong> Text is not consumed character-by-character — that wastes capacity on local structure. It is split into <strong>tokens</strong> by a subword tokenizer, typically <strong>byte-pair encoding (BPE)</strong> or <strong>SentencePiece</strong>, which finds a vocabulary of common subword pieces. Frequent words become single tokens; rare words split into morpheme-like pieces. For non-text modalities — images, audio, video — the analog is a vector quantizer (e.g.&nbsp;VQ-VAE-style) that maps continuous patches into discrete codes that can be predicted like tokens.</p>
+<p>The choice of tokenizer is not innocent. Tokenization decides what the model sees as the unit of meaning, and pathologies in tokenization (e.g., numbers that get split inconsistently across magnitudes, or rare scripts that fragment into character-level tokens) show up as downstream behavioral oddities. This is one of those low-level engineering choices that quietly shapes science-relevant outcomes.</p>
+<p><strong>Data.</strong> A modern pretraining run consumes trillions of tokens, drawn from web crawls, books, code, scientific text, and an increasingly elaborate curation pipeline. The key word is <em>curation</em>. Early pretraining runs were “give it the whole internet”; modern runs invest enormous effort in <strong>deduplication</strong> (the same document appearing many times destabilizes training), <strong>quality filtering</strong>, and <strong>mixture design</strong> (how much code vs.&nbsp;how much prose vs.&nbsp;how much math). The realization that <em>data quality often beats architecture tweaks</em> has its own name — <strong>data-centric ML</strong> — and it is one of the more reliable patterns in modern practice.</p>
+<p><strong>Self-supervised learning.</strong> Next-token prediction is one instance of a broader idea: train on labels you derive from the data itself. Other instances include <strong>masked-language modeling</strong> (predict the masked-out span — popular for encoder-style models), <strong>contrastive learning</strong> (pull augmentations of the same example together, push others apart — see SimCLR, CLIP for canonical examples), and various predict-this-view-from-that-view recipes for images, audio, and multimodal data. The unifying observation is that you do not need human labels to provide vast supervision; you just need a pretext task whose solution forces the model to learn useful structure.</p>
+<p><strong>Foundation models.</strong> The terminology is doing real work. A “foundation model” is a large pretrained model intended to serve as the starting point for many downstream tasks, adapted via fine-tuning or prompting rather than trained from scratch. The shift from “train a model for each task” to “train one big model and adapt it” is the operational consequence of pretraining-at-scale. We will use “foundation model,” “pretrained model,” and “base model” roughly interchangeably; the term <em>base model</em> specifically refers to the pretrained checkpoint before any post-training has been applied.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>[Plot]</strong> A schematic of the modern LLM pipeline: trillions of pretraining tokens → base model → SFT / LoRA fine-tuning → adapted model. With a separate downstream branch for post-training (Chapter 6) pointing to RLHF/DPO. The point of the diagram is to show pretraining as the load-bearing step.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="the-scaling-story" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="the-scaling-story"><span class="header-section-number">6.2</span> The scaling story</h2>
+<p>The single most important empirical regularity in modern AI is that <strong>test loss falls as a power law in compute, data, and parameters</strong> <span class="citation" data-cites="kaplan2020scaling">(<a href="../references.html#ref-kaplan2020scaling" role="doc-biblioref">Kaplan et al. 2020</a>)</span>. Across many orders of magnitude, if you double compute and provision the model and data appropriately, you get a predictable, smooth decrease in loss. This is the “scaling law” pattern, and it organizes everything about how modern pretraining is run.</p>
+<p>A few things are worth saying about it.</p>
+<p>First, the <em>functional form</em> is empirical, not derived. People plot loss as a function of compute, data, and parameters, fit power laws, and observe that the fits hold over remarkable ranges. The exact exponents are model- and dataset-specific, and they are still an active area of measurement. The fact that a power law fits at all is the surprising scientific claim.</p>
+<p>Second, the <em>compute-optimal</em> allocation of resources is not obvious. Given a fixed compute budget, should you make the model bigger, or train it longer on more tokens? The original scaling work suggested one answer; the <strong>Chinchilla</strong> result <span class="citation" data-cites="hoffmann2022chinchilla">(<a href="../references.html#ref-hoffmann2022chinchilla" role="doc-biblioref"><span class="nocase">Hoffmann et al.</span> 2022</a>)</span> revised it — for fixed compute, the optimal model is <em>smaller</em> and <em>trained on more tokens</em> than people had been using. The practical guideline that came out of Chinchilla — roughly, scale parameters and training tokens together — has shaped frontier training runs since.</p>
+<p>Third, scaling laws are how the <em>bitter lesson</em> from <a href="../chapters/01_intro.html">Chapter 1</a> cashes out quantitatively <span class="citation" data-cites="sutton2019bitter">(<a href="../references.html#ref-sutton2019bitter" role="doc-biblioref">Sutton 2019</a>)</span>. “Bigger nets and more data are better” stops being a vague intuition and becomes a <em>predictable</em> fact: you can extrapolate the curve and budget accordingly. This is also why so much of the field’s effort goes into the engineering of training runs.</p>
+<p><strong>GPU parallelism.</strong> Reaching frontier scale requires distributing a model across many devices. The main techniques are:</p>
 <ul>
-<li>Following instructions</li>
-<li>Refusing harmful requests</li>
-<li>Using a consistent format (markdown, code blocks)</li>
-<li>Tool use, when relevant</li>
+<li><strong>Data parallelism</strong>: every device has a full copy of the model and processes a different batch shard; gradients are averaged across devices.</li>
+<li><strong>Tensor parallelism</strong>: split individual matrix multiplies across devices so each device holds a slice of each weight.</li>
+<li><strong>Pipeline parallelism</strong>: different devices hold different layers; minibatches are pipelined through the stack.</li>
+<li><strong>Fully-sharded data parallel (FSDP)</strong> and related strategies shard the optimizer state, gradients, and parameters themselves across devices to fit larger models in aggregate memory.</li>
 </ul>
-<p>The model learns to imitate the style and behavior of the demonstrations. This is enough to turn a base model into a usable assistant for most everyday tasks.</p>
+<p>These are engineering choices, but they shape what experiments are feasible. A claim like “we trained model X” is implicitly a claim about a parallelism strategy that worked at the relevant scale.</p>
+<p><strong>Mixture of experts at scale.</strong> As mentioned in <a href="../chapters/04_transformers.html">Chapter 4</a>, MoE decouples total parameter count from active parameter count per token. At frontier scale, MoE is one of the ways to keep growing parameter count without paying for it on every token. Whether MoE is “real” scaling in the same sense as dense scaling is a question the empirical scaling-law work has had to revisit.</p>
 </section>
-<section id="why-sft-alone-is-not-enough" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="why-sft-alone-is-not-enough"><span class="header-section-number">7.2</span> Why SFT alone is not enough</h2>
-<p>SFT can only teach behaviors that are <em>demonstrated</em>. It cannot teach the model to do something better than the demonstrations, and it has no good way to teach the model to <em>avoid</em> a behavior that wasn’t shown. It also tends to make the model overconfident — every response in the SFT data was a “good” response, so the model learns to be assertive even when it should not be.</p>
-<p>These are the gaps that reinforcement learning (<a href="07_rl.html#sec-rl" class="quarto-xref"><span>Section 8.1</span></a>) fills.</p>
+<section id="emergence-at-scale" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="emergence-at-scale"><span class="header-section-number">6.3</span> Emergence at scale</h2>
+<p>Among the most striking phenomena that fell out of scaling is <strong>emergence</strong>: some capabilities appear, apparently <em>discontinuously</em>, when models exceed a threshold scale. Below the threshold, performance on a task is near random; above it, performance climbs sharply. Examples that have been reported include arithmetic on multi-digit numbers, chain-of-thought reasoning, and various structured reasoning tasks.</p>
+<p>The phenomenology was striking enough that “emergent capabilities” entered the field’s vocabulary as a label. It was also striking enough to invite skepticism: some of the apparent emergence might be an artifact of how performance is measured (e.g., exact-match accuracy is binary and harsh; smoother metrics often show gradual improvement instead of a sudden jump). This skeptical position — that emergence is partly a metric artifact rather than a discontinuity in the underlying capability — has been argued forcefully by Schaeffer and collaborators in work most readers will know as the “are emergent abilities a mirage” line.</p>
+<p>The honest summary is: <em>something</em> is happening at scale, and there are competing accounts of what it is. The cleanest path forward is to move from the population-level phenomenon (how does the average benchmark behave?) to a mechanistic, model-organism account of what is actually changing inside the network as you scale. That move is the subject of <a href="../chapters/07_scidl_training.html">Chapter 7</a>, where emergence gets re-examined as a phenomenon in <em>concept space</em> rather than in test-loss space.</p>
 </section>
-<section id="parameter-efficient-fine-tuning" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="parameter-efficient-fine-tuning"><span class="header-section-number">7.3</span> Parameter-efficient fine-tuning</h2>
-<p>A full SFT run still updates all <span class="math inline">N</span> parameters, requiring optimizer state for all of them. For very large models this is expensive. <strong>Parameter-efficient fine-tuning (PEFT)</strong> methods update only a tiny fraction of parameters.</p>
-<section id="lora" class="level3" data-number="7.3.1">
-<h3 data-number="7.3.1" class="anchored" data-anchor-id="lora"><span class="header-section-number">7.3.1</span> LoRA</h3>
-<p>The dominant method is <strong>LoRA</strong> <span class="citation" data-cites="hu2021lora">(<a href="../references.html#ref-hu2021lora" role="doc-biblioref">Hu et al. 2021</a>)</span>: for each weight matrix <span class="math inline">W \in \mathbb{R}^{d \times k}</span> you want to fine-tune, freeze it and add a low-rank update <span class="math display">
-W' = W + B A, \qquad A \in \mathbb{R}^{r \times k}, \quad B \in \mathbb{R}^{d \times r},
-</span> with <span class="math inline">r \ll \min(d, k)</span>. Typical <span class="math inline">r</span> is 8 to 64. Only <span class="math inline">A</span> and <span class="math inline">B</span> are trained — orders of magnitude fewer parameters than <span class="math inline">W</span>.</p>
-<p>The implicit assumption is that the update needed to specialize a pretrained model lives on a low-dimensional subspace. Empirically this is <em>almost</em> true. LoRA-fine-tuned models match or slightly underperform full fine-tunes on most benchmarks, at <span class="math inline">\sim 100\times</span> less GPU memory.</p>
+<section id="in-context-learning" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="in-context-learning"><span class="header-section-number">6.4</span> In-context learning</h2>
+<p>The other headline phenomenon of scaled LLMs is <strong>in-context learning (ICL)</strong>. You give a pretrained model a few input-output examples in a prompt, followed by a new input, and it learns the pattern and produces the right output. No weight update. The model just does it.</p>
+<p>A typical example: prompt the model with <span class="math display">
+\text{Q: } x_1 \to y_1; \quad \text{Q: } x_2 \to y_2; \quad \ldots; \quad \text{Q: } x_n \to ?
+</span> and it returns a plausible <span class="math inline">y_n</span>. If you change the demonstrations to teach a different task, the same model now does the different task. The model has effectively <em>learned</em> — in the sense of “picked up a regularity and applied it” — without any gradient step.</p>
+<p>This is genuinely strange. Nothing in the next-token-prediction objective was set up to make this happen. ICL is a meta-learning capability that <em>emerged</em> from training at scale. Why?</p>
+<p>We are going to introduce the phenomenon here and resist the urge to dissect it. The mechanistic story belongs in <a href="../chapters/07_scidl_training.html">Chapter 7</a> — there is genuinely interesting recent work characterizing ICL as a heterogeneous mixture of competing algorithms, with sharp phase-transition-like switches between them (see <em>Competition Dynamics Shape Algorithmic Phases of ICL</em>, Park et al., ICLR 2025 Spotlight), and another line showing that long enough context triggers a sudden re-organization of pretrained semantics into context-specified ones (see <em>ICLR: In-Context Learning of Representations</em>, ICLR 2025). The <em>bigger debate</em> — whether ICL constitutes “concept acquisition” in a deep sense — is in <a href="../chapters/11_scidl_concepts.html">Chapter 11</a>.</p>
+<p>For now: register that the phenomenon exists, that it was not designed in, and that it makes the next-token-prediction objective look much more interesting than it has any right to be.</p>
 </section>
-<section id="qlora-and-quantized-adapters" class="level3" data-number="7.3.2">
-<h3 data-number="7.3.2" class="anchored" data-anchor-id="qlora-and-quantized-adapters"><span class="header-section-number">7.3.2</span> QLoRA and quantized adapters</h3>
-<p>The combination of 4-bit quantizing the frozen base model and training LoRA adapters on top — <strong>QLoRA</strong> — lets you fine-tune a 70B model on a single consumer GPU. This is what democratized open-weights fine-tuning.</p>
+<section id="fine-tuning" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="fine-tuning"><span class="header-section-number">6.5</span> Fine-tuning</h2>
+<p>The base model that comes out of pretraining is <em>capable</em> in the sense of having absorbed an enormous amount of structure from its training data, but it is not yet useful for any specific application. The standard next step is <strong>fine-tuning</strong>: a much smaller amount of additional training that adapts the base model to a particular task, domain, or style.</p>
+<p><strong>Supervised fine-tuning (SFT).</strong> The default. You take the pretrained model, train it with the same cross-entropy loss on a (smaller, curated) dataset of input-output pairs appropriate to the target task. SFT is the workhorse of adaptation. It is also the thing many people <em>think</em> of when they hear “fine-tuning.”</p>
+<p><strong>LoRA — low-rank adaptation</strong> <span class="citation" data-cites="hu2021lora">(<a href="../references.html#ref-hu2021lora" role="doc-biblioref">Hu et al. 2021</a>)</span>. Fine-tuning all parameters of a large model is expensive — you have to store and update all of them. LoRA freezes the pretrained weights and inserts low-rank trainable matrices <span class="math inline">\Delta W = AB</span> (where <span class="math inline">A</span> is <span class="math inline">d \times r</span> and <span class="math inline">B</span> is <span class="math inline">r \times d</span>, with <span class="math inline">r \ll d</span>) added to specific weight matrices in the model. Only the low-rank factors get updated. The parameter count of the adaptation is tiny — orders of magnitude smaller than the full model. Multiple LoRA adapters can be stored independently and swapped in for different tasks.</p>
+<p>The empirical observation that fine-tuning works well in a low-rank subspace is itself interesting: it suggests that the useful directions for adaptation are concentrated in a small subspace of the full parameter space. This is a phenomenon worth keeping in mind when we discuss representations and emergence later.</p>
+<p><strong>Distillation.</strong> A different fine-tuning move: train a smaller “student” model to match the outputs (or internal representations) of a larger “teacher” model. The student inherits much of the teacher’s capability at lower cost. Distillation is a heavily used technique in production deployment and shows up again in post-training (Chapter 6).</p>
+<p><strong>Behavioral cloning (BC).</strong> When the fine-tuning data is <em>trajectories</em> — sequences of states and actions — supervised imitation of those trajectories is called behavioral cloning. BC is what RLHF reward-modeling pipelines often reduce to in <a href="../chapters/06_llm_posttraining.html">Chapter 6</a>, and it is the natural foil to “real” RL in <a href="../chapters/09_rl.html">Chapter 9</a>. The crucial behavioral signature of BC is that it <strong>plateaus near the data’s performance level</strong>. If your demonstration data was produced by a mediocre policy, BC reaches <em>mediocre</em> and stops. This is the <em>trash in, trash out</em> regime — useful to name explicitly because the appeal of BC (just train on the data!) hides this limitation in plain sight. We will revisit this when we contrast BC with RL.</p>
 </section>
-</section>
-<section id="continued-pretraining" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="continued-pretraining"><span class="header-section-number">7.4</span> Continued pretraining</h2>
-<p>A middle ground between pretraining and SFT: keep training the base model on a large, in-domain corpus (medical papers, legal text, your company’s internal data) with the same next-token objective. Useful for adapting the model’s <em>knowledge</em> rather than its <em>behavior</em>. Usually done before SFT, not after.</p>
-</section>
-<section id="distillation" class="level2" data-number="7.5">
-<h2 data-number="7.5" class="anchored" data-anchor-id="distillation"><span class="header-section-number">7.5</span> Distillation</h2>
-<p>Train a smaller “student” model to match the output distribution of a larger “teacher”. Concretely, minimize <span class="math display">
-\mathcal{L}_{\text{distill}} = \sum_{x,t} \mathrm{KL}\!\left(p_{\text{teacher}}(\cdot \mid x_{&lt;t}) \,\Big\|\, p_{\text{student}}(\cdot \mid x_{&lt;t})\right).
-</span> Distillation has become a central technique in the LLM era because frontier models are too expensive to serve at scale. Smaller distilled models (1B–8B parameters) can capture a large fraction of the teacher’s capability at a tiny fraction of inference cost. Most of the open-weights “small” models you see in 2025 are heavily distilled.</p>
-</section>
-<section id="when-fine-tuning-is-not-the-answer" class="level2" data-number="7.6">
-<h2 data-number="7.6" class="anchored" data-anchor-id="when-fine-tuning-is-not-the-answer"><span class="header-section-number">7.6</span> When fine-tuning is not the answer</h2>
-<p>Two cases where the right answer is <em>not</em> fine-tuning:</p>
-<ul>
-<li><strong>Retrieval-augmented generation (RAG).</strong> If you need the model to know facts that change frequently or are private, retrieve them at inference time and put them in the prompt. Fine-tuning on facts is a poor knowledge-store.</li>
-<li><strong>Prompting.</strong> If a well-written system prompt or a few in-context examples is enough, do that. It is much cheaper, much faster to iterate, and does not lock you into a single model version.</li>
-</ul>
-<p>Fine-tuning is the right answer when you need to change <em>behavior</em> (format, tone, refusal patterns) or teach a <em>skill</em> (a domain-specific reasoning pattern, a structured output schema) that is too costly to demonstrate at every inference time.</p>
+<section id="where-the-llm-story-continues" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="where-the-llm-story-continues"><span class="header-section-number">6.6</span> Where the LLM story continues</h2>
+<p>This chapter set up the <em>supervised</em> half of how modern LLMs are made. Pretraining gets a base model; fine-tuning adapts it. Along the way, three phenomena — scaling laws, emergence at scale, and in-context learning — appeared as the empirical surface of what is going on inside.</p>
+<p><a href="../chapters/06_llm_posttraining.html">Chapter 6</a> picks up where this ends, with the <em>post-training</em> half: reward modeling, RLHF and DPO, the reasoning revolution from inference-time compute, and the agent paradigm. <a href="../chapters/07_scidl_training.html">Chapter 7</a> then steps back from the LLM-specific machinery and looks at the phenomena above from a methodological angle — model-organism studies, mechanistic accounts, the actual science of training dynamics.</p>
+<p>The bitter lesson is still in force. The base model in front of us is not the work of any single architectural cleverness; it is the work of next-token prediction, transformers, and a lot of compute. The interesting science is downstream of accepting that this works and asking <em>what it tells us</em>.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-hoffmann2022chinchilla" class="csl-entry" role="listitem">
+<span class="nocase">Hoffmann, Jordan, Sebastian Borgeaud, Arthur Mensch, et al.</span> 2022. <span>“Training Compute-Optimal Large Language Models.”</span> <em>arXiv Preprint arXiv:2203.15556</em>.
+</div>
 <div id="ref-hu2021lora" class="csl-entry" role="listitem">
 Hu, Edward J, Yelong Shen, Phillip Wallis, et al. 2021. <span>“LoRA: Low-Rank Adaptation of Large Language Models.”</span> <em>arXiv Preprint arXiv:2106.09685</em>.
+</div>
+<div id="ref-kaplan2020scaling" class="csl-entry" role="listitem">
+Kaplan, Jared, Sam McCandlish, Tom Henighan, et al. 2020. <span>“Scaling Laws for Neural Language Models.”</span> <em>arXiv Preprint arXiv:2001.08361</em>.
+</div>
+<div id="ref-sutton2019bitter" class="csl-entry" role="listitem">
+Sutton, Richard. 2019. <span>“The Bitter Lesson.”</span> <em>Incomplete Ideas (Blog)</em>.
 </div>
 </div>
 </section>
@@ -1000,13 +1001,13 @@ Hu, Edward J, Yelong Shen, Phillip Wallis, et al. 2021. <span>“LoRA: Low-Rank 
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/05_pretraining.html" class="pagination-link" aria-label="Pretraining LLMs">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Pretraining LLMs</span></span>
+      <a href="../chapters/04_transformers.html" class="pagination-link" aria-label="Transformers">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Transformers</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/07_rl.html" class="pagination-link" aria-label="Reinforcement learning for LLMs">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Reinforcement learning for LLMs</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/06_llm_posttraining.html" class="pagination-link" aria-label="Large language models II: post-training and agents">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Large language models II: post-training and agents</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1015,5 +1016,5 @@ Hu, Edward J, Yelong Shen, Phillip Wallis, et al. 2021. <span>“LoRA: Low-Rank 
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cfpark00/science-of-dl/edit/main/chapters/06_finetuning.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer><script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

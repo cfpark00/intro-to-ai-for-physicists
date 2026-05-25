@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4&nbsp; The transformer – Intro to AI for Physicists</title>
+<title>13&nbsp; Science of intelligence – Intro to AI for Physicists</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,26 +23,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -52,8 +33,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/04_scaling_laws.html" rel="next">
-<link href="../chapters/02_dl_primer.html" rel="prev">
+<link href="../references.html" rel="next">
+<link href="../chapters/11_scidl_concepts.html" rel="prev">
 <link href="../assets/favicon.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -98,49 +79,6 @@ div.csl-indent {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: false
-   });
-}}});
-  </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -316,7 +254,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/03_transformer.html">Modern architectures</a></li><li class="breadcrumb-item"><a href="../chapters/03_transformer.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The transformer</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/08_diffusion.html">Beyond LLMs</a></li><li class="breadcrumb-item"><a href="../chapters/12_intelligence.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Science of intelligence</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -354,7 +292,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
- <span class="menu-text">Foundations</span></a>
+ <span class="menu-text">Fundamentals and methods</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -362,14 +300,44 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/01_landscape.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The modern AI landscape</span></span></a>
+  <a href="../chapters/01_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/02_dl_primer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">A deep learning primer</span></span></a>
+  <a href="../chapters/02_image_classification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Neural networks and image classification</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/03_sequence_modeling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sequence modeling</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/04_transformers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Transformers</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/05_llm_pretraining.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Large language models I: pretraining and fine-tuning</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/06_llm_posttraining.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Large language models II: post-training and agents</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/07_scidl_training.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Science of deep learning I: training dynamics</span></span></a>
   </div>
 </li>
       </ul>
@@ -377,7 +345,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Modern architectures</span></a>
+ <span class="menu-text">Beyond LLMs</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -385,83 +353,32 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/03_transformer.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The transformer</span></span></a>
+  <a href="../chapters/08_diffusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Diffusion models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/04_scaling_laws.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Scaling laws</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
- <span class="menu-text">Large language models</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/05_pretraining.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Pretraining LLMs</span></span></a>
+  <a href="../chapters/09_rl.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Reinforcement learning</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/06_finetuning.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Fine-tuning</span></span></a>
+  <a href="../chapters/10_world_models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">World models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/07_rl.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Reinforcement learning for LLMs</span></span></a>
+  <a href="../chapters/11_scidl_concepts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Science of deep learning II: concept learning</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/08_reasoning.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Reasoning and test-time compute</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
- <span class="menu-text">Generative models beyond LLMs</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/09_diffusion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Diffusion and score-based models</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
- <span class="menu-text">Practice</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/10_inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Inference</span></span></a>
+  <a href="../chapters/12_intelligence.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Science of intelligence</span></span></a>
   </div>
 </li>
       </ul>
@@ -469,7 +386,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">References</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">References</span></span></a>
   </div>
 </li>
     </ul>
@@ -482,22 +399,25 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-transformer" id="toc-sec-transformer" class="nav-link active" data-scroll-target="#sec-transformer"><span class="header-section-number">4.1</span> The residual stream picture</a></li>
-  <li><a href="#attention-in-one-equation" id="toc-attention-in-one-equation" class="nav-link" data-scroll-target="#attention-in-one-equation"><span class="header-section-number">4.2</span> Attention in one equation</a></li>
-  <li><a href="#why-this-works" id="toc-why-this-works" class="nav-link" data-scroll-target="#why-this-works"><span class="header-section-number">4.3</span> Why this works</a></li>
-  <li><a href="#the-mlp-block" id="toc-the-mlp-block" class="nav-link" data-scroll-target="#the-mlp-block"><span class="header-section-number">4.4</span> The MLP block</a></li>
-  <li><a href="#causal-masking-and-the-loss" id="toc-causal-masking-and-the-loss" class="nav-link" data-scroll-target="#causal-masking-and-the-loss"><span class="header-section-number">4.5</span> Causal masking and the loss</a></li>
-  <li><a href="#what-we-havent-covered" id="toc-what-we-havent-covered" class="nav-link" data-scroll-target="#what-we-havent-covered"><span class="header-section-number">4.6</span> What we haven’t covered</a></li>
+  <li><a href="#where-we-are-coming-from" id="toc-where-we-are-coming-from" class="nav-link active" data-scroll-target="#where-we-are-coming-from"><span class="header-section-number">13.1</span> Where we are coming from</a></li>
+  <li><a href="#evolution-as-a-learning-process" id="toc-evolution-as-a-learning-process" class="nav-link" data-scroll-target="#evolution-as-a-learning-process"><span class="header-section-number">13.2</span> Evolution as a learning process</a></li>
+  <li><a href="#multi-agent-intelligence" id="toc-multi-agent-intelligence" class="nav-link" data-scroll-target="#multi-agent-intelligence"><span class="header-section-number">13.3</span> Multi-agent intelligence</a></li>
+  <li><a href="#quality-diversity" id="toc-quality-diversity" class="nav-link" data-scroll-target="#quality-diversity"><span class="header-section-number">13.4</span> Quality-diversity</a></li>
+  <li><a href="#open-endedness" id="toc-open-endedness" class="nav-link" data-scroll-target="#open-endedness"><span class="header-section-number">13.5</span> Open-endedness</a></li>
+  <li><a href="#creativity" id="toc-creativity" class="nav-link" data-scroll-target="#creativity"><span class="header-section-number">13.6</span> Creativity</a></li>
+  <li><a href="#learning-in-the-expansive-view" id="toc-learning-in-the-expansive-view" class="nav-link" data-scroll-target="#learning-in-the-expansive-view"><span class="header-section-number">13.7</span> Learning, in the expansive view</a></li>
+  <li><a href="#some-adjacent-threads-briefly" id="toc-some-adjacent-threads-briefly" class="nav-link" data-scroll-target="#some-adjacent-threads-briefly"><span class="header-section-number">13.8</span> Some adjacent threads, briefly</a></li>
+  <li><a href="#capstone-closing-the-course" id="toc-capstone-closing-the-course" class="nav-link" data-scroll-target="#capstone-closing-the-course"><span class="header-section-number">13.9</span> Capstone: closing the course</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/cfpark00/science-of-dl/edit/main/chapters/03_transformer.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/03_transformer.html">Modern architectures</a></li><li class="breadcrumb-item"><a href="../chapters/03_transformer.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The transformer</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/08_diffusion.html">Beyond LLMs</a></li><li class="breadcrumb-item"><a href="../chapters/12_intelligence.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Science of intelligence</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The transformer</span></h1>
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Science of intelligence</span></h1>
 </div>
 
 
@@ -514,60 +434,85 @@ window.Quarto = {
 </header>
 
 
-<p>The transformer <span class="citation" data-cites="vaswani2017attention">(<a href="../references.html#ref-vaswani2017attention" role="doc-biblioref">Vaswani et al. 2017</a>)</span> is the single architecture behind nearly every frontier model in language, vision, audio, and code as of 2026. It is worth understanding not by reading the diagram in the original paper, but by thinking of it as a particular kind of dynamical system on a sequence of vectors.</p>
-<section id="sec-transformer" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="sec-transformer"><span class="header-section-number">4.1</span> The residual stream picture</h2>
-<p>A transformer processes a sequence of <span class="math inline">T</span> tokens. Each token starts as an embedding vector in <span class="math inline">\mathbb{R}^d</span> where <span class="math inline">d</span> is the <em>model dimension</em> (commonly 768 to 16384). Stack them and you have an array <span class="math inline">X \in \mathbb{R}^{T \times d}</span>.</p>
-<p>The model is a stack of <span class="math inline">L</span> identical blocks. Each block does: <span class="math display">
-X \leftarrow X + \mathrm{Attn}(X), \qquad X \leftarrow X + \mathrm{MLP}(X).
-</span></p>
-<p>That is: every block <strong>adds</strong> something to the running state <span class="math inline">X</span>. The cumulative state <span class="math inline">X</span> is called the <strong>residual stream</strong>. Each token’s residual stream is a <span class="math inline">d</span>-dimensional vector that gets refined as it passes through layers — attention writes information from other tokens into it, the MLP processes information already there.</p>
-<p>The crucial observation is that the residual stream is a <em>linear</em> channel: every component reads its input via a linear projection of the stream and writes its output by addition. This is why mechanistic interpretability talks about “writing to the residual stream” — different components can effectively communicate by writing to and reading from agreed-upon subspaces.</p>
+<p>We have spent eleven chapters working through the science of one particular thing: gradient-trained neural networks, mostly transformers, trained on large amounts of data with self-supervised objectives. The previous chapter ended with a reframing — <em>learning happens at different abstraction scales</em>. This chapter takes the natural next step. If learning lives at multiple scales, then <strong>intelligence</strong> — whatever it is — is broader than any single learning process.</p>
+<p>This is the capstone, and it has the most-at-risk-of-being-a-grab-bag content in the book. There is a real danger of the chapter becoming a tour of “things that are not deep learning” with no through-line. The through-line we will hold is the one <a href="../chapters/11_scidl_concepts.html">Chapter 11</a> handed us: <em>intelligence is a property of systems coordinating learning at multiple abstraction scales, and there are many kinds of such systems in nature and engineering.</em> The rest of the chapter is a survey of what kinds.</p>
+<p>The chapter ends on a question, not a topic list. That is also deliberate.</p>
+<section id="where-we-are-coming-from" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="where-we-are-coming-from"><span class="header-section-number">13.1</span> Where we are coming from</h2>
+<p>The previous chapter ended by proposing that what we have been calling “concept learning” is best understood as <em>learning at different abstraction scales</em>: pixels, words, syntactic structures, factual knowledge, reasoning strategies, scientific frameworks. Each scale has its own learning dynamics, its own success criteria, and its own failure modes.</p>
+<p>The move this chapter wants to make is: <em>if you accept this picture, then intelligence is not “a learning process” — it is a property of systems that coordinate many learning processes, possibly across very different timescales and substrates.</em> Examples:</p>
+<ul>
+<li>A human is intelligent partly because of within-lifetime learning (gradient updates of biological neurons), partly because of cultural learning (concepts transmitted via language across generations), partly because of evolutionary learning (priors hard-coded by natural selection across millions of years).</li>
+<li>A scientific community is intelligent partly because of individual scientists doing within-career learning, partly because of cumulative cultural transmission across generations of researchers, partly because of institutional structures that select for productive work.</li>
+<li>A self-play game-playing system is intelligent partly because of single-agent gradient learning, partly because of the population dynamics of the agents playing each other.</li>
+</ul>
+<p>In each case, intelligence is not located in one process. It is located in the <em>coordination</em> of multiple processes operating at different scales.</p>
+<p>So this chapter surveys those processes — beyond gradient-based single-agent supervised/RL learning, which is what most of the book has covered. The point is not encyclopedic coverage. The point is to <em>widen the frame</em>.</p>
 </section>
-<section id="attention-in-one-equation" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="attention-in-one-equation"><span class="header-section-number">4.2</span> Attention in one equation</h2>
-<p>Attention takes the <span class="math inline">T \times d</span> array <span class="math inline">X</span>, projects it three ways into queries, keys, and values: <span class="math display">
-Q = X W_Q, \qquad K = X W_K, \qquad V = X W_V,
-</span> each of shape <span class="math inline">T \times d_{\text{head}}</span>. Then for each pair of token positions <span class="math inline">(i, j)</span> it computes an attention weight <span class="math display">
-A_{ij} = \mathrm{softmax}_j\!\left(\frac{Q_i \cdot K_j}{\sqrt{d_{\text{head}}}}\right),
-</span> and outputs a weighted sum of values: <span class="math display">
-\mathrm{Attn}(X)_i = \sum_j A_{ij}\, V_j.
-</span></p>
-<p>In words: token <span class="math inline">i</span> asks a question (its query), every token answers (its key), and token <span class="math inline">i</span> takes a weighted average of the values, weighted by how well each key matched its query.</p>
-<p><strong>Multi-head attention</strong> runs this <span class="math inline">h</span> times in parallel with different <span class="math inline">W_Q, W_K, W_V</span> matrices, each producing an output, and concatenates them. The intuition is that different heads can specialize in different relationships between tokens.</p>
+<section id="evolution-as-a-learning-process" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="evolution-as-a-learning-process"><span class="header-section-number">13.2</span> Evolution as a learning process</h2>
+<p>Natural selection is the longest-running learning process on Earth. It is a learning process in the literal optimization sense: a population, a fitness function (survival and reproduction), and a stochastic update rule (mutation, recombination, selection). It has no gradient. It has no centralized objective. It has no individual that “learns” — the population learns, across generations.</p>
+<p>For deep learning, the connection runs two ways.</p>
+<p><strong>Evolutionary methods in ML.</strong> Optimization without gradients. The relevant techniques are <strong>evolution strategies (ES)</strong>, <strong>neuroevolution</strong>, and various genetic algorithm flavors. They estimate update directions by random perturbations of the parameters and selection on fitness, rather than by backpropagating a loss. They are typically less sample-efficient than gradient methods <em>when gradients are available and meaningful</em>, but they can shine in settings where the gradient is not — when the objective is non-differentiable, when the environment is too noisy for gradient signal, or when the optimization landscape is rugged in ways that gradients cannot navigate. They have been competitive in some gradient-free RL settings.</p>
+<p><strong>The structural analogy.</strong> Both NN training and evolution are forms of optimization, but they are not the same kind of optimization. Gradient descent moves a <em>single</em> parameter vector along an explicit local direction. Evolution maintains a <em>population</em> and selects across it. The differences matter — for what they can find, for how they generalize, and for what kinds of objectives they can handle. A physicist’s reflex of “they are both optimization, treat them similarly” is partially right and partially wrong, and the partially-wrong part is interesting.</p>
+<p>The deeper point is that evolution is not a backup option for when gradient descent fails. It is <em>a different mode of learning</em>, and intelligence-in-nature uses both — the genome is the slow evolutionary learner, the brain is the fast within-lifetime learner, and human intelligence requires both.</p>
 </section>
-<section id="why-this-works" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="why-this-works"><span class="header-section-number">4.3</span> Why this works</h2>
-<p>There is no fully satisfying theory of <em>why</em> attention is the right inductive bias. The two facts that probably matter:</p>
-<ol type="1">
-<li><strong>Content-based routing.</strong> Unlike convolutions or RNNs, attention lets a token decide <em>which other tokens</em> are relevant on the basis of their content, not their position. This makes long-range dependencies cheap.</li>
-<li><strong>No recurrence, no convolution.</strong> The entire forward pass parallelizes across the sequence dimension on a GPU, which makes attention <span class="math inline">\sim 10\times</span> more efficient to train than an RNN of comparable accuracy.</li>
-</ol>
-</section>
-<section id="the-mlp-block" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="the-mlp-block"><span class="header-section-number">4.4</span> The MLP block</h2>
-<p>Sandwiched between attention layers is a position-wise feedforward network — typically a two-layer MLP with an inner dimension of <span class="math inline">4d</span>: <span class="math display">
-\mathrm{MLP}(x) = W_2\, \sigma(W_1 x).
-</span></p>
-<p>This is where most of the parameters live (in a standard transformer, the MLPs are roughly <span class="math inline">2/3</span> of the parameter count). Mechanistic interpretability work suggests the MLPs are doing most of the “knowledge storage” — the attention is the routing, the MLP is the memory.</p>
-</section>
-<section id="causal-masking-and-the-loss" class="level2" data-number="4.5">
-<h2 data-number="4.5" class="anchored" data-anchor-id="causal-masking-and-the-loss"><span class="header-section-number">4.5</span> Causal masking and the loss</h2>
-<p>For language modeling we want each position <span class="math inline">i</span> to predict token <span class="math inline">i+1</span> using only tokens <span class="math inline">\le i</span>. This is enforced by <strong>masking</strong> the attention weights <span class="math inline">A_{ij}</span> to zero for <span class="math inline">j &gt; i</span>. The loss is then cross-entropy at every position, averaged over the sequence: <span class="math display">
-\mathcal{L} = -\frac{1}{T} \sum_{i=1}^T \log p_\theta(x_{i+1} \mid x_{\le i}).
-</span></p>
-<p>A single forward pass produces <span class="math inline">T</span> supervised gradient signals. This is one reason next-token prediction scales so well: every token in your dataset is a training example.</p>
-</section>
-<section id="what-we-havent-covered" class="level2" data-number="4.6">
-<h2 data-number="4.6" class="anchored" data-anchor-id="what-we-havent-covered"><span class="header-section-number">4.6</span> What we haven’t covered</h2>
-<p>Position encodings (RoPE), normalization placement (pre-norm), modern attention variants (grouped-query, sliding window, sparse, linear), inference-time efficiencies (KV cache — see <a href="10_inference.html#sec-inference" class="quarto-xref"><span>Section 11.1</span></a>), and mixture-of-experts MLPs are all important refinements. The core picture — residual stream, attention, MLP — is what you need to follow the rest of the book.</p>
-
-
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
-<div id="ref-vaswani2017attention" class="csl-entry" role="listitem">
-Vaswani, Ashish, Noam Shazeer, Niki Parmar, et al. 2017. <span>“Attention Is All You Need.”</span> <em>Advances in Neural Information Processing Systems</em> 30.
+<section id="multi-agent-intelligence" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="multi-agent-intelligence"><span class="header-section-number">13.3</span> Multi-agent intelligence</h2>
+<p>A second mode: intelligence as a <strong>property of populations</strong> of interacting agents, rather than of individuals.</p>
+<p><strong>Self-play.</strong> Train an agent against copies of itself. The AlphaGo / AlphaZero lineage is the canonical example: an RL agent playing Go (or Chess, or Shogi) against itself, with the opponent’s policy continuously co-evolving with the agent’s. The self-play dynamic creates a curriculum without any external curation — each agent always faces an opponent matched to its current strength, and the strength climbs.</p>
+<p><strong>Nash equilibria and game theory.</strong> In multi-agent settings, the natural solution concept is not “the optimal policy” (which is ill-defined) but the <strong>Nash equilibrium</strong> (or some refinement) — a configuration in which no agent can unilaterally improve by changing strategy. Game theory becomes load-bearing. Solution concepts get messier in many-player games and in games with continuous action spaces. Some of the most interesting recent work in multi-agent RL is about learning dynamics that converge to (refinements of) Nash equilibria in non-trivial games.</p>
+<p><strong>Cooperative vs.&nbsp;competitive dynamics.</strong> In cooperative multi-agent settings, agents share a reward and have to coordinate. The hard problem is <em>credit assignment among agents</em> — when a team succeeds, which agent’s actions caused the success? In competitive settings, the hard problem is the moving target — your opponents are adapting to your strategy. Mixed-motive settings (some cooperation, some competition) are the messiest and most realistic.</p>
+<p>The phenomenon worth taking away: intelligence can emerge from the interaction of agents who, individually, are not particularly intelligent. The emergent behaviors of mixed populations of simple agents often look more competent than the agents themselves. This is the multi-agent analog of “emergence at scale” from <a href="../chapters/05_llm_pretraining.html">Chapter 5</a> — except the “scale” is the size of the population, not the parameter count of any individual.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>[Plot]</strong> Schematic of self-play curriculum: a single agent against frozen copies of its older selves, with the opponent’s strength climbing over training. The agent’s performance is plotted against the population’s average strength, both rising together.</p>
 </div>
 </div>
+</div>
+</section>
+<section id="quality-diversity" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="quality-diversity"><span class="header-section-number">13.4</span> Quality-diversity</h2>
+<p>In standard optimization, the goal is to find one good solution. In <strong>quality-diversity (QD)</strong> methods, the goal is to find <em>many diverse</em> high-quality solutions. The motivation: in many problems, there is no single “best” solution; there are families of distinct solutions, each suited to a different niche. Finding the family is more useful than finding any one member.</p>
+<p>The canonical methods include <strong>novelty search</strong> (rewarding diversity rather than performance) and <strong>MAP-Elites</strong> (maintaining a grid of solutions indexed by behavioral descriptors, keeping the best solution per grid cell). The result is a <em>map</em> of the solution space, not just a point. QD methods have been useful in robotics (where many gaits, many strategies, etc. each have their use), in protein design, and in open-ended exploration.</p>
+<p>The connection to intelligence: QD is one of the simplest formal expressions of the idea that intelligence is <em>not just optimization toward a single objective</em>. A good explorer of a possibility space — a system that maintains diverse competencies — is in some senses smarter than a system that finds the single best policy and stops.</p>
+</section>
+<section id="open-endedness" class="level2" data-number="13.5">
+<h2 data-number="13.5" class="anchored" data-anchor-id="open-endedness"><span class="header-section-number">13.5</span> Open-endedness</h2>
+<p><strong>Open-endedness</strong> is the aspiration of designing a learning process that <em>keeps generating new challenges and new capabilities indefinitely</em>. The most evocative example is evolution itself: 3.5 billion years and still inventing new niches, new body plans, new ecosystems. Nothing we have built in ML comes close to this in practice.</p>
+<p>The recent open-endedness research line — <strong>POET</strong>, <strong>OMNI-EPIC</strong>, and related work — tries to instantiate this in compute: have a system that simultaneously generates new environments <em>and</em> new agents that learn in them, with the environments and agents co-evolving in a way that keeps presenting fresh challenges. The systems are not yet capable of running indefinitely without engineering intervention, but they are interesting <em>as research questions</em>. The fact that we do not yet know how to build a process that keeps surprising itself indefinitely is one of the meaningful frontiers.</p>
+<p>Open-endedness connects to all the previous threads in this chapter. Evolution is the original open-ended process. Multi-agent self-play is a form of open-endedness — each agent’s improvements set up new challenges for the others. QD provides the structural ingredient of diversity. The threads are not parallel research areas; they are facets of one larger question: <em>what kind of process keeps generating new structure?</em></p>
+</section>
+<section id="creativity" class="level2" data-number="13.6">
+<h2 data-number="13.6" class="anchored" data-anchor-id="creativity"><span class="header-section-number">13.6</span> Creativity</h2>
+<p>A short, honest section. Creativity in AI systems is a debate-shaped territory of the kind <a href="../chapters/10_world_models.html">Chapter 10</a> warned against — ill-defined, prone to motivated assessments, and resistant to crisp operational definitions. We will not try to resolve it here.</p>
+<p>What is worth saying: the surface phenomena are striking. Large generative models produce outputs that are at least <em>novel</em> in the sense of not appearing in training data. Some of those outputs are <em>useful</em>, <em>interesting</em>, <em>evocative</em> by human assessment. Whether any of this counts as “creativity” in the philosophically loaded sense depends on what you think creativity is, and the field has not settled the operationalization any more than it settled the operationalization of “world model” or “concept.”</p>
+<p>Channel the same methodology from previous chapters: refuse the binary, operationalize before debating, embrace partial answers, cross-check on small things. The creative outputs of large models are a phenomenon. Whether they constitute “real creativity” is a question that does not yet have an answer that pays scientific dividends. Better questions: what is the structure of the outputs the model produces? What kinds of novelty does it surface easily, and what kinds does it miss? Under what conditions does it produce outputs humans rate as creative? These are answerable. The bigger question may not be.</p>
+</section>
+<section id="learning-in-the-expansive-view" class="level2" data-number="13.7">
+<h2 data-number="13.7" class="anchored" data-anchor-id="learning-in-the-expansive-view"><span class="header-section-number">13.7</span> Learning, in the expansive view</h2>
+<p>Pulling threads together: once you survey evolution, multi-agent, quality-diversity, open-endedness, and creativity, the original notion of <em>learning</em> as gradient descent on a loss starts to feel narrow. The expansive view of learning includes any process by which a system updates its behavior or its representations in response to interaction with its environment — and that process can operate at many timescales, on many substrates, with many objectives (or none).</p>
+<p>The course’s punchline: <em>learning is a much broader phenomenon than the gradient-descent-on-a-loss picture <a href="../chapters/01_intro.html">Chapter 1</a> started with</em>. Intelligence may be a property of <em>systems-with-objectives</em> — coordinating learning processes across scales, in service of goals that may themselves be emergent — of which the gradient-trained networks of this book are one instance.</p>
+<p>This is not a dismissal of the gradient-trained-network picture. It is a positioning of it. The science we have developed across the eleven previous chapters is the science of one important instance of a broader phenomenon. The broader phenomenon is still being explored, and the broader frontier is wide open.</p>
+</section>
+<section id="some-adjacent-threads-briefly" class="level2" data-number="13.8">
+<h2 data-number="13.8" class="anchored" data-anchor-id="some-adjacent-threads-briefly"><span class="header-section-number">13.8</span> Some adjacent threads, briefly</h2>
+<p>A few topics that fit the chapter’s expansive frame and are worth flagging without dwelling.</p>
+<p><strong>Knightian uncertainty vs.&nbsp;probabilistic uncertainty.</strong> <em>Aleatory</em> uncertainty is the irreducible randomness in a system. <em>Epistemic</em> uncertainty is uncertainty about model parameters or structure, which more data could in principle reduce. <em>Knightian</em> uncertainty is uncertainty about events whose <em>probabilities are themselves unknown</em> — situations where the probabilistic framework does not even apply. Real-world intelligence has to handle all three, and most of the deep-learning machinery in this book really only handles the first two. This is an open frontier.</p>
+<p><strong>Active learning.</strong> Choosing <em>what</em> to learn from, rather than passively consuming whatever data arrives. Open-endedness, intrinsic motivation, exploration in RL, curriculum learning — these are all flavors of active learning. The science here connects to RL (<a href="../chapters/09_rl.html">Chapter 9</a>) and to the data-efficiency questions in LLM pretraining (<a href="../chapters/05_llm_pretraining.html">Chapter 5</a>).</p>
+<p><strong>AI for scientific discovery.</strong> The author’s long-term research vision, mentioned here because the chapter is the right place for it: what kind of intelligence do we need for <em>open-ended scientific research</em>? This is a question that ties together everything in this chapter — open-endedness, creativity, learning at the level of frameworks, multi-agent dynamics within scientific communities. It is a frontier that is barely scratched, and it is plausibly the frontier where the broader view of intelligence will be most useful.</p>
+</section>
+<section id="capstone-closing-the-course" class="level2" data-number="13.9">
+<h2 data-number="13.9" class="anchored" data-anchor-id="capstone-closing-the-course"><span class="header-section-number">13.9</span> Capstone: closing the course</h2>
+<p>We started in <a href="../chapters/01_intro.html">Chapter 1</a> with a methodology — five steps for doing science on neural networks — and a thesis: <em>neural networks as model organisms</em>. Eleven chapters later, we have seen that methodology cash out twice (in <a href="../chapters/07_scidl_training.html">Chapter 7</a> and <a href="../chapters/11_scidl_concepts.html">Chapter 11</a>), and we have zoomed out to where it points — toward intelligence as a broader phenomenon than gradient learning on a single objective.</p>
+<p>You should now have, more than anything else, a <em>taste</em>: a sense of what counts as a real phenomenon in deep learning, what counts as a useful synthetic experiment, what counts as evidence, what counts as a properly operationalized question. That taste is the deliverable. Specific facts about scaling laws or attention will date faster than the methodological frame this book has been building.</p>
+<p>The invitation is open. The frontier is, by any honest reading, wider open than the field’s current confidence would suggest. There are phenomena nobody has found, model systems nobody has built, methodologies nobody has yet pinned down. Go find them.</p>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -991,13 +936,13 @@ Vaswani, Ashish, Noam Shazeer, Niki Parmar, et al. 2017. <span>“Attention Is A
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/02_dl_primer.html" class="pagination-link" aria-label="A deep learning primer">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">A deep learning primer</span></span>
+      <a href="../chapters/11_scidl_concepts.html" class="pagination-link" aria-label="Science of deep learning II: concept learning">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Science of deep learning II: concept learning</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/04_scaling_laws.html" class="pagination-link" aria-label="Scaling laws">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Scaling laws</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../references.html" class="pagination-link" aria-label="References">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">References</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1006,5 +951,5 @@ Vaswani, Ashish, Noam Shazeer, Niki Parmar, et al. 2017. <span>“Attention Is A
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cfpark00/science-of-dl/edit/main/chapters/03_transformer.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer><script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

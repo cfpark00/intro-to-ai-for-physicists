@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>14&nbsp; References – Intro to AI for Physicists</title>
+<title>5&nbsp; Transformers – Intro to AI for Physicists</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -45,29 +45,30 @@ div.csl-indent {
 }</style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./chapters/12_intelligence.html" rel="prev">
-<link href="./assets/favicon.ico" rel="icon">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-8b607c24640247af39dc75d492f0f030.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-eedb75fe2dc3d83e245d147b9d269cd9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-8b607c24640247af39dc75d492f0f030.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/05_llm_pretraining.html" rel="next">
+<link href="../chapters/03_sequence_modeling.html" rel="prev">
+<link href="../assets/favicon.ico" rel="icon">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-8b607c24640247af39dc75d492f0f030.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-eedb75fe2dc3d83e245d147b9d269cd9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-8b607c24640247af39dc75d492f0f030.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -97,8 +98,51 @@ div.csl-indent {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
 
-<link rel="stylesheet" href="styles.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -272,7 +316,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./references.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">References</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01_intro.html">Fundamentals and methods</a></li><li class="breadcrumb-item"><a href="../chapters/04_transformers.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Transformers</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -287,7 +331,7 @@ div.csl-indent {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Intro to AI for Physicists</a> 
+      <a href="../">Intro to AI for Physicists</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/cfpark00/science-of-dl" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
@@ -303,58 +347,58 @@ div.csl-indent {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Preface</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Fundamentals and methods</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/01_intro.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/01_intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/02_image_classification.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/02_image_classification.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Neural networks and image classification</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/03_sequence_modeling.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/03_sequence_modeling.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sequence modeling</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/04_transformers.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/04_transformers.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Transformers</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/05_llm_pretraining.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/05_llm_pretraining.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Large language models I: pretraining and fine-tuning</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/06_llm_posttraining.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/06_llm_posttraining.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Large language models II: post-training and agents</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/07_scidl_training.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/07_scidl_training.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Science of deep learning I: training dynamics</span></span></a>
   </div>
 </li>
@@ -371,31 +415,31 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/08_diffusion.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/08_diffusion.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Diffusion models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/09_rl.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/09_rl.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Reinforcement learning</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/10_world_models.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/10_world_models.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">World models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/11_scidl_concepts.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/11_scidl_concepts.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Science of deep learning II: concept learning</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/12_intelligence.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/12_intelligence.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Science of intelligence</span></span></a>
   </div>
 </li>
@@ -403,7 +447,7 @@ div.csl-indent {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link active">
+  <a href="../references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">References</span></span></a>
   </div>
 </li>
@@ -412,16 +456,30 @@ div.csl-indent {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#attention-the-core-invention" id="toc-attention-the-core-invention" class="nav-link active" data-scroll-target="#attention-the-core-invention"><span class="header-section-number">5.1</span> Attention — the core invention</a></li>
+  <li><a href="#the-residual-stream" id="toc-the-residual-stream" class="nav-link" data-scroll-target="#the-residual-stream"><span class="header-section-number">5.2</span> The residual stream</a></li>
+  <li><a href="#mlps-per-token-processing" id="toc-mlps-per-token-processing" class="nav-link" data-scroll-target="#mlps-per-token-processing"><span class="header-section-number">5.3</span> MLPs — per-token processing</a></li>
+  <li><a href="#multi-head-attention" id="toc-multi-head-attention" class="nav-link" data-scroll-target="#multi-head-attention"><span class="header-section-number">5.4</span> Multi-head attention</a></li>
+  <li><a href="#positional-encoding" id="toc-positional-encoding" class="nav-link" data-scroll-target="#positional-encoding"><span class="header-section-number">5.5</span> Positional encoding</a></li>
+  <li><a href="#causal-masking-and-the-training-loss" id="toc-causal-masking-and-the-training-loss" class="nav-link" data-scroll-target="#causal-masking-and-the-training-loss"><span class="header-section-number">5.6</span> Causal masking and the training loss</a></li>
+  <li><a href="#transformer-economics-kv-cache-and-mixture-of-experts" id="toc-transformer-economics-kv-cache-and-mixture-of-experts" class="nav-link" data-scroll-target="#transformer-economics-kv-cache-and-mixture-of-experts"><span class="header-section-number">5.7</span> Transformer economics: KV cache and mixture of experts</a></li>
+  <li><a href="#variants-history" id="toc-variants-history" class="nav-link" data-scroll-target="#variants-history"><span class="header-section-number">5.8</span> Variants &amp; history</a></li>
+  <li><a href="#where-this-is-going" id="toc-where-this-is-going" class="nav-link" data-scroll-target="#where-this-is-going"><span class="header-section-number">5.9</span> Where this is going</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01_intro.html">Fundamentals and methods</a></li><li class="breadcrumb-item"><a href="../chapters/04_transformers.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Transformers</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">References</span></h1>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Transformers</span></h1>
 </div>
 
 
@@ -438,62 +496,97 @@ div.csl-indent {
 </header>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-ho2020denoising" class="csl-entry" role="listitem">
-Ho, Jonathan, Ajay Jain, and Pieter Abbeel. 2020. <span>“Denoising
-Diffusion Probabilistic Models.”</span> <em>Advances in Neural
-Information Processing Systems</em> 33.
+<p>The previous chapter framed the transformer as the no-compression extreme of memory in sequence models. This chapter pays that off in mechanism. We will work through what is actually inside a transformer — attention, the residual stream, multi-head processing, MLPs, positional encoding — and end with the practical economics (KV caches, mixture of experts) that decide what is feasible at scale.</p>
+<p>This is a structural chapter more than a phenomenological one. The deep architectural understanding <em>is</em> the deliverable. By the end you should be able to read a modern model card and know what every piece is doing, and you should be ready for <a href="../chapters/05_llm_pretraining.html">Chapter 5</a> to scale this up to LLMs.</p>
+<section id="attention-the-core-invention" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="attention-the-core-invention"><span class="header-section-number">5.1</span> Attention — the core invention</h2>
+<p>A transformer processes a sequence of <span class="math inline">T</span> tokens. Each token starts life as an embedding vector in <span class="math inline">\mathbb{R}^d</span> where <span class="math inline">d</span> is the <em>model dimension</em>. Stack them and you have an array <span class="math inline">X \in \mathbb{R}^{T \times d}</span>.</p>
+<p>The unit of computation that gives the transformer its name is <strong>scaled dot-product attention</strong> <span class="citation" data-cites="vaswani2017attention">(<a href="../references.html#ref-vaswani2017attention" role="doc-biblioref">Vaswani et al. 2017</a>)</span>. Given the current sequence representation <span class="math inline">X</span>, attention projects it three ways: <span class="math display">
+Q = X W_Q, \qquad K = X W_K, \qquad V = X W_V,
+</span> into queries, keys, and values, each <span class="math inline">T \times d_{\text{head}}</span>. Then for each pair of token positions <span class="math inline">(i, j)</span> it computes a similarity score and softmaxes across <span class="math inline">j</span>: <span class="math display">
+A_{ij} = \mathrm{softmax}_j\!\left(\frac{Q_i \cdot K_j}{\sqrt{d_{\text{head}}}}\right),
+</span> and the output at position <span class="math inline">i</span> is a weighted sum of values: <span class="math display">
+\mathrm{Attn}(X)_i = \sum_j A_{ij}\, V_j.
+</span></p>
+<p>In words: token <span class="math inline">i</span> poses a question (its query). Every token offers an answer (its key). Token <span class="math inline">i</span> takes a weighted average of the values, weighted by how well each key matched its query. This is <strong>content-based routing</strong> — the past tokens that get attended to are decided by what they <em>contain</em>, not by their position. That is the inductive bias that makes the transformer powerful.</p>
+<p>Two design details worth noting. The factor <span class="math inline">1/\sqrt{d_{\text{head}}}</span> keeps the softmax inputs in a regime where the gradient does not collapse — without it, dot products grow with dimension and the softmax saturates to a near-one-hot. Soft attention is differentiable everywhere and parallel across pairs <span class="math inline">(i, j)</span>, which means the entire computation maps cleanly to dense GPU operations.</p>
+<p>The cost is <span class="math inline">\mathcal{O}(T^2 d_{\text{head}})</span> per layer in time and memory. That is the famous “<span class="math inline">N^2</span>” that everyone worries about at long context, and it is the reason engineering effort goes into clever attention variants (sparse attention, sliding-window attention, FlashAttention’s tiled implementation, and the SSM hybrids from the previous chapter).</p>
+<p><strong>Self-attention vs cross-attention.</strong> When <span class="math inline">Q</span>, <span class="math inline">K</span>, <span class="math inline">V</span> all come from the same sequence, this is self-attention — what we have written above. When <span class="math inline">Q</span> comes from one sequence and <span class="math inline">K, V</span> come from another (as in encoder-decoder models, or any retrieval-flavored setup), this is cross-attention. Same mechanism, different sources.</p>
+</section>
+<section id="the-residual-stream" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="the-residual-stream"><span class="header-section-number">5.2</span> The residual stream</h2>
+<p>A transformer is a stack of <span class="math inline">L</span> identical blocks. Each block does: <span class="math display">
+X \leftarrow X + \mathrm{Attn}(X), \qquad X \leftarrow X + \mathrm{MLP}(X).
+</span> Every block <strong>adds</strong> something to the running representation <span class="math inline">X</span>. The cumulative state <span class="math inline">X</span> is called the <strong>residual stream</strong>.</p>
+<p>This is not just a training trick — it is the <em>computational substrate</em> of the transformer. Each token’s residual stream is a <span class="math inline">d</span>-dimensional vector that gets refined as it passes through layers. Attention layers write information from other tokens into it; MLP layers process information already there. Crucially, the residual stream is a <strong>linear channel</strong>: every component reads its input via a linear projection of the stream, and writes its output by addition. There is no nonlinearity <em>between</em> components — only inside them.</p>
+<p>This framing pays off enormously in interpretability work, and we will use it again in <a href="../chapters/07_scidl_training.html">Chapter 7</a>. Different components — different attention heads, different MLP neurons — can effectively communicate by writing to and reading from agreed-upon <strong>subspaces</strong> of the residual stream. “This head writes its output into a 50-dim subspace that the MLP three layers later reads” is the kind of sentence a transformer interpretability paper looks like, and it makes sense precisely because the residual stream is linear.</p>
+<p>The residual stream is the closest thing the transformer has to a “wire.” Everything else is a component that reads from the wire, does some computation, and writes back to the wire.</p>
+</section>
+<section id="mlps-per-token-processing" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="mlps-per-token-processing"><span class="header-section-number">5.3</span> MLPs — per-token processing</h2>
+<p>Sandwiched between attention layers is a position-wise feed-forward network, typically a two-layer MLP with an inner dimension of <span class="math inline">4d</span>: <span class="math display">
+\mathrm{MLP}(x) = W_2\, \sigma(W_1 x).
+</span> The same MLP is applied independently at every token position. There is no mixing across positions inside an MLP block — that is attention’s job.</p>
+<p>This alternation matters. Attention mixes information <em>across</em> tokens. MLPs process information <em>within</em> each token. The two phases together let a transformer build complex token-position-dependent computations out of two simple ingredients.</p>
+<p>There is a useful, if rough, division of labor: <strong>attention is the routing, MLPs are the memory.</strong> Mechanistic interpretability suggests that most of a transformer’s stored “knowledge” lives in the MLP weights, while attention heads implement the routing and circuit structure that decides which knowledge gets pulled in for which prediction. This is empirical, not theoretical, and it is not exact — but it is a useful first-order picture. The MLPs are also where most of the parameter count lives; in a typical transformer, the MLPs are roughly two-thirds of the parameters.</p>
+</section>
+<section id="multi-head-attention" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="multi-head-attention"><span class="header-section-number">5.4</span> Multi-head attention</h2>
+<p>Running attention once with one set of <span class="math inline">(W_Q, W_K, W_V)</span> matrices gives you one “channel” of relational structure. <strong>Multi-head attention</strong> runs <span class="math inline">h</span> attention operations in parallel, each with its own learned projections (and with <span class="math inline">d_{\text{head}} = d/h</span>, so the total compute is comparable to a single attention with <span class="math inline">d_{\text{head}} = d</span>). The outputs are concatenated and passed through a final linear projection.</p>
+<p>The intuition is that different heads can specialize in different relationships between tokens — one might track syntactic dependencies, another might track coreference, another might just copy tokens from a recent position. Whether this clean “head specialization” actually emerges in trained models is its own research question; the answer is “sometimes yes, sometimes no, sometimes the heads cooperate in non-obvious ways.” There is interesting phenomenology here that interpretability work has only partially mapped — see Chapter 7’s discussion of probing methods.</p>
+</section>
+<section id="positional-encoding" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="positional-encoding"><span class="header-section-number">5.5</span> Positional encoding</h2>
+<p>There is one piece of structure attention does not naturally have: it is <strong>permutation-equivariant</strong>. If you shuffle the input tokens, the output gets shuffled the same way. For a language model, this is unacceptable — “the cat ate the mouse” and “the mouse ate the cat” had better produce different predictions.</p>
+<p>The fix is to add position information explicitly. There are several flavors:</p>
+<ul>
+<li><strong>Sinusoidal positional encodings</strong>: add fixed sinusoidal vectors of varying frequencies to the input embeddings before the first block. Simple, parameter-free, and extrapolates somewhat to longer sequences.</li>
+<li><strong>Learned positional embeddings</strong>: a learned vector per absolute position. Conceptually trivial; does not extrapolate beyond training-time lengths.</li>
+<li><strong>Rotary position embeddings (RoPE)</strong>: applied inside the attention computation by rotating <span class="math inline">Q</span> and <span class="math inline">K</span> by position-dependent angles. The key insight is that the attention score then depends only on the <em>relative</em> offset <span class="math inline">i - j</span>, not on absolute positions. RoPE is the default in most modern decoder-only LLMs.</li>
+</ul>
+<p>The choice of positional encoding is one of the places where the “memory of order” lives. Several recent context-length advances are essentially modifications to how positions get encoded so that the model can be evaluated on sequences longer than it was trained on.</p>
+</section>
+<section id="causal-masking-and-the-training-loss" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="causal-masking-and-the-training-loss"><span class="header-section-number">5.6</span> Causal masking and the training loss</h2>
+<p>For language modeling we want each position <span class="math inline">i</span> to predict token <span class="math inline">i+1</span> using only tokens at positions <span class="math inline">\le i</span>. This is enforced by <strong>causal masking</strong>: set <span class="math inline">A_{ij} = 0</span> for <span class="math inline">j &gt; i</span> before normalizing (in practice, set the pre-softmax logits to <span class="math inline">-\infty</span>). The model can attend to the past and to itself but not to the future.</p>
+<p>The training loss is cross-entropy at every position: <span class="math display">
+\mathcal{L} = -\frac{1}{T} \sum_{i=1}^T \log p_\theta(x_{i+1} \mid x_{\le i}).
+</span></p>
+<p>A single forward pass on a sequence of length <span class="math inline">T</span> produces <span class="math inline">T</span> supervised gradient signals. This is one of the reasons next-token prediction scales so well: every token in your training data is a training example. We will see in <a href="../chapters/05_llm_pretraining.html">Chapter 5</a> how this density of supervision interacts with scale.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
 </div>
-<div id="ref-hoffmann2022chinchilla" class="csl-entry" role="listitem">
-<span class="nocase">Hoffmann, Jordan, Sebastian Borgeaud, Arthur
-Mensch, et al.</span> 2022. <span>“Training Compute-Optimal Large
-Language Models.”</span> <em>arXiv Preprint arXiv:2203.15556</em>.
+<div class="callout-body-container">
+<p><strong>[Plot]</strong> A schematic of a single transformer block, with the residual stream as a thick horizontal line at the top. Attention and MLP components branch off of it, do their thing, and write their outputs back. Highlight that the stream itself is linear — no nonlinearity <em>between</em> components.</p>
 </div>
-<div id="ref-hu2021lora" class="csl-entry" role="listitem">
-Hu, Edward J, Yelong Shen, Phillip Wallis, et al. 2021. <span>“LoRA:
-Low-Rank Adaptation of Large Language Models.”</span> <em>arXiv Preprint
-arXiv:2106.09685</em>.
 </div>
-<div id="ref-kaplan2020scaling" class="csl-entry" role="listitem">
-Kaplan, Jared, Sam McCandlish, Tom Henighan, et al. 2020. <span>“Scaling
-Laws for Neural Language Models.”</span> <em>arXiv Preprint
-arXiv:2001.08361</em>.
 </div>
-<div id="ref-ouyang2022instructgpt" class="csl-entry" role="listitem">
-<span class="nocase">Ouyang, Long, Jeff Wu, Xu Jiang, et al.</span>
-2022. <span>“Training Language Models to Follow Instructions with Human
-Feedback.”</span> <em>Advances in Neural Information Processing
-Systems</em> 35.
-</div>
-<div id="ref-rafailov2023dpo" class="csl-entry" role="listitem">
-Rafailov, Rafael, Archit Sharma, Eric Mitchell, Stefano Ermon,
-Christopher D Manning, and Chelsea Finn. 2023. <span>“Direct Preference
-Optimization: Your Language Model Is Secretly a Reward Model.”</span>
-<em>NeurIPS</em>.
-</div>
-<div id="ref-schulman2017ppo" class="csl-entry" role="listitem">
-Schulman, John, Filip Wolski, Prafulla Dhariwal, Alec Radford, and Oleg
-Klimov. 2017. <span>“Proximal Policy Optimization Algorithms.”</span>
-<em>arXiv Preprint arXiv:1707.06347</em>.
-</div>
-<div id="ref-song2021scorebased" class="csl-entry" role="listitem">
-Song, Yang, Jascha Sohl-Dickstein, Diederik P Kingma, Abhishek Kumar,
-Stefano Ermon, and Ben Poole. 2021. <span>“Score-Based Generative
-Modeling Through Stochastic Differential Equations.”</span>
-<em>ICLR</em>.
-</div>
-<div id="ref-sutton2019bitter" class="csl-entry" role="listitem">
-Sutton, Richard. 2019. <span>“The Bitter Lesson.”</span> <em>Incomplete
-Ideas (Blog)</em>.
-</div>
+</section>
+<section id="transformer-economics-kv-cache-and-mixture-of-experts" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="transformer-economics-kv-cache-and-mixture-of-experts"><span class="header-section-number">5.7</span> Transformer economics: KV cache and mixture of experts</h2>
+<p>Two engineering ideas matter enough to mention in a scientific chapter, because they shape what scale you can actually reach.</p>
+<p><strong>KV cache.</strong> At inference time, you generate one token, then feed it back and generate the next token, and so on. Naively, every new token requires recomputing attention against the entire growing prefix. But the keys and values for previous tokens do not change as you extend the sequence. So you cache them: keep the <span class="math inline">K</span> and <span class="math inline">V</span> tensors from previous steps in memory and only compute the new step’s contribution. This turns autoregressive generation from <span class="math inline">\mathcal{O}(T^2)</span> per token to <span class="math inline">\mathcal{O}(T)</span> per token, at the cost of memory that grows linearly with sequence length. This is an inference-engineering optimization that the science-of-DL framing has nothing scientifically interesting to say about — we mention it because it sets the practical limit on how long a context window your hardware tolerates.</p>
+<p><strong>Mixture of experts (MoE).</strong> Instead of every token going through the same MLP block, you have <span class="math inline">E</span> different MLPs (the “experts”) and a small router that picks a few of them per token. Only the picked experts run. This decouples <em>total parameters</em> (large — all experts) from <em>active parameters per token</em> (small — only the picked few). MoE lets you scale parameter count without paying for it at inference time on every token. There are interesting questions about specialization (do experts actually learn distinguishable functions?), load balancing (do all experts get used, or does the router collapse to a few favorites?), and training stability, but those are beyond this chapter.</p>
+</section>
+<section id="variants-history" class="level2" data-number="5.8">
+<h2 data-number="5.8" class="anchored" data-anchor-id="variants-history"><span class="header-section-number">5.8</span> Variants &amp; history</h2>
+<p>The original transformer was an encoder-decoder model designed for machine translation. The architecture splits into two halves: an encoder that processes the source sequence with bidirectional self-attention, and a decoder that processes the target sequence with causal self-attention plus cross-attention to the encoder.</p>
+<p>Modern usage has mostly converged on <strong>decoder-only</strong> transformers: a single stack with causal masking, trained on next-token prediction. The decoder-only design is the simplest thing that scales, and almost every frontier language model you have heard of is a decoder-only transformer with engineering refinements. Vision transformers apply the same machinery to images by splitting an image into a grid of patches and treating each patch as a token; the deeper history of vision models is in <a href="../chapters/02_image_classification.html">Chapter 2</a>.</p>
+</section>
+<section id="where-this-is-going" class="level2" data-number="5.9">
+<h2 data-number="5.9" class="anchored" data-anchor-id="where-this-is-going"><span class="header-section-number">5.9</span> Where this is going</h2>
+<p>We have not yet looked at what happens when you scale a transformer to hundreds of billions of parameters trained on a substantial fraction of the readable internet. That is <a href="../chapters/05_llm_pretraining.html">Chapter 5</a>. We have also not yet looked at what trained transformers actually <em>do</em> — what features they represent, what circuits they implement, what phenomena emerge in their training dynamics. That is the subject of <a href="../chapters/07_scidl_training.html">Chapter 7</a>, the first of the two Science of DL pillars.</p>
+<p>For now, the picture you should hold is: a transformer is a stack of identical blocks, each one writing to a shared residual stream, with attention as the cross-token router and MLPs as the per-token processors. Once you internalize that picture, almost everything else — modern context-length extensions, parameter-efficient fine-tuning, interpretability circuits — is a modification of one of those pieces.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-vaswani2017attention" class="csl-entry" role="listitem">
-Vaswani, Ashish, Noam Shazeer, Niki Parmar, et al. 2017.
-<span>“Attention Is All You Need.”</span> <em>Advances in Neural
-Information Processing Systems</em> 30.
+Vaswani, Ashish, Noam Shazeer, Niki Parmar, et al. 2017. <span>“Attention Is All You Need.”</span> <em>Advances in Neural Information Processing Systems</em> 30.
 </div>
 </div>
-
-
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -916,11 +1009,14 @@ Information Processing Systems</em> 30.
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./chapters/12_intelligence.html" class="pagination-link" aria-label="Science of intelligence">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Science of intelligence</span></span>
+      <a href="../chapters/03_sequence_modeling.html" class="pagination-link" aria-label="Sequence modeling">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sequence modeling</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../chapters/05_llm_pretraining.html" class="pagination-link" aria-label="Large language models I: pretraining and fine-tuning">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Large language models I: pretraining and fine-tuning</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
@@ -928,5 +1024,5 @@ Information Processing Systems</em> 30.
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer><script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

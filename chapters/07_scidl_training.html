@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>6&nbsp; Pretraining LLMs – Intro to AI for Physicists</title>
+<title>8&nbsp; Science of deep learning I: training dynamics – Intro to AI for Physicists</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -33,8 +33,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/06_finetuning.html" rel="next">
-<link href="../chapters/04_scaling_laws.html" rel="prev">
+<link href="../chapters/08_diffusion.html" rel="next">
+<link href="../chapters/06_llm_posttraining.html" rel="prev">
 <link href="../assets/favicon.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -79,49 +79,6 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: false
-   });
-}}});
-  </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -297,7 +254,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/05_pretraining.html">Large language models</a></li><li class="breadcrumb-item"><a href="../chapters/05_pretraining.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Pretraining LLMs</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01_intro.html">Fundamentals and methods</a></li><li class="breadcrumb-item"><a href="../chapters/07_scidl_training.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Science of deep learning I: training dynamics</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -334,23 +291,53 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
- <span class="menu-text">Foundations</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Fundamentals and methods</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/01_landscape.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The modern AI landscape</span></span></a>
+  <a href="../chapters/01_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/02_dl_primer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">A deep learning primer</span></span></a>
+  <a href="../chapters/02_image_classification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Neural networks and image classification</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/03_sequence_modeling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sequence modeling</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/04_transformers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Transformers</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/05_llm_pretraining.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Large language models I: pretraining and fine-tuning</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/06_llm_posttraining.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Large language models II: post-training and agents</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/07_scidl_training.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Science of deep learning I: training dynamics</span></span></a>
   </div>
 </li>
       </ul>
@@ -358,7 +345,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
- <span class="menu-text">Modern architectures</span></a>
+ <span class="menu-text">Beyond LLMs</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -366,83 +353,32 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/03_transformer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The transformer</span></span></a>
+  <a href="../chapters/08_diffusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Diffusion models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/04_scaling_laws.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Scaling laws</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Large language models</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/05_pretraining.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Pretraining LLMs</span></span></a>
+  <a href="../chapters/09_rl.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Reinforcement learning</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/06_finetuning.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Fine-tuning</span></span></a>
+  <a href="../chapters/10_world_models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">World models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/07_rl.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Reinforcement learning for LLMs</span></span></a>
+  <a href="../chapters/11_scidl_concepts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Science of deep learning II: concept learning</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/08_reasoning.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Reasoning and test-time compute</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
- <span class="menu-text">Generative models beyond LLMs</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/09_diffusion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Diffusion and score-based models</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
- <span class="menu-text">Practice</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/10_inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Inference</span></span></a>
+  <a href="../chapters/12_intelligence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Science of intelligence</span></span></a>
   </div>
 </li>
       </ul>
@@ -450,7 +386,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">References</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">References</span></span></a>
   </div>
 </li>
     </ul>
@@ -463,22 +399,24 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#the-objective" id="toc-the-objective" class="nav-link active" data-scroll-target="#the-objective"><span class="header-section-number">6.1</span> The objective</a></li>
-  <li><a href="#tokens-not-characters" id="toc-tokens-not-characters" class="nav-link" data-scroll-target="#tokens-not-characters"><span class="header-section-number">6.2</span> Tokens, not characters</a></li>
-  <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data"><span class="header-section-number">6.3</span> The data</a></li>
-  <li><a href="#the-compute" id="toc-the-compute" class="nav-link" data-scroll-target="#the-compute"><span class="header-section-number">6.4</span> The compute</a></li>
-  <li><a href="#curriculum-and-data-ordering" id="toc-curriculum-and-data-ordering" class="nav-link" data-scroll-target="#curriculum-and-data-ordering"><span class="header-section-number">6.5</span> Curriculum and data ordering</a></li>
-  <li><a href="#what-you-get-after-pretraining" id="toc-what-you-get-after-pretraining" class="nav-link" data-scroll-target="#what-you-get-after-pretraining"><span class="header-section-number">6.6</span> What you get after pretraining</a></li>
+  <li><a href="#a-brief-intro-to-the-methods-of-science-of-dl" id="toc-a-brief-intro-to-the-methods-of-science-of-dl" class="nav-link active" data-scroll-target="#a-brief-intro-to-the-methods-of-science-of-dl"><span class="header-section-number">8.1</span> A brief intro to the methods of science-of-DL</a></li>
+  <li><a href="#phenomenon-double-descent" id="toc-phenomenon-double-descent" class="nav-link" data-scroll-target="#phenomenon-double-descent"><span class="header-section-number">8.2</span> Phenomenon: double descent</a></li>
+  <li><a href="#phenomenon-the-generalization-mystery" id="toc-phenomenon-the-generalization-mystery" class="nav-link" data-scroll-target="#phenomenon-the-generalization-mystery"><span class="header-section-number">8.3</span> Phenomenon: the generalization mystery</a></li>
+  <li><a href="#phenomenon-in-context-learning-dissected" id="toc-phenomenon-in-context-learning-dissected" class="nav-link" data-scroll-target="#phenomenon-in-context-learning-dissected"><span class="header-section-number">8.4</span> Phenomenon: in-context learning, dissected</a></li>
+  <li><a href="#phenomenon-grokking" id="toc-phenomenon-grokking" class="nav-link" data-scroll-target="#phenomenon-grokking"><span class="header-section-number">8.5</span> Phenomenon: grokking</a></li>
+  <li><a href="#other-training-dynamics-phenomena" id="toc-other-training-dynamics-phenomena" class="nav-link" data-scroll-target="#other-training-dynamics-phenomena"><span class="header-section-number">8.6</span> Other training-dynamics phenomena</a></li>
+  <li><a href="#a-light-touch-on-interpretability-methods" id="toc-a-light-touch-on-interpretability-methods" class="nav-link" data-scroll-target="#a-light-touch-on-interpretability-methods"><span class="header-section-number">8.7</span> A light touch on interpretability methods</a></li>
+  <li><a href="#what-this-chapter-set-up" id="toc-what-this-chapter-set-up" class="nav-link" data-scroll-target="#what-this-chapter-set-up"><span class="header-section-number">8.8</span> What this chapter set up</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/cfpark00/science-of-dl/edit/main/chapters/05_pretraining.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/05_pretraining.html">Large language models</a></li><li class="breadcrumb-item"><a href="../chapters/05_pretraining.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Pretraining LLMs</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01_intro.html">Fundamentals and methods</a></li><li class="breadcrumb-item"><a href="../chapters/07_scidl_training.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Science of deep learning I: training dynamics</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Pretraining LLMs</span></h1>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Science of deep learning I: training dynamics</span></h1>
 </div>
 
 
@@ -495,49 +433,92 @@ window.Quarto = {
 </header>
 
 
-<p>“Pretraining” is the part where you take a freshly initialized transformer with hundreds of billions of parameters and feed it the internet, optimizing next-token cross-entropy until something interesting happens. This chapter is about what that process actually looks like.</p>
-<section id="the-objective" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="the-objective"><span class="header-section-number">6.1</span> The objective</h2>
-<p>Next-token prediction. Given a sequence of tokens <span class="math inline">x_1, \ldots, x_T</span>, minimize <span class="math display">
-\mathcal{L}(\theta) = -\sum_{i=1}^{T} \log p_\theta(x_i \mid x_{&lt;i}).
-</span> That is it. Every other capability of an LLM — translating, summarizing, writing code, doing arithmetic, reasoning — emerges as a side effect of being very good at this one task. Whether that should have been surprising in advance is a useful philosophical question that no one has a satisfying answer to.</p>
-</section>
-<section id="tokens-not-characters" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="tokens-not-characters"><span class="header-section-number">6.2</span> Tokens, not characters</h2>
-<p>Models do not see raw text. They see sequences of <em>tokens</em> from a fixed vocabulary of <span class="math inline">\sim 50\text{k}</span>–<span class="math inline">200\text{k}</span> symbols, produced by a <strong>byte-pair encoding (BPE)</strong> or similar subword tokenizer. Roughly: common words are one token, rare words are split into a few tokens, and arbitrary byte sequences fall back to single-byte tokens. Typical English text averages <span class="math inline">\sim 0.75</span> tokens per word.</p>
-<p>Tokenization is a leaky abstraction with real consequences:</p>
+<p>This is the first of two named “Science of DL” chapters. It is where the methodology of <a href="../chapters/01_intro.html">Chapter 1</a> — notice a phenomenon, build a model system, instrument it, cross-check — cashes out for the first time. We will revisit the methodology explicitly, with concrete examples, and then tour the canonical training-dynamics phenomena: <strong>double descent</strong>, the <strong>generalization mystery</strong>, <strong>in-context learning</strong> (as phenomenon, not as machinery), <strong>grokking</strong>, and a handful of related phenomena that round out the picture.</p>
+<p>The second pillar — <a href="../chapters/11_scidl_concepts.html">Chapter 11</a>, on concept learning — covers a different family of phenomena, organized around what a network learns rather than how training behaves. This chapter is the more mechanistic of the two: what happens <em>during</em> training, what happens <em>as you scale</em>, what happens <em>late</em>. The reading order matters: many of the phenomena here have been studied in their own right, and the methodology of doing so is the <em>point</em>.</p>
+<section id="a-brief-intro-to-the-methods-of-science-of-dl" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="a-brief-intro-to-the-methods-of-science-of-dl"><span class="header-section-number">8.1</span> A brief intro to the methods of science-of-DL</h2>
+<p>The 5-step methodology from <a href="../chapters/01_intro.html">Chapter 1</a> — <em>notice → explore → model system → experiment → cross-check</em> — looks a little abstract on the page. Here is what it looks like in practice.</p>
+<p><strong>What is “a phenomenon” in the NN context?</strong> A behavior that is (i) <strong>striking</strong> — surprising enough to make a careful person stop and look; (ii) <strong>reproducible</strong> — not an artifact of a particular run or seed; and (iii) <strong>surprising enough to investigate</strong> — does not immediately reduce to a known cause. Grokking, double descent, ICL phase transitions are all phenomena in this sense. “The model achieves 73.4% on MMLU” is <em>not</em> a phenomenon; it is a measurement.</p>
+<p><strong>The synthetic-task discipline.</strong> Real frontier models are mostly opaque. You can probe them, but you cannot easily intervene, cannot retrain at will, and cannot enumerate the inputs they were trained on. The science-of-DL move is to find or design a <em>small</em> synthetic task that reliably produces the phenomenon you are interested in, with a model small enough that you can instrument every weight if you have to. A 2-layer transformer trained on a regression-from-prompt task can reproduce ICL-like behaviors; a small MLP trained on modular arithmetic can reproduce grokking. The synthetic-task discipline is “find the simplest setting that still gives you the phenomenon.”</p>
+<p><strong>Model systems in NN context.</strong> In biology, <em>Drosophila</em> is a model system. In NN science, a “model system” is a (task, architecture, training procedure) triple that reproducibly exhibits a phenomenon you want to study. The criterion is not biological realism (which is meaningless here) but <strong>mechanistic transparency</strong>: you can intervene, ablate, swap, and watch.</p>
+<p><strong>The experimentalist’s toolkit.</strong> A non-exhaustive list of moves:</p>
 <ul>
-<li>Numerical reasoning is harder because numbers are tokenized inconsistently (“123” might be one token, “124” two).</li>
-<li>Non-English languages can need 2–5× more tokens for the same content.</li>
-<li>Code, with its many short symbols, tokenizes efficiently.</li>
+<li><strong>Probes.</strong> Train a linear or shallow classifier on the network’s internal activations to test whether some quantity is encoded.</li>
+<li><strong>Interventions.</strong> Edit activations, weights, or attention patterns directly; observe what changes downstream.</li>
+<li><strong>Ablations.</strong> Remove pieces of the model (heads, layers, neurons) and measure performance changes.</li>
+<li><strong>Activation patching.</strong> Replace activations from one run with activations from another and see which behaviors transfer.</li>
+<li><strong>Steering vectors.</strong> Add learned vectors to internal activations to shift behavior in a controlled direction.</li>
+<li><strong>Dictionary learning, sparse autoencoders.</strong> Decompose representations into more interpretable basis vectors.</li>
+<li><strong>CKA, t-SNE, UMAP, etc.</strong> Visualization and comparison tools — useful, occasionally misleading, mostly for hypothesis generation rather than confirmation.</li>
 </ul>
+<p>Interpretability methods deserve more space than they get here. Treat this as the toolkit minimum; many of the phenomena below have been studied with one or more of these moves.</p>
 </section>
-<section id="the-data" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="the-data"><span class="header-section-number">6.3</span> The data</h2>
-<p>A frontier pretraining dataset in 2025 contains <span class="math inline">\sim 10</span>–<span class="math inline">30</span> trillion tokens. Composition varies but typically:</p>
-<ul>
-<li>~60–80% general web text (Common Crawl, filtered aggressively)</li>
-<li>~10–20% code (GitHub-derived)</li>
-<li>~5–15% high-quality curated text (books, papers, Wikipedia)</li>
-<li>~5–10% multilingual data</li>
-<li>A growing fraction of <em>synthetic</em> data, generated by previous models</li>
-</ul>
-<p>Filtering is where the alpha lives. The most important single piece of preprocessing is <strong>deduplication</strong> — both exact and approximate — which improves loss meaningfully for any fixed training budget. Quality classifiers (small models trained to predict whether a document looks like a “good” page) are used to upweight or downsample.</p>
+<section id="phenomenon-double-descent" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="phenomenon-double-descent"><span class="header-section-number">8.2</span> Phenomenon: double descent</h2>
+<p>Double descent is the most counterintuitive scaling-related phenomenon in deep learning, especially for a physicist who has internalized classical statistical learning theory.</p>
+<p>The phenomenon: plot test error against model capacity (parameters relative to dataset size). The classical bias-variance picture predicts a U-shape — test error drops as the model gets big enough to fit signal, then climbs as the model starts to memorize noise. What you actually see in many deep-learning settings is a <em>first</em> U-shape near the interpolation threshold (the point at which the model can exactly memorize training data), and then <em>test error decreases again</em> as you go further into the over-parameterized regime. Two descents, one ascent in the middle, hence the name.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>[Plot]</strong> Test error vs.&nbsp;model size, with a bump near the interpolation threshold and a second decrease past it — the canonical double-descent shape.</p>
+</div>
+</div>
+</div>
+<p>Why this is weird: classical theory does not predict the second descent. The empirical reality is that grossly over-parameterized models often <em>generalize better</em> than just-saturating ones. This is the first major theoretical surprise that deep learning hands the classical-statistics-trained reader. The connection to <a href="../chapters/01_intro.html">Chapter 1</a>’s “over-parametrization mystery” is direct.</p>
+<p>What it teaches: the inductive bias of the model and training procedure matters more than raw parameter count. The theory that gets you to a clean prediction here lives in <a href="../chapters/01_intro.html">Chapter 1</a>’s out-of-scope set (NTK, neural manifold capacity, etc.) — we are sticking to phenomenology. The phenomenological lesson is that the <em>shape</em> of the generalization curve is a structural fact about deep models, not a noise artifact.</p>
 </section>
-<section id="the-compute" class="level2" data-number="6.4">
-<h2 data-number="6.4" class="anchored" data-anchor-id="the-compute"><span class="header-section-number">6.4</span> The compute</h2>
-<p>A frontier 2025 run is on the order of <span class="math inline">10^{25}</span>–<span class="math inline">10^{26}</span> FLOPs, spread across <span class="math inline">10^4</span>–<span class="math inline">10^5</span> GPUs for weeks. At Chinchilla-optimal ratios (<span class="math inline">\sim 20</span> tokens per parameter) this corresponds to models in the hundreds of billions of parameters trained on tens of trillions of tokens; in practice models are smaller and trained longer because <em>inference</em> matters too.</p>
-<p>A useful conversion: <span class="math inline">C \approx 6ND</span> FLOPs of training compute for a dense transformer with <span class="math inline">N</span> parameters and <span class="math inline">D</span> tokens. Two FLOPs per multiply-add, factor of 3 for forward + backward + weight gradient.</p>
+<section id="phenomenon-the-generalization-mystery" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="phenomenon-the-generalization-mystery"><span class="header-section-number">8.3</span> Phenomenon: the generalization mystery</h2>
+<p>Closely related, but worth naming separately: <strong>over-parameterized models that should overfit but don’t.</strong> A modern transformer has parameters far exceeding the number of training examples it could plausibly memorize verbatim. Classical statistical learning theory says this should not work. It works anyway.</p>
+<p>This is <em>the</em> central mystery that motivated a generation of deep-learning theory. The clean question — what is the effective complexity of a trained over-parameterized network? — has been attacked from many angles (NTK, implicit regularization, sharpness-based bounds, PAC-Bayes approaches, etc.). Most of those are theoretical machinery covered by the partner course on the theory side. From the phenomenological angle relevant here: this mystery is <em>the</em> thing that makes deep learning weird, and the practical fact “trained networks generalize from many fewer effective samples than their parameter count suggests” is the bedrock empirical claim.</p>
+<p>For a physicist, the lesson is: an effective theory of “what makes deep networks generalize” is not yet settled. Phenomena like double descent, grokking, and the lottery ticket effect (below) are all gesturing at pieces of the answer.</p>
 </section>
-<section id="curriculum-and-data-ordering" class="level2" data-number="6.5">
-<h2 data-number="6.5" class="anchored" data-anchor-id="curriculum-and-data-ordering"><span class="header-section-number">6.5</span> Curriculum and data ordering</h2>
-<p>For a long time everyone assumed data order did not matter at scale; you just shuffled and trained. Recent work has complicated this picture: data order matters somewhat, especially in the final phase. <strong>Data ablations</strong> (training small models with subsets of the data and measuring loss) are now a standard tool for deciding what to include.</p>
-<p>Many frontier runs use a <strong>two-phase schedule</strong>: a long “main” phase on diverse web data with cosine learning-rate decay, followed by a short “cooldown” or “annealing” phase on higher-quality data with the learning rate dropped near zero. The cooldown gives outsized impact for its compute cost.</p>
+<section id="phenomenon-in-context-learning-dissected" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="phenomenon-in-context-learning-dissected"><span class="header-section-number">8.4</span> Phenomenon: in-context learning, dissected</h2>
+<p>In-context learning was introduced in <a href="../chapters/05_llm_pretraining.html">Chapter 5</a> as a phenomenon: pretrained models can pick up a pattern from a few examples in the prompt and apply it, with no weight updates. Here we look at the phenomenon more carefully.</p>
+<p>Several recent results have moved ICL from “weird thing models can do” to “a structured phenomenon you can study mechanistically.”</p>
+<p><strong>Algorithmic phases of ICL.</strong> <em>Competition Dynamics Shape Algorithmic Phases of ICL</em> (Park et al., ICLR 2025 Spotlight) shows that ICL is not a single algorithm. It is a heterogeneous mixture of competing strategies — for example, fuzzy retrieval vs.&nbsp;inference, or unigram vs.&nbsp;bigram statistics — and which one a model uses depends on training dynamics, prompt structure, and capacity. The transitions between regimes can be sharp, phase-transition-like. From the model-organism perspective, this is exactly the kind of result the methodology is designed to produce: a clean characterization, on a small task, of what is structurally happening inside a phenomenon that looked monolithic from outside.</p>
+<p><strong>Representation re-organization.</strong> <em>ICLR: In-Context Learning of Representations</em> (Park et al., ICLR 2025) shows that long enough context can trigger a <em>sudden</em> re-organization of the model’s pretrained semantic representations into context-specified ones. The model’s representation of a concept can effectively be re-defined by the prompt, given sufficient context length. Again, the structure of the phenomenon is the point: representations are not fixed after pretraining; the model can locally rewrite them in-context.</p>
+<p><strong>In-context learning strategies emerge rationally.</strong> A separate line of work (also from the author and collaborators) characterizes which ICL strategies a model adopts as a <em>rational</em> response to the prior over tasks implied by its pretraining distribution. The model is, in effect, doing approximate Bayesian model selection in-context.</p>
+<p>The thing this chapter is <em>not</em> doing is litigating the broader debate about whether ICL constitutes “concept acquisition” in a deep sense — that debate belongs in <a href="../chapters/11_scidl_concepts.html">Chapter 11</a>. Here, we treat ICL as a phenomenon to characterize.</p>
 </section>
-<section id="what-you-get-after-pretraining" class="level2" data-number="6.6">
-<h2 data-number="6.6" class="anchored" data-anchor-id="what-you-get-after-pretraining"><span class="header-section-number">6.6</span> What you get after pretraining</h2>
-<p>A model that is very good at predicting the next token on documents drawn from a distribution that looks like its training data. That is <em>not the same thing</em> as a useful assistant. The model will continue prompts, complete patterns, repeat itself, and confabulate fluently. It will not refuse harmful requests, follow instructions reliably, or know when to stop.</p>
-<p>Turning a pretrained model into a usable product is the subject of <a href="06_finetuning.html#sec-finetuning" class="quarto-xref"><span>Section 7.1</span></a> and <a href="07_rl.html#sec-rl" class="quarto-xref"><span>Section 8.1</span></a>.</p>
+<section id="phenomenon-grokking" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="phenomenon-grokking"><span class="header-section-number">8.5</span> Phenomenon: grokking</h2>
+<p><strong>Grokking</strong> is the phenomenon where a network’s <em>training loss</em> converges quickly to near-zero, but its <em>test loss</em> stays high for a long time — and then, eventually, far past the point where you would have stopped training, the test loss suddenly drops and the model generalizes.</p>
+<p>It looks, on a plot, like nothing is happening for a long time and then a step.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>[Plot]</strong> Training loss and test loss vs.&nbsp;training steps on a synthetic task (e.g., modular arithmetic). Training loss drops fast and stays near zero; test loss sits high for a long plateau and then sharply drops to near-zero, much later. The temporal lag is the punchline.</p>
+</div>
+</div>
+</div>
+<p>This is a physicist’s dream. It looks like a phase transition in learning — and a great deal of work has gone into characterizing it as one. The standard story involves the model first memorizing the training set and then, with continued training, discovering a <em>generalizing circuit</em> that has lower weight norm than the memorizing solution. The implicit regularization of weight decay (or similar) pushes the model toward the more compact representation, eventually.</p>
+<p>The methodological reason grokking matters for this book is that it is a <em>clean</em> phenomenon. Modular arithmetic tasks are small. The networks that grok are small. You can probe the internal representations before, during, and after the transition. Grokking is one of the success stories of the model-organism approach to scidl.</p>
+</section>
+<section id="other-training-dynamics-phenomena" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="other-training-dynamics-phenomena"><span class="header-section-number">8.6</span> Other training-dynamics phenomena</h2>
+<p>A few more to round out the picture. None gets a deep treatment here; each is worth knowing about.</p>
+<p><strong>The lottery ticket hypothesis.</strong> Trained-from-scratch dense networks contain sparse subnetworks (“winning tickets”) that, when reset to their original initialization and retrained, achieve comparable accuracy. The phenomenon suggests that successful training is partly a process of <em>finding</em> the right initial subnetwork and reinforcing it.</p>
+<p><strong>Sharpness/flatness of minima.</strong> Generalization tends to correlate (imperfectly) with how <em>flat</em> the minimum the optimizer converges to is — flatter minima generalize better than sharper ones. The intuition is that flat minima are robust to small perturbations of the weights, which is similar to robustness to small perturbations of the data. This is one of the threads that connects to NTK-style theory on the other course, and we mention it for completeness.</p>
+<p><strong>Emergence in concept space.</strong> A more recent perspective on emergence: rather than studying capabilities in <em>output space</em> (where they appear discontinuously, or seem to), study them in <em>concept space</em>. The author’s <em>Emergence of Hidden Capabilities</em> (Park et al., NeurIPS 2024 Spotlight) shows that models harbor <em>latent</em> capabilities not yet elicitable by naive prompting — but visible via latent interventions. The “emergence” looks less like a discontinuity once you measure it in the right space; what looked like a sudden onset of a capability is really a continuous build-up that only crosses the threshold for naive elicitation at a particular scale.</p>
+<p><strong>Swing-by dynamics / non-monotonic test loss.</strong> <em>Swing-by Dynamics in Concept Learning and Compositional Generalization</em> (Yang, Park et al.) characterizes non-monotonic training dynamics — situations where test loss can rise temporarily before dropping again as the model reorganizes its representation. These are explicit phase-transition-like dynamics in early training, and they connect to the compositional-generalization theme in <a href="../chapters/11_scidl_concepts.html">Chapter 11</a>.</p>
+</section>
+<section id="a-light-touch-on-interpretability-methods" class="level2" data-number="8.7">
+<h2 data-number="8.7" class="anchored" data-anchor-id="a-light-touch-on-interpretability-methods"><span class="header-section-number">8.7</span> A light touch on interpretability methods</h2>
+<p>Most of what was listed in the toolkit at the start of this chapter — probes, steering vectors, dictionary learning / sparse autoencoders, attention pattern analyses, CKA — gets used somewhere in the phenomena above. The current state of the art in mechanistic interpretability is good enough to provide load-bearing evidence in a fair number of cases; it is not yet good enough to reverse-engineer arbitrary trained networks. The honest picture is partial.</p>
+<p>For a science-of-DL chapter, the takeaway is that interpretability methods are now part of the toolkit, not a separate research community. The phenomena above are mostly accessible to careful experiment, and the constraint is no longer “is there a tool?” but “is the question well-posed enough to use the tools on?” That is the bottleneck this book is trying to move.</p>
+</section>
+<section id="what-this-chapter-set-up" class="level2" data-number="8.8">
+<h2 data-number="8.8" class="anchored" data-anchor-id="what-this-chapter-set-up"><span class="header-section-number">8.8</span> What this chapter set up</h2>
+<p>We started with the methodology and then walked through phenomena. The point was not to give an exhaustive list — it was to give a feel for what doing science on neural networks looks like and what kinds of results it produces. The phenomena are real, the methodologies are reproducible, and the field has made genuine progress.</p>
+<p><a href="../chapters/11_scidl_concepts.html">Chapter 11</a> is the companion pillar: same methodology, different family of phenomena, organized around <em>concept acquisition</em> rather than <em>training dynamics</em>. The two chapters are deliberately positioned at separated points in the book (here in the middle of the LLM block, there at the end of the architectural tour) — the methodology cashes out twice, on different territory, and that repetition is the point.</p>
 
 
 </section>
@@ -963,13 +944,13 @@ window.Quarto = {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/04_scaling_laws.html" class="pagination-link" aria-label="Scaling laws">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Scaling laws</span></span>
+      <a href="../chapters/06_llm_posttraining.html" class="pagination-link" aria-label="Large language models II: post-training and agents">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Large language models II: post-training and agents</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/06_finetuning.html" class="pagination-link" aria-label="Fine-tuning">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Fine-tuning</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/08_diffusion.html" class="pagination-link" aria-label="Diffusion models">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Diffusion models</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -978,5 +959,5 @@ window.Quarto = {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cfpark00/science-of-dl/edit/main/chapters/05_pretraining.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer><script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

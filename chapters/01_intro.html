@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>5&nbsp; Scaling laws – Intro to AI for Physicists</title>
+<title>2&nbsp; Introduction – Intro to AI for Physicists</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -22,41 +22,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -87,8 +52,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/05_pretraining.html" rel="next">
-<link href="../chapters/03_transformer.html" rel="prev">
+<link href="../chapters/02_image_classification.html" rel="next">
+<link href="../index.html" rel="prev">
 <link href="../assets/favicon.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -133,49 +98,6 @@ div.csl-indent {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: false
-   });
-}}});
-  </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -351,7 +273,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/03_transformer.html">Modern architectures</a></li><li class="breadcrumb-item"><a href="../chapters/04_scaling_laws.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Scaling laws</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01_intro.html">Fundamentals and methods</a></li><li class="breadcrumb-item"><a href="../chapters/01_intro.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -388,115 +310,94 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
- <span class="menu-text">Foundations</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Fundamentals and methods</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/01_landscape.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The modern AI landscape</span></span></a>
+  <a href="../chapters/01_intro.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/02_dl_primer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">A deep learning primer</span></span></a>
+  <a href="../chapters/02_image_classification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Neural networks and image classification</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/03_sequence_modeling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sequence modeling</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/04_transformers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Transformers</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/05_llm_pretraining.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Large language models I: pretraining and fine-tuning</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/06_llm_posttraining.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Large language models II: post-training and agents</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/07_scidl_training.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Science of deep learning I: training dynamics</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Modern architectures</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Beyond LLMs</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/03_transformer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The transformer</span></span></a>
+  <a href="../chapters/08_diffusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Diffusion models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/04_scaling_laws.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Scaling laws</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
- <span class="menu-text">Large language models</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/05_pretraining.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Pretraining LLMs</span></span></a>
+  <a href="../chapters/09_rl.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Reinforcement learning</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/06_finetuning.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Fine-tuning</span></span></a>
+  <a href="../chapters/10_world_models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">World models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/07_rl.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Reinforcement learning for LLMs</span></span></a>
+  <a href="../chapters/11_scidl_concepts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Science of deep learning II: concept learning</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/08_reasoning.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Reasoning and test-time compute</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
- <span class="menu-text">Generative models beyond LLMs</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/09_diffusion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Diffusion and score-based models</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
- <span class="menu-text">Practice</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/10_inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Inference</span></span></a>
+  <a href="../chapters/12_intelligence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Science of intelligence</span></span></a>
   </div>
 </li>
       </ul>
@@ -504,7 +405,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">References</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">References</span></span></a>
   </div>
 </li>
     </ul>
@@ -517,22 +418,25 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-scaling" id="toc-sec-scaling" class="nav-link active" data-scroll-target="#sec-scaling"><span class="header-section-number">5.1</span> The basic law</a></li>
-  <li><a href="#the-compute-optimal-frontier-chinchilla" id="toc-the-compute-optimal-frontier-chinchilla" class="nav-link" data-scroll-target="#the-compute-optimal-frontier-chinchilla"><span class="header-section-number">5.2</span> The compute-optimal frontier (Chinchilla)</a></li>
-  <li><a href="#what-the-law-buys-you" id="toc-what-the-law-buys-you" class="nav-link" data-scroll-target="#what-the-law-buys-you"><span class="header-section-number">5.3</span> What the law buys you</a></li>
-  <li><a href="#emergent-capabilities" id="toc-emergent-capabilities" class="nav-link" data-scroll-target="#emergent-capabilities"><span class="header-section-number">5.4</span> Emergent capabilities</a></li>
-  <li><a href="#a-small-fitting-exercise" id="toc-a-small-fitting-exercise" class="nav-link" data-scroll-target="#a-small-fitting-exercise"><span class="header-section-number">5.5</span> A small fitting exercise</a></li>
-  <li><a href="#beyond-language" id="toc-beyond-language" class="nav-link" data-scroll-target="#beyond-language"><span class="header-section-number">5.6</span> Beyond language</a></li>
+  <li><a href="#the-thesis-neural-networks-as-model-organisms" id="toc-the-thesis-neural-networks-as-model-organisms" class="nav-link active" data-scroll-target="#the-thesis-neural-networks-as-model-organisms"><span class="header-section-number">2.1</span> The thesis: neural networks as model organisms</a></li>
+  <li><a href="#the-5-step-methodology" id="toc-the-5-step-methodology" class="nav-link" data-scroll-target="#the-5-step-methodology"><span class="header-section-number">2.2</span> The 5-step methodology</a></li>
+  <li><a href="#a-short-opinionated-history" id="toc-a-short-opinionated-history" class="nav-link" data-scroll-target="#a-short-opinionated-history"><span class="header-section-number">2.3</span> A short, opinionated history</a></li>
+  <li><a href="#the-bitter-lesson" id="toc-the-bitter-lesson" class="nav-link" data-scroll-target="#the-bitter-lesson"><span class="header-section-number">2.4</span> The bitter lesson</a>
+  <ul class="collapse">
+  <li><a href="#what-the-bitter-lesson-does-not-mean" id="toc-what-the-bitter-lesson-does-not-mean" class="nav-link" data-scroll-target="#what-the-bitter-lesson-does-not-mean"><span class="header-section-number">2.4.1</span> What the bitter lesson does <em>not</em> mean</a></li>
+  </ul></li>
+  <li><a href="#a-very-brief-gesture-at-the-substrate" id="toc-a-very-brief-gesture-at-the-substrate" class="nav-link" data-scroll-target="#a-very-brief-gesture-at-the-substrate"><span class="header-section-number">2.5</span> A very brief gesture at the substrate</a></li>
+  <li><a href="#where-we-are-going" id="toc-where-we-are-going" class="nav-link" data-scroll-target="#where-we-are-going"><span class="header-section-number">2.6</span> Where we are going</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/cfpark00/science-of-dl/edit/main/chapters/04_scaling_laws.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/03_transformer.html">Modern architectures</a></li><li class="breadcrumb-item"><a href="../chapters/04_scaling_laws.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Scaling laws</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01_intro.html">Fundamentals and methods</a></li><li class="breadcrumb-item"><a href="../chapters/01_intro.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Scaling laws</span></h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction</span></h1>
 </div>
 
 
@@ -549,98 +453,87 @@ window.Quarto = {
 </header>
 
 
-<p>Scaling laws are the most physicist-friendly part of modern AI. The empirical claim is simple and quantitative: across many orders of magnitude, the test loss of a language model is a smooth power law in compute, data, and parameters.</p>
-<section id="sec-scaling" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="sec-scaling"><span class="header-section-number">5.1</span> The basic law</h2>
-<p>Define:</p>
-<ul>
-<li><span class="math inline">L</span> — cross-entropy loss on held-out data (in nats per token).</li>
-<li><span class="math inline">N</span> — number of non-embedding parameters.</li>
-<li><span class="math inline">D</span> — number of training tokens.</li>
-<li><span class="math inline">C</span> — total training compute, <span class="math inline">C \approx 6 N D</span> FLOPs for a dense transformer.</li>
-</ul>
-<p>Kaplan et al. <span class="citation" data-cites="kaplan2020scaling">(<a href="../references.html#ref-kaplan2020scaling" role="doc-biblioref">Kaplan et al. 2020</a>)</span> found that, holding others fixed, <span class="math display">
-L(N) \approx L_\infty + \left(\frac{N_c}{N}\right)^{\alpha_N}, \qquad
-L(D) \approx L_\infty + \left(\frac{D_c}{D}\right)^{\alpha_D}, \qquad
-L(C) \approx L_\infty + \left(\frac{C_c}{C}\right)^{\alpha_C},
-</span> with exponents around <span class="math inline">\alpha \sim 0.05</span>–<span class="math inline">0.1</span>. The constant <span class="math inline">L_\infty</span> is the <em>irreducible loss</em> — the entropy of the data distribution itself.</p>
-<p>A physicist will read these and immediately think <em>power-law scaling, like critical phenomena</em>, and proceed to be slightly disappointed because no one has produced a theory that derives the exponents from first principles. They look universal across architectures, datasets, and modalities, but no one knows why.</p>
+<p>Welcome. This book is the experimentalist’s half of a course on modern AI for physicists. The theoretical half — NTK, neural manifold capacity, high-dimensional geometry, capacity calculations — is in good hands elsewhere. Here we get our hands dirty.</p>
+<p>Before diving into getting GPUs hot, we’ll spend a little time on philosophy: how to think about deep learning <em>as a scientific object</em>, what it means to do science on a thing that was designed for performance rather than for understanding, and why physicists are unusually well-placed to do this kind of work.</p>
+<section id="the-thesis-neural-networks-as-model-organisms" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="the-thesis-neural-networks-as-model-organisms"><span class="header-section-number">2.1</span> The thesis: neural networks as model organisms</h2>
+<p>Neural networks in their natural habitat — frontier transformers trained on most of the web, optimized for benchmark performance — are a <strong>big mess</strong>. They are not cleanly defined problems. You cannot derive their behavior from first principles, and you cannot get them to stop surprising you. They are, in every meaningful sense, <em>systems we have built but do not understand</em>.</p>
+<p>The framing this book takes is that this situation is much more like biology than like physics-as-usual, and that it calls for a corresponding methodology. The closest precedent is <strong>neuroethology</strong>: the study of the neural basis of natural animal behavior in its ecological context. Neuroethologists do not start with axioms about brains. They start by noticing a behavior an animal actually does — bat echolocation, the visual cliff response in infants, electric fish jamming each other — and they work backwards.</p>
+<p>The course mostly follows this style. Neural networks are the animals. Their training distributions are the ecology. The phenomena are whatever interesting things they do when nobody is checking.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>[Plot]</strong> A side-by-side cartoon: on the left, a real neural network as a tangled mess of weights and activations; on the right, a “model organism” — a small synthetic task with a small network — that reproduces one specific phenomenon from the left. The arrow between them is the methodology this chapter introduces.</p>
+</div>
+</div>
+</div>
 </section>
-<section id="the-compute-optimal-frontier-chinchilla" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="the-compute-optimal-frontier-chinchilla"><span class="header-section-number">5.2</span> The compute-optimal frontier (Chinchilla)</h2>
-<p>Kaplan et al.&nbsp;originally argued that for a fixed compute budget <span class="math inline">C</span>, you should spend most of it on a bigger model and relatively less on data. Hoffmann et al. <span class="citation" data-cites="hoffmann2022chinchilla">(<a href="../references.html#ref-hoffmann2022chinchilla" role="doc-biblioref"><span class="nocase">Hoffmann et al.</span> 2022</a>)</span> later showed this was wrong because of how the learning rate was scheduled in the original study. Their corrected finding — the <strong>Chinchilla law</strong> — is:</p>
-<blockquote class="blockquote">
-<p>For compute-optimal training, <span class="math inline">N</span> and <span class="math inline">D</span> should grow at roughly equal rates with <span class="math inline">C</span>.</p>
-</blockquote>
-<p>Concretely: <span class="math display">
-N_{\text{opt}}(C) \propto C^{1/2}, \qquad D_{\text{opt}}(C) \propto C^{1/2}.
-</span> The rule of thumb that came out of this is <em>roughly 20 tokens per parameter</em>. A 70B-parameter model should see roughly 1.4 T tokens to be compute-optimal.</p>
-<p>In practice, frontier models are now trained <strong>well past Chinchilla-optimal</strong> — sometimes 50× or 100× the optimal token count — because <em>inference cost</em> matters too, and a smaller model trained on more tokens is cheaper to serve.</p>
-</section>
-<section id="what-the-law-buys-you" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="what-the-law-buys-you"><span class="header-section-number">5.3</span> What the law buys you</h2>
-<p>The power-law form has two practical consequences:</p>
+<section id="the-5-step-methodology" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="the-5-step-methodology"><span class="header-section-number">2.2</span> The 5-step methodology</h2>
+<p>The guiding workflow — which we will revisit explicitly in <a href="../chapters/07_scidl_training.html">Chapter 7</a> and <a href="../chapters/11_scidl_concepts.html">Chapter 11</a>, the two named “Science of DL” pillars — is five steps:</p>
 <ol type="1">
-<li><strong>You can plan a training run.</strong> Measure loss at small scale (<span class="math inline">10^{17}</span>–<span class="math inline">10^{19}</span> FLOPs), fit the exponents, and extrapolate loss for a <span class="math inline">10^{23}</span> FLOP run with surprisingly tight error bars. Frontier labs do this routinely.</li>
-<li><strong>You know there is no plateau in sight.</strong> As long as the power law holds, doubling compute reliably buys a fixed reduction in <span class="math inline">\log L</span>. The question is whether that loss reduction corresponds to a useful capability gain — and the answer turned out to be <em>yes</em> far beyond what most people expected.</li>
+<li><strong>Notice a phenomenon.</strong> Start from a striking, reproducible behavior actually observed in a real neural network. Not a mathematical abstraction — something a network <em>does</em> that surprised someone.</li>
+<li><strong>Explore broadly.</strong> Through extensive, open-ended exploration, narrow the phenomenon down to a clear question. This step is mostly off-script and unglamorous, and it is where most of the actual scientific work lives.</li>
+<li><strong>Build a model system.</strong> Develop a synthetic, controllable model that reproduces the phenomenon — small enough to instrument fully. You should be able to inspect every weight and every activation if you want to.</li>
+<li><strong>Experiment on the model system.</strong> Now that the system is tractable, run the experiments the original network does not allow: ablations, interventions, controlled inputs, exhaustive sweeps.</li>
+<li><strong>Cross-check.</strong> Bring the findings back to the original big monster and verify they hold there.</li>
 </ol>
+<p>The order will not always be strict — sometimes a theoretical hunch comes first, sometimes a model system precedes a crisp question, sometimes you cross-check halfway and have to back up — but this is the guiding shape.</p>
+<p>The direct neuroethology parallel: observe animals → find a specific behavior (better if it is shared across species) → that opens a clear question → run experiments on a <em>model organism</em> (Drosophila, <em>C. elegans</em>, zebrafish) where the experiments are actually possible → bring it back to the species that motivated the question.</p>
+<blockquote class="blockquote">
+<p>Overall, the science here is close in spirit to neurophysics, but takes a heavily experimental approach.</p>
+</blockquote>
 </section>
-<section id="emergent-capabilities" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="emergent-capabilities"><span class="header-section-number">5.4</span> Emergent capabilities</h2>
-<p>A separate phenomenon, often confused with scaling laws, is that certain capabilities (arithmetic, in-context learning, instruction following) appear quite suddenly as a function of scale rather than smoothly. Whether these are genuine phase transitions or artifacts of how we measure them is debated. The smooth loss curve is robust; the emergence of specific capabilities from it is less understood.</p>
+<section id="a-short-opinionated-history" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="a-short-opinionated-history"><span class="header-section-number">2.3</span> A short, opinionated history</h2>
+<p>You will encounter a lot of history in AI/ML/DL if you read the field’s literature. Most of it is not very useful. But a few historical patterns <em>are</em> useful, because they keep recurring.</p>
+<p><strong>Connectionism vs symbolism.</strong> For roughly half a century, two paradigms argued about whether intelligence is best understood as symbol manipulation (with rules, logic, structured representations) or as the emergent behavior of large networks of simple units. The connectionist camp has, for the moment, won — every system you will study in this book is a network of simple units. But the fight is older than this paradigm, and it will probably outlive it too. The current synthesis is uneasy: foundation models are connectionist on the inside and increasingly symbolic on the outside (chain of thought, tool use, agent scaffolding).</p>
+<p><strong>Theory has often been spectacularly wrong about neural networks.</strong> This is one of the most useful patterns to internalize early. Some examples:</p>
+<ul>
+<li>The <strong>XOR-era impossibility</strong>: a single-layer perceptron cannot represent XOR. This was true, taken seriously, and used as an argument that the whole research direction was hopeless. Stacking layers fixed it. The theorem was correct; the conclusion drawn from it was not.</li>
+<li><strong>Universal approximation theorems</strong>: existence proofs that a sufficiently wide network can represent any function. These were used both to argue <em>for</em> neural networks (“see, they can do anything!”) and <em>against</em> deeper architectures (“you do not need depth”). Both readings missed what actually mattered, which was trainability and inductive bias, not raw representational capacity.</li>
+<li><strong>Over-parametrization</strong>: classical statistical learning theory said that models with vastly more parameters than data points should overfit catastrophically. They did not. This is still surprising. The phenomena that came out of <em>not</em> overfitting — double descent, grokking, the general “deep learning works much better than it should” — are the substance of <a href="../chapters/07_scidl_training.html">Chapter 7</a>.</li>
+</ul>
+<p>The pattern is: when theory says “this cannot work,” sometimes it just means the theory was not yet general enough. So, conditionally — and this is the author’s bias, but it is a useful bias for an experimentalist — feel free to also <em>not</em> think in the theory way. There were cases where theory did not help. There were cases where it actively pointed in the wrong direction. Theory is one tool; it is not the only one, and it is not always the sharpest.</p>
+<p>The flip side is also worth saying: this does not mean theory is useless. It means that for the kind of science this book teaches, theory is downstream of phenomenology. We notice something weird, we characterize it carefully, and <em>then</em> we ask whether existing theory accounts for it. Often it does not, and that gap is the research opportunity.</p>
+<p><strong>Things were “hated” at various times.</strong> Neural networks went through more than one AI winter. There were stretches of decades when working on connectionist models was a career-limiting move. If you are entering the field now, when it feels like a settled paradigm with massive industrial investment, it is worth knowing that the people who built what you are about to study did so under very different incentives. The current consensus is recent and may not be permanent.</p>
 </section>
-<section id="a-small-fitting-exercise" class="level2" data-number="5.5">
-<h2 data-number="5.5" class="anchored" data-anchor-id="a-small-fitting-exercise"><span class="header-section-number">5.5</span> A small fitting exercise</h2>
-<p>Suppose you measure the following losses at different compute budgets. Fit a power law and extrapolate.</p>
-<div id="cd5b3cc3" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Toy data</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>C <span class="op">=</span> np.array([<span class="fl">1e18</span>, <span class="fl">1e19</span>, <span class="fl">1e20</span>, <span class="fl">1e21</span>, <span class="fl">1e22</span>])</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> <span class="fl">1.7</span> <span class="op">+</span> <span class="fl">8.0</span> <span class="op">*</span> C<span class="op">**-</span><span class="fl">0.07</span> <span class="op">+</span> <span class="fl">0.02</span><span class="op">*</span>np.random.randn(<span class="bu">len</span>(C))</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit L = L_inf + a * C^-alpha  (fix L_inf = 1.7 for simplicity)</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>logy <span class="op">=</span> np.log(L <span class="op">-</span> <span class="fl">1.7</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>logx <span class="op">=</span> np.log(C)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>slope, intercept <span class="op">=</span> np.polyfit(logx, logy, <span class="dv">1</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="op">-</span>slope</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.exp(intercept)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"alpha = </span><span class="sc">{</span>alpha<span class="sc">:.3f}</span><span class="ss">, a = </span><span class="sc">{</span>a<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>C_plot <span class="op">=</span> np.logspace(<span class="dv">17</span>, <span class="dv">24</span>, <span class="dv">100</span>)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>plt.loglog(C, L <span class="op">-</span> <span class="fl">1.7</span>, <span class="st">"o"</span>, label<span class="op">=</span><span class="st">"data"</span>)</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>plt.loglog(C_plot, a <span class="op">*</span> C_plot<span class="op">**-</span>alpha, label<span class="op">=</span><span class="ss">f"fit: $L - 1.7 = </span><span class="sc">{</span>a<span class="sc">:.2f}</span><span class="ss"> </span><span class="ch">\\</span><span class="ss">, C^</span><span class="ch">{{</span><span class="ss">-</span><span class="sc">{</span>alpha<span class="sc">:.3f}</span><span class="ch">}}</span><span class="ss">$"</span>)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Compute (FLOPs)"</span>)</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Loss above floor"</span>)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>, which<span class="op">=</span><span class="st">"both"</span>, ls<span class="op">=</span><span class="st">":"</span>)</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>alpha = 0.062, a = 5.59</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="04_scaling_laws_files/figure-html/cell-2-output-2.png" width="621" height="431" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Real-world scaling fits use much more careful methodology — multiple seeds, multiple shapes, proper learning-rate scheduling — but the spirit is the same: log-log linear fit, extrapolate carefully.</p>
+<section id="the-bitter-lesson" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="the-bitter-lesson"><span class="header-section-number">2.4</span> The bitter lesson</h2>
+<p>The lecture closes on a single recurring lesson from the history of AI: scaling general methods consistently beats clever hand-engineering of priors <span class="citation" data-cites="sutton2019bitter">(<a href="../references.html#ref-sutton2019bitter" role="doc-biblioref">Sutton 2019</a>)</span>. Rich Sutton’s “bitter lesson” essay is the canonical statement; the pattern is older. People kept trying to encode their domain knowledge into AI systems — grammars for language, hand-designed features for vision, hand-coded heuristics for chess and Go — and at every scale, the methods that won were the ones that threw the hand-engineering out and let a generic learner consume more compute and more data.</p>
+<p>This will be the connecting thread through the next several chapters. The “first bitter lesson” — <em>bigger nets are better</em> — surfaces in <a href="../chapters/02_image_classification.html">Chapter 2</a> before scaling laws were a phrase, and gets the full treatment in <a href="../chapters/05_llm_pretraining.html">Chapter 5</a> once we have the LLM context to motivate the actual functional forms.</p>
+<section id="what-the-bitter-lesson-does-not-mean" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="what-the-bitter-lesson-does-not-mean"><span class="header-section-number">2.4.1</span> What the bitter lesson does <em>not</em> mean</h3>
+<p>The bitter lesson is often misread as nihilism: “never think, just scale.” This is not what it says, and treating it that way is bad for science.</p>
+<p>What the bitter lesson actually says is more limited and more useful: <em>do not bake in clever priors when scale will get there anyway</em>. It is a warning against premature specialization, not a license to stop thinking. There are still places where careful methodology, careful priors, and careful architecture pay off — the entire point of the methodology in the previous section is that <em>understanding why things work</em> is itself a valuable activity, and you cannot scale your way to understanding.</p>
+<p>So: scale matters, but science is not just scaling. We will spend many chapters of this book on phenomena that scale does not explain.</p>
 </section>
-<section id="beyond-language" class="level2" data-number="5.6">
-<h2 data-number="5.6" class="anchored" data-anchor-id="beyond-language"><span class="header-section-number">5.6</span> Beyond language</h2>
-<p>The same shape — smooth power-law loss in compute — has been measured for image diffusion models, multimodal models, code, and reinforcement learning from preferences. The exponents differ, but the qualitative picture is consistent. Whether <em>all</em> of intelligence scales like this is the most expensive open question in the field.</p>
+</section>
+<section id="a-very-brief-gesture-at-the-substrate" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="a-very-brief-gesture-at-the-substrate"><span class="header-section-number">2.5</span> A very brief gesture at the substrate</h2>
+<p>This is a Harvard physics grad audience. You already know what a neural network is in the basic sense — a stack of differentiable parameterized functions, trained by gradient descent on a loss. You already know what SGD is. You have computed gradients in your sleep. We are not going to spend a lecture re-establishing this.</p>
+<p>A few terms that will recur often, just for terminology:</p>
+<ul>
+<li>A <strong>foundation model</strong> is a large model pretrained on broad data such that it can be adapted (often via fine-tuning or prompting) to many downstream tasks. The term is doing real work; we will see why in Chapters 5 and 6.</li>
+<li><strong>Self-supervised learning</strong> is training with labels that are derived from the data itself — predicting the next token, predicting masked patches, predicting one view of an image from another.</li>
+<li><strong>Pretraining</strong> and <strong>fine-tuning</strong> are the two main stages of the modern recipe. The cost asymmetry is enormous.</li>
+</ul>
+<p>Five minutes total. If any of this is unfamiliar, the rest of the book will fill it in implicitly, and you can use the glossary.</p>
+</section>
+<section id="where-we-are-going" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="where-we-are-going"><span class="header-section-number">2.6</span> Where we are going</h2>
+<p>The arc of the book is two parts.</p>
+<p><strong>Part I (Chapters 1–7): fundamentals and methods.</strong> We work through the dominant model classes in roughly the order they matter for modern AI — image classifiers, sequence models, transformers, large language models pre- and post-training — and then in Chapter 7 we step back for the first of two phenomenology pillars, on training dynamics. The first part is “what to know” plus “how to do science on it.”</p>
+<p><strong>Part II (Chapters 8–12): beyond LLMs.</strong> Diffusion, real reinforcement learning, world models, the second phenomenology pillar (concept learning), and finally a capstone chapter on intelligence-shaped phenomena that go beyond gradient-trained single-agent learning.</p>
+<p>By the end of the book you should not feel that you have <em>covered</em> deep learning. You should feel that you have entered an open scientific frontier — and that you have the taste to recognize good questions in it, and the tools to start answering them.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
-<div id="ref-hoffmann2022chinchilla" class="csl-entry" role="listitem">
-<span class="nocase">Hoffmann, Jordan, Sebastian Borgeaud, Arthur Mensch, et al.</span> 2022. <span>“Training Compute-Optimal Large Language Models.”</span> <em>arXiv Preprint arXiv:2203.15556</em>.
-</div>
-<div id="ref-kaplan2020scaling" class="csl-entry" role="listitem">
-Kaplan, Jared, Sam McCandlish, Tom Henighan, et al. 2020. <span>“Scaling Laws for Neural Language Models.”</span> <em>arXiv Preprint arXiv:2001.08361</em>.
+<div id="ref-sutton2019bitter" class="csl-entry" role="listitem">
+Sutton, Richard. 2019. <span>“The Bitter Lesson.”</span> <em>Incomplete Ideas (Blog)</em>.
 </div>
 </div>
 </section>
@@ -1066,13 +959,13 @@ Kaplan, Jared, Sam McCandlish, Tom Henighan, et al. 2020. <span>“Scaling Laws 
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/03_transformer.html" class="pagination-link" aria-label="The transformer">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The transformer</span></span>
+      <a href="../index.html" class="pagination-link" aria-label="Preface">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Preface</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/05_pretraining.html" class="pagination-link" aria-label="Pretraining LLMs">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Pretraining LLMs</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/02_image_classification.html" class="pagination-link" aria-label="Neural networks and image classification">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Neural networks and image classification</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1081,5 +974,5 @@ Kaplan, Jared, Sam McCandlish, Tom Henighan, et al. 2020. <span>“Scaling Laws 
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cfpark00/science-of-dl/edit/main/chapters/04_scaling_laws.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer><script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

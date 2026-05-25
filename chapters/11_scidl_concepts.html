@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>11&nbsp; Inference – Intro to AI for Physicists</title>
+<title>12&nbsp; Science of deep learning II: concept learning – Intro to AI for Physicists</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -33,8 +33,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../references.html" rel="next">
-<link href="../chapters/09_diffusion.html" rel="prev">
+<link href="../chapters/12_intelligence.html" rel="next">
+<link href="../chapters/10_world_models.html" rel="prev">
 <link href="../assets/favicon.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -79,49 +79,6 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: false
-   });
-}}});
-  </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -297,7 +254,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/10_inference.html">Practice</a></li><li class="breadcrumb-item"><a href="../chapters/10_inference.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Inference</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/08_diffusion.html">Beyond LLMs</a></li><li class="breadcrumb-item"><a href="../chapters/11_scidl_concepts.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Science of deep learning II: concept learning</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -335,7 +292,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
- <span class="menu-text">Foundations</span></a>
+ <span class="menu-text">Fundamentals and methods</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -343,106 +300,85 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/01_landscape.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The modern AI landscape</span></span></a>
+  <a href="../chapters/01_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/02_dl_primer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">A deep learning primer</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
- <span class="menu-text">Modern architectures</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/03_transformer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The transformer</span></span></a>
+  <a href="../chapters/02_image_classification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Neural networks and image classification</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/04_scaling_laws.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Scaling laws</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
- <span class="menu-text">Large language models</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/05_pretraining.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Pretraining LLMs</span></span></a>
+  <a href="../chapters/03_sequence_modeling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sequence modeling</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/06_finetuning.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Fine-tuning</span></span></a>
+  <a href="../chapters/04_transformers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Transformers</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/07_rl.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Reinforcement learning for LLMs</span></span></a>
+  <a href="../chapters/05_llm_pretraining.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Large language models I: pretraining and fine-tuning</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/08_reasoning.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Reasoning and test-time compute</span></span></a>
+  <a href="../chapters/06_llm_posttraining.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Large language models II: post-training and agents</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/07_scidl_training.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Science of deep learning I: training dynamics</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
- <span class="menu-text">Generative models beyond LLMs</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Beyond LLMs</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/09_diffusion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Diffusion and score-based models</span></span></a>
+  <a href="../chapters/08_diffusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Diffusion models</span></span></a>
   </div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
- <span class="menu-text">Practice</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/10_inference.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Inference</span></span></a>
+  <a href="../chapters/09_rl.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Reinforcement learning</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/10_world_models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">World models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/11_scidl_concepts.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Science of deep learning II: concept learning</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/12_intelligence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Science of intelligence</span></span></a>
   </div>
 </li>
       </ul>
@@ -450,7 +386,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">References</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">References</span></span></a>
   </div>
 </li>
     </ul>
@@ -463,25 +399,23 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-inference" id="toc-sec-inference" class="nav-link active" data-scroll-target="#sec-inference"><span class="header-section-number">11.1</span> What makes LLM inference different</a></li>
-  <li><a href="#the-kv-cache" id="toc-the-kv-cache" class="nav-link" data-scroll-target="#the-kv-cache"><span class="header-section-number">11.2</span> The KV cache</a></li>
-  <li><a href="#batching-especially-continuous-batching" id="toc-batching-especially-continuous-batching" class="nav-link" data-scroll-target="#batching-especially-continuous-batching"><span class="header-section-number">11.3</span> Batching, especially continuous batching</a></li>
-  <li><a href="#pagedattention" id="toc-pagedattention" class="nav-link" data-scroll-target="#pagedattention"><span class="header-section-number">11.4</span> PagedAttention</a></li>
-  <li><a href="#speculative-decoding" id="toc-speculative-decoding" class="nav-link" data-scroll-target="#speculative-decoding"><span class="header-section-number">11.5</span> Speculative decoding</a></li>
-  <li><a href="#quantization" id="toc-quantization" class="nav-link" data-scroll-target="#quantization"><span class="header-section-number">11.6</span> Quantization</a></li>
-  <li><a href="#mixture-of-experts" id="toc-mixture-of-experts" class="nav-link" data-scroll-target="#mixture-of-experts"><span class="header-section-number">11.7</span> Mixture of experts</a></li>
-  <li><a href="#prefix-caching" id="toc-prefix-caching" class="nav-link" data-scroll-target="#prefix-caching"><span class="header-section-number">11.8</span> Prefix caching</a></li>
-  <li><a href="#why-this-all-matters" id="toc-why-this-all-matters" class="nav-link" data-scroll-target="#why-this-all-matters"><span class="header-section-number">11.9</span> Why this all matters</a></li>
+  <li><a href="#concept-learning-in-nns-technical" id="toc-concept-learning-in-nns-technical" class="nav-link active" data-scroll-target="#concept-learning-in-nns-technical"><span class="header-section-number">12.1</span> Concept learning in NNs (technical)</a></li>
+  <li><a href="#compositional-generalization" id="toc-compositional-generalization" class="nav-link" data-scroll-target="#compositional-generalization"><span class="header-section-number">12.2</span> Compositional generalization</a></li>
+  <li><a href="#continual-learning" id="toc-continual-learning" class="nav-link" data-scroll-target="#continual-learning"><span class="header-section-number">12.3</span> Continual learning</a></li>
+  <li><a href="#the-drift-what-is-a-concept-anyway" id="toc-the-drift-what-is-a-concept-anyway" class="nav-link" data-scroll-target="#the-drift-what-is-a-concept-anyway"><span class="header-section-number">12.4</span> The drift: what is a concept, anyway?</a></li>
+  <li><a href="#learning-at-different-abstraction-scales" id="toc-learning-at-different-abstraction-scales" class="nav-link" data-scroll-target="#learning-at-different-abstraction-scales"><span class="header-section-number">12.5</span> Learning at different abstraction scales</a></li>
+  <li><a href="#cogsci-and-human-priors" id="toc-cogsci-and-human-priors" class="nav-link" data-scroll-target="#cogsci-and-human-priors"><span class="header-section-number">12.6</span> Cogsci and human priors</a></li>
+  <li><a href="#closing" id="toc-closing" class="nav-link" data-scroll-target="#closing"><span class="header-section-number">12.7</span> Closing</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/cfpark00/science-of-dl/edit/main/chapters/10_inference.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/10_inference.html">Practice</a></li><li class="breadcrumb-item"><a href="../chapters/10_inference.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Inference</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/08_diffusion.html">Beyond LLMs</a></li><li class="breadcrumb-item"><a href="../chapters/11_scidl_concepts.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Science of deep learning II: concept learning</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Inference</span></h1>
+<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Science of deep learning II: concept learning</span></h1>
 </div>
 
 
@@ -498,66 +432,72 @@ window.Quarto = {
 </header>
 
 
-<p>Training a model and <em>serving</em> a model are completely different problems. This chapter is about the second.</p>
-<p>It matters because (a) it dominates the cost of any deployed system, often by 100× over its training cost amortized across queries; and (b) the techniques used in production now bleed back into training-time decisions (model shape, head count, attention variant).</p>
-<section id="sec-inference" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="sec-inference"><span class="header-section-number">11.1</span> What makes LLM inference different</h2>
-<p>Two phases per request:</p>
-<ul>
-<li><strong>Prefill.</strong> Run the prompt through the model once to populate the key-value cache. This is a single forward pass over <span class="math inline">T_{\text{prompt}}</span> tokens — compute-bound, similar to training in cost structure.</li>
-<li><strong>Decode.</strong> Generate output tokens one at a time. Each step is a forward pass over <em>one</em> token, using the cached keys/values for all previous positions. This is <strong>memory-bandwidth-bound</strong>, not compute-bound, because you read all model weights from HBM to compute one token.</li>
-</ul>
-<p>The asymmetry is the source of every interesting inference optimization. Modern GPUs are vastly over-provisioned for FLOPs relative to memory bandwidth during decode. Almost every technique below is about squeezing more useful work out of each weight read.</p>
+<p>This is the second of the two named “Science of DL” pillars. The first, <a href="../chapters/07_scidl_training.html">Chapter 7</a>, was about <em>training-dynamics phenomena</em> — what happens during training, what happens as you scale, the surprising temporal structure of how networks learn. This one is about <em>concept-acquisition phenomena</em> — what networks actually learn, in what kinds of units, and what we can say about the <em>content</em> of those learned representations.</p>
+<p>The lecture has the most distinctive voice in the book. It deliberately drifts from concrete-technical to philosophical-open, and the pacing is part of the argument. We start with three technical phenomena — <strong>concept learning</strong>, <strong>compositional generalization</strong>, and <strong>continual learning</strong> — and end up at the deep question that lurks under all of them: <em>what is a concept, anyway?</em> The answer is ill-defined, and that ill-definition is the bridge into <a href="../chapters/12_intelligence.html">Chapter 12</a>.</p>
+<p>The 5-step methodology from <a href="../chapters/01_intro.html">Chapter 1</a> is on display here for the second case study. The first case study was in Chapter 7 (training-dynamics phenomena via small model systems). This one is concept-acquisition phenomena, also via small model systems. The repetition is the point: when you see the methodology cash out twice, on different territory, with non-trivial results both times, you have something like a research methodology.</p>
+<section id="concept-learning-in-nns-technical" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="concept-learning-in-nns-technical"><span class="header-section-number">12.1</span> Concept learning in NNs (technical)</h2>
+<p>What does it mean for a network to learn a “concept”? Operationally, in the recent science-of-DL literature, it means something like: a discrete, reusable unit of representation that the network deploys consistently across many inputs, and that you can isolate via probing or intervention.</p>
+<p>The author’s research framework treats this in terms of a <strong>concept space</strong>: a (latent) representation space the network is implicitly building during training. As training proceeds, <em>concept signals</em> — directions in this space corresponding to particular concepts — sharpen and become disentangled from each other. The dynamics of how concept signals form is its own object of study.</p>
+<p><strong>Emergence of Hidden Capabilities</strong> (Park et al., NeurIPS 2024 Spotlight) is the clearest statement of this view. The headline result: models often <em>contain</em> a concept (in the sense of having a probeable internal representation for it) before that concept is <em>elicitable</em> via naive prompting. There is a latent capability that latent interventions can reveal, but that ordinary input-output probes miss. The model has “learned” the concept in one sense and not yet in another, and the gap between the two senses is itself a phenomenon worth studying.</p>
+<p>This reframes “emergence at scale” from <a href="../chapters/05_llm_pretraining.html">Chapter 5</a> in a useful way. The discontinuous jumps that look like sudden capability acquisition in output space are often smoother in concept space — the model has been building the underlying representation gradually, and the visible jump corresponds to crossing a <em>threshold for naive elicitation</em>, not a discontinuity in what the model <em>knows</em>. The methodological corollary is to measure in the right space.</p>
+<p><strong>Latent interventions vs.&nbsp;naive prompting.</strong> The empirical recipe behind the <em>Hidden Capabilities</em> result is comparing two ways of asking the model what it knows: naive prompting (the standard way) and <em>latent interventions</em> (directly manipulating internal activations in the direction of the concept of interest). The gap between the two is the “hidden capability” — what the model could do if you nudged its internals correctly, beyond what it does spontaneously from input alone. The implication is that there is more in the model than you can pull out by talking to it.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>[Plot]</strong> Two learning curves on the same model: probed accuracy on a concept (latent intervention) vs.&nbsp;accuracy under naive prompting. The probed curve climbs earlier and higher; the naive curve has a sharp later transition. The gap is the “hidden capability” phenomenon.</p>
+</div>
+</div>
+</div>
 </section>
-<section id="the-kv-cache" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="the-kv-cache"><span class="header-section-number">11.2</span> The KV cache</h2>
-<p>For a transformer of <span class="math inline">L</span> layers with hidden dimension <span class="math inline">d</span>, attending over <span class="math inline">T</span> context tokens, the cache size per request is roughly <span class="math display">
-\text{KV cache} \approx 2 \cdot L \cdot T \cdot d \cdot \text{bytes per element}.
-</span> For a 70B model with 80 layers, <span class="math inline">d = 8192</span>, fp16, and a 32k-context window, this is <span class="math inline">\sim 80</span> GB <em>per request</em>. The KV cache often dwarfs the model weights themselves at long context.</p>
-<p>Consequences:</p>
-<ul>
-<li><strong>Grouped-query attention (GQA)</strong> and <strong>multi-query attention (MQA)</strong> share keys/values across multiple query heads, shrinking the cache by 4–8×.</li>
-<li><strong>Sliding window attention</strong> caps how far back each token attends, making the cache size constant in <span class="math inline">T</span> rather than linear.</li>
-<li><strong>KV cache quantization</strong> to int8 or int4 is now standard.</li>
-</ul>
+<section id="compositional-generalization" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="compositional-generalization"><span class="header-section-number">12.2</span> Compositional generalization</h2>
+<p>Concepts are useful in proportion to how well they <em>compose</em>. A network that has learned “color” and “shape” as separate concepts should, in principle, be able to handle novel combinations — <em>purple triangle</em>, even if it has only seen <em>red triangles</em> and <em>purple squares</em> during training. The empirical question is whether networks actually do this, and the answer is: under specific conditions, yes, and the conditions are revealing.</p>
+<p><strong>Swing-by Dynamics in Concept Learning and Compositional Generalization</strong> (Yang, Park et al.) characterizes the training dynamics of compositional generalization with unusual care. Two main results, simplified:</p>
+<ol type="1">
+<li>Networks generalize compositionally <em>sequentially</em> — they acquire compositional capability over time, respecting an implicit hierarchy in the structure of the data. They do not learn all concepts simultaneously; they learn them in order.</li>
+<li>The training dynamics exhibit <em>non-monotonic</em> behavior — test loss can rise temporarily during a “swing-by” phase before dropping again as the network reorganizes its representations. This is a clean training-dynamics phenomenon in its own right, and connects back to the training-dynamics theme of <a href="../chapters/07_scidl_training.html">Chapter 7</a>.</li>
+</ol>
+<p>The <strong>SIM (Structured Identity Mapping) task</strong> is the model system used in this line of work. Choose a structured factorization of inputs (e.g., color × shape × position), train a network to predict outputs that depend compositionally on the factors, and observe how the network’s representation of those factors evolves over training. The task is small enough to instrument fully, structured enough to produce interesting phenomena, and aligned enough with the broader question of “how do networks acquire compositional structure” that the results have implications well beyond the model system itself.</p>
+<p>The deeper lesson: compositional generalization is not free. It requires that the network develop a representation that <em>factors</em> in the right way, and that factorization develops in a particular sequence over training. There is real <em>structure</em> to how networks come to compose, and the structure is studyable.</p>
 </section>
-<section id="batching-especially-continuous-batching" class="level2" data-number="11.3">
-<h2 data-number="11.3" class="anchored" data-anchor-id="batching-especially-continuous-batching"><span class="header-section-number">11.3</span> Batching, especially continuous batching</h2>
-<p>GPUs reach their efficiency only when many requests are processed in parallel. Static batching — wait for <span class="math inline">N</span> requests, run them together — wastes time because requests have wildly different lengths. <strong>Continuous batching</strong> (a.k.a. inflight batching) instead schedules generation step-by-step: as soon as a request finishes, slot a new one in.</p>
-<p>This is the single most important serving optimization. The throughput improvement over naive serving is typically 5–20×.</p>
+<section id="continual-learning" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="continual-learning"><span class="header-section-number">12.3</span> Continual learning</h2>
+<p><strong>Continual learning</strong> is the problem of acquiring new concepts (or skills, or task capabilities) over time without forgetting the old ones. Classically, the baseline failure mode is <strong>catastrophic forgetting</strong>: train a network on task A, then on task B, and its performance on A degrades or collapses.</p>
+<p>There is a <em>soft</em> sense of continual learning — avoid loss of plasticity, prevent forgetting — and a <em>hard</em> sense. The soft version has standard solutions: rehearsal (mix old data with new), regularization (constrain weight changes), modular methods (add new parameters for new tasks). They mitigate forgetting; they do not solve the deeper problem.</p>
+<p>The hard version is the one worth stating clearly: <em>continually adapt to new worlds by maintaining a good updatable representation, the way a competent biological agent does in a changing environment.</em> This is very different from passive gradient updates on a non-stationary stream of data. It requires something like an updatable world model (cf.&nbsp;<a href="../chapters/10_world_models.html">Chapter 10</a>), with mechanisms for revising prior knowledge when new evidence contradicts it. It is unsolved at scale.</p>
+<p>Note the structural connection back to RL (<a href="../chapters/09_rl.html">Chapter 9</a>) — RL on a non-stationary environment is, structurally, continual learning. And to world models (<a href="../chapters/10_world_models.html">Chapter 10</a>) — if a network has a world model, continual learning is the problem of keeping that world model accurate and updatable. Concepts are sticky representations the model is reluctant to overwrite, which is good for stability and bad for adaptability. The tension between the two is one of the central unresolved problems in the field.</p>
 </section>
-<section id="pagedattention" class="level2" data-number="11.4">
-<h2 data-number="11.4" class="anchored" data-anchor-id="pagedattention"><span class="header-section-number">11.4</span> PagedAttention</h2>
-<p>The KV cache for many requests of varying lengths fragments GPU memory badly. <strong>PagedAttention</strong> (vLLM) borrows the idea of virtual memory pages: store the cache in fixed-size blocks with a logical-to-physical mapping. Zero fragmentation, easy to share cache blocks across requests with the same prefix.</p>
-<p>This is why vLLM became the dominant open-source serving stack — PagedAttention plus continuous batching gives you most of the throughput of a hand-tuned inference engine for free.</p>
+<section id="the-drift-what-is-a-concept-anyway" class="level2" data-number="12.4">
+<h2 data-number="12.4" class="anchored" data-anchor-id="the-drift-what-is-a-concept-anyway"><span class="header-section-number">12.4</span> The drift: what is a concept, anyway?</h2>
+<p>We have been using the word <em>concept</em> with apparent precision. We have made claims about networks learning concepts, composing them, retaining them, acquiring new ones. It is worth, at this point in the chapter, asking what we actually mean.</p>
+<p>The technical-operational answer was given above: a concept is a probeable, intervenable, reusable internal representation that the network deploys consistently. Fine. But that operationalization is downstream of a prior choice — <em>which</em> probeable representations are concepts, and which are just features? A linear classifier can probe almost anything; that does not mean every probeable quantity is a concept.</p>
+<p>The deeper move: <strong>concepts are abstractions defined at some scale of analysis</strong>. Pixels are not concepts. Edge detectors might be features, not concepts. Object categories like “cat” or “chair” are usually called concepts. Higher-level abstractions — <em>causality</em>, <em>agency</em>, <em>symmetry</em> — are also called concepts, at a different scale. The fact that the same word covers wildly different scales is a sign that the term is doing categorical rather than precise work.</p>
+<p>Here are some thoughts the rest of the chapter wants to sit with.</p>
+<p><strong>Is in-context learning concept acquisition?</strong> When a model sees a few examples in a prompt and starts producing outputs consistent with the underlying rule, has it <em>learned</em> the concept the examples illustrate? In one sense, yes — the model’s behavior is sensitive to a regularity in the prompt, and it adapts to it. In another sense, no — there is no weight update; whatever the model “learns” disappears the moment you start a new conversation. The two senses do not match up cleanly, and which one is “real” learning is partly a choice about how you define the term.</p>
+<p><strong>Is continual learning about concept acquisition?</strong> “Keep acquiring new concepts” is one of the standard motivations for continual learning research. But if we have not nailed down what “acquire” means and what “concept” means independently, we are smuggling all the hard work into our terminology.</p>
+<p><strong>“Having a rationality without info”</strong> — a phrase from the author’s notes, kept here verbatim. The framing it gestures at: maybe what learning fundamentally <em>is</em> is acquiring rationality (in the sense of: well-calibrated, useful inferential structure) about a domain <em>without yet having full information</em> about that domain. Concepts, in that framing, are the units of rationality that you carry across domains and partial-information situations. This is a gnomic statement that rewards sitting with rather than rushing past. Try it.</p>
 </section>
-<section id="speculative-decoding" class="level2" data-number="11.5">
-<h2 data-number="11.5" class="anchored" data-anchor-id="speculative-decoding"><span class="header-section-number">11.5</span> Speculative decoding</h2>
-<p>Use a small <strong>draft model</strong> to generate <span class="math inline">k</span> candidate tokens, then verify them with one forward pass of the big <strong>target model</strong>. If the target agrees with the first <span class="math inline">j</span> drafts, accept all <span class="math inline">j</span> and move on. If not, accept up to the first disagreement and use the target’s prediction for the next token.</p>
-<p>This is exact — the output distribution is unchanged — and the speedup is bounded by how often the draft model agrees with the target. In practice 2–4× faster decoding on standard hardware. Variants include <strong>medusa heads</strong> (the draft is a small parallel head on the target itself), <strong>lookahead decoding</strong>, and <strong>EAGLE</strong>.</p>
+<section id="learning-at-different-abstraction-scales" class="level2" data-number="12.5">
+<h2 data-number="12.5" class="anchored" data-anchor-id="learning-at-different-abstraction-scales"><span class="header-section-number">12.5</span> Learning at different abstraction scales</h2>
+<p>Here is the proposed reframing the chapter is building toward. <strong>Learning happens at different abstraction scales.</strong> Some learning happens at the level of pixels (image-classification features). Some at the level of words (token statistics). Some at the level of grammatical structures, some at the level of factual knowledge, some at the level of reasoning strategies, some at the level of <em>scientific frameworks</em> (what counts as a useful explanation in a domain).</p>
+<p>What we have been calling “concepts” are best understood as units of representation at <em>one or more</em> of these abstraction scales. The reason the term is fuzzy is that it spans them all. The reason this is a useful reframing is that it dissolves several debates: instead of arguing whether the model “really” learned the concept, ask which abstraction scale you were measuring at, and recognize that learning at different scales has different signatures.</p>
+<p>This is the move from “did the model learn X?” — a flat, binary question — to “at what abstraction scale is the model representing X, and how robust is that representation across scales?” — a structured, answerable question. It is also the move that sets up <a href="../chapters/12_intelligence.html">Chapter 12</a>: if learning lives at multiple abstraction scales, then <em>intelligence</em> — which involves coordinating learning across scales, plus a lot of other things — is necessarily broader than any single learning process.</p>
 </section>
-<section id="quantization" class="level2" data-number="11.6">
-<h2 data-number="11.6" class="anchored" data-anchor-id="quantization"><span class="header-section-number">11.6</span> Quantization</h2>
-<p>Run the model at lower precision than it was trained in. The interesting regimes for LLMs:</p>
-<ul>
-<li><strong>int8 weights, fp16 activations.</strong> Nearly free quality loss, ~2× memory and bandwidth savings. Standard.</li>
-<li><strong>int4 weights</strong> (GPTQ, AWQ). ~4× memory savings, small quality cost. Standard for serving on consumer hardware.</li>
-<li><strong>fp8 weights and activations.</strong> Native support on H100/B200, lets you cut inference cost roughly in half versus fp16 with negligible quality loss. Standard at frontier labs in 2025.</li>
-<li><strong>int4 / fp4 with KV cache quantization.</strong> The cutting edge; can sometimes hurt quality on long contexts.</li>
-</ul>
+<section id="cogsci-and-human-priors" class="level2" data-number="12.6">
+<h2 data-number="12.6" class="anchored" data-anchor-id="cogsci-and-human-priors"><span class="header-section-number">12.6</span> Cogsci and human priors</h2>
+<p>A short closing arc, because the connection is real but does not need to be the whole chapter.</p>
+<p>Cognitive science and developmental psychology have spent a long time on the question of how humans acquire concepts. Children develop object permanence, then categories, then more abstract concepts at well-documented stages. Language acquisition follows characteristic curves. There are documented <strong>human priors</strong> — inductive biases that we appear to come pre-loaded with — that shape what kinds of structure we find easy to learn.</p>
+<p>The interface with deep learning here is bidirectional. On one hand, large models trained on human-generated text and images <em>inherit human-shaped priors</em> through their training data. The author’s <em>Vision-Language Models Inherit Human Color Perception</em> (ICLR 2026 workshop) is a clean demonstration: VLMs end up with a color-similarity structure that mirrors human perceptual structure, not because they were trained on color perception data, but because the linguistic and visual data they consumed was shaped by humans who have those perceptions.</p>
+<p>On the other hand, the <em>structure</em> of how humans acquire concepts — sequentially, hierarchically, with a clear role for innate priors — is structurally similar to what we observe in compositional-generalization studies in neural networks. Whether this is deep alignment or surface coincidence is open. It is a productive question to hold open rather than to resolve prematurely.</p>
 </section>
-<section id="mixture-of-experts" class="level2" data-number="11.7">
-<h2 data-number="11.7" class="anchored" data-anchor-id="mixture-of-experts"><span class="header-section-number">11.7</span> Mixture of experts</h2>
-<p>Many frontier models use <strong>sparse mixture-of-experts</strong> (MoE): each MLP block has <span class="math inline">E</span> “expert” sub-networks, and a router picks the top-<span class="math inline">k</span> (<span class="math inline">k=2</span> typically) for each token. Total parameter count <span class="math inline">N_{\text{total}}</span> is large, but active parameters per token <span class="math inline">N_{\text{active}}</span> is much smaller (often <span class="math inline">1/8</span> to <span class="math inline">1/4</span> of the total).</p>
-<p>For inference this is great in principle: only the active experts are used per token. In practice the routing is uneven, the cache requirements grow, and serving efficiently requires careful work. The win is real but smaller than the raw <span class="math inline">N_{\text{total}} / N_{\text{active}}</span> ratio suggests.</p>
-</section>
-<section id="prefix-caching" class="level2" data-number="11.8">
-<h2 data-number="11.8" class="anchored" data-anchor-id="prefix-caching"><span class="header-section-number">11.8</span> Prefix caching</h2>
-<p>Many requests share the same long system prompt. If you can cache the KV state at the end of that prompt, every subsequent request that starts with it skips the prefill entirely. This is a 10–100× speedup for short queries against a long system prompt — common in RAG, agent loops, and chat — and is supported natively by most modern serving stacks.</p>
-</section>
-<section id="why-this-all-matters" class="level2" data-number="11.9">
-<h2 data-number="11.9" class="anchored" data-anchor-id="why-this-all-matters"><span class="header-section-number">11.9</span> Why this all matters</h2>
-<p>Reasoning models (<a href="08_reasoning.html#sec-reasoning" class="quarto-xref"><span>Section 9.1</span></a>) generate <span class="math inline">10^4</span>–<span class="math inline">10^6</span> tokens per query. Without continuous batching, PagedAttention, speculative decoding, and quantization, serving them at scale would not be economically viable. The inference stack and the training stack co-evolve: a new attention variant or a new precision format gets adopted <em>because</em> it makes serving cheaper, which means the model shape is downstream of inference economics, not just training economics.</p>
+<section id="closing" class="level2" data-number="12.7">
+<h2 data-number="12.7" class="anchored" data-anchor-id="closing"><span class="header-section-number">12.7</span> Closing</h2>
+<p>This chapter pushed harder than most on definitional uncertainty. That is deliberate. The science of deep learning is at a stage where <em>some</em> of its most important phenomena — emergence, ICL, concept acquisition, compositional generalization — are bound up with terms that are not yet fully operationalized. The chapter’s move is to embrace that fact, take it seriously, and use it as a methodological discipline: when terms are slippery, <em>don’t argue about the terms — characterize the phenomena, find the right scale of analysis, and let the language sort itself out downstream</em>.</p>
+<p><a href="../chapters/12_intelligence.html">Chapter 12</a> zooms out further. If learning is happening at multiple abstraction scales, intelligence is the property of systems that coordinate them — and there are <em>many</em> kinds of such systems, only some of which look like the gradient-trained neural networks of the previous eleven chapters.</p>
 
 
 </section>
@@ -983,13 +923,13 @@ window.Quarto = {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/09_diffusion.html" class="pagination-link" aria-label="Diffusion and score-based models">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Diffusion and score-based models</span></span>
+      <a href="../chapters/10_world_models.html" class="pagination-link" aria-label="World models">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">World models</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../references.html" class="pagination-link" aria-label="References">
-        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">References</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/12_intelligence.html" class="pagination-link" aria-label="Science of intelligence">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Science of intelligence</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -998,5 +938,5 @@ window.Quarto = {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cfpark00/science-of-dl/edit/main/chapters/10_inference.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer><script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

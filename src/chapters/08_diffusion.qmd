@@ -2,6 +2,8 @@
 title: "8  Diffusion models"
 ---
 
+[Chapter code on GitHub →](https://github.com/cfpark00/science-of-dl/tree/main/src/code/08_diffusion){.btn .btn-outline-secondary .btn-sm role="button"}
+
 We have spent the last few chapters in the LLM block, transformers, scaling, post-training, the science of training dynamics. This chapter and the next two step into different paradigms: **diffusion models** (probabilistic generation), **reinforcement learning** (real RL, not RLHF), and **world models**. The methodology of [Chapter 1](01_intro.qmd) keeps applying. The architectures and objectives change.
 
 Diffusion is the dominant probabilistic-generative paradigm of the modern era. It is also the part of modern AI that is most directly continuous with statistical physics, a Langevin-style equation lives at the heart of it, the forward process is a diffusion in the literal sense, and physicists tend to find the formalism friendly.

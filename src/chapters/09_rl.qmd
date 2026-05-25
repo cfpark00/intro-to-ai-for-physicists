@@ -2,6 +2,8 @@
 title: "9  Reinforcement learning"
 ---
 
+[Chapter code on GitHub →](https://github.com/cfpark00/science-of-dl/tree/main/src/code/09_rl){.btn .btn-outline-secondary .btn-sm role="button"}
+
 This chapter is **real RL**, in the sense that distinguishes it from the RLHF treatment in [Chapter 6](06_llm_posttraining.qmd). RLHF, as we discussed, is closer to reward-weighted supervised fine-tuning than to RL proper. It works fine for short-horizon preference-following, and it does not encounter the genuinely hard problems that RL was set up to face. This chapter is about those hard problems.
 
 The lecture's job is *not* to be a complete tour of RL. There are excellent textbooks for that, and there is a graduate course on RL at most decent universities, go take one. The job here is twofold:

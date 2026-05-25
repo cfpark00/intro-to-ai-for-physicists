@@ -2,6 +2,8 @@
 title: "10  World models and continual learning"
 ---
 
+[Chapter code on GitHub →](https://github.com/cfpark00/science-of-dl/tree/main/src/code/10_world_models){.btn .btn-outline-secondary .btn-sm role="button"}
+
 A **world model** is, roughly, a learned representation of the environment that supports prediction, planning, or counterfactual reasoning. The phrase is doing a lot of work and we should be honest that it is also doing some hand-waving. There is no clean operational definition of "world model" that everyone in the field accepts, and you will hear the term applied to everything from a small dynamics model inside a Dreamer agent to whatever transformers do when they appear to track the state of a chess board they were never explicitly shown.
 
 This chapter takes that fuzziness seriously. We will (a) discuss the technical work where world models are concrete and useful, primarily in model-based RL, (b) discuss the more open question of whether large transformers learn *world representations* from pure next-token prediction, which is the author's current research thread, and (c) treat **continual learning** as the companion problem: keeping a world model accurate and updatable as the world changes. The hard version of continual learning is structurally a world-model problem, which is why it lives here rather than next to the concept-learning material in [Chapter 11](11_scidl_concepts.qmd).

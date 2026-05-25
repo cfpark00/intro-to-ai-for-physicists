@@ -2,6 +2,8 @@
 title: "11  Science of deep learning II: concept learning"
 ---
 
+[Chapter code on GitHub →](https://github.com/cfpark00/science-of-dl/tree/main/src/code/11_scidl_concepts){.btn .btn-outline-secondary .btn-sm role="button"}
+
 This is the second of the two named "Science of DL" pillars. The first, [Chapter 7](07_scidl_training.qmd), was about *training-dynamics phenomena*, what happens during training, what happens as you scale, the surprising temporal structure of how networks learn. This one is about *concept-acquisition phenomena*, what networks actually learn, in what kinds of units, and what we can say about the *content* of those learned representations.
 
 The lecture has the most distinctive voice in the book. It deliberately drifts from concrete-technical to philosophical-open, and the pacing is part of the argument. We start with two technical phenomena, **concept learning** and **compositional generalization**, and end up at the deep question that lurks under both: *what is a concept, anyway?* The answer is ill-defined, and that ill-definition is the bridge into [Chapter 12](12_intelligence.qmd). (The companion problem of **continual learning** lives in [Chapter 10](10_world_models.qmd), bundled with world models, keeping concepts stable enough to be useful, and updatable enough to track a changing world, is structurally a world-model problem.)

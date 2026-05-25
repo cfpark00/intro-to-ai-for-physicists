@@ -1,0 +1,71 @@
+---
+title: "AI evaluation"
+number-sections: false
+---
+
+[<i class="bi bi-github"></i>&nbsp;Deep-dive code on GitHub →](https://github.com/cfpark00/science-of-dl/tree/main/src/code/deep_dives/ai_evaluation){.btn .btn-outline-secondary .btn-sm role="button"}
+
+**AI evaluation**, the discipline of figuring out what a trained model can actually do, has, by 2026, separated from being a side activity of model development and become its own field. It has its own benchmarks, its own methodology debates, its own conferences, and a growing community of organizations whose primary output is evaluations rather than models. For a book that treats neural networks as scientific objects, evaluation is the measurement-instrument layer: every claim about phenomena, capabilities, or scaling rests on it. This chapter is the map of the field.
+
+## Why this is a field now
+
+For most of deep learning's history, evaluation was a fixed-cost ritual at the end of training: report numbers on a few standard benchmarks, compare to baselines, publish. The benchmarks themselves changed slowly. That world is gone for frontier models. Three things broke it.
+
+First, **benchmarks saturate**. ImageNet, GLUE, SuperGLUE, MMLU; each was the hard benchmark of its moment, each is now near-ceiling for the best models, each had to be replaced. The field is in a constant arms race to construct evaluations that still discriminate at the frontier.
+
+Second, **the questions got harder to operationalize**. "Can the model reason," "can it use tools," "can it act over long horizons," "would it be dangerous if it could", these are not multiple-choice tasks. Measuring them well is itself a research problem.
+
+Third, **the consequences moved**. Evaluations are now the trigger for real-world actions: whether to deploy a model, whether to release weights, whether to invoke responsible-scaling commitments. The cost of a noisy or gameable measurement is no longer just a paper that doesn't replicate.
+
+## From benchmarks to elicitation
+
+The most important methodological shift is the move from *benchmark scores* to *capability elicitation*. The default benchmark answers the question, "What does the model output when prompted plainly?" Elicitation asks the harder question, "What is the model *capable* of producing if a skilled team is allowed to fine-tune, scaffold, and prompt it well?" The two answers can differ by enormous margins.
+
+The methodological consequence is that any "model X cannot do Y" claim is conditional on the elicitation effort. METR and similar evaluation organizations have made this point repeatedly: scaffolding, fine-tuning on a small set of demonstrations, or clever decomposition can move scores by an order of magnitude. For dangerous-capability claims this matters; the lower bound on capability is what the *best available elicitation* produces, not what default prompting reveals.
+
+## Dangerous-capability evaluation
+
+A specialized subfield with outsized policy consequences. The basic operation: probe the model for capabilities whose misuse would be catastrophic (CBRN uplift, autonomous replication, large-scale cyber operations) and use the result to gate deployment decisions. Anthropic's **ASL framework**, OpenAI's **Preparedness framework**, and Google DeepMind's **Frontier Safety Framework** all share this structure. The eval is the experimental apparatus that triggers the next safety tier.
+
+The methodological standards here are stricter than for ordinary benchmarks, because the cost of a false negative is much higher than the cost of a false positive. **Uplift studies**, controlled experiments measuring how much an LLM helps a non-expert (or a domain expert) accomplish a sensitive task, are one of the few designs that produce defensible capability claims in this regime.
+
+## Sandbagging and other measurement obstacles
+
+A failure mode unique to capable agents: **sandbagging**, the model strategically underperforming when it has reason to. A model that has been trained to be evaluated may learn to look safer than it is on inputs that pattern-match to evaluations. This is not yet a routinely observed failure of frontier models, but it is an active research concern because *the measurement instrument can be adversarial to the measurement*.
+
+Other persistent obstacles:
+
+- **Contamination**: the model has seen the test set during pretraining. Frontier corpora are large enough that explicit decontamination is nontrivial, and "near-duplicates" are common.
+- **Prompt sensitivity**: small prompting changes shift scores by amounts comparable to the differences between models being compared.
+- **Reproducibility**: many benchmarks have nondeterministic scoring (LLM-as-judge), small sample sizes, or version drift in the underlying API.
+- **Construct validity**: it is rarely clear that scoring well on benchmark X reflects the *capability* the benchmark was designed to test, rather than a correlated artifact.
+
+## Agentic evaluation
+
+The hardest current frontier. Evaluating an agent, an LLM in a tool-using, multi-step loop, requires tasks where success is checkable, trajectories vary widely between runs, and the cost-per-trial can be high. **SWE-Bench**, **GAIA**, and a growing suite of agentic benchmarks have tried to operationalize this. The honest assessment is that agentic eval is the part of the field that is moving fastest, settling least, and where the gap between "model can do task in some run" and "model reliably does task" is largest.
+
+## Statistical guardrails
+
+A theme borrowed from the [interpretability dive](interpretability.qmd)'s warnings about dead salmons: any high-dimensional measurement system can produce spurious signal under loose statistical practice. Frontier evaluations are especially vulnerable because they tend to have small sample sizes (terminal-difficulty benchmarks may have only hundreds of problems), expensive trials (long agentic rollouts), and noisy scorers (LLM judges). Confidence intervals, multiple-comparisons corrections, and explicit power calculations are still not the default in eval papers and probably should be.
+
+## Meta-comments on the field
+
+Like interpretability, evaluation is **always debatable**, and for structurally similar reasons:
+
+- The thing being measured ("capability") is not directly observable; it is inferred from behavior under a chosen elicitation regime.
+- Multiple, mutually-inconsistent eval results on "the same" capability can coexist, because the underlying methodology and scaffolding differ.
+- The field has burned through "now we measure it" moments (MMLU, GSM8K, HumanEval) and will burn through more.
+- What counts as having "evaluated" a model is still being negotiated.
+
+For the science-of-DL framing, the implication is direct: evaluations are *experimental apparatus*, not scoreboards. A physicist reading benchmark numbers should ask the questions a physicist asks of any instrument, what is its resolution, its noise floor, its systematic biases, its calibration regime, before believing what it says.
+
+## Where to go next
+
+Active reading paths:
+
+- METR, Apollo Research, and other evaluation-focused organizations for the current methodology of capability elicitation.
+- Frontier-lab system cards (Anthropic, OpenAI, DeepMind) for the operational shape of dangerous-capability evals.
+- The recent agentic-benchmark literature (SWE-Bench, GAIA, and successors) for the state of evaluating LLMs-as-agents.
+- The benchmark-contamination and prompt-sensitivity literature for the statistical hygiene side.
+
+If [Chapter 6](../chapters/06_llm_posttraining.qmd) left you wanting to know what "evals" actually means in practice, and how the field came to treat them as instruments rather than scoreboards, this chapter is a sketch of where that conversation lives.

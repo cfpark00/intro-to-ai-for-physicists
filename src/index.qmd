@@ -31,6 +31,7 @@ number-sections: false
   <a class="toc-tile" href="deep_dives/data_centric.html"><span class="toc-icon"><i class="bi bi-database"></i></span><span class="toc-title">Data-centric ML</span></a>
   <a class="toc-tile" href="deep_dives/multimodal.html"><span class="toc-icon"><i class="bi bi-collection-play"></i></span><span class="toc-title">Multimodal</span></a>
   <a class="toc-tile" href="deep_dives/interpretability.html"><span class="toc-icon"><i class="bi bi-search"></i></span><span class="toc-title">Interpretability</span></a>
+  <a class="toc-tile" href="deep_dives/ai_evaluation.html"><span class="toc-icon"><i class="bi bi-clipboard-data"></i></span><span class="toc-title">AI evaluation</span></a>
   <a class="toc-tile" href="deep_dives/theory.html"><span class="toc-icon"><i class="bi bi-rulers"></i></span><span class="toc-title">Theory</span></a>
   <a class="toc-tile" href="deep_dives/bayesian_mcmc.html"><span class="toc-icon"><i class="bi bi-dice-5"></i></span><span class="toc-title">Bayesian &amp; MCMC</span></a>
   <a class="toc-tile" href="deep_dives/classical_ml.html"><span class="toc-icon"><i class="bi bi-archive"></i></span><span class="toc-title">Classical ML</span></a>

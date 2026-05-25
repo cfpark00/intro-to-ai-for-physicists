@@ -40,6 +40,16 @@
     ]
   },
   {
+    "objectID": "index.html#on-homework-and-solutions",
+    "href": "index.html#on-homework-and-solutions",
+    "title": "Intro to AI for Physicists",
+    "section": "On homework and solutions",
+    "text": "On homework and solutions\nA note on the homework, since this often becomes a fraught topic in 2026.\nEach chapter has accompanying homework. Each piece of homework also has a reference solution, and the solutions are not hidden, gated, or held back. They live in plain sight in the code/&lt;chapter&gt;/solutions/ directories of the repository, with the same accessibility as the prompts.\nThere are two reasons. First, in the age of capable generative AI, every solution to every interesting homework problem is effectively addressable anyway — pretending otherwise is theater. Second, and more important: the homework is for you. Whether you learn from it depends on what you decide to do with it. Some readers learn best by struggling with a problem until it cracks; some learn best by reading a clean solution carefully and then doing variations of it; some learn best by alternating. All of these are legitimate. The book is not policing your study habits.\nSo: feel free to look at the solutions. Feel free to ignore them. Feel free to work the problems with whatever combination of self-effort, AI assistance, and reference-checking gets you to actually understanding the material. That is the only thing that matters.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>0  Preface</span>"
+    ]
+  },
+  {
     "objectID": "index.html#source-and-contributions",
     "href": "index.html#source-and-contributions",
     "title": "Intro to AI for Physicists",

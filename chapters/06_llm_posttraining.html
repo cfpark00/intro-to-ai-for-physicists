@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>7&nbsp; Large language models II: post-training and agents – Intro to AI for Physicists</title>
+<title>6 Large language models II: post-training and agents – Intro to AI for Physicists</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -316,7 +316,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/06_llm_posttraining.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Large language models II: post-training and agents</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/06_llm_posttraining.html"><span class="chapter-title">6 Large language models II: post-training and agents</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -347,86 +347,72 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Preface</span></span></a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">0 Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/01_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  <a href="../chapters/01_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1 Introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/02_image_classification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Neural networks and image classification</span></span></a>
+  <a href="../chapters/02_image_classification.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">2 Neural networks and image classification</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/03_sequence_modeling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sequence modeling</span></span></a>
+  <a href="../chapters/03_sequence_modeling.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">3 Sequence modeling</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/04_transformers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Transformers</span></span></a>
+  <a href="../chapters/04_transformers.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">4 Transformers</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/05_llm_pretraining.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Large language models I: pretraining and fine-tuning</span></span></a>
+  <a href="../chapters/05_llm_pretraining.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">5 Large language models I: pretraining and fine-tuning</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/06_llm_posttraining.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Large language models II: post-training and agents</span></span></a>
+  <a href="../chapters/06_llm_posttraining.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">6 Large language models II: post-training and agents</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/07_scidl_training.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Science of deep learning I: training dynamics</span></span></a>
+  <a href="../chapters/07_scidl_training.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">7 Science of deep learning I: training dynamics</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/08_diffusion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Diffusion models</span></span></a>
+  <a href="../chapters/08_diffusion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">8 Diffusion models</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/09_rl.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Reinforcement learning</span></span></a>
+  <a href="../chapters/09_rl.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">9 Reinforcement learning</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/10_world_models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">World models</span></span></a>
+  <a href="../chapters/10_world_models.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">10 World models and continual learning</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/11_scidl_concepts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Science of deep learning II: concept learning</span></span></a>
+  <a href="../chapters/11_scidl_concepts.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">11 Science of deep learning II: concept learning</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/12_intelligence.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Science of intelligence</span></span></a>
+  <a href="../chapters/12_intelligence.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">12 Science of intelligence</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">References</span></span></a>
+  <a href="../references.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">References</span></a>
   </div>
 </li>
     </ul>
@@ -439,13 +425,13 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#post-training-methods" id="toc-post-training-methods" class="nav-link active" data-scroll-target="#post-training-methods"><span class="header-section-number">7.1</span> Post-training methods</a></li>
-  <li><a href="#reasoning-and-inference-time-compute" id="toc-reasoning-and-inference-time-compute" class="nav-link" data-scroll-target="#reasoning-and-inference-time-compute"><span class="header-section-number">7.2</span> Reasoning and inference-time compute</a></li>
-  <li><a href="#agents-and-tool-use" id="toc-agents-and-tool-use" class="nav-link" data-scroll-target="#agents-and-tool-use"><span class="header-section-number">7.3</span> Agents and tool use</a></li>
-  <li><a href="#rag-retrieval-augmented-generation" id="toc-rag-retrieval-augmented-generation" class="nav-link" data-scroll-target="#rag-retrieval-augmented-generation"><span class="header-section-number">7.4</span> RAG — retrieval-augmented generation</a></li>
-  <li><a href="#evals" id="toc-evals" class="nav-link" data-scroll-target="#evals"><span class="header-section-number">7.5</span> Evals</a></li>
-  <li><a href="#vision-language-and-omni-models-briefly" id="toc-vision-language-and-omni-models-briefly" class="nav-link" data-scroll-target="#vision-language-and-omni-models-briefly"><span class="header-section-number">7.6</span> Vision-language and omni-models, briefly</a></li>
-  <li><a href="#where-this-chapter-sits" id="toc-where-this-chapter-sits" class="nav-link" data-scroll-target="#where-this-chapter-sits"><span class="header-section-number">7.7</span> Where this chapter sits</a></li>
+  <li><a href="#post-training-methods" id="toc-post-training-methods" class="nav-link active" data-scroll-target="#post-training-methods">Post-training methods</a></li>
+  <li><a href="#reasoning-and-inference-time-compute" id="toc-reasoning-and-inference-time-compute" class="nav-link" data-scroll-target="#reasoning-and-inference-time-compute">Reasoning and inference-time compute</a></li>
+  <li><a href="#agents-and-tool-use" id="toc-agents-and-tool-use" class="nav-link" data-scroll-target="#agents-and-tool-use">Agents and tool use</a></li>
+  <li><a href="#rag-retrieval-augmented-generation" id="toc-rag-retrieval-augmented-generation" class="nav-link" data-scroll-target="#rag-retrieval-augmented-generation">RAG — retrieval-augmented generation</a></li>
+  <li><a href="#evals" id="toc-evals" class="nav-link" data-scroll-target="#evals">Evals</a></li>
+  <li><a href="#vision-language-and-omni-models-briefly" id="toc-vision-language-and-omni-models-briefly" class="nav-link" data-scroll-target="#vision-language-and-omni-models-briefly">Vision-language and omni-models, briefly</a></li>
+  <li><a href="#where-this-chapter-sits" id="toc-where-this-chapter-sits" class="nav-link" data-scroll-target="#where-this-chapter-sits">Where this chapter sits</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -455,7 +441,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Large language models II: post-training and agents</span></h1>
+<h1 class="title"><span class="chapter-title">6 Large language models II: post-training and agents</span></h1>
 </div>
 
 
@@ -475,8 +461,8 @@ window.Quarto = {
 <p>The previous chapter ended with a fine-tuned base model — capable, adapted to some task, and still not quite what gets shipped. The gap between “fine-tuned base model” and “production assistant / reasoning system / agent” is the territory of <strong>post-training</strong>: reward modeling, preference optimization, reasoning training, and the orchestration moves that turn a language model into a system that actually does things.</p>
 <p>A small honest framing point first. The phrase “RL post-training” is everywhere in modern LLM discussion, and it does some genuine work, but it is also a little misleading. <strong>RLHF is not really RL in the sense <a href="../chapters/09_rl.html">Chapter 9</a> cares about.</strong> It is, mechanically, a reward model plus what amounts to weighted supervised fine-tuning. The author’s blunt summary, kept here verbatim: <em>RLHF is meh — it’s reward model and just weighted SFT, kinda.</em> The genuinely hard problems of RL — credit assignment over long horizons, sparse reward, exploration vs.&nbsp;exploitation, the data-distribution-shifts-as-the-policy-shifts feedback loop — show up only mildly here. They get full treatment when we do real RL in Chapter 9.</p>
 <p>This chapter covers what does show up: the post-training methods, the reasoning paradigm, agents, RAG, and evals.</p>
-<section id="post-training-methods" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="post-training-methods"><span class="header-section-number">7.1</span> Post-training methods</h2>
+<section id="post-training-methods" class="level2">
+<h2 class="anchored" data-anchor-id="post-training-methods">Post-training methods</h2>
 <p><strong>RLHF — reinforcement learning from human feedback</strong> <span class="citation" data-cites="ouyang2022instructgpt">(<a href="../references.html#ref-ouyang2022instructgpt" role="doc-biblioref"><span class="nocase">Ouyang et al.</span> 2022</a>)</span>. The standard recipe has three pieces:</p>
 <ol type="1">
 <li>Collect human preference data — pairs of model outputs <span class="math inline">(y_a, y_b)</span> for the same prompt, with humans labeling which they prefer.</li>
@@ -493,8 +479,8 @@ window.Quarto = {
 <p><strong>Distillation in post-training.</strong> Two flavors. <strong>Context distillation</strong> trains a model to produce outputs that match what it would produce <em>with</em> an elaborate system prompt — folding the prompt’s behavior into the weights. <strong>On-policy distillation</strong> uses the policy’s own rollouts to train a smaller student model. Both are practical moves that show up in deployment.</p>
 <p><strong>Calibration.</strong> A trained LLM produces probability distributions over tokens. Whether those probabilities are <em>calibrated</em> — whether “the model is 70% sure of X” actually corresponds to 70% accuracy in the limit — is a separate question. Calibration matters when the LLM’s outputs are consumed by downstream decision systems. Post-training can both improve and worsen calibration, and there is interesting phenomenology about what RLHF does to calibration (typically: it makes the model more confident, sometimes overconfidently so).</p>
 </section>
-<section id="reasoning-and-inference-time-compute" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="reasoning-and-inference-time-compute"><span class="header-section-number">7.2</span> Reasoning and inference-time compute</h2>
+<section id="reasoning-and-inference-time-compute" class="level2">
+<h2 class="anchored" data-anchor-id="reasoning-and-inference-time-compute">Reasoning and inference-time compute</h2>
 <p>The most consequential recent shift in how LLMs are used is <strong>inference-time compute</strong>: letting the model spend more wall-clock time on harder problems by generating long internal chains of thought before answering.</p>
 <p><strong>Chain of thought (CoT).</strong> Originally a prompting trick: “let’s think step by step” elicits better performance on multi-step problems. The model generates intermediate reasoning, then a final answer. This works because the model’s compute per token is fixed; spending more tokens on a problem gives it more compute to work with.</p>
 <p><strong>System 1 vs System 2.</strong> A useful framing borrowed from cognitive science. <em>System 1</em> is fast, automatic, pattern-matched — what a base LLM does when it answers in one shot. <em>System 2</em> is slow, deliberate, multi-step — what a CoT-style rollout looks like. The recent push has been to make models reliably good at System 2 by training them to do it well, not just by prompting them.</p>
@@ -512,8 +498,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="agents-and-tool-use" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="agents-and-tool-use"><span class="header-section-number">7.3</span> Agents and tool use</h2>
+<section id="agents-and-tool-use" class="level2">
+<h2 class="anchored" data-anchor-id="agents-and-tool-use">Agents and tool use</h2>
 <p>The shift from “language model in a box” to “language model that does things” is the <strong>agent</strong> paradigm. An LLM agent is a system that, given a goal, repeatedly takes actions — calling external tools, reading the results, planning next steps, and continuing — until the goal is achieved or it gives up.</p>
 <p>The key components, mechanically:</p>
 <ul>
@@ -524,14 +510,14 @@ window.Quarto = {
 <p>Agents are where the limitations of post-trained LLMs become most visible. The model that does fine at single-turn QA can compound errors over multi-step trajectories — a wrong tool call early on leads to wrong context, leads to wrong subsequent reasoning, leads to a stuck or hallucinating trajectory. <strong>Reliability is the bottleneck</strong>, and the evaluation problem is harder than for single-turn tasks because agent trajectories vary enormously.</p>
 <p>The honest assessment in 2026 is that agents work better than they did a year ago, are still surprisingly brittle for long-horizon tasks, and are an active research area where the science (how do you measure agentic competence? what does training for it look like?) is moving faster than the engineering.</p>
 </section>
-<section id="rag-retrieval-augmented-generation" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="rag-retrieval-augmented-generation"><span class="header-section-number">7.4</span> RAG — retrieval-augmented generation</h2>
+<section id="rag-retrieval-augmented-generation" class="level2">
+<h2 class="anchored" data-anchor-id="rag-retrieval-augmented-generation">RAG — retrieval-augmented generation</h2>
 <p>The other key move in deployed systems is <strong>retrieval-augmented generation (RAG)</strong>: instead of relying solely on what is encoded in the model’s weights, you retrieve relevant documents from an external corpus and put them in the context window before generating.</p>
 <p>The motivation is simple. Context windows are finite; world knowledge is large; the world keeps changing after training cutoff. Retrieval lets you bring in <em>just</em> the parts of a large corpus that are relevant to the current query, on demand. The retriever can be as simple as a TF-IDF search or as fancy as a dense vector store with learned embeddings.</p>
 <p>RAG has obvious appeal and real limitations. It works well when the retriever can find the right document. It fails when the right document does not exist, when the retriever surfaces the wrong document, or when the answer requires integrating across many documents in a way that does not fit in the context window. The “RAG vs.&nbsp;long-context-models” debate is currently being resolved by hybrids — retrieval is still useful even when context windows grow.</p>
 </section>
-<section id="evals" class="level2" data-number="7.5">
-<h2 data-number="7.5" class="anchored" data-anchor-id="evals"><span class="header-section-number">7.5</span> Evals</h2>
+<section id="evals" class="level2">
+<h2 class="anchored" data-anchor-id="evals">Evals</h2>
 <p>How do you measure a modern LLM? A few honest observations:</p>
 <ul>
 <li><strong>Benchmarks saturate.</strong> Tasks that were considered hard a few years ago are now near-ceiling for frontier models, which means they no longer differentiate. The field is in a constant arms race to construct new evaluations.</li>
@@ -540,13 +526,13 @@ window.Quarto = {
 </ul>
 <p>For the science-of-DL framing, the lesson is to be skeptical of benchmark numbers as proxies for capability and to look for the <em>phenomena</em> underneath — what the model does and does not do, what it gets right and wrong, what the failure modes look like. This is the move from “scoreboard science” to model-organism science.</p>
 </section>
-<section id="vision-language-and-omni-models-briefly" class="level2" data-number="7.6">
-<h2 data-number="7.6" class="anchored" data-anchor-id="vision-language-and-omni-models-briefly"><span class="header-section-number">7.6</span> Vision-language and omni-models, briefly</h2>
+<section id="vision-language-and-omni-models-briefly" class="level2">
+<h2 class="anchored" data-anchor-id="vision-language-and-omni-models-briefly">Vision-language and omni-models, briefly</h2>
 <p>A growing fraction of frontier models are not language-only. <strong>Vision-language models (VLMs)</strong> consume images alongside text; <strong>omni-models</strong> consume images, audio, video, and text. The pretraining usually involves a contrastive or generative objective on aligned multimodal data, after which the model can take mixed-modality inputs.</p>
 <p>For a science-of-DL chapter, the interesting question is not “can VLMs see” — they can — but rather <em>what their internal representations look like</em> and <em>whether they inherit structure from the human data that produced their training corpora</em>. This is a recurring theme that surfaces again in <a href="../chapters/11_scidl_concepts.html">Chapter 11</a>, which discusses human priors and includes the author’s <em>Vision Language Models Inherit Human Color Perception</em> (ICLR 2026 workshop) as an example.</p>
 </section>
-<section id="where-this-chapter-sits" class="level2" data-number="7.7">
-<h2 data-number="7.7" class="anchored" data-anchor-id="where-this-chapter-sits"><span class="header-section-number">7.7</span> Where this chapter sits</h2>
+<section id="where-this-chapter-sits" class="level2">
+<h2 class="anchored" data-anchor-id="where-this-chapter-sits">Where this chapter sits</h2>
 <p>The chapter has been the most “what people actually ship” of the book so far. The risk in writing it is becoming a survey of product features at frontier labs. The frame we tried to keep was: <em>what is scientifically known about post-training, and what is just engineering practice that has become standard?</em></p>
 <p>Two things to carry forward. First, post-training is <em>not</em> the deep RL of <a href="../chapters/09_rl.html">Chapter 9</a>; much of it is supervised-with-extra-steps, and saying so is more honest than the marketing. Second, inference-time compute and RL-for-reasoning are the active research frontier, and the science there — what these training procedures actually do to the model — is genuinely interesting and partially open. That science is the bridge into <a href="../chapters/07_scidl_training.html">Chapter 7</a>, where we step back and look at training-dynamics phenomena as proper objects of study.</p>
 
@@ -985,13 +971,13 @@ Schulman, John, Filip Wolski, Prafulla Dhariwal, Alec Radford, and Oleg Klimov. 
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/05_llm_pretraining.html" class="pagination-link" aria-label="Large language models I: pretraining and fine-tuning">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Large language models I: pretraining and fine-tuning</span></span>
+      <a href="../chapters/05_llm_pretraining.html" class="pagination-link" aria-label="5  Large language models I: pretraining and fine-tuning">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">5 Large language models I: pretraining and fine-tuning</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/07_scidl_training.html" class="pagination-link" aria-label="Science of deep learning I: training dynamics">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Science of deep learning I: training dynamics</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/07_scidl_training.html" class="pagination-link" aria-label="7  Science of deep learning I: training dynamics">
+        <span class="nav-page-text"><span class="chapter-title">7 Science of deep learning I: training dynamics</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

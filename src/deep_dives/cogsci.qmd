@@ -1,0 +1,52 @@
+---
+title: "Deep Dive: Cognitive science"
+number-sections: false
+---
+
+**Cognitive science** is the interdisciplinary field that studies how minds work — biological, artificial, or otherwise. It draws on psychology, linguistics, philosophy, neuroscience, and AI, and it has been a productive intellectual partner of deep learning research since both fields existed. [Chapter 11](../chapters/11_scidl_concepts.qmd) gestured at the connection; this chapter is the launching point into the field itself.
+
+## Why this matters for someone reading a DL textbook
+
+A few honest reasons cognitive science is worth knowing about as a deep-learning reader:
+
+- **Concepts of mind have long histories.** Many of the words that show up in modern AI papers — *attention*, *memory*, *representation*, *concept*, *compositionality*, *abstraction*, *theory of mind* — have long technical histories in cognitive science, with established usages and known disagreements. Using them without context risks miscommunicating with adjacent fields.
+- **Humans are an existence proof.** Whenever the AI community asks "can a learning system do X?", there is at least one species (us) that does X. Studying *how* humans do X is the most efficient way to surface what the structural requirements might be.
+- **Methodology transfer.** Cognitive science has spent decades developing techniques for probing mental processes from behavioral evidence — reaction-time studies, eye tracking, controlled experimental design, careful operationalization of fuzzy constructs. Some of this transfers to the study of trained ANNs, where the system is again behaviorally accessible and internally opaque.
+
+## What the field studies
+
+A non-exhaustive map:
+
+**Concept formation and development.** How do humans acquire concepts? Children acquire object permanence, then categories, then more abstract concepts in fairly characteristic developmental sequences. The cognitive-developmental tradition (Piaget, Carey, Spelke, Gopnik) has documented this carefully and produced specific theoretical proposals about the mechanisms involved. The questions they ask — "what is innately specified vs. learned from data?" — are structurally similar to the questions deep learning asks about inductive bias.
+
+**Language acquisition.** Why do children learn languages so fast and so robustly? What is the role of innate priors (the Chomskyan tradition) vs. statistical regularities of the input (the empiricist tradition)? Recent LLMs have made this debate live again — a system that has none of the cognitive scaffolding children have but learns language very well from data is a data point worth taking seriously, even if it does not settle the debate.
+
+**Reasoning and decision-making.** The classical literature on heuristics and biases (Tversky and Kahneman), the dual-process framing (System 1 / System 2), the literature on bounded rationality. These give the field an empirical vocabulary for *what reasoning actually looks like* under realistic conditions — which is more useful for AI work than the idealized logical-reasoning picture often imported from philosophy.
+
+**Theory of mind and social cognition.** How do humans model other agents' beliefs, intentions, and goals? Developmental work has carefully mapped *when* children acquire theory-of-mind capacities and *how* it varies across populations. As [Chapter 10](../chapters/10_world_models.qmd) noted, theory of mind is structurally a world-modeling problem, and the cognitive-science literature on it is directly relevant to the AI version.
+
+**Categorization, similarity, and conceptual structure.** The structure of human conceptual knowledge — prototype theory, exemplar theory, theory-theory of concepts — has technical content beyond the surface-level "humans have categories" framing.
+
+**Human priors and inductive biases.** What humans come pre-loaded with — geometric intuitions, object-tracking abilities, intuitive physics, agency detection. These show up directly in the AI context whenever we ask what a model should "have" to learn things efficiently.
+
+## Where cognitive science and AI feed each other
+
+The relationship is genuinely bidirectional:
+
+- **Cogsci → AI.** Insights about human learning have inspired architectures (e.g., relational reasoning, modular networks), training procedures (e.g., curriculum learning), and inductive-bias design.
+- **AI → Cogsci.** Trained ANNs are now used *as* models in cognitive science — sometimes as null models (what could a generic learner do?), sometimes as positive proposals about how a particular cognitive capacity might be implemented. The growing use of LLMs as models of language processing is one current example.
+
+The interface is also where some of the messiest debates live (does an LLM "understand" language? does a network with theory-of-mind-style behavior have theory of mind?). Both fields are still figuring out how to talk to each other carefully about these questions.
+
+## What this chapter is gesturing at
+
+Cognitive science is what you study if you want to take seriously the question of *what kinds of computations minds do*. Deep learning is studying one instance of a mind-like system; cognitive science is studying many, with a more developed methodology. Anyone working at the frontier of AI is well-served by knowing what cogsci has already established.
+
+## Where to go next
+
+- A graduate-level introduction to cognitive science (multiple solid textbook options exist).
+- The developmental psychology literature on concept and language acquisition.
+- The judgment-and-decision-making literature (Tversky, Kahneman, and successors).
+- The newer "neuroAI" and "computational cognitive science" lines, which sit explicitly at the interface.
+
+If you finished the main spine wondering what was happening *underneath* the philosophical-sounding language about concepts and reasoning, this chapter is the pointer.

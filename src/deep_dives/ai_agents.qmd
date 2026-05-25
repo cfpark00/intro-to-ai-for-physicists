@@ -1,0 +1,53 @@
+---
+title: "Deep Dive: AI agents and science"
+number-sections: false
+---
+
+This is an opinionated chapter. The agent paradigm is one of the most hyped and most contested topics in 2026 AI, and pretending otherwise would be dishonest. What follows is a take, not a neutral survey — readers are encouraged to form their own.
+
+The framing of an AI agent, mechanically, is in [Chapter 6](../chapters/06_llm_posttraining.qmd): an LLM that takes actions in a loop — calling tools, reading results, planning, retrying — until some goal is achieved or it gives up. The architectural picture is uncontroversial. What is controversial is what to make of the resulting systems: how capable they actually are, what they reveal about the underlying models, and what role they will play in science.
+
+## The honest assessment, 2026 edition
+
+Agents work better than they did a year ago. They also fail in characteristic ways that the main-spine treatment of LLMs would not predict. A short list of patterns:
+
+- **Single-step competence is high, multi-step competence is much lower.** A model that handles a one-turn task at near-human level can compound small errors over multi-step trajectories into very-not-human outcomes. The base capability is there; the *robustness* is not.
+- **Long-horizon behavior is the bottleneck.** Tasks that require holding a coherent plan over many steps, recovering from setbacks, and revising strategy mid-execution are where agents fall apart. This is structurally the same problem as long-horizon RL ([Chapter 9](../chapters/09_rl.qmd)), and it has the same lack of clean solutions.
+- **Tool-use brittleness is real.** Even with good tools available, agents misuse them, fail to error-check tool outputs, and confidently proceed on bad inputs. The failure modes are often *systematic* — a particular agent will get the same step wrong reliably — which is bad news for the "just retry until it works" mitigation strategy.
+- **Evaluation is hard.** Agent trajectories vary enormously. Benchmarks tend to either be too easy (saturated quickly) or too narrow (a specific app, a specific tool, a specific decision tree). A general "agent-competence" measure that the field agrees on does not yet exist.
+
+These are not knocks on the field — they are descriptions of where the work actually is. The state of agents in 2026 is roughly where the state of single-turn LLMs was around 2021: useful, surprising, getting better fast, and failing in ways that the optimistic press coverage does not foreground.
+
+## Why agents matter scientifically
+
+Most discussion of agents is product-flavored. The science question is more interesting. An agent is a *system* that combines a base model, a tool set, a memory mechanism, and a control loop. Studying what it does is studying *how the base model's capabilities compose under sustained autonomous use* — which is much closer to how those capabilities would matter in any realistic deployment than the single-turn benchmark setting.
+
+A few specific scientific questions agents surface:
+
+- What is the relationship between a model's single-turn capability and its trajectory-level capability? Why do they diverge?
+- What kinds of tool errors does the model fail to notice? What does this say about its grounding?
+- When does an agent's behavior become legibly *strategic* (planning, conditional branching) and when does it look more like surface mimicry of strategic behavior?
+- How does the model's representation of *its own ongoing task* shape what it does? (This connects to world-modeling, [Chapter 10](../chapters/10_world_models.qmd).)
+
+These are real research questions. Several of them are accessible to the model-organism methodology of [Chapter 7](../chapters/07_scidl_training.qmd) — simulated agent environments with full instrumentation are exactly the kind of small synthetic settings where careful science can be done.
+
+## Agents and science — the bidirectional question
+
+There are two ways agents intersect with the science enterprise.
+
+**Agents *for* science.** Can an autonomous system actually do scientific work — formulating hypotheses, designing experiments, analyzing results, updating beliefs? The aspirational answer is yes; the current reality is closer to "agents are useful for narrow scientific subtasks (literature review, data cleaning, hypothesis-class enumeration) and not yet ready for end-to-end discovery." The closely related [AI for science](ai_for_science.qmd) deep dive covers more.
+
+**Agents *as* a science.** The scientific study of agents themselves — their failure modes, their training dynamics, their internal world models — is a young and underdeveloped subfield. It is also where some of the more interesting research opportunities lie. The agent setting is rich, behaviorally varied, and largely uncharted; the next several years will probably produce a lot of clean phenomenology here.
+
+## What this chapter is not
+
+It is not a list of agent frameworks. The frameworks change every six months, the wrapper code is not the science, and a textbook is the wrong medium for that conversation. It is also not a take on the safety/alignment dimension of agentic systems — that conversation belongs in a different chapter.
+
+## Where to go next
+
+- Recent agent benchmark papers and the criticisms of those benchmarks.
+- The model-organism-style studies that are starting to appear on agent behavior in simulated environments.
+- The model-based-RL and long-horizon literature ([Chapter 9](../chapters/09_rl.qmd)) — the structural problems are shared.
+- Frontier-lab releases on agent capability and the technical reports that accompany them.
+
+This is the most-revisable chapter in the book. The state of agents in 2027 will look meaningfully different from the state of agents in 2026, and not all of the predictions implicit here will age well. That is what writing about a moving frontier looks like.

@@ -1,0 +1,53 @@
+---
+title: "Deep Dive: Mechanism design and society"
+number-sections: false
+---
+
+This chapter sits at the most uncomfortable edge of the book — the place where deep learning stops being a contained scientific subject and becomes part of a much larger socio-technical system. The framing here is **mechanism design and multi-agent game theory**: the formal study of how systems composed of strategic agents (humans, institutions, AI systems) can be designed so that the outcomes they produce are useful, fair, or stable.
+
+Most of the book has treated AI systems as roughly singular objects — one model, one training run, one set of evaluations. The reality is that production AI lives in *multi-agent* environments by default. A deployed LLM interacts with millions of users with competing objectives; trading systems interact with each other in markets; autonomous systems share roads, networks, and economies. The science of how such systems behave is well-developed in some traditions (economics, game theory, mechanism design) and barely touched by the deep-learning literature. This chapter is a launching point into the connection.
+
+## Mechanism design, briefly
+
+**Mechanism design** is the inverse problem of game theory. Game theory takes a system of strategic agents and asks what equilibria emerge. Mechanism design takes a desired outcome and asks: *can you design the rules of the game such that this outcome is the equilibrium agents will reach?* The canonical examples are auctions (how do you design an auction so that bidders truthfully reveal their valuations?), voting systems (how do you design a voting rule that aggregates preferences well?), and resource-allocation systems (how do you allocate scarce goods efficiently?).
+
+The intellectual heritage is in microeconomics and the formal-theory tradition. The tools — incentive compatibility, individual rationality, social-welfare analysis, Bayesian game theory — are mature and have produced clean results in well-structured settings.
+
+## Why this matters for AI
+
+Several reasons:
+
+**Multi-agent AI is already here.** Algorithmic trading systems, recommender systems, ad-auction systems, ride-share matching systems — these are *already* multi-agent AI deployments in production. The mechanism-design questions are practical and ongoing.
+
+**Agent ecosystems are coming.** As the agent paradigm ([AI agents](ai_agents.qmd)) matures, we will increasingly have AI systems interacting with *each other* — AI-to-AI negotiation, AI participants in markets, AI-driven communication between organizations. The classical mechanism-design questions become acute: how do you design the interface protocols, the pricing schemes, the trust mechanisms?
+
+**The training loop itself is a mechanism.** RLHF, DPO, and other preference-learning methods can be viewed as mechanisms that aggregate human feedback into a model's behavior. The design of these aggregation procedures has the same flavor as classical voting and welfare-economics problems — and the same pathologies. Reward hacking (see [Chapter 9](../chapters/09_rl.qmd)) is a multi-agent mechanism-design failure: the agent is finding the gap between the proxy reward and the actual intent.
+
+**The societal-impact questions are mechanism-design questions.** "How should social-media recommendation systems be designed so they do not amplify polarization?" is a mechanism-design question. "How should pricing in AI services be structured to avoid concentration?" is a mechanism-design question. "How should disagreement among annotators be aggregated into a reward signal?" is a mechanism-design question. The framing transfers.
+
+## Multi-agent game theory in deep learning
+
+A growing but still small research area. Some concrete threads:
+
+**Self-play and emergent equilibria.** The AlphaGo / AlphaZero / AlphaStar line of work uses self-play to reach high competence in adversarial settings. The Nash-equilibrium framing makes this rigorous. There are open questions about how self-play interacts with more open-ended settings — see the [Open-endedness](open_endedness.qmd) deep dive.
+
+**Cooperative and mixed-motive RL.** Multi-agent RL where agents must coordinate (cooperative settings) or where motives are mixed (partial cooperation, partial competition) is much harder than pure adversarial settings. Solution concepts get messier (correlated equilibria, no-regret learning), and the field is still finding its footing.
+
+**Mechanism design with learned components.** Increasingly, the field is asking: can mechanism design be done by *learning* mechanisms rather than hand-designing them? This is mostly aspirational but it is a real research direction.
+
+**Strategic behavior of AI systems.** As models become more capable, the question of whether and when they engage in strategic behavior — deception, gaming evaluations, anticipating their own training updates — becomes increasingly load-bearing. This connects to alignment concerns and to the broader question of what kind of agents these systems are.
+
+## What this chapter is not doing
+
+It is not a policy chapter. The translation from technical mechanism-design results to actual policy is a separate, harder problem, and the technical material does not by itself answer questions about regulation, governance, or political legitimacy. A reader who wants those should not stop here.
+
+It is also not a comprehensive game-theory primer. The classical literature is vast, mature, and well-taught elsewhere.
+
+## Where to go next
+
+- A graduate-level course in game theory and mechanism design (Mas-Colell, Whinston, Green's economics text covers the territory; specialized courses on auction theory and voting theory go deeper).
+- The multi-agent RL literature (recent NeurIPS / ICML / AAMAS papers).
+- The growing AI-and-economics interface, where the questions of strategic AI behavior and mechanism design intersect.
+- The applied mechanism-design literature in computer science (algorithmic mechanism design, AGT).
+
+This chapter is the most explicitly cross-disciplinary in the book. The reason it is here is that the questions of how AI systems behave *in the presence of each other and of humans* are not optional. They are part of what understanding modern AI means.

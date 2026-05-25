@@ -1,5 +1,5 @@
 ---
-title: "Classical machine learning"
+title: "Deep Dive: Classical machine learning"
 number-sections: false
 ---
 

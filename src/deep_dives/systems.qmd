@@ -1,45 +1,70 @@
 ---
-title: "Systems and infrastructure for deep learning"
+title: "Deep Dive: Systems and infrastructure for deep learning"
 number-sections: false
 ---
 
-The main spine of this book treats training compute as a parameter and stops there. In practice, *making compute actually run* — efficiently, reliably, at scale — is a deep engineering field with its own research culture, its own conferences, and its own set of unsolved problems. Frontier models do not exist without it.
+The main spine of this book treats training compute, model size, and serving as parameters. In practice, *making compute actually run* — efficiently, reliably, at scale — is a deep engineering field with its own research culture, its own conferences, and its own set of unsolved problems. Frontier models do not exist without it.
 
-This chapter is a pointer to that field. It is deliberately separate from the science of deep learning because it is a different *kind* of work: systems engineering with ML-shaped problems, rather than science of the trained network.
+This chapter is a pointer into that field. It is deliberately separate from the science of deep learning because it is a different *kind* of work: systems engineering with ML-shaped problems, rather than science of the trained network. It is also the place where a serious fraction of recent capability gains actually came from.
 
-## What the field covers
+## Hardware
 
-Roughly four overlapping clusters:
+GPUs, TPUs, and increasingly diverse accelerators. The memory hierarchy (HBM, on-chip SRAM, register files) and what it costs to move tensors across it. The arithmetic intensity of attention, of MLP blocks, of convolutions. Why FlashAttention is a hardware-aware *algorithm* and not just a clever software optimization. The economics of frontier compute and how they constrain what experiments are possible.
 
-**Hardware.** GPUs, TPUs, and increasingly diverse accelerators. The memory hierarchy (HBM, on-chip SRAM, register files) and what it costs to move tensors across it. The arithmetic intensity of attention, of MLP blocks, of convolutions. Why FlashAttention is a hardware-aware algorithm and not just a clever software optimization. The economics of frontier compute and how they constrain what experiments are possible.
+The honest observation about hardware in 2026: the design space is still moving. Decisions that were defaults two years ago — about precision (FP16 vs. BF16 vs. FP8), about kernel implementations, about which accelerator vendor was the safe choice — have all shifted. The intellectual heritage is closer to high-performance computing and operating systems than to learning theory.
 
-**Parallelism and distributed training.** Data parallelism, tensor parallelism, pipeline parallelism, expert parallelism, fully-sharded data parallelism (FSDP). How communication primitives (all-reduce, all-gather, ring topologies) shape the design of large training runs. How parallelism strategies compose, and where they break down.
+## Parallelism and distributed training
 
-**Inference systems.** KV caches, continuous batching, speculative decoding, paged attention, request scheduling. Latency-vs-throughput tradeoffs. Quantization (INT8, INT4, FP8) and what it does to model quality. Serving infrastructure for millions of concurrent users.
+Data parallelism, tensor parallelism, pipeline parallelism, expert parallelism, fully-sharded data parallelism (FSDP). How communication primitives — all-reduce, all-gather, ring topologies — shape the design of large training runs. How parallelism strategies compose, and where they break down.
 
-**Data and training pipelines.** Petabyte-scale data ingestion, deduplication, quality filtering, mixture sampling. Checkpoint management. Failure recovery in multi-week, thousand-GPU runs. Observability for training (when has the loss diverged? when has a node failed silently?).
+A frontier-scale training run is, in practice, a *parallelism choice*. The same model can be trained with very different aggregate compute budgets and wall-clock times depending on how parallelism is configured, how communication overlaps with computation, and how robust the system is to inevitable node failures over a multi-week run.
+
+## Scaling laws, in practice
+
+The textbook scaling-law story from [Chapter 5](../chapters/05_llm_pretraining.qmd) is the Kaplan vs. Chinchilla arc. **Kaplan et al. (2020)** [@kaplan2020scaling] argued for a particular allocation of compute between model size and training tokens. **Hoffmann et al. (2022)** [@hoffmann2022chinchilla] — the Chinchilla paper — revised it: for a fixed compute budget, the *optimal* model is smaller and trained on more tokens than Kaplan suggested.
+
+What the textbook story understates is what has happened in practice since. Frontier production has moved *beyond* Chinchilla-optimal in a specific, deliberate direction: modern frontier models are often **over-trained** relative to the Chinchilla optimum — trained on far more tokens per parameter than the training-compute-optimal recipe would suggest. The reason is honest: training is a one-time cost, **inference is amortized over millions of deployed conversations**, and a smaller-but-more-trained model is cheaper to serve at comparable quality. The compute-optimal point for the *training run* is not the same as the cost-optimal point for the *deployed system*.
+
+Two important caveats:
+
+- **Overtraining is conditional on the data distribution.** Train more tokens on a fixed corpus and you start hitting repetition; the value of each marginal token drops. The "right" amount of overtraining depends on how much *high-quality* data you have, not just how many tokens. (See the [data-centric ML](data_centric.qmd) deep dive for more.)
+- **Post-trainability is another axis.** A heavily over-trained model can be more "rigid" in some senses — harder to nudge with subsequent SFT and RLHF, more committed to its pretraining distribution. There is a real tradeoff between pretraining capability and post-training malleability that is only partially understood.
+
+This is not a settled topic. The exact exponents and trade frontiers depend on the data mixture, the architecture details, and the post-training pipeline.
+
+## Inference and serving
+
+A trained model still has to be served — to handle requests, generate tokens, share compute across concurrent users. The serving stack is its own engineering discipline:
+
+- **KV cache** (covered briefly in [Chapter 4](../chapters/04_transformers.qmd)) is the central data structure. Managing it efficiently — paged allocation, prefix sharing, eviction strategies — is most of what high-performance LLM serving is about.
+- **Continuous batching** lets you mix in-flight requests at different stages of generation in the same batch, which is the difference between idle accelerators and saturated accelerators.
+- **Speculative decoding** uses a small draft model to propose multiple tokens that the large model verifies in parallel, gaining a multiplier on throughput when the draft is good.
+- **Quantization** (INT8, INT4, FP8 and friends) compresses weights and activations enough that bigger models fit on smaller hardware, at the cost of some quality.
+- **Request scheduling and prefill/decode separation** — managing the very different characteristics of the prefill phase (compute-bound, parallelizable) vs. the decode phase (memory-bound, sequential).
+
+Open-source serving systems like **vLLM** and **SGLang** have become standard practitioner reference points; the frontier-lab equivalents are proprietary but follow the same algorithmic ideas. The intellectual core of the field is in papers, the working knowledge is in the code.
+
+## Data and training pipelines
+
+Petabyte-scale data ingestion, deduplication, quality filtering, mixture sampling. Checkpoint management. Failure recovery in multi-week, thousand-GPU runs. Observability for training (when has the loss diverged? when has a node failed silently? when has the data loader stalled and nobody noticed?).
+
+The data-pipeline side is where engineering meets the data-centric story directly (see [Data-centric ML](data_centric.qmd) for the science). The decisions made in the data pipeline are some of the most consequential ones a frontier training run makes — often more consequential than architectural choices.
 
 ## Why this is its own field
 
-The skills required overlap with but do not reduce to ML skills. A strong ML systems engineer thinks in terms of memory bandwidth, network topology, kernel-launch overhead, and numerical-stability tradeoffs in low-precision arithmetic. The intellectual heritage is closer to high-performance computing and operating systems than to learning theory.
+The skills required overlap with, but do not reduce to, ML skills. A strong ML systems engineer thinks in terms of memory bandwidth, network topology, kernel-launch overhead, and numerical-stability tradeoffs in low-precision arithmetic. The work is also where a lot of frontier *capability* actually comes from. The reason a previously-untrainable model size becomes trainable is rarely a new architectural idea — it is usually a parallelism strategy, a kernel rewrite, a precision change, or an infrastructure tool that made the previously-impossible run.
 
-The work is also where a lot of *frontier capability* actually comes from. The reason a 100B-parameter model was trainable when a 10B one was previously the ceiling is rarely a new architectural idea — it is usually a parallelism strategy, a kernel rewrite, a precision change, or an infrastructure tool that made the previously-impossible run.
+This is not the same field as the science of deep learning. The science asks *what trained networks do*; the engineering asks *how to make them exist at all*. Both are necessary.
 
 ## What this chapter does not do
 
-Two things this chapter deliberately is not:
-
 It is **not** a recipe book. We do not show you how to set up a distributed training run, configure DeepSpeed or Megatron-LM, deploy a vLLM server, or pick the right number of pipeline stages for your model. Those are tutorial concerns and they age fast — the tools change every six months.
-
-It is **not** a science-of-DL chapter. We can ask scientifically interesting questions about *what trained networks do* without engaging with how they were trained at scale. The systems work is a precondition for frontier science, not the science itself.
 
 ## Where to go next
 
-Systems-for-ML is a field that mostly does not teach itself well through textbooks — the canonical references date quickly. Reasonable entry points:
-
 - The MLSys conference proceedings.
-- The high-performance computing and operating-systems literature, applied with ML in mind.
+- The high-performance-computing and operating-systems literature, applied with ML in mind.
 - Frontier-lab engineering blogs and technical reports (they are deeply technical, often more so than papers).
-- Open-source frameworks (PyTorch internals, JAX internals, Triton, CUDA programming) are themselves a curriculum.
+- Open-source frameworks (PyTorch internals, JAX internals, Triton, CUDA programming) — these are themselves a curriculum.
 
-If the science-of-DL chapters in this book convinced you the *interesting* questions in deep learning are scientific, the systems field will convince you that the *load-bearing* questions in frontier deep learning are equally engineering. Both views are correct, and both are necessary.
+If the main spine convinced you the *interesting* questions in deep learning are scientific, this chapter is a reminder that the *load-bearing* questions in frontier deep learning are equally engineering. Both views are correct, and both are necessary.

@@ -9,7 +9,9 @@ book:
   title: "Intro to AI for Physicists"
   favicon: assets/favicon.ico
   subtitle: "The science of deep learning, for physicists. Neural networks as model organisms — phenomena, methods, and the synthetic experiments that make them tractable."
-  author: "cfpark00"
+  author:
+    name: "Core Francisco Park"
+    url: "https://corefranciscopark.com"
   date: today
   site-url: https://scienceofdl.com
   repo-url: https://github.com/cfpark00/science-of-dl
@@ -35,12 +37,23 @@ book:
     - chapters/12_intelligence.qmd
     - references.qmd
     - glossary.qmd
-    - part: "Deep Dives"
+    - part: " "
       chapters:
-        - deep_dives/index.qmd
-        - deep_dives/theory.qmd
-        - deep_dives/classical_ml.qmd
         - deep_dives/systems.qmd
+        - deep_dives/llm_architectures.qmd
+        - deep_dives/data_centric.qmd
+        - deep_dives/multimodal.qmd
+        - deep_dives/interpretability.qmd
+        - deep_dives/theory.qmd
+        - deep_dives/bayesian_mcmc.qmd
+        - deep_dives/classical_ml.qmd
+        - deep_dives/neuroethology.qmd
+        - deep_dives/neuroscience.qmd
+        - deep_dives/cogsci.qmd
+        - deep_dives/open_endedness.qmd
+        - deep_dives/ai_for_science.qmd
+        - deep_dives/ai_agents.qmd
+        - deep_dives/mechanism_design.qmd
 
 bibliography: references.bib
 

@@ -1,0 +1,59 @@
+---
+title: "Deep Dive: Bayesian inference and MCMC"
+number-sections: false
+---
+
+The main spine of this book is mostly frequentist by default. Loss functions, gradient descent, evaluation by metrics on held-out data — the vocabulary is point-estimate-flavored. The **Bayesian** tradition asks different questions: what does the data tell us about the *posterior* over models, parameters, or predictions, given a prior? How should beliefs be updated as evidence accumulates? When does it matter to track full uncertainty rather than just a point estimate?
+
+This is a substantial and well-developed field with its own intellectual culture. This chapter is a launching point into it, with particular attention to the connections that matter for someone reading a deep-learning textbook.
+
+## Why Bayes matters for ML
+
+A few honest motivations:
+
+**Uncertainty is sometimes load-bearing.** A point prediction is fine when downstream decisions are insensitive to confidence. When they are not — medical decisions, safety-critical control, scientific inference, expensive bets — knowing *how uncertain* the model is can matter more than the prediction itself. Bayesian methods give you a principled posterior over predictions; frequentist methods can give you confidence intervals, but the framing is different.
+
+**Priors are inductive biases.** The Bayesian framing makes the role of priors explicit. Every learning method has inductive biases; Bayesian methods declare them and reason about how they shape posteriors. This is sometimes a strength (you can be explicit about what you assume) and sometimes a weakness (the priors that make the math tractable are often not the priors that capture your actual beliefs).
+
+**Probabilistic generative models are Bayesian by structure.** The diffusion models of [Chapter 8](../chapters/08_diffusion.qmd) are most cleanly understood in probabilistic terms — they learn a score function, which is a gradient of a log-density, which is a Bayesian object. The variational tradition that produced VAEs is even more directly Bayesian. The connections are not cosmetic.
+
+**Latent-variable models live here.** Mixture models, topic models, factor models, state-space models — these are all Bayesian (or Bayesian-flavored) latent-variable models. The EM algorithm, mentioned in [Chapter 5](../chapters/05_llm_pretraining.qmd), is the canonical recipe for fitting them.
+
+## What MCMC actually does
+
+**Markov chain Monte Carlo (MCMC)** is the practical workhorse of Bayesian inference whenever the posterior is too complex to evaluate analytically. The idea, stated tersely:
+
+You have a target distribution $p(x)$ you cannot sample from directly. You construct a Markov chain whose *stationary distribution* is $p(x)$. You run the chain. After a burn-in period, the samples it produces are (asymptotically) samples from $p$.
+
+The art is in constructing chains that mix well — that explore the support of $p$ efficiently without getting stuck. The major flavors:
+
+- **Metropolis-Hastings.** The classical recipe: propose a new state, accept or reject based on the ratio of densities. Simple, general, often slow.
+- **Gibbs sampling.** Iteratively sample each coordinate from its conditional given the others. Useful when conditionals are tractable.
+- **Hamiltonian Monte Carlo (HMC) and NUTS.** Use gradient information to propose moves that follow Hamiltonian dynamics on the log-density landscape. Much more efficient on high-dimensional, smooth posteriors. The workhorse for modern Bayesian inference in continuous parameter spaces.
+- **Sequential Monte Carlo (SMC) and particle filters.** Maintain a population of weighted samples and update them sequentially as data arrives. Useful for online inference and for state-space models.
+- **Variational inference (not MCMC, but adjacent).** Approximate the intractable posterior by a tractable family and minimize divergence. Trades exactness for tractability and is the basis of VAEs.
+
+## The connections to deep learning
+
+The interface has been productive in both directions:
+
+**Approximate Bayesian methods on neural networks.** Bayesian neural networks (BNNs) put posteriors over the network's weights and propagate uncertainty into predictions. Exact inference is intractable; the practical methods (variational BNN, Monte Carlo dropout, Laplace approximations, deep ensembles as approximate posteriors) are all compromises in different directions. Whether any of these reach the *calibration* that pure Bayes would offer is an active question.
+
+**Diffusion as score matching.** The score function $\nabla \log p(x)$ — central to diffusion — is a Bayesian quantity. The connection between diffusion models and Bayesian inference goes deep, especially in inverse-problem applications (see [Chapter 8](../chapters/08_diffusion.qmd) and the [AI for science](ai_for_science.qmd) deep dive).
+
+**Probabilistic programming.** Languages like Stan, PyMC, and NumPyro let you specify a Bayesian model declaratively and let the software handle the inference (typically HMC or NUTS). They are quietly load-bearing in many areas of scientific research, and they are an effective way to absorb the Bayesian workflow if you have not done so already.
+
+**Calibration.** Even outside fully Bayesian methods, the question of whether a model's confidences match its accuracy is a Bayesian-flavored one. LLMs are famously poorly calibrated after RLHF (see [Chapter 6](../chapters/06_llm_posttraining.qmd)), and recovering calibration is an active research question.
+
+## What this chapter is not
+
+It is not a substitute for a Bayesian-statistics course. The depth of the field — convergence theory of MCMC, prior elicitation, hierarchical modeling, posterior predictive checks, model comparison via Bayes factors or LOO-CV — is far more than a deep-dive chapter can cover.
+
+## Where to go next
+
+- A graduate-level Bayesian statistics course or textbook (Gelman et al.'s *Bayesian Data Analysis* is canonical).
+- Documentation and tutorials for Stan, PyMC, or NumPyro — the probabilistic-programming entry points.
+- Specialized references on MCMC theory (Robert and Casella, etc.) for the convergence and design side.
+- The connection between Bayesian methods and modern deep learning is well-covered in recent survey papers — look for "Bayesian deep learning" overviews.
+
+For a physicist, much of this material rhymes with statistical mechanics in productive ways — MCMC is literally a stat-mech import, the variational free energy is the same kind of object on both sides. The cross-fluency is real and worth cultivating.

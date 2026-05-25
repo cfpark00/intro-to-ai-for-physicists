@@ -1,0 +1,59 @@
+---
+title: "Deep Dive: Advanced LLM architectures"
+number-sections: false
+---
+
+[Chapter 4](../chapters/04_transformers.qmd) covered the transformer at the level of "what it is and why it works." That is enough to follow the rest of the main spine, but it is not the whole architectural picture. There is a substantial second-pass set of ideas — variants, refinements, and outright departures — that frontier practice has accumulated over the years since the original transformer paper [@vaswani2017attention]. This chapter is a launching point into that territory.
+
+## The KV cache, revisited
+
+The KV cache was introduced in Chapter 4 as an inference optimization. It is also a *design constraint* that shapes architecture choices at the frontier. Cache memory grows linearly with sequence length and proportionally with model width, and at long context it can dominate the per-request memory budget more than the model weights themselves do. A surprising amount of recent architectural work — grouped-query attention (GQA), multi-query attention (MQA), various sliding-window or sparse attention schemes — is best understood as **trying to reduce KV cache footprint without sacrificing capability**.
+
+This is one of those cases where serving constraints (the [LLM engineering deep dive](llm_engineering.qmd)) reach back upstream and shape what counts as a "good" architecture.
+
+## Linear attention and the sub-quadratic alternatives
+
+The vanilla attention operator is $O(N^2)$ in sequence length, which is the bottleneck that drives so much architectural experimentation. **Linear attention** is the family of approximations that try to compute attention in $O(N)$ time, typically by reformulating the softmax-of-dot-products into something kernel-shaped that admits an associative restructure of the computation. Variants in this family include feature-map-based linear attentions, kernelized softmax approximations, and various hardware-conscious approximations.
+
+Linear attention has a long history of *almost* working at scale. Each generation matches the quality of vanilla attention on some benchmarks while underperforming on others, and the gap is often associated with the kinds of long-range exact-recall tasks where the softmax's sharpness matters. The state-space hybrids — discussed in [Chapter 3](../chapters/03_sequence_modeling.qmd) — are partially a response to this: combine state-space-like linear-time blocks with selective attention layers to get the benefits of both.
+
+## Mixture of experts
+
+MoE was introduced in [Chapter 4](../chapters/04_transformers.qmd) at the level of "what it is." The architectural design space is richer than that section suggested. Key axes:
+
+- **Routing strategy** — top-$k$ routing, hash-based routing, learned routers, or a mix. Different choices have different load-balancing properties and different training dynamics.
+- **Expert granularity** — coarse experts (each is a full MLP block) vs. fine experts (each is a fraction of the MLP, and many experts activate per token). Recent work has moved toward finer granularity.
+- **Shared experts** — a small number of always-on experts that all tokens go through, in addition to the sparsely-activated ones. This stabilizes training and gives the model a "shared substrate."
+- **Auxiliary losses** — load-balancing losses, router z-losses, and so on, that keep the routing from collapsing onto a few favored experts.
+
+MoE is one of the architectural moves that has scaled best in the post-Chinchilla era — it offers a way to keep growing parameter count without paying for it on every token. Most frontier proprietary models are MoE under the hood.
+
+## Positional encoding, in depth
+
+The positional-encoding story in Chapter 4 was a single paragraph. It deserves more.
+
+The choice of positional encoding does much more than tell the model what order tokens are in. It also controls **how well the model extrapolates to sequences longer than it was trained on**, **what the effective attention pattern looks like at long distances**, and **how the model interpolates between tokens it has and tokens it has not seen at training time**.
+
+The main schools:
+
+- **Sinusoidal** — fixed sinusoidal functions of position added to embeddings. Parameter-free, somewhat extrapolatable. The original transformer's choice.
+- **Learned absolute** — a learned vector per position. Simple, does not extrapolate beyond training-time lengths.
+- **Relative position biases** — biases on the attention logits that depend on the offset between positions. Friendly to extrapolation.
+- **Rotary (RoPE)** — apply position-dependent rotations to query and key vectors so that the resulting attention depends only on relative offset. The current frontier default.
+- **ALiBi (attention with linear biases)** — a linear decay in attention as positions get further apart, with no learned parameters for position at all. Sometimes wins on length-extrapolation tasks.
+
+Beyond the standard schools, recent work has explored interpolation/extrapolation tricks (position interpolation, NTK-aware scaling of RoPE frequencies, YaRN-style schemes) that let pretrained models work at sequence lengths well beyond what they saw during training. The space of options is still moving.
+
+## What this chapter is gesturing at
+
+The transformer is not a single architecture — it is an *architectural design space*. Every choice (attention variant, normalization placement, positional encoding, expert structure, head configuration) is a design decision, and the frontier is the moving target of which set of decisions performs best at current scale.
+
+## Where to go next
+
+The relevant literature lives mostly in arXiv preprints and conference papers; textbooks are months behind. Useful entry points:
+
+- Recent survey papers on attention variants and MoE.
+- Frontier-lab technical reports (their architecture sections are usually the most precise public statements).
+- Mechanistic-interpretability work — much of it now reveals architectural choices in terms of what they let the model represent.
+
+If you finished Chapter 4 wanting more, this chapter is a sketch of where the real depth lives.

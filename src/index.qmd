@@ -21,6 +21,8 @@ The guiding methodology, taught in [Chapter 1](chapters/01_intro.qmd) and revisi
 
 The chapters move through the dominant model classes (image classifiers, sequence models, the transformer, large language models pre- and post-training, diffusion, reinforcement learning, world models) and through two pillar chapters on the phenomenology of *training dynamics* and *concept acquisition*. The final chapter widens the frame to intelligence beyond task-learning: multi-agent dynamics, evolution, open-endedness.
 
+After the main twelve chapters comes a section of **Deep Dives**. Each Deep Dive is a full chapter on a single topic that did not fit the main flow but stands on its own. If you want to go deeper on theoretical foundations, LLM systems engineering, interpretability, neuroscience, cognitive science, or any of the other adjacent fields, that is where to look. Treat them as optional but first-class material, not as appendices.
+
 ## Who this is for
 
 Anyone comfortable with linear algebra, calculus, probability, and a bit of statistical mechanics. No prior ML background is required, but the pace assumes graduate-level fluency with quantitative thinking. The book does not re-derive things you already know.

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Overview – Intro to AI for Physicists</title>
+<title>Deep Dive: AI agents and science – Intro to AI for Physicists</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -33,8 +33,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../deep_dives/theory.html" rel="next">
-<link href="../glossary.html" rel="prev">
+<link href="../deep_dives/mechanism_design.html" rel="next">
+<link href="../deep_dives/ai_for_science.html" rel="prev">
 <link href="../assets/favicon.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -254,7 +254,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../deep_dives/index.html">Deep Dives</a></li><li class="breadcrumb-item"><a href="../deep_dives/index.html"><span class="chapter-title">Overview</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../deep_dives/systems.html"></a></li><li class="breadcrumb-item"><a href="../deep_dives/ai_agents.html"><span class="chapter-title">Deep Dive: AI agents and science</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -361,7 +361,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Deep Dives</span></a>
+ <span class="menu-text"></span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -369,22 +369,77 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../deep_dives/index.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Overview</span></a>
+  <a href="../deep_dives/systems.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: Systems and infrastructure for deep learning</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../deep_dives/theory.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Theoretical foundations of deep learning</span></a>
+  <a href="../deep_dives/llm_architectures.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: Advanced LLM architectures</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../deep_dives/classical_ml.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Classical machine learning</span></a>
+  <a href="../deep_dives/data_centric.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: Data-centric ML</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../deep_dives/systems.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Systems and infrastructure for deep learning</span></a>
+  <a href="../deep_dives/multimodal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: Multimodal models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../deep_dives/interpretability.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: Interpretability</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../deep_dives/theory.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: Theoretical foundations of deep learning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../deep_dives/bayesian_mcmc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: Bayesian inference and MCMC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../deep_dives/classical_ml.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: Classical machine learning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../deep_dives/neuroethology.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: Neuroethology</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../deep_dives/neuroscience.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: Neuroscience</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../deep_dives/cogsci.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: Cognitive science</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../deep_dives/open_endedness.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: Open-endedness</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../deep_dives/ai_for_science.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: AI for science</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../deep_dives/ai_agents.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Deep Dive: AI agents and science</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../deep_dives/mechanism_design.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: Mechanism design and society</span></a>
   </div>
 </li>
       </ul>
@@ -399,7 +454,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#deep-dives" id="toc-deep-dives" class="nav-link active" data-scroll-target="#deep-dives">Deep Dives</a></li>
+  <li><a href="#the-honest-assessment-2026-edition" id="toc-the-honest-assessment-2026-edition" class="nav-link active" data-scroll-target="#the-honest-assessment-2026-edition">The honest assessment, 2026 edition</a></li>
+  <li><a href="#why-agents-matter-scientifically" id="toc-why-agents-matter-scientifically" class="nav-link" data-scroll-target="#why-agents-matter-scientifically">Why agents matter scientifically</a></li>
+  <li><a href="#agents-and-science-the-bidirectional-question" id="toc-agents-and-science-the-bidirectional-question" class="nav-link" data-scroll-target="#agents-and-science-the-bidirectional-question">Agents and science — the bidirectional question</a></li>
+  <li><a href="#what-this-chapter-is-not" id="toc-what-this-chapter-is-not" class="nav-link" data-scroll-target="#what-this-chapter-is-not">What this chapter is not</a></li>
+  <li><a href="#where-to-go-next" id="toc-where-to-go-next" class="nav-link" data-scroll-target="#where-to-go-next">Where to go next</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -407,9 +466,9 @@ ul.task-list li input[type="checkbox"] {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../deep_dives/index.html">Deep Dives</a></li><li class="breadcrumb-item"><a href="../deep_dives/index.html"><span class="chapter-title">Overview</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../deep_dives/systems.html"></a></li><li class="breadcrumb-item"><a href="../deep_dives/ai_agents.html"><span class="chapter-title">Deep Dive: AI agents and science</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">Overview</span></h1>
+<h1 class="title"><span class="chapter-title">Deep Dive: AI agents and science</span></h1>
 </div>
 
 
@@ -426,11 +485,50 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="deep-dives" class="level1">
-<h1>Deep Dives</h1>
-<p>The twelve chapters of this book take the science-of-deep-learning angle on modern AI: networks as model organisms, phenomena as the object of study, synthetic experiments as the method. There are several <strong>adjacent fields</strong> the main spine deliberately does not cover in depth — not because they are less important, but because each of them is <em>a discipline in its own right</em> and could fill a textbook of its own.</p>
-<p>This section collects short standalone chapters on those adjacent fields. The framing is <strong>launching points, not summaries</strong>: each entry tries to convey what the field is, what its central questions are, what kind of training someone in that field gets, and where to go next if you want to actually learn it. None of these chapters is a substitute for a real course in the field. They are pointers — but considered, opinionated pointers, written for someone who has finished the main spine and now wants to know what <em>else</em> is out there.</p>
-<p>If you came here looking for what the main book chose to set aside, you’re in the right place.</p>
+<p>This is an opinionated chapter. The agent paradigm is one of the most hyped and most contested topics in 2026 AI, and pretending otherwise would be dishonest. What follows is a take, not a neutral survey — readers are encouraged to form their own.</p>
+<p>The framing of an AI agent, mechanically, is in <a href="../chapters/06_llm_posttraining.html">Chapter 6</a>: an LLM that takes actions in a loop — calling tools, reading results, planning, retrying — until some goal is achieved or it gives up. The architectural picture is uncontroversial. What is controversial is what to make of the resulting systems: how capable they actually are, what they reveal about the underlying models, and what role they will play in science.</p>
+<section id="the-honest-assessment-2026-edition" class="level2">
+<h2 class="anchored" data-anchor-id="the-honest-assessment-2026-edition">The honest assessment, 2026 edition</h2>
+<p>Agents work better than they did a year ago. They also fail in characteristic ways that the main-spine treatment of LLMs would not predict. A short list of patterns:</p>
+<ul>
+<li><strong>Single-step competence is high, multi-step competence is much lower.</strong> A model that handles a one-turn task at near-human level can compound small errors over multi-step trajectories into very-not-human outcomes. The base capability is there; the <em>robustness</em> is not.</li>
+<li><strong>Long-horizon behavior is the bottleneck.</strong> Tasks that require holding a coherent plan over many steps, recovering from setbacks, and revising strategy mid-execution are where agents fall apart. This is structurally the same problem as long-horizon RL (<a href="../chapters/09_rl.html">Chapter 9</a>), and it has the same lack of clean solutions.</li>
+<li><strong>Tool-use brittleness is real.</strong> Even with good tools available, agents misuse them, fail to error-check tool outputs, and confidently proceed on bad inputs. The failure modes are often <em>systematic</em> — a particular agent will get the same step wrong reliably — which is bad news for the “just retry until it works” mitigation strategy.</li>
+<li><strong>Evaluation is hard.</strong> Agent trajectories vary enormously. Benchmarks tend to either be too easy (saturated quickly) or too narrow (a specific app, a specific tool, a specific decision tree). A general “agent-competence” measure that the field agrees on does not yet exist.</li>
+</ul>
+<p>These are not knocks on the field — they are descriptions of where the work actually is. The state of agents in 2026 is roughly where the state of single-turn LLMs was around 2021: useful, surprising, getting better fast, and failing in ways that the optimistic press coverage does not foreground.</p>
+</section>
+<section id="why-agents-matter-scientifically" class="level2">
+<h2 class="anchored" data-anchor-id="why-agents-matter-scientifically">Why agents matter scientifically</h2>
+<p>Most discussion of agents is product-flavored. The science question is more interesting. An agent is a <em>system</em> that combines a base model, a tool set, a memory mechanism, and a control loop. Studying what it does is studying <em>how the base model’s capabilities compose under sustained autonomous use</em> — which is much closer to how those capabilities would matter in any realistic deployment than the single-turn benchmark setting.</p>
+<p>A few specific scientific questions agents surface:</p>
+<ul>
+<li>What is the relationship between a model’s single-turn capability and its trajectory-level capability? Why do they diverge?</li>
+<li>What kinds of tool errors does the model fail to notice? What does this say about its grounding?</li>
+<li>When does an agent’s behavior become legibly <em>strategic</em> (planning, conditional branching) and when does it look more like surface mimicry of strategic behavior?</li>
+<li>How does the model’s representation of <em>its own ongoing task</em> shape what it does? (This connects to world-modeling, <a href="../chapters/10_world_models.html">Chapter 10</a>.)</li>
+</ul>
+<p>These are real research questions. Several of them are accessible to the model-organism methodology of <a href="../chapters/07_scidl_training.html">Chapter 7</a> — simulated agent environments with full instrumentation are exactly the kind of small synthetic settings where careful science can be done.</p>
+</section>
+<section id="agents-and-science-the-bidirectional-question" class="level2">
+<h2 class="anchored" data-anchor-id="agents-and-science-the-bidirectional-question">Agents and science — the bidirectional question</h2>
+<p>There are two ways agents intersect with the science enterprise.</p>
+<p><strong>Agents <em>for</em> science.</strong> Can an autonomous system actually do scientific work — formulating hypotheses, designing experiments, analyzing results, updating beliefs? The aspirational answer is yes; the current reality is closer to “agents are useful for narrow scientific subtasks (literature review, data cleaning, hypothesis-class enumeration) and not yet ready for end-to-end discovery.” The closely related <a href="../deep_dives/ai_for_science.html">AI for science</a> deep dive covers more.</p>
+<p><strong>Agents <em>as</em> a science.</strong> The scientific study of agents themselves — their failure modes, their training dynamics, their internal world models — is a young and underdeveloped subfield. It is also where some of the more interesting research opportunities lie. The agent setting is rich, behaviorally varied, and largely uncharted; the next several years will probably produce a lot of clean phenomenology here.</p>
+</section>
+<section id="what-this-chapter-is-not" class="level2">
+<h2 class="anchored" data-anchor-id="what-this-chapter-is-not">What this chapter is not</h2>
+<p>It is not a list of agent frameworks. The frameworks change every six months, the wrapper code is not the science, and a textbook is the wrong medium for that conversation. It is also not a take on the safety/alignment dimension of agentic systems — that conversation belongs in a different chapter.</p>
+</section>
+<section id="where-to-go-next" class="level2">
+<h2 class="anchored" data-anchor-id="where-to-go-next">Where to go next</h2>
+<ul>
+<li>Recent agent benchmark papers and the criticisms of those benchmarks.</li>
+<li>The model-organism-style studies that are starting to appear on agent behavior in simulated environments.</li>
+<li>The model-based-RL and long-horizon literature (<a href="../chapters/09_rl.html">Chapter 9</a>) — the structural problems are shared.</li>
+<li>Frontier-lab releases on agent capability and the technical reports that accompany them.</li>
+</ul>
+<p>This is the most-revisable chapter in the book. The state of agents in 2027 will look meaningfully different from the state of agents in 2026, and not all of the predictions implicit here will age well. That is what writing about a moving frontier looks like.</p>
 
 
 </section>
@@ -856,13 +954,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../glossary.html" class="pagination-link" aria-label="Glossary">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Glossary</span></span>
+      <a href="../deep_dives/ai_for_science.html" class="pagination-link" aria-label="Deep Dive: AI for science">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Deep Dive: AI for science</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../deep_dives/theory.html" class="pagination-link" aria-label="Theoretical foundations of deep learning">
-        <span class="nav-page-text"><span class="chapter-title">Theoretical foundations of deep learning</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../deep_dives/mechanism_design.html" class="pagination-link" aria-label="Deep Dive: Mechanism design and society">
+        <span class="nav-page-text"><span class="chapter-title">Deep Dive: Mechanism design and society</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

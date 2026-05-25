@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Systems and infrastructure for deep learning – Intro to AI for Physicists</title>
+<title>Deep Dive: Systems and infrastructure for deep learning – Intro to AI for Physicists</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,7 +23,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -33,7 +52,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../deep_dives/classical_ml.html" rel="prev">
+<link href="../deep_dives/llm_architectures.html" rel="next">
+<link href="../glossary.html" rel="prev">
 <link href="../assets/favicon.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -253,7 +273,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../deep_dives/index.html">Deep Dives</a></li><li class="breadcrumb-item"><a href="../deep_dives/systems.html"><span class="chapter-title">Systems and infrastructure for deep learning</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../deep_dives/systems.html"></a></li><li class="breadcrumb-item"><a href="../deep_dives/systems.html"><span class="chapter-title">Deep Dive: Systems and infrastructure for deep learning</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -360,7 +380,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Deep Dives</span></a>
+ <span class="menu-text"></span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -368,22 +388,77 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../deep_dives/index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Overview</span></a>
+  <a href="../deep_dives/systems.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Deep Dive: Systems and infrastructure for deep learning</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../deep_dives/theory.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Theoretical foundations of deep learning</span></a>
+  <a href="../deep_dives/llm_architectures.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: Advanced LLM architectures</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../deep_dives/classical_ml.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Classical machine learning</span></a>
+  <a href="../deep_dives/data_centric.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: Data-centric ML</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../deep_dives/systems.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Systems and infrastructure for deep learning</span></a>
+  <a href="../deep_dives/multimodal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: Multimodal models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../deep_dives/interpretability.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: Interpretability</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../deep_dives/theory.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: Theoretical foundations of deep learning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../deep_dives/bayesian_mcmc.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: Bayesian inference and MCMC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../deep_dives/classical_ml.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: Classical machine learning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../deep_dives/neuroethology.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: Neuroethology</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../deep_dives/neuroscience.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: Neuroscience</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../deep_dives/cogsci.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: Cognitive science</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../deep_dives/open_endedness.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: Open-endedness</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../deep_dives/ai_for_science.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: AI for science</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../deep_dives/ai_agents.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: AI agents and science</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../deep_dives/mechanism_design.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: Mechanism design and society</span></a>
   </div>
 </li>
       </ul>
@@ -398,7 +473,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#what-the-field-covers" id="toc-what-the-field-covers" class="nav-link active" data-scroll-target="#what-the-field-covers">What the field covers</a></li>
+  <li><a href="#hardware" id="toc-hardware" class="nav-link active" data-scroll-target="#hardware">Hardware</a></li>
+  <li><a href="#parallelism-and-distributed-training" id="toc-parallelism-and-distributed-training" class="nav-link" data-scroll-target="#parallelism-and-distributed-training">Parallelism and distributed training</a></li>
+  <li><a href="#scaling-laws-in-practice" id="toc-scaling-laws-in-practice" class="nav-link" data-scroll-target="#scaling-laws-in-practice">Scaling laws, in practice</a></li>
+  <li><a href="#inference-and-serving" id="toc-inference-and-serving" class="nav-link" data-scroll-target="#inference-and-serving">Inference and serving</a></li>
+  <li><a href="#data-and-training-pipelines" id="toc-data-and-training-pipelines" class="nav-link" data-scroll-target="#data-and-training-pipelines">Data and training pipelines</a></li>
   <li><a href="#why-this-is-its-own-field" id="toc-why-this-is-its-own-field" class="nav-link" data-scroll-target="#why-this-is-its-own-field">Why this is its own field</a></li>
   <li><a href="#what-this-chapter-does-not-do" id="toc-what-this-chapter-does-not-do" class="nav-link" data-scroll-target="#what-this-chapter-does-not-do">What this chapter does not do</a></li>
   <li><a href="#where-to-go-next" id="toc-where-to-go-next" class="nav-link" data-scroll-target="#where-to-go-next">Where to go next</a></li>
@@ -409,9 +488,9 @@ ul.task-list li input[type="checkbox"] {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../deep_dives/index.html">Deep Dives</a></li><li class="breadcrumb-item"><a href="../deep_dives/systems.html"><span class="chapter-title">Systems and infrastructure for deep learning</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../deep_dives/systems.html"></a></li><li class="breadcrumb-item"><a href="../deep_dives/systems.html"><span class="chapter-title">Deep Dive: Systems and infrastructure for deep learning</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">Systems and infrastructure for deep learning</span></h1>
+<h1 class="title"><span class="chapter-title">Deep Dive: Systems and infrastructure for deep learning</span></h1>
 </div>
 
 
@@ -428,39 +507,74 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>The main spine of this book treats training compute as a parameter and stops there. In practice, <em>making compute actually run</em> — efficiently, reliably, at scale — is a deep engineering field with its own research culture, its own conferences, and its own set of unsolved problems. Frontier models do not exist without it.</p>
-<p>This chapter is a pointer to that field. It is deliberately separate from the science of deep learning because it is a different <em>kind</em> of work: systems engineering with ML-shaped problems, rather than science of the trained network.</p>
-<section id="what-the-field-covers" class="level2">
-<h2 class="anchored" data-anchor-id="what-the-field-covers">What the field covers</h2>
-<p>Roughly four overlapping clusters:</p>
-<p><strong>Hardware.</strong> GPUs, TPUs, and increasingly diverse accelerators. The memory hierarchy (HBM, on-chip SRAM, register files) and what it costs to move tensors across it. The arithmetic intensity of attention, of MLP blocks, of convolutions. Why FlashAttention is a hardware-aware algorithm and not just a clever software optimization. The economics of frontier compute and how they constrain what experiments are possible.</p>
-<p><strong>Parallelism and distributed training.</strong> Data parallelism, tensor parallelism, pipeline parallelism, expert parallelism, fully-sharded data parallelism (FSDP). How communication primitives (all-reduce, all-gather, ring topologies) shape the design of large training runs. How parallelism strategies compose, and where they break down.</p>
-<p><strong>Inference systems.</strong> KV caches, continuous batching, speculative decoding, paged attention, request scheduling. Latency-vs-throughput tradeoffs. Quantization (INT8, INT4, FP8) and what it does to model quality. Serving infrastructure for millions of concurrent users.</p>
-<p><strong>Data and training pipelines.</strong> Petabyte-scale data ingestion, deduplication, quality filtering, mixture sampling. Checkpoint management. Failure recovery in multi-week, thousand-GPU runs. Observability for training (when has the loss diverged? when has a node failed silently?).</p>
+<p>The main spine of this book treats training compute, model size, and serving as parameters. In practice, <em>making compute actually run</em> — efficiently, reliably, at scale — is a deep engineering field with its own research culture, its own conferences, and its own set of unsolved problems. Frontier models do not exist without it.</p>
+<p>This chapter is a pointer into that field. It is deliberately separate from the science of deep learning because it is a different <em>kind</em> of work: systems engineering with ML-shaped problems, rather than science of the trained network. It is also the place where a serious fraction of recent capability gains actually came from.</p>
+<section id="hardware" class="level2">
+<h2 class="anchored" data-anchor-id="hardware">Hardware</h2>
+<p>GPUs, TPUs, and increasingly diverse accelerators. The memory hierarchy (HBM, on-chip SRAM, register files) and what it costs to move tensors across it. The arithmetic intensity of attention, of MLP blocks, of convolutions. Why FlashAttention is a hardware-aware <em>algorithm</em> and not just a clever software optimization. The economics of frontier compute and how they constrain what experiments are possible.</p>
+<p>The honest observation about hardware in 2026: the design space is still moving. Decisions that were defaults two years ago — about precision (FP16 vs.&nbsp;BF16 vs.&nbsp;FP8), about kernel implementations, about which accelerator vendor was the safe choice — have all shifted. The intellectual heritage is closer to high-performance computing and operating systems than to learning theory.</p>
+</section>
+<section id="parallelism-and-distributed-training" class="level2">
+<h2 class="anchored" data-anchor-id="parallelism-and-distributed-training">Parallelism and distributed training</h2>
+<p>Data parallelism, tensor parallelism, pipeline parallelism, expert parallelism, fully-sharded data parallelism (FSDP). How communication primitives — all-reduce, all-gather, ring topologies — shape the design of large training runs. How parallelism strategies compose, and where they break down.</p>
+<p>A frontier-scale training run is, in practice, a <em>parallelism choice</em>. The same model can be trained with very different aggregate compute budgets and wall-clock times depending on how parallelism is configured, how communication overlaps with computation, and how robust the system is to inevitable node failures over a multi-week run.</p>
+</section>
+<section id="scaling-laws-in-practice" class="level2">
+<h2 class="anchored" data-anchor-id="scaling-laws-in-practice">Scaling laws, in practice</h2>
+<p>The textbook scaling-law story from <a href="../chapters/05_llm_pretraining.html">Chapter 5</a> is the Kaplan vs.&nbsp;Chinchilla arc. <strong>Kaplan et al.&nbsp;(2020)</strong> <span class="citation" data-cites="kaplan2020scaling">(<a href="../references.html#ref-kaplan2020scaling" role="doc-biblioref">Kaplan et al. 2020</a>)</span> argued for a particular allocation of compute between model size and training tokens. <strong>Hoffmann et al.&nbsp;(2022)</strong> <span class="citation" data-cites="hoffmann2022chinchilla">(<a href="../references.html#ref-hoffmann2022chinchilla" role="doc-biblioref"><span class="nocase">Hoffmann et al.</span> 2022</a>)</span> — the Chinchilla paper — revised it: for a fixed compute budget, the <em>optimal</em> model is smaller and trained on more tokens than Kaplan suggested.</p>
+<p>What the textbook story understates is what has happened in practice since. Frontier production has moved <em>beyond</em> Chinchilla-optimal in a specific, deliberate direction: modern frontier models are often <strong>over-trained</strong> relative to the Chinchilla optimum — trained on far more tokens per parameter than the training-compute-optimal recipe would suggest. The reason is honest: training is a one-time cost, <strong>inference is amortized over millions of deployed conversations</strong>, and a smaller-but-more-trained model is cheaper to serve at comparable quality. The compute-optimal point for the <em>training run</em> is not the same as the cost-optimal point for the <em>deployed system</em>.</p>
+<p>Two important caveats:</p>
+<ul>
+<li><strong>Overtraining is conditional on the data distribution.</strong> Train more tokens on a fixed corpus and you start hitting repetition; the value of each marginal token drops. The “right” amount of overtraining depends on how much <em>high-quality</em> data you have, not just how many tokens. (See the <a href="../deep_dives/data_centric.html">data-centric ML</a> deep dive for more.)</li>
+<li><strong>Post-trainability is another axis.</strong> A heavily over-trained model can be more “rigid” in some senses — harder to nudge with subsequent SFT and RLHF, more committed to its pretraining distribution. There is a real tradeoff between pretraining capability and post-training malleability that is only partially understood.</li>
+</ul>
+<p>This is not a settled topic. The exact exponents and trade frontiers depend on the data mixture, the architecture details, and the post-training pipeline.</p>
+</section>
+<section id="inference-and-serving" class="level2">
+<h2 class="anchored" data-anchor-id="inference-and-serving">Inference and serving</h2>
+<p>A trained model still has to be served — to handle requests, generate tokens, share compute across concurrent users. The serving stack is its own engineering discipline:</p>
+<ul>
+<li><strong>KV cache</strong> (covered briefly in <a href="../chapters/04_transformers.html">Chapter 4</a>) is the central data structure. Managing it efficiently — paged allocation, prefix sharing, eviction strategies — is most of what high-performance LLM serving is about.</li>
+<li><strong>Continuous batching</strong> lets you mix in-flight requests at different stages of generation in the same batch, which is the difference between idle accelerators and saturated accelerators.</li>
+<li><strong>Speculative decoding</strong> uses a small draft model to propose multiple tokens that the large model verifies in parallel, gaining a multiplier on throughput when the draft is good.</li>
+<li><strong>Quantization</strong> (INT8, INT4, FP8 and friends) compresses weights and activations enough that bigger models fit on smaller hardware, at the cost of some quality.</li>
+<li><strong>Request scheduling and prefill/decode separation</strong> — managing the very different characteristics of the prefill phase (compute-bound, parallelizable) vs.&nbsp;the decode phase (memory-bound, sequential).</li>
+</ul>
+<p>Open-source serving systems like <strong>vLLM</strong> and <strong>SGLang</strong> have become standard practitioner reference points; the frontier-lab equivalents are proprietary but follow the same algorithmic ideas. The intellectual core of the field is in papers, the working knowledge is in the code.</p>
+</section>
+<section id="data-and-training-pipelines" class="level2">
+<h2 class="anchored" data-anchor-id="data-and-training-pipelines">Data and training pipelines</h2>
+<p>Petabyte-scale data ingestion, deduplication, quality filtering, mixture sampling. Checkpoint management. Failure recovery in multi-week, thousand-GPU runs. Observability for training (when has the loss diverged? when has a node failed silently? when has the data loader stalled and nobody noticed?).</p>
+<p>The data-pipeline side is where engineering meets the data-centric story directly (see <a href="../deep_dives/data_centric.html">Data-centric ML</a> for the science). The decisions made in the data pipeline are some of the most consequential ones a frontier training run makes — often more consequential than architectural choices.</p>
 </section>
 <section id="why-this-is-its-own-field" class="level2">
 <h2 class="anchored" data-anchor-id="why-this-is-its-own-field">Why this is its own field</h2>
-<p>The skills required overlap with but do not reduce to ML skills. A strong ML systems engineer thinks in terms of memory bandwidth, network topology, kernel-launch overhead, and numerical-stability tradeoffs in low-precision arithmetic. The intellectual heritage is closer to high-performance computing and operating systems than to learning theory.</p>
-<p>The work is also where a lot of <em>frontier capability</em> actually comes from. The reason a 100B-parameter model was trainable when a 10B one was previously the ceiling is rarely a new architectural idea — it is usually a parallelism strategy, a kernel rewrite, a precision change, or an infrastructure tool that made the previously-impossible run.</p>
+<p>The skills required overlap with, but do not reduce to, ML skills. A strong ML systems engineer thinks in terms of memory bandwidth, network topology, kernel-launch overhead, and numerical-stability tradeoffs in low-precision arithmetic. The work is also where a lot of frontier <em>capability</em> actually comes from. The reason a previously-untrainable model size becomes trainable is rarely a new architectural idea — it is usually a parallelism strategy, a kernel rewrite, a precision change, or an infrastructure tool that made the previously-impossible run.</p>
+<p>This is not the same field as the science of deep learning. The science asks <em>what trained networks do</em>; the engineering asks <em>how to make them exist at all</em>. Both are necessary.</p>
 </section>
 <section id="what-this-chapter-does-not-do" class="level2">
 <h2 class="anchored" data-anchor-id="what-this-chapter-does-not-do">What this chapter does not do</h2>
-<p>Two things this chapter deliberately is not:</p>
 <p>It is <strong>not</strong> a recipe book. We do not show you how to set up a distributed training run, configure DeepSpeed or Megatron-LM, deploy a vLLM server, or pick the right number of pipeline stages for your model. Those are tutorial concerns and they age fast — the tools change every six months.</p>
-<p>It is <strong>not</strong> a science-of-DL chapter. We can ask scientifically interesting questions about <em>what trained networks do</em> without engaging with how they were trained at scale. The systems work is a precondition for frontier science, not the science itself.</p>
 </section>
 <section id="where-to-go-next" class="level2">
 <h2 class="anchored" data-anchor-id="where-to-go-next">Where to go next</h2>
-<p>Systems-for-ML is a field that mostly does not teach itself well through textbooks — the canonical references date quickly. Reasonable entry points:</p>
 <ul>
 <li>The MLSys conference proceedings.</li>
-<li>The high-performance computing and operating-systems literature, applied with ML in mind.</li>
+<li>The high-performance-computing and operating-systems literature, applied with ML in mind.</li>
 <li>Frontier-lab engineering blogs and technical reports (they are deeply technical, often more so than papers).</li>
-<li>Open-source frameworks (PyTorch internals, JAX internals, Triton, CUDA programming) are themselves a curriculum.</li>
+<li>Open-source frameworks (PyTorch internals, JAX internals, Triton, CUDA programming) — these are themselves a curriculum.</li>
 </ul>
-<p>If the science-of-DL chapters in this book convinced you the <em>interesting</em> questions in deep learning are scientific, the systems field will convince you that the <em>load-bearing</em> questions in frontier deep learning are equally engineering. Both views are correct, and both are necessary.</p>
+<p>If the main spine convinced you the <em>interesting</em> questions in deep learning are scientific, this chapter is a reminder that the <em>load-bearing</em> questions in frontier deep learning are equally engineering. Both views are correct, and both are necessary.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-hoffmann2022chinchilla" class="csl-entry" role="listitem">
+<span class="nocase">Hoffmann, Jordan, Sebastian Borgeaud, Arthur Mensch, et al.</span> 2022. <span>“Training Compute-Optimal Large Language Models.”</span> <em>arXiv Preprint arXiv:2203.15556</em>.
+</div>
+<div id="ref-kaplan2020scaling" class="csl-entry" role="listitem">
+Kaplan, Jared, Sam McCandlish, Tom Henighan, et al. 2020. <span>“Scaling Laws for Neural Language Models.”</span> <em>arXiv Preprint arXiv:2001.08361</em>.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
@@ -884,11 +998,14 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../deep_dives/classical_ml.html" class="pagination-link" aria-label="Classical machine learning">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Classical machine learning</span></span>
+      <a href="../glossary.html" class="pagination-link" aria-label="Glossary">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Glossary</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../deep_dives/llm_architectures.html" class="pagination-link" aria-label="Deep Dive: Advanced LLM architectures">
+        <span class="nav-page-text"><span class="chapter-title">Deep Dive: Advanced LLM architectures</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

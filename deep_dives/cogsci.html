@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>10 World models and continual learning – Intro to AI for Physicists</title>
+<title>Deep Dive: Cognitive science – Intro to AI for Physicists</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -33,8 +33,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/11_scidl_concepts.html" rel="next">
-<link href="../chapters/09_rl.html" rel="prev">
+<link href="../deep_dives/open_endedness.html" rel="next">
+<link href="../deep_dives/neuroscience.html" rel="prev">
 <link href="../assets/favicon.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -79,49 +79,6 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: false
-   });
-}}});
-  </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -297,7 +254,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/10_world_models.html"><span class="chapter-title">10 World models and continual learning</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../deep_dives/systems.html"></a></li><li class="breadcrumb-item"><a href="../deep_dives/cogsci.html"><span class="chapter-title">Deep Dive: Cognitive science</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -378,7 +335,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/10_world_models.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">10 World models and continual learning</span></a>
+  <a href="../chapters/10_world_models.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">10 World models and continual learning</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -403,13 +360,13 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text"></span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../deep_dives/systems.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: Systems and infrastructure for deep learning</span></a>
@@ -462,7 +419,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../deep_dives/cogsci.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deep Dive: Cognitive science</span></a>
+  <a href="../deep_dives/cogsci.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Deep Dive: Cognitive science</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -497,13 +454,11 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#what-does-world-model-mean" id="toc-what-does-world-model-mean" class="nav-link active" data-scroll-target="#what-does-world-model-mean">What does “world model” mean?</a></li>
-  <li><a href="#world-models-in-rl" id="toc-world-models-in-rl" class="nav-link" data-scroll-target="#world-models-in-rl">World models in RL</a></li>
-  <li><a href="#world-representations-in-transformers" id="toc-world-representations-in-transformers" class="nav-link" data-scroll-target="#world-representations-in-transformers">World representations in transformers</a></li>
-  <li><a href="#continual-learning" id="toc-continual-learning" class="nav-link" data-scroll-target="#continual-learning">Continual learning</a></li>
-  <li><a href="#the-shit-show-debates-subset" id="toc-the-shit-show-debates-subset" class="nav-link" data-scroll-target="#the-shit-show-debates-subset">The “shit-show debates” subset</a></li>
-  <li><a href="#a-light-touch-on-neuroscience" id="toc-a-light-touch-on-neuroscience" class="nav-link" data-scroll-target="#a-light-touch-on-neuroscience">A light touch on neuroscience</a></li>
-  <li><a href="#where-this-fits" id="toc-where-this-fits" class="nav-link" data-scroll-target="#where-this-fits">Where this fits</a></li>
+  <li><a href="#why-this-matters-for-someone-reading-a-dl-textbook" id="toc-why-this-matters-for-someone-reading-a-dl-textbook" class="nav-link active" data-scroll-target="#why-this-matters-for-someone-reading-a-dl-textbook">Why this matters for someone reading a DL textbook</a></li>
+  <li><a href="#what-the-field-studies" id="toc-what-the-field-studies" class="nav-link" data-scroll-target="#what-the-field-studies">What the field studies</a></li>
+  <li><a href="#where-cognitive-science-and-ai-feed-each-other" id="toc-where-cognitive-science-and-ai-feed-each-other" class="nav-link" data-scroll-target="#where-cognitive-science-and-ai-feed-each-other">Where cognitive science and AI feed each other</a></li>
+  <li><a href="#what-this-chapter-is-gesturing-at" id="toc-what-this-chapter-is-gesturing-at" class="nav-link" data-scroll-target="#what-this-chapter-is-gesturing-at">What this chapter is gesturing at</a></li>
+  <li><a href="#where-to-go-next" id="toc-where-to-go-next" class="nav-link" data-scroll-target="#where-to-go-next">Where to go next</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/cfpark00/science-of-dl/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -511,9 +466,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../deep_dives/systems.html"></a></li><li class="breadcrumb-item"><a href="../deep_dives/cogsci.html"><span class="chapter-title">Deep Dive: Cognitive science</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">10 World models and continual learning</span></h1>
+<h1 class="title"><span class="chapter-title">Deep Dive: Cognitive science</span></h1>
 </div>
 
 
@@ -530,101 +485,48 @@ window.Quarto = {
 </header>
 
 
-<p>A <strong>world model</strong> is, roughly, a learned representation of the environment that supports prediction, planning, or counterfactual reasoning. The phrase is doing a lot of work and we should be honest that it is also doing some hand-waving. There is no clean operational definition of “world model” that everyone in the field accepts, and you will hear the term applied to everything from a small dynamics model inside a Dreamer agent to whatever transformers do when they appear to track the state of a chess board they were never explicitly shown.</p>
-<p>This chapter takes that fuzziness seriously. We will (a) discuss the technical work where world models are concrete and useful — primarily in model-based RL — (b) discuss the more open question of whether large transformers learn <em>world representations</em> from pure next-token prediction, which is the author’s current research thread, and (c) treat <strong>continual learning</strong> as the companion problem: keeping a world model accurate and updatable as the world changes. The hard version of continual learning is structurally a world-model problem, which is why it lives here rather than next to the concept-learning material in <a href="../chapters/11_scidl_concepts.html">Chapter 11</a>.</p>
-<p>A meta-lesson runs underneath: how to do good science on slippery questions. The author’s framing, kept here: <em>“Does X have a world model? Does X have theory of mind, consciousness, creativity?” is always going to be a shit show. But one can contribute to this question meaningfully and incrementally — i.e., how to build taste in ill-defined debates is itself a skill worth teaching.</em> Most of the consciousness/creativity end of the debates is deferred to <a href="../chapters/12_intelligence.html">Chapter 12</a>; here we keep the world-model, theory-of-mind, and continual-learning subset.</p>
-<section id="what-does-world-model-mean" class="level2">
-<h2 class="anchored" data-anchor-id="what-does-world-model-mean">What does “world model” mean?</h2>
-<p>The standard, useful definition: a world model is a learned mapping from the agent’s history (or current observation) to either (i) predictions about future observations or rewards, (ii) a state representation that supports planning, or (iii) an internal substrate for counterfactual reasoning (“what would happen if I did X instead?”). The three uses are related but not identical.</p>
-<p>The reason the term is fuzzy is that any sufficiently good predictor of the future can be called a world model, and any sufficiently good agent can be argued to have one <em>implicitly</em>, even if no module in its architecture is explicitly labeled “world model.” When researchers debate whether GPT-X “has a world model,” they often disagree on what would count as evidence — which is partly why the debates persist.</p>
-<p>Two operational definitions actually used in modern work:</p>
+<p><strong>Cognitive science</strong> is the interdisciplinary field that studies how minds work — biological, artificial, or otherwise. It draws on psychology, linguistics, philosophy, neuroscience, and AI, and it has been a productive intellectual partner of deep learning research since both fields existed. <a href="../chapters/11_scidl_concepts.html">Chapter 11</a> gestured at the connection; this chapter is the launching point into the field itself.</p>
+<section id="why-this-matters-for-someone-reading-a-dl-textbook" class="level2">
+<h2 class="anchored" data-anchor-id="why-this-matters-for-someone-reading-a-dl-textbook">Why this matters for someone reading a DL textbook</h2>
+<p>A few honest reasons cognitive science is worth knowing about as a deep-learning reader:</p>
 <ul>
-<li><strong>Predictive.</strong> Can the model accurately predict observations multiple steps into the future, including under counterfactual or novel inputs?</li>
-<li><strong>Representational.</strong> Does the model’s internal activations contain a <em>probeable</em> representation of latent world variables (the position of a chess piece on a board, the location of an agent in a maze, the value of a hidden physical quantity), even when those variables are not in the input?</li>
+<li><strong>Concepts of mind have long histories.</strong> Many of the words that show up in modern AI papers — <em>attention</em>, <em>memory</em>, <em>representation</em>, <em>concept</em>, <em>compositionality</em>, <em>abstraction</em>, <em>theory of mind</em> — have long technical histories in cognitive science, with established usages and known disagreements. Using them without context risks miscommunicating with adjacent fields.</li>
+<li><strong>Humans are an existence proof.</strong> Whenever the AI community asks “can a learning system do X?”, there is at least one species (us) that does X. Studying <em>how</em> humans do X is the most efficient way to surface what the structural requirements might be.</li>
+<li><strong>Methodology transfer.</strong> Cognitive science has spent decades developing techniques for probing mental processes from behavioral evidence — reaction-time studies, eye tracking, controlled experimental design, careful operationalization of fuzzy constructs. Some of this transfers to the study of trained ANNs, where the system is again behaviorally accessible and internally opaque.</li>
 </ul>
-<p>We will use both in what follows.</p>
 </section>
-<section id="world-models-in-rl" class="level2">
-<h2 class="anchored" data-anchor-id="world-models-in-rl">World models in RL</h2>
-<p>The clearest practical use of “world model” is in <strong>model-based reinforcement learning</strong>. The setup, recapping briefly from <a href="../chapters/09_rl.html">Chapter 9</a>: instead of (or in addition to) learning a policy directly from environment interactions, the agent learns a dynamics model <span class="math inline">\hat T(s, a) \to s'</span> and a reward model <span class="math inline">\hat r(s, a)</span>, then plans through them. The intuition is that a learned world model lets the agent simulate many imagined experiences cheaply, rather than paying the environment-interaction cost for each one.</p>
-<p><strong>Dreamer family.</strong> Train a world model in a <em>latent space</em> — encode observations into a compact latent representation, learn dynamics in that latent space, learn a value function or policy that operates on the latent state. The agent then “dreams” — generates rollouts in the latent model — and uses the dreams to improve its policy. Dreamer-style agents have shown that model-based RL with a learned latent dynamics model can solve a variety of difficult environments with much greater sample efficiency than model-free baselines.</p>
-<p><strong>MuZero.</strong> A different approach: learn dynamics and value functions in a <em>latent</em> space jointly with the planning algorithm. The latent state is not required to be human-interpretable or to be a literal reconstruction of the environment state — it just has to support accurate value prediction. MuZero showed that you can do high-performance planning (Monte Carlo tree search, the AlphaGo machinery) on a learned latent dynamics model, and recover competitive performance on board games and Atari without ever giving the agent the true rules of the game.</p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><strong>[Plot]</strong> Schematic of model-based vs.&nbsp;model-free RL training. Model-free: agent → environment interactions → policy updates. Model-based: agent → environment interactions → world model → imagined rollouts → policy updates. The world model amortizes the cost of environment interaction.</p>
-</div>
-</div>
-</div>
-<p>The honest question to ask about all this work: why has model-based RL not <em>decisively</em> won, given how natural the inductive bias seems? “Learn how the world works, then plan” is intuitively how humans approach novel problems. Several reasons, none definitive:</p>
+<section id="what-the-field-studies" class="level2">
+<h2 class="anchored" data-anchor-id="what-the-field-studies">What the field studies</h2>
+<p>A non-exhaustive map:</p>
+<p><strong>Concept formation and development.</strong> How do humans acquire concepts? Children acquire object permanence, then categories, then more abstract concepts in fairly characteristic developmental sequences. The cognitive-developmental tradition (Piaget, Carey, Spelke, Gopnik) has documented this carefully and produced specific theoretical proposals about the mechanisms involved. The questions they ask — “what is innately specified vs.&nbsp;learned from data?” — are structurally similar to the questions deep learning asks about inductive bias.</p>
+<p><strong>Language acquisition.</strong> Why do children learn languages so fast and so robustly? What is the role of innate priors (the Chomskyan tradition) vs.&nbsp;statistical regularities of the input (the empiricist tradition)? Recent LLMs have made this debate live again — a system that has none of the cognitive scaffolding children have but learns language very well from data is a data point worth taking seriously, even if it does not settle the debate.</p>
+<p><strong>Reasoning and decision-making.</strong> The classical literature on heuristics and biases (Tversky and Kahneman), the dual-process framing (System 1 / System 2), the literature on bounded rationality. These give the field an empirical vocabulary for <em>what reasoning actually looks like</em> under realistic conditions — which is more useful for AI work than the idealized logical-reasoning picture often imported from philosophy.</p>
+<p><strong>Theory of mind and social cognition.</strong> How do humans model other agents’ beliefs, intentions, and goals? Developmental work has carefully mapped <em>when</em> children acquire theory-of-mind capacities and <em>how</em> it varies across populations. As <a href="../chapters/10_world_models.html">Chapter 10</a> noted, theory of mind is structurally a world-modeling problem, and the cognitive-science literature on it is directly relevant to the AI version.</p>
+<p><strong>Categorization, similarity, and conceptual structure.</strong> The structure of human conceptual knowledge — prototype theory, exemplar theory, theory-theory of concepts — has technical content beyond the surface-level “humans have categories” framing.</p>
+<p><strong>Human priors and inductive biases.</strong> What humans come pre-loaded with — geometric intuitions, object-tracking abilities, intuitive physics, agency detection. These show up directly in the AI context whenever we ask what a model should “have” to learn things efficiently.</p>
+</section>
+<section id="where-cognitive-science-and-ai-feed-each-other" class="level2">
+<h2 class="anchored" data-anchor-id="where-cognitive-science-and-ai-feed-each-other">Where cognitive science and AI feed each other</h2>
+<p>The relationship is genuinely bidirectional:</p>
 <ul>
-<li><strong>Model errors compound.</strong> A small error in <span class="math inline">\hat T</span> accumulates rapidly over rollout horizon; long imaginary rollouts often degrade in quality.</li>
-<li><strong>Learning a useful world model is itself hard.</strong> The criterion “good for downstream planning” is not the same as “low next-step prediction error,” and conflating them produces world models that are accurate locally and useless globally.</li>
-<li><strong>Model-free methods have eaten up scale.</strong> Frontier RL on board games and language has, empirically, scaled well with model-free methods + huge data + raw compute.</li>
+<li><strong>Cogsci → AI.</strong> Insights about human learning have inspired architectures (e.g., relational reasoning, modular networks), training procedures (e.g., curriculum learning), and inductive-bias design.</li>
+<li><strong>AI → Cogsci.</strong> Trained ANNs are now used <em>as</em> models in cognitive science — sometimes as null models (what could a generic learner do?), sometimes as positive proposals about how a particular cognitive capacity might be implemented. The growing use of LLMs as models of language processing is one current example.</li>
 </ul>
-<p>It is plausible that the model-based approach is the <em>right</em> approach and the field has not yet figured out how to scale it. It is also plausible that learned world models are too brittle to be load-bearing at scale. The honest reading is that this is open.</p>
+<p>The interface is also where some of the messiest debates live (does an LLM “understand” language? does a network with theory-of-mind-style behavior have theory of mind?). Both fields are still figuring out how to talk to each other carefully about these questions.</p>
 </section>
-<section id="world-representations-in-transformers" class="level2">
-<h2 class="anchored" data-anchor-id="world-representations-in-transformers">World representations in transformers</h2>
-<p>The second thread, and the one the author’s current research is closest to: do transformers trained on pure next-token prediction develop <strong>world representations</strong> as a side effect — internal representations of latent variables in the data they are predicting?</p>
-<p>The cleanest historical example is the <strong>Othello-GPT</strong> line of work: a transformer trained on Othello game transcripts (just sequences of moves, no rules) appears to develop a probeable internal representation of the board state. You can train a linear probe on its activations and read off where the pieces are. You can intervene on the probed state and find that the model’s downstream predictions change in ways consistent with having actually changed its internal board. This is suggestive evidence that the model has built — and is using — a representation of the latent variable (board state) that was never directly in its input.</p>
-<p>The author’s <em>Origins and Roles of World Representations in Transformers</em> research thread is investigating where, when, and why such representations form, with talks at MIT (Isola group), Northeastern (Bau group), and CBAI. Key papers in this thread:</p>
+<section id="what-this-chapter-is-gesturing-at" class="level2">
+<h2 class="anchored" data-anchor-id="what-this-chapter-is-gesturing-at">What this chapter is gesturing at</h2>
+<p>Cognitive science is what you study if you want to take seriously the question of <em>what kinds of computations minds do</em>. Deep learning is studying one instance of a mind-like system; cognitive science is studying many, with a more developed methodology. Anyone working at the frontier of AI is well-served by knowing what cogsci has already established.</p>
+</section>
+<section id="where-to-go-next" class="level2">
+<h2 class="anchored" data-anchor-id="where-to-go-next">Where to go next</h2>
 <ul>
-<li><em>Convergent World Representations and Divergent Tasks</em> (2026 preprint) — characterizes the conditions under which transformers converge on shared world representations across tasks.</li>
-<li><em>When Does Observational Data Teach Latent Dynamics?</em> (Nishi et al., ICLR 2026 workshop) — addresses the conditions under which a transformer trained purely on observations learns the <em>dynamics</em> of the underlying generating process.</li>
-<li><em>Vision-Language Models Inherit Human Color Perception</em> (ICLR 2026 workshop) — a different angle: world representations can be inherited from the human structure of the training data, not just discovered de novo. VLMs trained on human-generated descriptions of color end up with a color representation that mirrors human perceptual structure.</li>
+<li>A graduate-level introduction to cognitive science (multiple solid textbook options exist).</li>
+<li>The developmental psychology literature on concept and language acquisition.</li>
+<li>The judgment-and-decision-making literature (Tversky, Kahneman, and successors).</li>
+<li>The newer “neuroAI” and “computational cognitive science” lines, which sit explicitly at the interface.</li>
 </ul>
-<p>The thread is open in the literal sense — the research is happening now, and the picture is still forming. What we can say firmly is that the <em>phenomenon</em> — world representations emerging from next-token prediction — is real and reproducible in several settings. What we cannot yet say is when it generalizes, what the dependencies on training data structure are, and how robust the representations are to distribution shift.</p>
-<p>This is also where transformers connect to model-based RL conceptually. If a transformer trained on data from an environment learns something like a world model implicitly, then the line between “model-free LLM that happens to predict the world” and “world-model-based agent” blurs. Several active research directions explore this convergence.</p>
-</section>
-<section id="continual-learning" class="level2">
-<h2 class="anchored" data-anchor-id="continual-learning">Continual learning</h2>
-<p>A world model is only useful if it stays accurate. The world changes; new evidence comes in; old beliefs get refuted. <strong>Continual learning</strong> is the problem of acquiring new knowledge over time without forgetting what was already learned — and in the framing of this chapter, it is most naturally the problem of <em>keeping a world model updatable</em>.</p>
-<p>Classically, the baseline failure mode is <strong>catastrophic forgetting</strong>: train a network on task A, then on task B, and its performance on A degrades or collapses. The optimizer happily overwrites the structure it built earlier, because nothing in the objective rewards keeping it.</p>
-<p>There is a <em>soft</em> sense of continual learning and a <em>hard</em> sense, and they are worth distinguishing.</p>
-<p>The <strong>soft</strong> version is the one most current research targets: avoid loss of plasticity, prevent forgetting, keep training stable as data distributions shift. The standard toolkit is <strong>rehearsal</strong> (mix old data with new during training), <strong>regularization</strong> (penalize weight changes in directions important for old tasks — EWC and its descendants), and <strong>modular methods</strong> (add new parameters or new sub-networks for new tasks, leaving the old ones frozen). These mitigate forgetting; they do not, on their own, solve the deeper problem.</p>
-<p>The <strong>hard</strong> version is what the world-model framing here makes precise: <em>continually adapt to a changing environment by maintaining an internal model that updates correctly when the world updates</em>. This is very different from passively absorbing a non-stationary stream of gradient updates. A competent biological agent does it; we do not yet know how to make a frontier ML system do it well at scale. The hard problem requires mechanisms for <strong>revising</strong> prior knowledge when new evidence contradicts it — not merely averaging old and new, and not merely freezing the old, but something more like Bayesian updating of a structured model. This is unsolved.</p>
-<p>The structural connections are everywhere in the book:</p>
-<ul>
-<li>To <strong>RL</strong> (<a href="../chapters/09_rl.html">Chapter 9</a>) — RL on a non-stationary environment <em>is</em>, structurally, continual learning. The policy has to keep tracking a target that changes. The same is true for the agent’s implicit value estimates.</li>
-<li>To <strong>concept learning</strong> (<a href="../chapters/11_scidl_concepts.html">Chapter 11</a>) — concepts are sticky representations the model is reluctant to overwrite. That stickiness is good for stability and bad for adaptability. The tension between the two is one of the field’s central unresolved problems.</li>
-<li>To <strong>world representations in transformers</strong> (above) — if a pretrained transformer has built an internal world model from its training data, continual learning is the problem of keeping that model in sync as the world drifts past the training cutoff. We do not have a satisfying answer for how to do this without retraining.</li>
-</ul>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><strong>[Plot]</strong> Performance on Task A vs.&nbsp;training step, across a sequence of tasks A → B → C. Classical baseline (catastrophic forgetting): Task A performance drops to near-zero as soon as Task B training starts. With rehearsal / regularization: partial preservation. The “hard” regime — graceful adaptation with full preservation of past structure — is the empty quadrant of the plot, gestured at as the open problem.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="the-shit-show-debates-subset" class="level2">
-<h2 class="anchored" data-anchor-id="the-shit-show-debates-subset">The “shit-show debates” subset</h2>
-<p>The kinds of questions that surround world models — “does X really have a world model?” “does X have theory of mind?” — are infamous for being <em>debate-shaped</em> rather than <em>experiment-shaped</em>. The author’s framing again: this is usually a shit show, but you can contribute meaningfully and incrementally, and learning <em>how to</em> contribute is itself a research skill the chapter wants to teach.</p>
-<p>What does that look like in practice?</p>
-<ol type="1">
-<li><p><strong>Refuse the binary.</strong> “Does X have a world model” is the wrong granularity. The better questions are: “Under what conditions does X produce predictions consistent with having a model of variable V?” “How does the strength of the evidence vary with training data, with model size, with prompting?” These are answerable. The binary is not.</p></li>
-<li><p><strong>Operationalize before debating.</strong> If you cannot agree on what evidence would settle the question, the question is not yet ready for evidence. Spend the time to nail down the operationalization (probing? causal intervention? out-of-distribution generalization?) before you spend the time arguing about who is right.</p></li>
-<li><p><strong>Embrace partial answers.</strong> “There is evidence of a board-state representation in this Othello-trained transformer, but the representation degrades under certain interventions, and we do not know whether it generalizes to more complex games.” That is a useful scientific statement. “GPT has a world model” is not.</p></li>
-<li><p><strong>Cross-check on small things.</strong> The methodology of <a href="../chapters/07_scidl_training.html">Chapter 7</a> — model-organism studies on small synthetic systems — is most of how progress gets made on these debates. The Othello-GPT line is a model-organism study. The cosmology-diffusion work is a model-organism study. Resist the urge to argue about frontier models directly; the experimental access is too poor.</p></li>
-</ol>
-<p><strong>Theory of mind</strong> as a special case: modeling another agent’s beliefs is structurally a world-modeling problem — the agent is part of your environment, their beliefs are latent variables, predicting their behavior requires representing those beliefs. The same operational moves apply: probe, intervene, characterize the conditions of success. The same dangers apply: ill-defined claims about whether a model “really” has theory of mind are not productive.</p>
-</section>
-<section id="a-light-touch-on-neuroscience" class="level2">
-<h2 class="anchored" data-anchor-id="a-light-touch-on-neuroscience">A light touch on neuroscience</h2>
-<p>For physicists who like the model-organism framing, the neuroscience analog is <strong>place cells</strong>, <strong>grid cells</strong>, and similar internal representations of space and structure that biological brains build. Predictive coding is the broader theoretical idea: brains are constantly predicting the next sensory state, and what they learn falls out of where the predictions fail.</p>
-<p>We do not want to overdraw these analogies — they have been overdrawn elsewhere in the AI/neuroscience interface, often by people in both fields. But there is structural similarity: both biological neural systems and large transformers, when forced to predict structured environments, develop internal representations of latent variables that the environment is generating. The deeper question of how the two are or are not the same is the proper territory of <a href="../chapters/11_scidl_concepts.html">Chapter 11</a> (concept learning) and the cognitive-science threads there.</p>
-</section>
-<section id="where-this-fits" class="level2">
-<h2 class="anchored" data-anchor-id="where-this-fits">Where this fits</h2>
-<p>This chapter is the lightest of the three “beyond LLMs” chapters — diffusion has cleaner machinery, RL has sharper phenomena, world models sit in between, with the most live research and the most unsettled definitions. That is by design. The deeper questions about <em>what neural networks learn</em> — concepts, representations, abstractions — get their proper treatment in <a href="../chapters/11_scidl_concepts.html">Chapter 11</a>. The deeper questions about <em>intelligence as a broader phenomenon</em> — multi-agent dynamics, evolution, open-endedness — go to <a href="../chapters/12_intelligence.html">Chapter 12</a>.</p>
-<p>The takeaway is methodological as much as factual. World models are a useful conceptual lens, model-based RL is a real research area, transformer world representations are an open frontier, and the slippery debates are slippery because nobody has done the work to operationalize them carefully. That last point is also the opportunity.</p>
+<p>If you finished the main spine wondering what was happening <em>underneath</em> the philosophical-sounding language about concepts and reasoning, this chapter is the pointer.</p>
 
 
 </section>
@@ -1050,13 +952,13 @@ window.Quarto = {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/09_rl.html" class="pagination-link" aria-label="9  Reinforcement learning">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">9 Reinforcement learning</span></span>
+      <a href="../deep_dives/neuroscience.html" class="pagination-link" aria-label="Deep Dive: Neuroscience">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Deep Dive: Neuroscience</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/11_scidl_concepts.html" class="pagination-link" aria-label="11  Science of deep learning II: concept learning">
-        <span class="nav-page-text"><span class="chapter-title">11 Science of deep learning II: concept learning</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../deep_dives/open_endedness.html" class="pagination-link" aria-label="Deep Dive: Open-endedness">
+        <span class="nav-page-text"><span class="chapter-title">Deep Dive: Open-endedness</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

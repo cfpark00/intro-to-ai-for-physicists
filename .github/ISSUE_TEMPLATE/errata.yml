@@ -1,0 +1,20 @@
+name: Errata
+description: Report a factual error, typo, broken math, or broken link.
+title: "[errata] "
+labels: ["errata"]
+body:
+  - type: input
+    id: location
+    attributes:
+      label: Where
+      description: Chapter, section, or URL.
+      placeholder: "Ch. 4 — Transformers, §Attention in one equation"
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What's wrong
+      description: Quote the offending text (or describe the broken element) and explain the correct version.
+    validations:
+      required: true

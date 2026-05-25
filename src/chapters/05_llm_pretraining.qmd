@@ -1,0 +1,96 @@
+---
+title: "Large language models I: pretraining and fine-tuning"
+---
+
+The previous chapter built up the transformer; this chapter scales it. Large language models are what you get when you take the next-token-prediction objective from [Chapter 3](03_sequence_modeling.qmd), the transformer architecture from [Chapter 4](04_transformers.qmd), and a substantial fraction of the readable internet — and then keep adding compute until something interesting happens.
+
+This chapter covers the **supervised half** of the modern LLM pipeline: **pretraining** (next-token prediction at massive scale) and **fine-tuning** (adapting the resulting base model to specific tasks). The post-training half — reward modeling, RLHF, DPO, reasoning, agents — lives in [Chapter 6](06_llm_posttraining.qmd).
+
+The phenomena introduced here are some of the headline results in modern AI: **scaling laws**, **emergence at scale**, and **in-context learning**. They are introduced as phenomena here; they get dissected scientifically in [Chapter 7](07_scidl_training.qmd) (training-dynamics view) and revisited again in [Chapter 11](11_scidl_concepts.qmd) (concept-acquisition view).
+
+## Pretraining
+
+A large language model is, mechanically, a decoder-only transformer trained on next-token prediction. We saw that objective in [Chapter 3](03_sequence_modeling.qmd). What changes when you scale it up?
+
+**Tokenization.** Text is not consumed character-by-character — that wastes capacity on local structure. It is split into **tokens** by a subword tokenizer, typically **byte-pair encoding (BPE)** or **SentencePiece**, which finds a vocabulary of common subword pieces. Frequent words become single tokens; rare words split into morpheme-like pieces. For non-text modalities — images, audio, video — the analog is a vector quantizer (e.g. VQ-VAE-style) that maps continuous patches into discrete codes that can be predicted like tokens.
+
+The choice of tokenizer is not innocent. Tokenization decides what the model sees as the unit of meaning, and pathologies in tokenization (e.g., numbers that get split inconsistently across magnitudes, or rare scripts that fragment into character-level tokens) show up as downstream behavioral oddities. This is one of those low-level engineering choices that quietly shapes science-relevant outcomes.
+
+**Data.** A modern pretraining run consumes trillions of tokens, drawn from web crawls, books, code, scientific text, and an increasingly elaborate curation pipeline. The key word is *curation*. Early pretraining runs were "give it the whole internet"; modern runs invest enormous effort in **deduplication** (the same document appearing many times destabilizes training), **quality filtering**, and **mixture design** (how much code vs. how much prose vs. how much math). The realization that *data quality often beats architecture tweaks* has its own name — **data-centric ML** — and it is one of the more reliable patterns in modern practice.
+
+**Self-supervised learning.** Next-token prediction is one instance of a broader idea: train on labels you derive from the data itself. Other instances include **masked-language modeling** (predict the masked-out span — popular for encoder-style models), **contrastive learning** (pull augmentations of the same example together, push others apart — see SimCLR, CLIP for canonical examples), and various predict-this-view-from-that-view recipes for images, audio, and multimodal data. The unifying observation is that you do not need human labels to provide vast supervision; you just need a pretext task whose solution forces the model to learn useful structure.
+
+**Foundation models.** The terminology is doing real work. A "foundation model" is a large pretrained model intended to serve as the starting point for many downstream tasks, adapted via fine-tuning or prompting rather than trained from scratch. The shift from "train a model for each task" to "train one big model and adapt it" is the operational consequence of pretraining-at-scale. We will use "foundation model," "pretrained model," and "base model" roughly interchangeably; the term *base model* specifically refers to the pretrained checkpoint before any post-training has been applied.
+
+::: {.callout-note appearance="simple" icon=false}
+**[Plot]** A schematic of the modern LLM pipeline: trillions of pretraining tokens → base model → SFT / LoRA fine-tuning → adapted model. With a separate downstream branch for post-training (Chapter 6) pointing to RLHF/DPO. The point of the diagram is to show pretraining as the load-bearing step.
+:::
+
+## The scaling story
+
+The single most important empirical regularity in modern AI is that **test loss falls as a power law in compute, data, and parameters** [@kaplan2020scaling]. Across many orders of magnitude, if you double compute and provision the model and data appropriately, you get a predictable, smooth decrease in loss. This is the "scaling law" pattern, and it organizes everything about how modern pretraining is run.
+
+A few things are worth saying about it.
+
+First, the *functional form* is empirical, not derived. People plot loss as a function of compute, data, and parameters, fit power laws, and observe that the fits hold over remarkable ranges. The exact exponents are model- and dataset-specific, and they are still an active area of measurement. The fact that a power law fits at all is the surprising scientific claim.
+
+Second, the *compute-optimal* allocation of resources is not obvious. Given a fixed compute budget, should you make the model bigger, or train it longer on more tokens? The original scaling work suggested one answer; the **Chinchilla** result [@hoffmann2022chinchilla] revised it — for fixed compute, the optimal model is *smaller* and *trained on more tokens* than people had been using. The practical guideline that came out of Chinchilla — roughly, scale parameters and training tokens together — has shaped frontier training runs since.
+
+Third, scaling laws are how the *bitter lesson* from [Chapter 1](01_intro.qmd) cashes out quantitatively [@sutton2019bitter]. "Bigger nets and more data are better" stops being a vague intuition and becomes a *predictable* fact: you can extrapolate the curve and budget accordingly. This is also why so much of the field's effort goes into the engineering of training runs.
+
+**GPU parallelism.** Reaching frontier scale requires distributing a model across many devices. The main techniques are:
+
+- **Data parallelism**: every device has a full copy of the model and processes a different batch shard; gradients are averaged across devices.
+- **Tensor parallelism**: split individual matrix multiplies across devices so each device holds a slice of each weight.
+- **Pipeline parallelism**: different devices hold different layers; minibatches are pipelined through the stack.
+- **Fully-sharded data parallel (FSDP)** and related strategies shard the optimizer state, gradients, and parameters themselves across devices to fit larger models in aggregate memory.
+
+These are engineering choices, but they shape what experiments are feasible. A claim like "we trained model X" is implicitly a claim about a parallelism strategy that worked at the relevant scale.
+
+**Mixture of experts at scale.** As mentioned in [Chapter 4](04_transformers.qmd), MoE decouples total parameter count from active parameter count per token. At frontier scale, MoE is one of the ways to keep growing parameter count without paying for it on every token. Whether MoE is "real" scaling in the same sense as dense scaling is a question the empirical scaling-law work has had to revisit.
+
+## Emergence at scale
+
+Among the most striking phenomena that fell out of scaling is **emergence**: some capabilities appear, apparently *discontinuously*, when models exceed a threshold scale. Below the threshold, performance on a task is near random; above it, performance climbs sharply. Examples that have been reported include arithmetic on multi-digit numbers, chain-of-thought reasoning, and various structured reasoning tasks.
+
+The phenomenology was striking enough that "emergent capabilities" entered the field's vocabulary as a label. It was also striking enough to invite skepticism: some of the apparent emergence might be an artifact of how performance is measured (e.g., exact-match accuracy is binary and harsh; smoother metrics often show gradual improvement instead of a sudden jump). This skeptical position — that emergence is partly a metric artifact rather than a discontinuity in the underlying capability — has been argued forcefully by Schaeffer and collaborators in work most readers will know as the "are emergent abilities a mirage" line.
+
+The honest summary is: *something* is happening at scale, and there are competing accounts of what it is. The cleanest path forward is to move from the population-level phenomenon (how does the average benchmark behave?) to a mechanistic, model-organism account of what is actually changing inside the network as you scale. That move is the subject of [Chapter 7](07_scidl_training.qmd), where emergence gets re-examined as a phenomenon in *concept space* rather than in test-loss space.
+
+## In-context learning
+
+The other headline phenomenon of scaled LLMs is **in-context learning (ICL)**. You give a pretrained model a few input-output examples in a prompt, followed by a new input, and it learns the pattern and produces the right output. No weight update. The model just does it.
+
+A typical example: prompt the model with
+$$
+\text{Q: } x_1 \to y_1; \quad \text{Q: } x_2 \to y_2; \quad \ldots; \quad \text{Q: } x_n \to ?
+$$
+and it returns a plausible $y_n$. If you change the demonstrations to teach a different task, the same model now does the different task. The model has effectively *learned* — in the sense of "picked up a regularity and applied it" — without any gradient step.
+
+This is genuinely strange. Nothing in the next-token-prediction objective was set up to make this happen. ICL is a meta-learning capability that *emerged* from training at scale. Why?
+
+We are going to introduce the phenomenon here and resist the urge to dissect it. The mechanistic story belongs in [Chapter 7](07_scidl_training.qmd) — there is genuinely interesting recent work characterizing ICL as a heterogeneous mixture of competing algorithms, with sharp phase-transition-like switches between them (see *Competition Dynamics Shape Algorithmic Phases of ICL*, Park et al., ICLR 2025 Spotlight), and another line showing that long enough context triggers a sudden re-organization of pretrained semantics into context-specified ones (see *ICLR: In-Context Learning of Representations*, ICLR 2025). The *bigger debate* — whether ICL constitutes "concept acquisition" in a deep sense — is in [Chapter 11](11_scidl_concepts.qmd).
+
+For now: register that the phenomenon exists, that it was not designed in, and that it makes the next-token-prediction objective look much more interesting than it has any right to be.
+
+## Fine-tuning
+
+The base model that comes out of pretraining is *capable* in the sense of having absorbed an enormous amount of structure from its training data, but it is not yet useful for any specific application. The standard next step is **fine-tuning**: a much smaller amount of additional training that adapts the base model to a particular task, domain, or style.
+
+**Supervised fine-tuning (SFT).** The default. You take the pretrained model, train it with the same cross-entropy loss on a (smaller, curated) dataset of input-output pairs appropriate to the target task. SFT is the workhorse of adaptation. It is also the thing many people *think* of when they hear "fine-tuning."
+
+**LoRA — low-rank adaptation** [@hu2021lora]. Fine-tuning all parameters of a large model is expensive — you have to store and update all of them. LoRA freezes the pretrained weights and inserts low-rank trainable matrices $\Delta W = AB$ (where $A$ is $d \times r$ and $B$ is $r \times d$, with $r \ll d$) added to specific weight matrices in the model. Only the low-rank factors get updated. The parameter count of the adaptation is tiny — orders of magnitude smaller than the full model. Multiple LoRA adapters can be stored independently and swapped in for different tasks.
+
+The empirical observation that fine-tuning works well in a low-rank subspace is itself interesting: it suggests that the useful directions for adaptation are concentrated in a small subspace of the full parameter space. This is a phenomenon worth keeping in mind when we discuss representations and emergence later.
+
+**Distillation.** A different fine-tuning move: train a smaller "student" model to match the outputs (or internal representations) of a larger "teacher" model. The student inherits much of the teacher's capability at lower cost. Distillation is a heavily used technique in production deployment and shows up again in post-training (Chapter 6).
+
+**Behavioral cloning (BC).** When the fine-tuning data is *trajectories* — sequences of states and actions — supervised imitation of those trajectories is called behavioral cloning. BC is what RLHF reward-modeling pipelines often reduce to in [Chapter 6](06_llm_posttraining.qmd), and it is the natural foil to "real" RL in [Chapter 9](09_rl.qmd). The crucial behavioral signature of BC is that it **plateaus near the data's performance level**. If your demonstration data was produced by a mediocre policy, BC reaches *mediocre* and stops. This is the *trash in, trash out* regime — useful to name explicitly because the appeal of BC (just train on the data!) hides this limitation in plain sight. We will revisit this when we contrast BC with RL.
+
+## Where the LLM story continues
+
+This chapter set up the *supervised* half of how modern LLMs are made. Pretraining gets a base model; fine-tuning adapts it. Along the way, three phenomena — scaling laws, emergence at scale, and in-context learning — appeared as the empirical surface of what is going on inside.
+
+[Chapter 6](06_llm_posttraining.qmd) picks up where this ends, with the *post-training* half: reward modeling, RLHF and DPO, the reasoning revolution from inference-time compute, and the agent paradigm. [Chapter 7](07_scidl_training.qmd) then steps back from the LLM-specific machinery and looks at the phenomena above from a methodological angle — model-organism studies, mechanistic accounts, the actual science of training dynamics.
+
+The bitter lesson is still in force. The base model in front of us is not the work of any single architectural cleverness; it is the work of next-token prediction, transformers, and a lot of compute. The interesting science is downstream of accepting that this works and asking *what it tells us*.

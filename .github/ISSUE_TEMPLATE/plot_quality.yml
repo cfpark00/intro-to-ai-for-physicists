@@ -1,0 +1,20 @@
+name: Plot quality
+description: Report a plot that is unclear, misleading, low resolution, or has a labeling problem.
+title: "[plot] "
+labels: ["plot"]
+body:
+  - type: input
+    id: location
+    attributes:
+      label: Where
+      description: Chapter, section, and figure number (or placeholder name).
+      placeholder: "Ch. 5 — LLM pretraining, Figure showing scaling-law slopes"
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What's wrong with the plot
+      description: Resolution, axes, legend, color choice, what it claims vs. what it shows, etc.
+    validations:
+      required: true

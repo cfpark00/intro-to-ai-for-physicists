@@ -1,0 +1,89 @@
+---
+title: "Introduction"
+---
+
+Welcome. This book is the experimentalist's half of a course on modern AI for physicists. The theoretical half — NTK, neural manifold capacity, high-dimensional geometry, capacity calculations — is in good hands elsewhere. Here we get our hands dirty.
+
+Before diving into getting GPUs hot, we'll spend a little time on philosophy: how to think about deep learning *as a scientific object*, what it means to do science on a thing that was designed for performance rather than for understanding, and why physicists are unusually well-placed to do this kind of work.
+
+## The thesis: neural networks as model organisms
+
+Neural networks in their natural habitat — frontier transformers trained on most of the web, optimized for benchmark performance — are a **big mess**. They are not cleanly defined problems. You cannot derive their behavior from first principles, and you cannot get them to stop surprising you. They are, in every meaningful sense, *systems we have built but do not understand*.
+
+The framing this book takes is that this situation is much more like biology than like physics-as-usual, and that it calls for a corresponding methodology. The closest precedent is **neuroethology**: the study of the neural basis of natural animal behavior in its ecological context. Neuroethologists do not start with axioms about brains. They start by noticing a behavior an animal actually does — bat echolocation, the visual cliff response in infants, electric fish jamming each other — and they work backwards.
+
+The course mostly follows this style. Neural networks are the animals. Their training distributions are the ecology. The phenomena are whatever interesting things they do when nobody is checking.
+
+::: {.callout-note appearance="simple" icon=false}
+**[Plot]** A side-by-side cartoon: on the left, a real neural network as a tangled mess of weights and activations; on the right, a "model organism" — a small synthetic task with a small network — that reproduces one specific phenomenon from the left. The arrow between them is the methodology this chapter introduces.
+:::
+
+## The 5-step methodology
+
+The guiding workflow — which we will revisit explicitly in [Chapter 7](07_scidl_training.qmd) and [Chapter 11](11_scidl_concepts.qmd), the two named "Science of DL" pillars — is five steps:
+
+1. **Notice a phenomenon.** Start from a striking, reproducible behavior actually observed in a real neural network. Not a mathematical abstraction — something a network *does* that surprised someone.
+2. **Explore broadly.** Through extensive, open-ended exploration, narrow the phenomenon down to a clear question. This step is mostly off-script and unglamorous, and it is where most of the actual scientific work lives.
+3. **Build a model system.** Develop a synthetic, controllable model that reproduces the phenomenon — small enough to instrument fully. You should be able to inspect every weight and every activation if you want to.
+4. **Experiment on the model system.** Now that the system is tractable, run the experiments the original network does not allow: ablations, interventions, controlled inputs, exhaustive sweeps.
+5. **Cross-check.** Bring the findings back to the original big monster and verify they hold there.
+
+The order will not always be strict — sometimes a theoretical hunch comes first, sometimes a model system precedes a crisp question, sometimes you cross-check halfway and have to back up — but this is the guiding shape.
+
+The direct neuroethology parallel: observe animals → find a specific behavior (better if it is shared across species) → that opens a clear question → run experiments on a *model organism* (Drosophila, *C. elegans*, zebrafish) where the experiments are actually possible → bring it back to the species that motivated the question.
+
+> Overall, the science here is close in spirit to neurophysics, but takes a heavily experimental approach.
+
+## A short, opinionated history
+
+You will encounter a lot of history in AI/ML/DL if you read the field's literature. Most of it is not very useful. But a few historical patterns *are* useful, because they keep recurring.
+
+**Connectionism vs symbolism.** For roughly half a century, two paradigms argued about whether intelligence is best understood as symbol manipulation (with rules, logic, structured representations) or as the emergent behavior of large networks of simple units. The connectionist camp has, for the moment, won — every system you will study in this book is a network of simple units. But the fight is older than this paradigm, and it will probably outlive it too. The current synthesis is uneasy: foundation models are connectionist on the inside and increasingly symbolic on the outside (chain of thought, tool use, agent scaffolding).
+
+**Theory has often been spectacularly wrong about neural networks.** This is one of the most useful patterns to internalize early. Some examples:
+
+- The **XOR-era impossibility**: a single-layer perceptron cannot represent XOR. This was true, taken seriously, and used as an argument that the whole research direction was hopeless. Stacking layers fixed it. The theorem was correct; the conclusion drawn from it was not.
+- **Universal approximation theorems**: existence proofs that a sufficiently wide network can represent any function. These were used both to argue *for* neural networks ("see, they can do anything!") and *against* deeper architectures ("you do not need depth"). Both readings missed what actually mattered, which was trainability and inductive bias, not raw representational capacity.
+- **Over-parametrization**: classical statistical learning theory said that models with vastly more parameters than data points should overfit catastrophically. They did not. This is still surprising. The phenomena that came out of *not* overfitting — double descent, grokking, the general "deep learning works much better than it should" — are the substance of [Chapter 7](07_scidl_training.qmd).
+
+The pattern is: when theory says "this cannot work," sometimes it just means the theory was not yet general enough. So, conditionally — and this is the author's bias, but it is a useful bias for an experimentalist — feel free to also *not* think in the theory way. There were cases where theory did not help. There were cases where it actively pointed in the wrong direction. Theory is one tool; it is not the only one, and it is not always the sharpest.
+
+The flip side is also worth saying: this does not mean theory is useless. It means that for the kind of science this book teaches, theory is downstream of phenomenology. We notice something weird, we characterize it carefully, and *then* we ask whether existing theory accounts for it. Often it does not, and that gap is the research opportunity.
+
+**Things were "hated" at various times.** Neural networks went through more than one AI winter. There were stretches of decades when working on connectionist models was a career-limiting move. If you are entering the field now, when it feels like a settled paradigm with massive industrial investment, it is worth knowing that the people who built what you are about to study did so under very different incentives. The current consensus is recent and may not be permanent.
+
+## The bitter lesson
+
+The lecture closes on a single recurring lesson from the history of AI: scaling general methods consistently beats clever hand-engineering of priors [@sutton2019bitter]. Rich Sutton's "bitter lesson" essay is the canonical statement; the pattern is older. People kept trying to encode their domain knowledge into AI systems — grammars for language, hand-designed features for vision, hand-coded heuristics for chess and Go — and at every scale, the methods that won were the ones that threw the hand-engineering out and let a generic learner consume more compute and more data.
+
+This will be the connecting thread through the next several chapters. The "first bitter lesson" — *bigger nets are better* — surfaces in [Chapter 2](02_image_classification.qmd) before scaling laws were a phrase, and gets the full treatment in [Chapter 5](05_llm_pretraining.qmd) once we have the LLM context to motivate the actual functional forms.
+
+### What the bitter lesson does *not* mean
+
+The bitter lesson is often misread as nihilism: "never think, just scale." This is not what it says, and treating it that way is bad for science.
+
+What the bitter lesson actually says is more limited and more useful: *do not bake in clever priors when scale will get there anyway*. It is a warning against premature specialization, not a license to stop thinking. There are still places where careful methodology, careful priors, and careful architecture pay off — the entire point of the methodology in the previous section is that *understanding why things work* is itself a valuable activity, and you cannot scale your way to understanding.
+
+So: scale matters, but science is not just scaling. We will spend many chapters of this book on phenomena that scale does not explain.
+
+## A very brief gesture at the substrate
+
+This is a Harvard physics grad audience. You already know what a neural network is in the basic sense — a stack of differentiable parameterized functions, trained by gradient descent on a loss. You already know what SGD is. You have computed gradients in your sleep. We are not going to spend a lecture re-establishing this.
+
+A few terms that will recur often, just for terminology:
+
+- A **foundation model** is a large model pretrained on broad data such that it can be adapted (often via fine-tuning or prompting) to many downstream tasks. The term is doing real work; we will see why in Chapters 5 and 6.
+- **Self-supervised learning** is training with labels that are derived from the data itself — predicting the next token, predicting masked patches, predicting one view of an image from another.
+- **Pretraining** and **fine-tuning** are the two main stages of the modern recipe. The cost asymmetry is enormous.
+
+Five minutes total. If any of this is unfamiliar, the rest of the book will fill it in implicitly, and you can use the glossary.
+
+## Where we are going
+
+The arc of the book is two parts.
+
+**Part I (Chapters 1–7): fundamentals and methods.** We work through the dominant model classes in roughly the order they matter for modern AI — image classifiers, sequence models, transformers, large language models pre- and post-training — and then in Chapter 7 we step back for the first of two phenomenology pillars, on training dynamics. The first part is "what to know" plus "how to do science on it."
+
+**Part II (Chapters 8–12): beyond LLMs.** Diffusion, real reinforcement learning, world models, the second phenomenology pillar (concept learning), and finally a capstone chapter on intelligence-shaped phenomena that go beyond gradient-trained single-agent learning.
+
+By the end of the book you should not feel that you have *covered* deep learning. You should feel that you have entered an open scientific frontier — and that you have the taste to recognize good questions in it, and the tools to start answering them.

@@ -1,0 +1,11 @@
+name: Other
+description: Anything that doesn't fit errata, suggestion, or plot quality.
+title: "[other] "
+labels: ["triage"]
+body:
+  - type: textarea
+    id: body
+    attributes:
+      label: What's up
+    validations:
+      required: true

@@ -1,0 +1,103 @@
+---
+title: "Science of deep learning I: training dynamics"
+---
+
+This is the first of two named "Science of DL" chapters. It is where the methodology of [Chapter 1](01_intro.qmd) — notice a phenomenon, build a model system, instrument it, cross-check — cashes out for the first time. We will revisit the methodology explicitly, with concrete examples, and then tour the canonical training-dynamics phenomena: **double descent**, the **generalization mystery**, **in-context learning** (as phenomenon, not as machinery), **grokking**, and a handful of related phenomena that round out the picture.
+
+The second pillar — [Chapter 11](11_scidl_concepts.qmd), on concept learning — covers a different family of phenomena, organized around what a network learns rather than how training behaves. This chapter is the more mechanistic of the two: what happens *during* training, what happens *as you scale*, what happens *late*. The reading order matters: many of the phenomena here have been studied in their own right, and the methodology of doing so is the *point*.
+
+## A brief intro to the methods of science-of-DL
+
+The 5-step methodology from [Chapter 1](01_intro.qmd) — *notice → explore → model system → experiment → cross-check* — looks a little abstract on the page. Here is what it looks like in practice.
+
+**What is "a phenomenon" in the NN context?** A behavior that is (i) **striking** — surprising enough to make a careful person stop and look; (ii) **reproducible** — not an artifact of a particular run or seed; and (iii) **surprising enough to investigate** — does not immediately reduce to a known cause. Grokking, double descent, ICL phase transitions are all phenomena in this sense. "The model achieves 73.4% on MMLU" is *not* a phenomenon; it is a measurement.
+
+**The synthetic-task discipline.** Real frontier models are mostly opaque. You can probe them, but you cannot easily intervene, cannot retrain at will, and cannot enumerate the inputs they were trained on. The science-of-DL move is to find or design a *small* synthetic task that reliably produces the phenomenon you are interested in, with a model small enough that you can instrument every weight if you have to. A 2-layer transformer trained on a regression-from-prompt task can reproduce ICL-like behaviors; a small MLP trained on modular arithmetic can reproduce grokking. The synthetic-task discipline is "find the simplest setting that still gives you the phenomenon."
+
+**Model systems in NN context.** In biology, *Drosophila* is a model system. In NN science, a "model system" is a (task, architecture, training procedure) triple that reproducibly exhibits a phenomenon you want to study. The criterion is not biological realism (which is meaningless here) but **mechanistic transparency**: you can intervene, ablate, swap, and watch.
+
+**The experimentalist's toolkit.** A non-exhaustive list of moves:
+
+- **Probes.** Train a linear or shallow classifier on the network's internal activations to test whether some quantity is encoded.
+- **Interventions.** Edit activations, weights, or attention patterns directly; observe what changes downstream.
+- **Ablations.** Remove pieces of the model (heads, layers, neurons) and measure performance changes.
+- **Activation patching.** Replace activations from one run with activations from another and see which behaviors transfer.
+- **Steering vectors.** Add learned vectors to internal activations to shift behavior in a controlled direction.
+- **Dictionary learning, sparse autoencoders.** Decompose representations into more interpretable basis vectors.
+- **CKA, t-SNE, UMAP, etc.** Visualization and comparison tools — useful, occasionally misleading, mostly for hypothesis generation rather than confirmation.
+
+Interpretability methods deserve more space than they get here. Treat this as the toolkit minimum; many of the phenomena below have been studied with one or more of these moves.
+
+## Phenomenon: double descent
+
+Double descent is the most counterintuitive scaling-related phenomenon in deep learning, especially for a physicist who has internalized classical statistical learning theory.
+
+The phenomenon: plot test error against model capacity (parameters relative to dataset size). The classical bias-variance picture predicts a U-shape — test error drops as the model gets big enough to fit signal, then climbs as the model starts to memorize noise. What you actually see in many deep-learning settings is a *first* U-shape near the interpolation threshold (the point at which the model can exactly memorize training data), and then *test error decreases again* as you go further into the over-parameterized regime. Two descents, one ascent in the middle, hence the name.
+
+::: {.callout-note appearance="simple" icon=false}
+**[Plot]** Test error vs. model size, with a bump near the interpolation threshold and a second decrease past it — the canonical double-descent shape.
+:::
+
+Why this is weird: classical theory does not predict the second descent. The empirical reality is that grossly over-parameterized models often *generalize better* than just-saturating ones. This is the first major theoretical surprise that deep learning hands the classical-statistics-trained reader. The connection to [Chapter 1](01_intro.qmd)'s "over-parametrization mystery" is direct.
+
+What it teaches: the inductive bias of the model and training procedure matters more than raw parameter count. The theory that gets you to a clean prediction here lives in [Chapter 1](01_intro.qmd)'s out-of-scope set (NTK, neural manifold capacity, etc.) — we are sticking to phenomenology. The phenomenological lesson is that the *shape* of the generalization curve is a structural fact about deep models, not a noise artifact.
+
+## Phenomenon: the generalization mystery
+
+Closely related, but worth naming separately: **over-parameterized models that should overfit but don't.** A modern transformer has parameters far exceeding the number of training examples it could plausibly memorize verbatim. Classical statistical learning theory says this should not work. It works anyway.
+
+This is *the* central mystery that motivated a generation of deep-learning theory. The clean question — what is the effective complexity of a trained over-parameterized network? — has been attacked from many angles (NTK, implicit regularization, sharpness-based bounds, PAC-Bayes approaches, etc.). Most of those are theoretical machinery covered by the partner course on the theory side. From the phenomenological angle relevant here: this mystery is *the* thing that makes deep learning weird, and the practical fact "trained networks generalize from many fewer effective samples than their parameter count suggests" is the bedrock empirical claim.
+
+For a physicist, the lesson is: an effective theory of "what makes deep networks generalize" is not yet settled. Phenomena like double descent, grokking, and the lottery ticket effect (below) are all gesturing at pieces of the answer.
+
+## Phenomenon: in-context learning, dissected
+
+In-context learning was introduced in [Chapter 5](05_llm_pretraining.qmd) as a phenomenon: pretrained models can pick up a pattern from a few examples in the prompt and apply it, with no weight updates. Here we look at the phenomenon more carefully.
+
+Several recent results have moved ICL from "weird thing models can do" to "a structured phenomenon you can study mechanistically."
+
+**Algorithmic phases of ICL.** *Competition Dynamics Shape Algorithmic Phases of ICL* (Park et al., ICLR 2025 Spotlight) shows that ICL is not a single algorithm. It is a heterogeneous mixture of competing strategies — for example, fuzzy retrieval vs. inference, or unigram vs. bigram statistics — and which one a model uses depends on training dynamics, prompt structure, and capacity. The transitions between regimes can be sharp, phase-transition-like. From the model-organism perspective, this is exactly the kind of result the methodology is designed to produce: a clean characterization, on a small task, of what is structurally happening inside a phenomenon that looked monolithic from outside.
+
+**Representation re-organization.** *ICLR: In-Context Learning of Representations* (Park et al., ICLR 2025) shows that long enough context can trigger a *sudden* re-organization of the model's pretrained semantic representations into context-specified ones. The model's representation of a concept can effectively be re-defined by the prompt, given sufficient context length. Again, the structure of the phenomenon is the point: representations are not fixed after pretraining; the model can locally rewrite them in-context.
+
+**In-context learning strategies emerge rationally.** A separate line of work (also from the author and collaborators) characterizes which ICL strategies a model adopts as a *rational* response to the prior over tasks implied by its pretraining distribution. The model is, in effect, doing approximate Bayesian model selection in-context.
+
+The thing this chapter is *not* doing is litigating the broader debate about whether ICL constitutes "concept acquisition" in a deep sense — that debate belongs in [Chapter 11](11_scidl_concepts.qmd). Here, we treat ICL as a phenomenon to characterize.
+
+## Phenomenon: grokking
+
+**Grokking** is the phenomenon where a network's *training loss* converges quickly to near-zero, but its *test loss* stays high for a long time — and then, eventually, far past the point where you would have stopped training, the test loss suddenly drops and the model generalizes.
+
+It looks, on a plot, like nothing is happening for a long time and then a step.
+
+::: {.callout-note appearance="simple" icon=false}
+**[Plot]** Training loss and test loss vs. training steps on a synthetic task (e.g., modular arithmetic). Training loss drops fast and stays near zero; test loss sits high for a long plateau and then sharply drops to near-zero, much later. The temporal lag is the punchline.
+:::
+
+This is a physicist's dream. It looks like a phase transition in learning — and a great deal of work has gone into characterizing it as one. The standard story involves the model first memorizing the training set and then, with continued training, discovering a *generalizing circuit* that has lower weight norm than the memorizing solution. The implicit regularization of weight decay (or similar) pushes the model toward the more compact representation, eventually.
+
+The methodological reason grokking matters for this book is that it is a *clean* phenomenon. Modular arithmetic tasks are small. The networks that grok are small. You can probe the internal representations before, during, and after the transition. Grokking is one of the success stories of the model-organism approach to scidl.
+
+## Other training-dynamics phenomena
+
+A few more to round out the picture. None gets a deep treatment here; each is worth knowing about.
+
+**The lottery ticket hypothesis.** Trained-from-scratch dense networks contain sparse subnetworks ("winning tickets") that, when reset to their original initialization and retrained, achieve comparable accuracy. The phenomenon suggests that successful training is partly a process of *finding* the right initial subnetwork and reinforcing it.
+
+**Sharpness/flatness of minima.** Generalization tends to correlate (imperfectly) with how *flat* the minimum the optimizer converges to is — flatter minima generalize better than sharper ones. The intuition is that flat minima are robust to small perturbations of the weights, which is similar to robustness to small perturbations of the data. This is one of the threads that connects to NTK-style theory on the other course, and we mention it for completeness.
+
+**Emergence in concept space.** A more recent perspective on emergence: rather than studying capabilities in *output space* (where they appear discontinuously, or seem to), study them in *concept space*. The author's *Emergence of Hidden Capabilities* (Park et al., NeurIPS 2024 Spotlight) shows that models harbor *latent* capabilities not yet elicitable by naive prompting — but visible via latent interventions. The "emergence" looks less like a discontinuity once you measure it in the right space; what looked like a sudden onset of a capability is really a continuous build-up that only crosses the threshold for naive elicitation at a particular scale.
+
+**Swing-by dynamics / non-monotonic test loss.** *Swing-by Dynamics in Concept Learning and Compositional Generalization* (Yang, Park et al.) characterizes non-monotonic training dynamics — situations where test loss can rise temporarily before dropping again as the model reorganizes its representation. These are explicit phase-transition-like dynamics in early training, and they connect to the compositional-generalization theme in [Chapter 11](11_scidl_concepts.qmd).
+
+## A light touch on interpretability methods
+
+Most of what was listed in the toolkit at the start of this chapter — probes, steering vectors, dictionary learning / sparse autoencoders, attention pattern analyses, CKA — gets used somewhere in the phenomena above. The current state of the art in mechanistic interpretability is good enough to provide load-bearing evidence in a fair number of cases; it is not yet good enough to reverse-engineer arbitrary trained networks. The honest picture is partial.
+
+For a science-of-DL chapter, the takeaway is that interpretability methods are now part of the toolkit, not a separate research community. The phenomena above are mostly accessible to careful experiment, and the constraint is no longer "is there a tool?" but "is the question well-posed enough to use the tools on?" That is the bottleneck this book is trying to move.
+
+## What this chapter set up
+
+We started with the methodology and then walked through phenomena. The point was not to give an exhaustive list — it was to give a feel for what doing science on neural networks looks like and what kinds of results it produces. The phenomena are real, the methodologies are reproducible, and the field has made genuine progress.
+
+[Chapter 11](11_scidl_concepts.qmd) is the companion pillar: same methodology, different family of phenomena, organized around *concept acquisition* rather than *training dynamics*. The two chapters are deliberately positioned at separated points in the book (here in the middle of the LLM block, there at the end of the architectural tour) — the methodology cashes out twice, on different territory, and that repetition is the point.

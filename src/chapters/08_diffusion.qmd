@@ -1,0 +1,92 @@
+---
+title: "Diffusion models"
+---
+
+We have spent the last few chapters in the LLM block — transformers, scaling, post-training, the science of training dynamics. This chapter and the next two step into different paradigms: **diffusion models** (probabilistic generation), **reinforcement learning** (real RL, not RLHF), and **world models**. The methodology of [Chapter 1](01_intro.qmd) keeps applying. The architectures and objectives change.
+
+Diffusion is the dominant probabilistic-generative paradigm of the modern era. It is also the part of modern AI that is most directly continuous with statistical physics — a Langevin-style equation lives at the heart of it, the forward process is a diffusion in the literal sense, and physicists tend to find the formalism friendly.
+
+The historical predecessors — VAEs, GANs, normalizing flows, energy-based models — get one slide each. They are scaffolding, not the main event. The phenomenon hook for the chapter is **model collapse**: what happens when you train a generative model on its own outputs, recursively. A clean phenomenon, with implications that go beyond diffusion.
+
+## The probabilistic view
+
+Generative modeling is the task of learning a distribution $p_{\text{data}}(x)$ from samples. Done right, you can then *sample* novel $x \sim p_\theta(x)$ that look like new draws from the same distribution. "Done right" is the hard part. High-dimensional distributions are nasty: they have lots of modes, they have intricate structure, and almost any approximation that you can train tractably is a substantial misrepresentation of the true distribution.
+
+Before diffusion, the main approaches were:
+
+- **Variational autoencoders (VAEs).** Encode $x$ to a low-dimensional latent $z$, decode back. Train by maximizing a variational lower bound on $\log p(x)$. Principled, end-to-end probabilistic, but samples tended to be blurry — the reconstruction objective puts mass everywhere in input space, including places that look like averages of plausible images.
+- **Generative adversarial networks (GANs).** A generator tries to fool a discriminator that is being trained to distinguish real from generated samples. Adversarial training produced *sharp* samples in a way VAEs did not, but suffered from instability, mode collapse (the generator concentrates on a few modes the discriminator cannot distinguish), and the lack of a well-defined likelihood.
+- **Normalizing flows.** Build a generative distribution by composing invertible transformations of a simple base distribution. Exact log-likelihood. Architectural constraints (every layer must be invertible with tractable Jacobian) limited the practical model capacity.
+- **Energy-based models.** Define $p(x) \propto e^{-E_\theta(x)}$. Flexible — any function $E_\theta$ defines a valid model — but sampling requires MCMC and is hard.
+
+Each of these had a moment, and each ran into a wall. Diffusion is the approach that broke past those walls and now dominates high-fidelity image, audio, and video generation.
+
+## Diffusion: the main event
+
+The setup of a diffusion model is, conceptually, two stochastic processes that run in opposite directions.
+
+**Forward process: incremental noising.** Start with a clean datapoint $x_0$ and gradually corrupt it by adding Gaussian noise over many steps:
+$$
+x_t = \sqrt{1 - \beta_t}\, x_{t-1} + \sqrt{\beta_t}\, \epsilon_t, \qquad \epsilon_t \sim \mathcal{N}(0, I).
+$$
+For appropriate $\beta_t$ and large enough $T$, $x_T$ is approximately Gaussian noise — all the structure of $x_0$ has been smeared out.
+
+**Reverse process: learn to denoise.** Train a neural network to predict, at each noise level $t$, the denoising step — equivalently (and with a more useful parameterization), the *noise* that was added. The network sees $x_t$ and is trained to predict $\epsilon$ such that subtracting it (with the right scaling) recovers $x_{t-1}$. The training objective, in the canonical DDPM formulation [@ho2020denoising], reduces to a simple weighted MSE on $\epsilon$:
+$$
+\mathcal{L}(\theta) = \mathbb{E}_{x_0, t, \epsilon}\!\left[\|\epsilon - \epsilon_\theta(x_t, t)\|^2\right].
+$$
+Given a network trained this way, you generate samples by starting from pure noise and applying the learned reverse process step by step until you have a clean sample.
+
+**Score matching.** The unifying view of why this works comes from **score matching**. The *score* of a distribution is the gradient of its log-density, $\nabla_x \log p(x)$ — a vector field that points in the direction of higher probability. If you knew the score, Langevin dynamics
+$$
+x_{t+1} = x_t + \frac{\delta}{2} \nabla_x \log p(x_t) + \sqrt{\delta}\, \eta_t
+$$
+would let you sample from $p$. The diffusion training objective turns out to be equivalent to learning the score of a sequence of *noise-corrupted* versions of $p_{\text{data}}$. This unification — the score-based-SDE framing of Song et al. [@song2021scorebased] — generalizes the discrete diffusion-step formulation into a continuous stochastic differential equation, and reveals the same machinery in several previously distinct lines of work.
+
+For a physicist, all of this looks familiar: a Langevin process, a learned drift, scores as gradient fields. The structural appeal is real and the math is comfortable. The neural-network part is "learn the score function"; the probabilistic part is what you do once you have it.
+
+**DDPM (Ho et al., 2020).** The version of the formulation that made diffusion practical for high-fidelity image generation. The choice of parameterization ($\epsilon$-prediction, weighted MSE), schedule of $\beta_t$, and architectural choices for the denoiser (typically a U-Net) are all from this lineage. Most modern diffusion image generators are descendants.
+
+::: {.callout-note appearance="simple" icon=false}
+**[Plot]** A sequence of images going from clean datapoint $x_0$ on the left to pure noise $x_T$ on the right (forward process, top row), and back from noise to a freshly sampled image (reverse process, bottom row). The visual punchline is that the reverse process — driven by a learned score field — gradually recovers structure from noise.
+:::
+
+**Sampling and speed-vs-quality.** Generating a sample requires many forward passes through the denoiser — once per timestep in the reverse process. This is expensive. A large fraction of the engineering effort in modern diffusion is about *reducing* the number of denoising steps without losing quality: distilled samplers, deterministic ODE solvers (DDIM and friends), consistency models, and so on. These do not change the underlying objective; they change the inference procedure.
+
+## Flow matching
+
+A more recent framing — **flow matching** — generalizes diffusion. The picture: instead of a noising process specifically, you specify a path of distributions $p_t$ from a simple base distribution to the data distribution, and train a network to predict the *velocity field* that transports samples along this path. Diffusion is a special case where the path is the noise schedule.
+
+Flow matching has been useful in scaling for two reasons. First, the formulation gives more flexibility in the choice of path — straighter paths in latent space can require fewer integration steps at sampling time. Second, the loss can be expressed without ever needing to compute noisy score estimates, which simplifies training. The frontier diffusion-style models in 2026 are often flow-matching variants under the hood.
+
+## The phenomenon: model collapse
+
+Here is the science-of-DL anchor for the chapter. **Model collapse** is what happens when you train a generative model on (some fraction of) its own outputs, then on the outputs of *that* model, recursively across generations.
+
+The phenomenon: across generations of recursive training, the model's distribution drifts away from the original data distribution. Specifically, the *tails* — rare modes — disappear first, the diversity of generated samples drops, and successive models concentrate on a shrinking effective support. Eventually, the model's output looks degenerate compared to what it was trained on originally.
+
+::: {.callout-note appearance="simple" icon=false}
+**[Plot]** Across recursive generations of self-training, plot a diversity metric (e.g., entropy of the learned distribution, or coverage of the original modes). The metric drops smoothly across generations — the tails go first.
+:::
+
+Why this matters as a phenomenon:
+
+1. **Practical.** As more of the web fills with model-generated content, future pretraining corpora will include progressively more model output. The model-collapse phenomenon says this is not free — the next generation of models trained on this data inherits a degraded distribution.
+2. **Fundamental.** The phenomenon tells us something about the *limits* of generative training. A model trained to imitate a distribution does not, in general, perfectly capture its tails — and that small imperfection compounds.
+3. **Methodological.** Model collapse is a clean phenomenon (you can reproduce it in small synthetic settings), it has a clear mechanism (sampling variance + finite training data), and it has interpretive depth (what does it mean for a generative model to "lose the tails"?). It is precisely the kind of phenomenon the science-of-DL approach is set up to interrogate.
+
+A secondary phenomenon worth flagging: **why does diffusion work so well for high-fidelity generation when GAN-era methods did not?** Part of the answer is the explicit probabilistic objective (no adversarial instability), part is the multi-step refinement (one shot of generation has trouble with sharp distributions, many small refinement steps do not), and part is that score matching turns out to be a much more numerically stable training signal than the alternatives. None of these are theorems; they are empirical observations that the field converged on.
+
+## Applications and the physics connection
+
+Diffusion is the modern toolkit for high-fidelity generative modeling of continuous-valued data. The applications that matter scientifically (rather than commercially) are the ones that exploit the probabilistic structure.
+
+The author's PhD work used diffusion in **cosmology**, most directly in *Probabilistic Reconstruction of Dark Matter Fields* and *Debiasing Cosmology with Diffusion* (ApJ 2024). In both cases, diffusion is doing what it is best at: producing well-calibrated posterior samples conditioned on partial / noisy observations of a physical field. The forward model is physics (a known stochastic process — observational noise, cosmological dynamics, instrumental smearing); the diffusion model learns the inverse. This is one example of a broader pattern: diffusion is well-suited to **scientific data** wherever you want to invert a forward model probabilistically — emulation of expensive simulations, debiasing of biased observations, reconstruction of partial measurements.
+
+For physicists specifically, the formal similarity between diffusion models and the Langevin / Fokker-Planck machinery from statistical mechanics is more than cosmetic. The score function $\nabla \log p$ is just the "force" in the Langevin picture; the noise schedule is a temperature schedule; the reverse process is reverse-time Langevin. Many of the design choices in diffusion practice have analogues in physics-of-stochastic-systems, and intuition crosses over more readily than it does in most other corners of modern AI.
+
+## Where this fits in the book
+
+Diffusion is a non-LLM paradigm with its own logic. It connects back to the science-of-DL theme in several ways: model collapse is a training-dynamics phenomenon in disguise (see [Chapter 7](07_scidl_training.qmd)); the question of what a trained diffusion model *learns* connects to compositional generalization and concept-learning ideas in [Chapter 11](11_scidl_concepts.qmd). And the same scaling story that runs through [Chapter 5](05_llm_pretraining.qmd) shows up here in a different costume — bigger diffusion models, trained on more data with more compute, get reliably better at the kinds of high-fidelity generation that early-2020s GANs could not approach.
+
+Next chapter steps further out of the LLM/transformer mainstream and into **reinforcement learning** in its genuine, non-RLHF sense.

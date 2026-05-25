@@ -1,0 +1,121 @@
+---
+title: "Reinforcement learning"
+---
+
+This chapter is **real RL**, in the sense that distinguishes it from the RLHF treatment in [Chapter 6](06_llm_posttraining.qmd). RLHF, as we discussed, is closer to reward-weighted supervised fine-tuning than to RL proper. It works fine for short-horizon preference-following, and it does not encounter the genuinely hard problems that RL was set up to face. This chapter is about those hard problems.
+
+The lecture's job is *not* to be a complete tour of RL. There are excellent textbooks for that, and there is a graduate course on RL at most decent universities — go take one. The job here is twofold:
+
+1. **Make it crisp why RL is qualitatively different from supervised learning** — the difference is deeper than "we now have a scalar reward signal."
+2. **Tour the hard problems** that fall out of that difference — credit assignment, sparse reward, exploration vs. exploitation, long-horizon, reward hacking — as phenomena worthy of study in their own right.
+
+We will set up the minimal machinery to do this honestly, gesture at the canonical algorithms, and then spend most of the chapter on what makes RL its own world.
+
+## Why RL is different
+
+In supervised learning, the data distribution is *given*. You have a dataset; it does not change while you train. The loss is a function of the model's output on those fixed examples. Gradient descent on this loss is well-behaved in the sense that the optimization landscape is fixed.
+
+In RL, **the agent's behavior creates the data**. The policy $\pi_\theta(a \mid s)$ produces trajectories $(s_0, a_0, r_0, s_1, a_1, r_1, \ldots)$ by interacting with the environment. The distribution over states the agent encounters depends on $\pi_\theta$. As you train and $\pi_\theta$ changes, the *distribution shifts*. The data you train on tomorrow comes from a policy that did not exist yesterday.
+
+This single fact creates almost all of RL's special problems.
+
+- It makes the optimization non-stationary. The "loss landscape" depends on the current policy.
+- It makes data efficiency dramatically worse than supervised learning, because you cannot pretrain on a giant fixed dataset and call it done.
+- It introduces a fundamental tension between **on-policy** updates (use data from the current policy — accurate but expensive) and **off-policy** updates (use data from a different policy — efficient but introduces correction terms and instability).
+
+The "in some sense quite similar" part of the framing: there is a useful viewpoint where RL is just iterated supervised learning, with the "labels" being the reward-weighted advantages of past actions, and the training distribution being whatever the current policy generated. From that angle, RL is "weighted SFT in a loop." That view is *correct*, and also *misses* what makes RL hard, because the "loop" introduces every interesting problem.
+
+## Minimal RL machinery
+
+The standard formalism is the **Markov decision process (MDP)**. The agent occupies states $s \in \mathcal{S}$, takes actions $a \in \mathcal{A}$, receives rewards $r$, and transitions to new states according to the environment's dynamics. The agent's behavior is encoded by a policy $\pi(a \mid s)$. The goal is to maximize the expected (typically discounted) sum of future rewards:
+$$
+J(\pi) = \mathbb{E}_{\tau \sim \pi}\!\left[\sum_t \gamma^t r_t\right].
+$$
+Two derived quantities show up everywhere:
+
+- **Value function** $V^\pi(s)$: expected return starting from $s$ under policy $\pi$.
+- **Action-value function (Q-function)** $Q^\pi(s, a)$: expected return starting from $s$, taking $a$, and then following $\pi$.
+
+We will not derive Bellman equations or temporal-difference learning at length — go look them up, or take an RL class. The two algorithmic moves you need to know about for this chapter are the policy-gradient family and PPO.
+
+**Policy gradient (REINFORCE).** Directly differentiate the expected return through the policy:
+$$
+\nabla_\theta J(\pi_\theta) = \mathbb{E}_{\tau \sim \pi_\theta}\!\left[\sum_t \nabla_\theta \log \pi_\theta(a_t \mid s_t) \cdot R_t\right],
+$$
+where $R_t$ is the (possibly discounted, possibly advantage-baseline-corrected) return from time $t$. This is the foundational form. Variance is the practical issue — Monte Carlo returns are noisy and gradient estimates are noisy.
+
+**Actor-critic.** Replace the noisy return $R_t$ with a learned estimate (the critic's value function or advantage). Lowers variance at the cost of introducing bias from the critic's imperfection. This is the standard form.
+
+**PPO — proximal policy optimization** [@schulman2017ppo]. The pragmatic workhorse. PPO clips the policy ratio to prevent the updated policy from drifting too far from the previous one in a single step, which stabilizes training. PPO is what most of the RLHF pipeline in [Chapter 6](06_llm_posttraining.qmd) uses, and it is also a standard baseline in genuine RL settings. The clipping is engineering rather than theory; it works.
+
+**On-policy vs off-policy.** When the data you train on was generated by the policy you are currently updating, the update is **on-policy**. When the data was generated by a different policy (or by mixing data across iterations), the update is **off-policy**, and you typically need importance-sampling corrections or a value-function-based formulation (Q-learning) to get an unbiased estimate. Off-policy is more data-efficient; on-policy is more stable. The tradeoff is real and shapes algorithm design.
+
+The contrast with **DPO** from [Chapter 6](06_llm_posttraining.qmd) is worth noting here: DPO derives a direct preference-optimization loss that does not require rollouts or a separate value function. From the RL perspective, DPO is best understood as a clever exploitation of the structure of the KL-regularized preference-learning problem, not as a "real RL" algorithm. Listing it next to PPO is misleading; they live in different problem statements.
+
+## The hard problems
+
+Now we get to the meat: the phenomena that make RL its own world. None of these is solved. Each is a research area.
+
+### Credit assignment
+
+The **credit assignment problem**: how does the agent figure out which past action caused a present reward, when many actions and many time steps lie between them?
+
+The temporal-difference solution — propagate value estimates backward via Bellman updates — is the standard answer. It is also limited. Value backups work when the *value signal itself* is sufficiently informative; they break down when reward is sparse or delayed for many time steps. Modern variants (TD(λ), eligibility traces, generalized advantage estimation) are all attempts to better attribute credit across time without exploding the variance of the gradient estimate.
+
+Credit assignment is one of the cleanest phenomena to study in toy settings — small grid worlds, simple control tasks — and to *observe failing* in larger ones. It is also a place where the model-organism methodology of [Chapter 7](07_scidl_training.qmd) pays off: you can isolate credit-assignment failures in controlled environments where you know what the right answer is.
+
+### Sparse reward
+
+A **sparse reward** signal is one where most steps yield no informative feedback. Imagine a navigation task where the only reward is +1 at the goal and 0 everywhere else. From the agent's perspective, almost everything it tries is indistinguishable from random. Until it stumbles onto the goal, gradient updates carry essentially no information.
+
+Sparse reward is where RL stops being "supervised learning with rewards" and starts being its own hard problem. Solutions involve either reward shaping (engineering denser intermediate signals — fragile, often counterproductive), curriculum learning (start with easier versions of the task and graduate), or — most interestingly — **intrinsic motivation** (the agent generates its own auxiliary rewards based on curiosity, novelty, prediction error, or information gain).
+
+::: {.callout-note appearance="simple" icon=false}
+**[Plot]** Two learning curves on the same sparse-reward task: one with shaped rewards, one with raw sparse rewards. The shaped-reward agent learns fast; the sparse-reward agent stays flat for a long time, then either learns abruptly or never learns. The contrast is the phenomenon.
+:::
+
+### Exploration vs. exploitation
+
+The **exploration–exploitation tradeoff** is the master tension of RL. Should the agent take the action it currently thinks is best (exploit), or try something else to learn more (explore)? An agent that only exploits never discovers better strategies; an agent that only explores never reaps the gains of what it has learned.
+
+Classical answers (in bandits and small MDPs):
+
+- **UCB** (upper confidence bound) — be optimistic in the face of uncertainty.
+- **Thompson sampling** — maintain a posterior over the environment and sample from it.
+- **Epsilon-greedy** — exploit with probability $1-\epsilon$, explore with probability $\epsilon$.
+
+These have well-developed theory in the bandit setting. In deep RL on rich environments, the question gets messier. **Intrinsic motivation** methods — curiosity-driven exploration, empowerment maximization, information-gain-seeking — are the modern attempts. None of them has fully solved exploration in hard environments. It is one of the open problems.
+
+### Long horizon
+
+In a long-horizon task, the reward depends on a sequence of decisions taken over many time steps. Temporal-difference bootstrapping breaks down — the value-function estimates compound their own errors, and the gradient signal for early actions gets buried under the noise of late ones. **Hierarchical** approaches (decompose the task into sub-goals and learn policies at multiple time scales) help, and so do model-based methods (covered next chapter), but the long-horizon problem is unsolved at frontier scale.
+
+This is also where RL meets the *agent* setting from [Chapter 6](06_llm_posttraining.qmd): a multi-step LLM agent doing a real task is doing long-horizon RL in disguise, with all the same problems (and a few new ones from natural-language action and state spaces).
+
+### Reward hacking
+
+When the reward function is misspecified — when it is a *proxy* for what we actually want, not a perfect measure — agents can find ways to maximize the reward without doing the intended task. The agent that learns to flip the game over to register an infinite score, or the simulated robot that learns to wedge itself into a wall to fool the velocity sensor, or the LLM that learns to refuse cleverly in order to maximize a politeness reward — these are all instances of **reward hacking**.
+
+The phenomenon is fundamental: any reward we can specify is a proxy. The deeper the optimization, the more likely the proxy will diverge from the intent. This is one of the threads that connects RL to alignment concerns, and it is one of the genuinely sharp phenomena for science-of-DL to study — reward hacking is striking, reproducible, and constitutes a clean failure mode you can characterize in synthetic environments.
+
+## Modes of RL
+
+Briefly, for orientation:
+
+- **Online RL.** The agent interacts with the environment as it learns. The standard setting; everything above is implicitly online.
+- **Offline RL.** The agent has access to a fixed dataset of trajectories from some (possibly suboptimal) policy and must learn without further interaction. Conservative updates are necessary to avoid catastrophic exploitation of out-of-distribution actions.
+- **Model-based RL.** Learn a model of the environment dynamics; use the model to plan or to generate synthetic experience. We will see this from a different angle in [Chapter 10](10_world_models.qmd) — the Dreamer family, MuZero, and the broader question of whether learned world models pay off.
+- **Multi-agent RL, self-play, Nash equilibria.** Multiple agents in the same environment. Self-play (an agent training against copies of itself) is how AlphaGo and AlphaZero got their performance. Nash-equilibrium reasoning becomes load-bearing. We touch this briefly here and revisit in [Chapter 12](12_intelligence.qmd) when intelligence-as-a-population-property comes up.
+- **Evolutionary methods.** Gradient-free optimization of policies via population-based search. Sometimes competitive with policy gradients on gradient-free or noisy-gradient problems. Also revisited in [Chapter 12](12_intelligence.qmd).
+
+## A note on RL for LLM reasoning
+
+We discussed in [Chapter 6](06_llm_posttraining.qmd) the recent paradigm of training LLM reasoning with RL on verifiable rewards (GRPO and friends). The author's *Decomposing Elements of Problem Solving: What "Math" Does RL Teach?* argues that this style of RL training is doing something subtle: it is enhancing the model's **execution** of reasoning strategies it could already sometimes find, rather than teaching it genuinely new strategies. The empirical signature is a **coverage wall** on problems requiring novel strategies, and an inferred mechanism that looks like "temperature distillation" — sharpening the probability mass on correct moves rather than expanding the support.
+
+Mentioning this in the RL chapter (rather than only in the LLM post-training chapter) is intentional. The phenomenon is a clean illustration of what RL with deep networks *actually does* when applied to reasoning, and it is a useful counterpoint to the more enthusiastic reading of "RL teaches reasoning."
+
+## Where RL fits in the broader picture
+
+RL is its own world. It overlaps with the LLM machinery (RLHF, reasoning), it overlaps with world models ([Chapter 10](10_world_models.qmd)), and it overlaps with the broader intelligence questions of [Chapter 12](12_intelligence.qmd) — multi-agent, evolutionary, open-endedness. But it is not reducible to any of them, and its hard problems do not have clean solutions yet.
+
+Channel the right level of honesty. Most of RL we are not going to cover — go take an RL class. The phenomena above are the parts of RL that a science-of-DL reader should know exist, should know are unsolved, and should know how to recognize when they show up disguised in other paradigms.

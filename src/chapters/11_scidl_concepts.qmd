@@ -1,0 +1,88 @@
+---
+title: "Science of deep learning II: concept learning"
+---
+
+This is the second of the two named "Science of DL" pillars. The first, [Chapter 7](07_scidl_training.qmd), was about *training-dynamics phenomena* — what happens during training, what happens as you scale, the surprising temporal structure of how networks learn. This one is about *concept-acquisition phenomena* — what networks actually learn, in what kinds of units, and what we can say about the *content* of those learned representations.
+
+The lecture has the most distinctive voice in the book. It deliberately drifts from concrete-technical to philosophical-open, and the pacing is part of the argument. We start with three technical phenomena — **concept learning**, **compositional generalization**, and **continual learning** — and end up at the deep question that lurks under all of them: *what is a concept, anyway?* The answer is ill-defined, and that ill-definition is the bridge into [Chapter 12](12_intelligence.qmd).
+
+The 5-step methodology from [Chapter 1](01_intro.qmd) is on display here for the second case study. The first case study was in Chapter 7 (training-dynamics phenomena via small model systems). This one is concept-acquisition phenomena, also via small model systems. The repetition is the point: when you see the methodology cash out twice, on different territory, with non-trivial results both times, you have something like a research methodology.
+
+## Concept learning in NNs (technical)
+
+What does it mean for a network to learn a "concept"? Operationally, in the recent science-of-DL literature, it means something like: a discrete, reusable unit of representation that the network deploys consistently across many inputs, and that you can isolate via probing or intervention.
+
+The author's research framework treats this in terms of a **concept space**: a (latent) representation space the network is implicitly building during training. As training proceeds, *concept signals* — directions in this space corresponding to particular concepts — sharpen and become disentangled from each other. The dynamics of how concept signals form is its own object of study.
+
+**Emergence of Hidden Capabilities** (Park et al., NeurIPS 2024 Spotlight) is the clearest statement of this view. The headline result: models often *contain* a concept (in the sense of having a probeable internal representation for it) before that concept is *elicitable* via naive prompting. There is a latent capability that latent interventions can reveal, but that ordinary input-output probes miss. The model has "learned" the concept in one sense and not yet in another, and the gap between the two senses is itself a phenomenon worth studying.
+
+This reframes "emergence at scale" from [Chapter 5](05_llm_pretraining.qmd) in a useful way. The discontinuous jumps that look like sudden capability acquisition in output space are often smoother in concept space — the model has been building the underlying representation gradually, and the visible jump corresponds to crossing a *threshold for naive elicitation*, not a discontinuity in what the model *knows*. The methodological corollary is to measure in the right space.
+
+**Latent interventions vs. naive prompting.** The empirical recipe behind the *Hidden Capabilities* result is comparing two ways of asking the model what it knows: naive prompting (the standard way) and *latent interventions* (directly manipulating internal activations in the direction of the concept of interest). The gap between the two is the "hidden capability" — what the model could do if you nudged its internals correctly, beyond what it does spontaneously from input alone. The implication is that there is more in the model than you can pull out by talking to it.
+
+::: {.callout-note appearance="simple" icon=false}
+**[Plot]** Two learning curves on the same model: probed accuracy on a concept (latent intervention) vs. accuracy under naive prompting. The probed curve climbs earlier and higher; the naive curve has a sharp later transition. The gap is the "hidden capability" phenomenon.
+:::
+
+## Compositional generalization
+
+Concepts are useful in proportion to how well they *compose*. A network that has learned "color" and "shape" as separate concepts should, in principle, be able to handle novel combinations — *purple triangle*, even if it has only seen *red triangles* and *purple squares* during training. The empirical question is whether networks actually do this, and the answer is: under specific conditions, yes, and the conditions are revealing.
+
+**Swing-by Dynamics in Concept Learning and Compositional Generalization** (Yang, Park et al.) characterizes the training dynamics of compositional generalization with unusual care. Two main results, simplified:
+
+1. Networks generalize compositionally *sequentially* — they acquire compositional capability over time, respecting an implicit hierarchy in the structure of the data. They do not learn all concepts simultaneously; they learn them in order.
+2. The training dynamics exhibit *non-monotonic* behavior — test loss can rise temporarily during a "swing-by" phase before dropping again as the network reorganizes its representations. This is a clean training-dynamics phenomenon in its own right, and connects back to the training-dynamics theme of [Chapter 7](07_scidl_training.qmd).
+
+The **SIM (Structured Identity Mapping) task** is the model system used in this line of work. Choose a structured factorization of inputs (e.g., color × shape × position), train a network to predict outputs that depend compositionally on the factors, and observe how the network's representation of those factors evolves over training. The task is small enough to instrument fully, structured enough to produce interesting phenomena, and aligned enough with the broader question of "how do networks acquire compositional structure" that the results have implications well beyond the model system itself.
+
+The deeper lesson: compositional generalization is not free. It requires that the network develop a representation that *factors* in the right way, and that factorization develops in a particular sequence over training. There is real *structure* to how networks come to compose, and the structure is studyable.
+
+## Continual learning
+
+**Continual learning** is the problem of acquiring new concepts (or skills, or task capabilities) over time without forgetting the old ones. Classically, the baseline failure mode is **catastrophic forgetting**: train a network on task A, then on task B, and its performance on A degrades or collapses.
+
+There is a *soft* sense of continual learning — avoid loss of plasticity, prevent forgetting — and a *hard* sense. The soft version has standard solutions: rehearsal (mix old data with new), regularization (constrain weight changes), modular methods (add new parameters for new tasks). They mitigate forgetting; they do not solve the deeper problem.
+
+The hard version is the one worth stating clearly: *continually adapt to new worlds by maintaining a good updatable representation, the way a competent biological agent does in a changing environment.* This is very different from passive gradient updates on a non-stationary stream of data. It requires something like an updatable world model (cf. [Chapter 10](10_world_models.qmd)), with mechanisms for revising prior knowledge when new evidence contradicts it. It is unsolved at scale.
+
+Note the structural connection back to RL ([Chapter 9](09_rl.qmd)) — RL on a non-stationary environment is, structurally, continual learning. And to world models ([Chapter 10](10_world_models.qmd)) — if a network has a world model, continual learning is the problem of keeping that world model accurate and updatable. Concepts are sticky representations the model is reluctant to overwrite, which is good for stability and bad for adaptability. The tension between the two is one of the central unresolved problems in the field.
+
+## The drift: what is a concept, anyway?
+
+We have been using the word *concept* with apparent precision. We have made claims about networks learning concepts, composing them, retaining them, acquiring new ones. It is worth, at this point in the chapter, asking what we actually mean.
+
+The technical-operational answer was given above: a concept is a probeable, intervenable, reusable internal representation that the network deploys consistently. Fine. But that operationalization is downstream of a prior choice — *which* probeable representations are concepts, and which are just features? A linear classifier can probe almost anything; that does not mean every probeable quantity is a concept.
+
+The deeper move: **concepts are abstractions defined at some scale of analysis**. Pixels are not concepts. Edge detectors might be features, not concepts. Object categories like "cat" or "chair" are usually called concepts. Higher-level abstractions — *causality*, *agency*, *symmetry* — are also called concepts, at a different scale. The fact that the same word covers wildly different scales is a sign that the term is doing categorical rather than precise work.
+
+Here are some thoughts the rest of the chapter wants to sit with.
+
+**Is in-context learning concept acquisition?** When a model sees a few examples in a prompt and starts producing outputs consistent with the underlying rule, has it *learned* the concept the examples illustrate? In one sense, yes — the model's behavior is sensitive to a regularity in the prompt, and it adapts to it. In another sense, no — there is no weight update; whatever the model "learns" disappears the moment you start a new conversation. The two senses do not match up cleanly, and which one is "real" learning is partly a choice about how you define the term.
+
+**Is continual learning about concept acquisition?** "Keep acquiring new concepts" is one of the standard motivations for continual learning research. But if we have not nailed down what "acquire" means and what "concept" means independently, we are smuggling all the hard work into our terminology.
+
+**"Having a rationality without info"** — a phrase from the author's notes, kept here verbatim. The framing it gestures at: maybe what learning fundamentally *is* is acquiring rationality (in the sense of: well-calibrated, useful inferential structure) about a domain *without yet having full information* about that domain. Concepts, in that framing, are the units of rationality that you carry across domains and partial-information situations. This is a gnomic statement that rewards sitting with rather than rushing past. Try it.
+
+## Learning at different abstraction scales
+
+Here is the proposed reframing the chapter is building toward. **Learning happens at different abstraction scales.** Some learning happens at the level of pixels (image-classification features). Some at the level of words (token statistics). Some at the level of grammatical structures, some at the level of factual knowledge, some at the level of reasoning strategies, some at the level of *scientific frameworks* (what counts as a useful explanation in a domain).
+
+What we have been calling "concepts" are best understood as units of representation at *one or more* of these abstraction scales. The reason the term is fuzzy is that it spans them all. The reason this is a useful reframing is that it dissolves several debates: instead of arguing whether the model "really" learned the concept, ask which abstraction scale you were measuring at, and recognize that learning at different scales has different signatures.
+
+This is the move from "did the model learn X?" — a flat, binary question — to "at what abstraction scale is the model representing X, and how robust is that representation across scales?" — a structured, answerable question. It is also the move that sets up [Chapter 12](12_intelligence.qmd): if learning lives at multiple abstraction scales, then *intelligence* — which involves coordinating learning across scales, plus a lot of other things — is necessarily broader than any single learning process.
+
+## Cogsci and human priors
+
+A short closing arc, because the connection is real but does not need to be the whole chapter.
+
+Cognitive science and developmental psychology have spent a long time on the question of how humans acquire concepts. Children develop object permanence, then categories, then more abstract concepts at well-documented stages. Language acquisition follows characteristic curves. There are documented **human priors** — inductive biases that we appear to come pre-loaded with — that shape what kinds of structure we find easy to learn.
+
+The interface with deep learning here is bidirectional. On one hand, large models trained on human-generated text and images *inherit human-shaped priors* through their training data. The author's *Vision-Language Models Inherit Human Color Perception* (ICLR 2026 workshop) is a clean demonstration: VLMs end up with a color-similarity structure that mirrors human perceptual structure, not because they were trained on color perception data, but because the linguistic and visual data they consumed was shaped by humans who have those perceptions.
+
+On the other hand, the *structure* of how humans acquire concepts — sequentially, hierarchically, with a clear role for innate priors — is structurally similar to what we observe in compositional-generalization studies in neural networks. Whether this is deep alignment or surface coincidence is open. It is a productive question to hold open rather than to resolve prematurely.
+
+## Closing
+
+This chapter pushed harder than most on definitional uncertainty. That is deliberate. The science of deep learning is at a stage where *some* of its most important phenomena — emergence, ICL, concept acquisition, compositional generalization — are bound up with terms that are not yet fully operationalized. The chapter's move is to embrace that fact, take it seriously, and use it as a methodological discipline: when terms are slippery, *don't argue about the terms — characterize the phenomena, find the right scale of analysis, and let the language sort itself out downstream*.
+
+[Chapter 12](12_intelligence.qmd) zooms out further. If learning is happening at multiple abstraction scales, intelligence is the property of systems that coordinate them — and there are *many* kinds of such systems, only some of which look like the gradient-trained neural networks of the previous eleven chapters.

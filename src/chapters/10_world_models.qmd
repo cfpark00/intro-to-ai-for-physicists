@@ -1,0 +1,86 @@
+---
+title: "World models"
+---
+
+A **world model** is, roughly, a learned representation of the environment that supports prediction, planning, or counterfactual reasoning. The phrase is doing a lot of work and we should be honest that it is also doing some hand-waving. There is no clean operational definition of "world model" that everyone in the field accepts, and you will hear the term applied to everything from a small dynamics model inside a Dreamer agent to whatever transformers do when they appear to track the state of a chess board they were never explicitly shown.
+
+This chapter takes that fuzziness seriously. We will (a) discuss the technical work where world models are concrete and useful — primarily in model-based RL — and (b) discuss the more open question of whether large transformers learn *world representations* from pure next-token prediction, which is the author's current research thread.
+
+A meta-lesson runs underneath: how to do good science on slippery questions. The author's framing, kept here: *"Does X have a world model? Does X have theory of mind, consciousness, creativity?" is always going to be a shit show. But one can contribute to this question meaningfully and incrementally — i.e., how to build taste in ill-defined debates is itself a skill worth teaching.* Most of the consciousness/creativity end of the debates is deferred to [Chapter 12](12_intelligence.qmd); here we keep the world-model and theory-of-mind subset.
+
+## What does "world model" mean?
+
+The standard, useful definition: a world model is a learned mapping from the agent's history (or current observation) to either (i) predictions about future observations or rewards, (ii) a state representation that supports planning, or (iii) an internal substrate for counterfactual reasoning ("what would happen if I did X instead?"). The three uses are related but not identical.
+
+The reason the term is fuzzy is that any sufficiently good predictor of the future can be called a world model, and any sufficiently good agent can be argued to have one *implicitly*, even if no module in its architecture is explicitly labeled "world model." When researchers debate whether GPT-X "has a world model," they often disagree on what would count as evidence — which is partly why the debates persist.
+
+Two operational definitions actually used in modern work:
+
+- **Predictive.** Can the model accurately predict observations multiple steps into the future, including under counterfactual or novel inputs?
+- **Representational.** Does the model's internal activations contain a *probeable* representation of latent world variables (the position of a chess piece on a board, the location of an agent in a maze, the value of a hidden physical quantity), even when those variables are not in the input?
+
+We will use both in what follows.
+
+## World models in RL
+
+The clearest practical use of "world model" is in **model-based reinforcement learning**. The setup, recapping briefly from [Chapter 9](09_rl.qmd): instead of (or in addition to) learning a policy directly from environment interactions, the agent learns a dynamics model $\hat T(s, a) \to s'$ and a reward model $\hat r(s, a)$, then plans through them. The intuition is that a learned world model lets the agent simulate many imagined experiences cheaply, rather than paying the environment-interaction cost for each one.
+
+**Dreamer family.** Train a world model in a *latent space* — encode observations into a compact latent representation, learn dynamics in that latent space, learn a value function or policy that operates on the latent state. The agent then "dreams" — generates rollouts in the latent model — and uses the dreams to improve its policy. Dreamer-style agents have shown that model-based RL with a learned latent dynamics model can solve a variety of difficult environments with much greater sample efficiency than model-free baselines.
+
+**MuZero.** A different approach: learn dynamics and value functions in a *latent* space jointly with the planning algorithm. The latent state is not required to be human-interpretable or to be a literal reconstruction of the environment state — it just has to support accurate value prediction. MuZero showed that you can do high-performance planning (Monte Carlo tree search, the AlphaGo machinery) on a learned latent dynamics model, and recover competitive performance on board games and Atari without ever giving the agent the true rules of the game.
+
+::: {.callout-note appearance="simple" icon=false}
+**[Plot]** Schematic of model-based vs. model-free RL training. Model-free: agent → environment interactions → policy updates. Model-based: agent → environment interactions → world model → imagined rollouts → policy updates. The world model amortizes the cost of environment interaction.
+:::
+
+The honest question to ask about all this work: why has model-based RL not *decisively* won, given how natural the inductive bias seems? "Learn how the world works, then plan" is intuitively how humans approach novel problems. Several reasons, none definitive:
+
+- **Model errors compound.** A small error in $\hat T$ accumulates rapidly over rollout horizon; long imaginary rollouts often degrade in quality.
+- **Learning a useful world model is itself hard.** The criterion "good for downstream planning" is not the same as "low next-step prediction error," and conflating them produces world models that are accurate locally and useless globally.
+- **Model-free methods have eaten up scale.** Frontier RL on board games and language has, empirically, scaled well with model-free methods + huge data + raw compute.
+
+It is plausible that the model-based approach is the *right* approach and the field has not yet figured out how to scale it. It is also plausible that learned world models are too brittle to be load-bearing at scale. The honest reading is that this is open.
+
+## World representations in transformers
+
+The second thread, and the one the author's current research is closest to: do transformers trained on pure next-token prediction develop **world representations** as a side effect — internal representations of latent variables in the data they are predicting?
+
+The cleanest historical example is the **Othello-GPT** line of work: a transformer trained on Othello game transcripts (just sequences of moves, no rules) appears to develop a probeable internal representation of the board state. You can train a linear probe on its activations and read off where the pieces are. You can intervene on the probed state and find that the model's downstream predictions change in ways consistent with having actually changed its internal board. This is suggestive evidence that the model has built — and is using — a representation of the latent variable (board state) that was never directly in its input.
+
+The author's *Origins and Roles of World Representations in Transformers* research thread is investigating where, when, and why such representations form, with talks at MIT (Isola group), Northeastern (Bau group), and CBAI. Key papers in this thread:
+
+- *Convergent World Representations and Divergent Tasks* (2026 preprint) — characterizes the conditions under which transformers converge on shared world representations across tasks.
+- *When Does Observational Data Teach Latent Dynamics?* (Nishi et al., ICLR 2026 workshop) — addresses the conditions under which a transformer trained purely on observations learns the *dynamics* of the underlying generating process.
+- *Vision-Language Models Inherit Human Color Perception* (ICLR 2026 workshop) — a different angle: world representations can be inherited from the human structure of the training data, not just discovered de novo. VLMs trained on human-generated descriptions of color end up with a color representation that mirrors human perceptual structure.
+
+The thread is open in the literal sense — the research is happening now, and the picture is still forming. What we can say firmly is that the *phenomenon* — world representations emerging from next-token prediction — is real and reproducible in several settings. What we cannot yet say is when it generalizes, what the dependencies on training data structure are, and how robust the representations are to distribution shift.
+
+This is also where transformers connect to model-based RL conceptually. If a transformer trained on data from an environment learns something like a world model implicitly, then the line between "model-free LLM that happens to predict the world" and "world-model-based agent" blurs. Several active research directions explore this convergence.
+
+## The "shit-show debates" subset
+
+The kinds of questions that surround world models — "does X really have a world model?" "does X have theory of mind?" — are infamous for being *debate-shaped* rather than *experiment-shaped*. The author's framing again: this is usually a shit show, but you can contribute meaningfully and incrementally, and learning *how to* contribute is itself a research skill the chapter wants to teach.
+
+What does that look like in practice?
+
+1. **Refuse the binary.** "Does X have a world model" is the wrong granularity. The better questions are: "Under what conditions does X produce predictions consistent with having a model of variable V?" "How does the strength of the evidence vary with training data, with model size, with prompting?" These are answerable. The binary is not.
+
+2. **Operationalize before debating.** If you cannot agree on what evidence would settle the question, the question is not yet ready for evidence. Spend the time to nail down the operationalization (probing? causal intervention? out-of-distribution generalization?) before you spend the time arguing about who is right.
+
+3. **Embrace partial answers.** "There is evidence of a board-state representation in this Othello-trained transformer, but the representation degrades under certain interventions, and we do not know whether it generalizes to more complex games." That is a useful scientific statement. "GPT has a world model" is not.
+
+4. **Cross-check on small things.** The methodology of [Chapter 7](07_scidl_training.qmd) — model-organism studies on small synthetic systems — is most of how progress gets made on these debates. The Othello-GPT line is a model-organism study. The cosmology-diffusion work is a model-organism study. Resist the urge to argue about frontier models directly; the experimental access is too poor.
+
+**Theory of mind** as a special case: modeling another agent's beliefs is structurally a world-modeling problem — the agent is part of your environment, their beliefs are latent variables, predicting their behavior requires representing those beliefs. The same operational moves apply: probe, intervene, characterize the conditions of success. The same dangers apply: ill-defined claims about whether a model "really" has theory of mind are not productive.
+
+## A light touch on neuroscience
+
+For physicists who like the model-organism framing, the neuroscience analog is **place cells**, **grid cells**, and similar internal representations of space and structure that biological brains build. Predictive coding is the broader theoretical idea: brains are constantly predicting the next sensory state, and what they learn falls out of where the predictions fail.
+
+We do not want to overdraw these analogies — they have been overdrawn elsewhere in the AI/neuroscience interface, often by people in both fields. But there is structural similarity: both biological neural systems and large transformers, when forced to predict structured environments, develop internal representations of latent variables that the environment is generating. The deeper question of how the two are or are not the same is the proper territory of [Chapter 11](11_scidl_concepts.qmd) (concept learning) and the cognitive-science threads there.
+
+## Where this fits
+
+This chapter is the lightest of the three "beyond LLMs" chapters — diffusion has cleaner machinery, RL has sharper phenomena, world models sit in between, with the most live research and the most unsettled definitions. That is by design. The deeper questions about *what neural networks learn* — concepts, representations, abstractions — get their proper treatment in [Chapter 11](11_scidl_concepts.qmd). The deeper questions about *intelligence as a broader phenomenon* — multi-agent dynamics, evolution, open-endedness — go to [Chapter 12](12_intelligence.qmd).
+
+The takeaway is methodological as much as factual. World models are a useful conceptual lens, model-based RL is a real research area, transformer world representations are an open frontier, and the slippery debates are slippery because nobody has done the work to operationalize them carefully. That last point is also the opportunity.

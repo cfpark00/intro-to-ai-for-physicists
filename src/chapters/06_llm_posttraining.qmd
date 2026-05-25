@@ -1,0 +1,97 @@
+---
+title: "Large language models II: post-training and agents"
+---
+
+The previous chapter ended with a fine-tuned base model — capable, adapted to some task, and still not quite what gets shipped. The gap between "fine-tuned base model" and "production assistant / reasoning system / agent" is the territory of **post-training**: reward modeling, preference optimization, reasoning training, and the orchestration moves that turn a language model into a system that actually does things.
+
+A small honest framing point first. The phrase "RL post-training" is everywhere in modern LLM discussion, and it does some genuine work, but it is also a little misleading. **RLHF is not really RL in the sense [Chapter 9](09_rl.qmd) cares about.** It is, mechanically, a reward model plus what amounts to weighted supervised fine-tuning. The author's blunt summary, kept here verbatim: *RLHF is meh — it's reward model and just weighted SFT, kinda.* The genuinely hard problems of RL — credit assignment over long horizons, sparse reward, exploration vs. exploitation, the data-distribution-shifts-as-the-policy-shifts feedback loop — show up only mildly here. They get full treatment when we do real RL in Chapter 9.
+
+This chapter covers what does show up: the post-training methods, the reasoning paradigm, agents, RAG, and evals.
+
+## Post-training methods
+
+**RLHF — reinforcement learning from human feedback** [@ouyang2022instructgpt]. The standard recipe has three pieces:
+
+1. Collect human preference data — pairs of model outputs $(y_a, y_b)$ for the same prompt, with humans labeling which they prefer.
+2. Train a **reward model** $r_\phi(x, y)$ on those preferences, typically as a binary classifier under the Bradley–Terry assumption that the probability of preferring $y_a$ over $y_b$ is $\sigma(r_\phi(x, y_a) - r_\phi(x, y_b))$.
+3. Use **PPO** [@schulman2017ppo] (or similar) to fine-tune the policy $\pi_\theta$ to maximize the expected reward $\mathbb{E}_{y \sim \pi_\theta}[r_\phi(x, y)]$, regularized by a KL penalty toward the original supervised model to prevent it from drifting off the manifold of plausible text.
+
+The result is a model that is better aligned with whatever the human raters were trained to prefer (helpfulness, harmlessness, style, format compliance, etc.). The recipe also introduced the field to the **alignment tax** — measurable capability degradation that often accompanies the alignment treatment, where the model becomes less competent at some pretraining capabilities while becoming better at preference-following.
+
+The framing here is: RLHF is *useful* — it is the move that turned base models into chat assistants — and it is also *not the hard problems of RL*. The reward signal is dense (you have a reward model that can score any completion), the horizon is short (one completion is one episode), and the data distribution is close to a supervised fine-tuning distribution. PPO is being used here because it works for this setting, not because the deep RL machinery is essential.
+
+**DPO — direct preference optimization** [@rafailov2023dpo]. Once people noticed the previous bullet point, the natural response was to skip the reward model and the PPO and directly optimize a clever loss on the preference pairs. DPO does this. The resulting loss — derived by recognizing that the optimal policy in the KL-regularized RL problem can be reparameterized in terms of log-ratios — looks like a contrastive log-likelihood:
+$$
+\mathcal{L}_{\text{DPO}}(\theta) = -\mathbb{E}_{(x, y_a, y_b)}\!\left[\log \sigma\!\left(\beta \log \frac{\pi_\theta(y_a \mid x)}{\pi_{\text{ref}}(y_a \mid x)} - \beta \log \frac{\pi_\theta(y_b \mid x)}{\pi_{\text{ref}}(y_b \mid x)}\right)\right].
+$$
+The variables are the policy $\pi_\theta$ being trained, a reference policy $\pi_{\text{ref}}$ (usually the SFT checkpoint), the preferred and dispreferred responses $y_a, y_b$, and a temperature $\beta$. The remarkable thing about DPO is what is *not* in it — no separately trained reward model, no rollout, no PPO. It is a direct preference loss on log-ratios that you can plug into a standard fine-tuning loop.
+
+DPO works surprisingly well and has largely displaced PPO-RLHF in many practical pipelines. Both PPO and DPO show up in later chapters — DPO appears again briefly in [Chapter 9](09_rl.qmd) as a foil for "real" RL, and the relationship between preference-based and policy-gradient methods is a thread that continues there.
+
+**Instruction tuning.** A broader name for "SFT on instruction-response pairs," often performed before any preference-based training. The dataset is curated to cover a wide variety of instruction-following formats. By itself, instruction tuning is responsible for a lot of what people associate with "chat models": format compliance, polite refusals, structured outputs. Some pipelines stop there.
+
+**Distillation in post-training.** Two flavors. **Context distillation** trains a model to produce outputs that match what it would produce *with* an elaborate system prompt — folding the prompt's behavior into the weights. **On-policy distillation** uses the policy's own rollouts to train a smaller student model. Both are practical moves that show up in deployment.
+
+**Calibration.** A trained LLM produces probability distributions over tokens. Whether those probabilities are *calibrated* — whether "the model is 70% sure of X" actually corresponds to 70% accuracy in the limit — is a separate question. Calibration matters when the LLM's outputs are consumed by downstream decision systems. Post-training can both improve and worsen calibration, and there is interesting phenomenology about what RLHF does to calibration (typically: it makes the model more confident, sometimes overconfidently so).
+
+## Reasoning and inference-time compute
+
+The most consequential recent shift in how LLMs are used is **inference-time compute**: letting the model spend more wall-clock time on harder problems by generating long internal chains of thought before answering.
+
+**Chain of thought (CoT).** Originally a prompting trick: "let's think step by step" elicits better performance on multi-step problems. The model generates intermediate reasoning, then a final answer. This works because the model's compute per token is fixed; spending more tokens on a problem gives it more compute to work with.
+
+**System 1 vs System 2.** A useful framing borrowed from cognitive science. *System 1* is fast, automatic, pattern-matched — what a base LLM does when it answers in one shot. *System 2* is slow, deliberate, multi-step — what a CoT-style rollout looks like. The recent push has been to make models reliably good at System 2 by training them to do it well, not just by prompting them.
+
+**Inference-time compute scaling.** The empirical observation is that for many tasks, allowing the model to generate more reasoning tokens before answering — equivalently, spending more compute at *inference time* rather than at training time — produces predictable, scaling-law-like gains. This is a second scaling axis, distinct from the training-time scaling of [Chapter 5](05_llm_pretraining.qmd). For some classes of problems, it appears to be the more cost-effective axis.
+
+**RL for reasoning.** The current frontier paradigm trains reasoning capability with RL on tasks that have *verifiable* rewards — math problems with checkable answers, code that can be run against tests, etc. The reward signal is automated, not human-rated, which sidesteps the bottlenecks of RLHF and lets the rollouts be much longer.
+
+There is a real scientific question of what RL is actually teaching when it improves reasoning. The author's own work, *Decomposing Elements of Problem Solving: What "Math" Does RL Teach?*, argues — using GRPO as the RL algorithm — that RL training is largely enhancing **execution** rather than **planning**: it makes models more reliably do the kind of reasoning step they could already do, sharpening the probability mass on correct moves ("temperature distillation"). Models trained this way also exhibit a **coverage wall** on genuinely novel problems — problems requiring strategies outside the distribution of solutions the base model could already sometimes find. This is a useful corrective to the more enthusiastic reading of "RL teaches reasoning" — RL is *amplifying* a capability the base model already had latently, not conjuring it from nothing.
+
+::: {.callout-note appearance="simple" icon=false}
+**[Plot]** Inference-time compute (rollout length / number of attempts) on the x-axis against task performance on the y-axis, schematically showing the smooth scaling curve characteristic of inference-time compute scaling. Could also show the "coverage wall" — a plateau on novel-strategy problems that the base model never solves.
+:::
+
+## Agents and tool use
+
+The shift from "language model in a box" to "language model that does things" is the **agent** paradigm. An LLM agent is a system that, given a goal, repeatedly takes actions — calling external tools, reading the results, planning next steps, and continuing — until the goal is achieved or it gives up.
+
+The key components, mechanically:
+
+- A **policy** (the LLM itself), which proposes the next action conditioned on the current state.
+- A set of **tools** — functions the agent can call (search, code interpreter, file system, web actions, other LLMs).
+- A **scaffolding** loop that runs the policy, executes the chosen tool, feeds back the result, and continues.
+
+Agents are where the limitations of post-trained LLMs become most visible. The model that does fine at single-turn QA can compound errors over multi-step trajectories — a wrong tool call early on leads to wrong context, leads to wrong subsequent reasoning, leads to a stuck or hallucinating trajectory. **Reliability is the bottleneck**, and the evaluation problem is harder than for single-turn tasks because agent trajectories vary enormously.
+
+The honest assessment in 2026 is that agents work better than they did a year ago, are still surprisingly brittle for long-horizon tasks, and are an active research area where the science (how do you measure agentic competence? what does training for it look like?) is moving faster than the engineering.
+
+## RAG — retrieval-augmented generation
+
+The other key move in deployed systems is **retrieval-augmented generation (RAG)**: instead of relying solely on what is encoded in the model's weights, you retrieve relevant documents from an external corpus and put them in the context window before generating.
+
+The motivation is simple. Context windows are finite; world knowledge is large; the world keeps changing after training cutoff. Retrieval lets you bring in *just* the parts of a large corpus that are relevant to the current query, on demand. The retriever can be as simple as a TF-IDF search or as fancy as a dense vector store with learned embeddings.
+
+RAG has obvious appeal and real limitations. It works well when the retriever can find the right document. It fails when the right document does not exist, when the retriever surfaces the wrong document, or when the answer requires integrating across many documents in a way that does not fit in the context window. The "RAG vs. long-context-models" debate is currently being resolved by hybrids — retrieval is still useful even when context windows grow.
+
+## Evals
+
+How do you measure a modern LLM? A few honest observations:
+
+- **Benchmarks saturate.** Tasks that were considered hard a few years ago are now near-ceiling for frontier models, which means they no longer differentiate. The field is in a constant arms race to construct new evaluations.
+- **Capability evals vs. alignment evals are different.** Measuring whether a model *can* do something is different from measuring whether it *does* it in production, and different again from measuring whether it does so safely.
+- **The harder the eval, the noisier.** Top-tier reasoning benchmarks (variously branded as "Humanity's Last Exam" or similar terminal-difficulty collections) have small sample sizes and high variance.
+
+For the science-of-DL framing, the lesson is to be skeptical of benchmark numbers as proxies for capability and to look for the *phenomena* underneath — what the model does and does not do, what it gets right and wrong, what the failure modes look like. This is the move from "scoreboard science" to model-organism science.
+
+## Vision-language and omni-models, briefly
+
+A growing fraction of frontier models are not language-only. **Vision-language models (VLMs)** consume images alongside text; **omni-models** consume images, audio, video, and text. The pretraining usually involves a contrastive or generative objective on aligned multimodal data, after which the model can take mixed-modality inputs.
+
+For a science-of-DL chapter, the interesting question is not "can VLMs see" — they can — but rather *what their internal representations look like* and *whether they inherit structure from the human data that produced their training corpora*. This is a recurring theme that surfaces again in [Chapter 11](11_scidl_concepts.qmd), which discusses human priors and includes the author's *Vision Language Models Inherit Human Color Perception* (ICLR 2026 workshop) as an example.
+
+## Where this chapter sits
+
+The chapter has been the most "what people actually ship" of the book so far. The risk in writing it is becoming a survey of product features at frontier labs. The frame we tried to keep was: *what is scientifically known about post-training, and what is just engineering practice that has become standard?*
+
+Two things to carry forward. First, post-training is *not* the deep RL of [Chapter 9](09_rl.qmd); much of it is supervised-with-extra-steps, and saying so is more honest than the marketing. Second, inference-time compute and RL-for-reasoning are the active research frontier, and the science there — what these training procedures actually do to the model — is genuinely interesting and partially open. That science is the bridge into [Chapter 7](07_scidl_training.qmd), where we step back and look at training-dynamics phenomena as proper objects of study.

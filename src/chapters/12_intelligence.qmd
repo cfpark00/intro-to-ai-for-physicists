@@ -1,0 +1,101 @@
+---
+title: "Science of intelligence"
+---
+
+We have spent eleven chapters working through the science of one particular thing: gradient-trained neural networks, mostly transformers, trained on large amounts of data with self-supervised objectives. The previous chapter ended with a reframing — *learning happens at different abstraction scales*. This chapter takes the natural next step. If learning lives at multiple scales, then **intelligence** — whatever it is — is broader than any single learning process.
+
+This is the capstone, and it has the most-at-risk-of-being-a-grab-bag content in the book. There is a real danger of the chapter becoming a tour of "things that are not deep learning" with no through-line. The through-line we will hold is the one [Chapter 11](11_scidl_concepts.qmd) handed us: *intelligence is a property of systems coordinating learning at multiple abstraction scales, and there are many kinds of such systems in nature and engineering.* The rest of the chapter is a survey of what kinds.
+
+The chapter ends on a question, not a topic list. That is also deliberate.
+
+## Where we are coming from
+
+The previous chapter ended by proposing that what we have been calling "concept learning" is best understood as *learning at different abstraction scales*: pixels, words, syntactic structures, factual knowledge, reasoning strategies, scientific frameworks. Each scale has its own learning dynamics, its own success criteria, and its own failure modes.
+
+The move this chapter wants to make is: *if you accept this picture, then intelligence is not "a learning process" — it is a property of systems that coordinate many learning processes, possibly across very different timescales and substrates.* Examples:
+
+- A human is intelligent partly because of within-lifetime learning (gradient updates of biological neurons), partly because of cultural learning (concepts transmitted via language across generations), partly because of evolutionary learning (priors hard-coded by natural selection across millions of years).
+- A scientific community is intelligent partly because of individual scientists doing within-career learning, partly because of cumulative cultural transmission across generations of researchers, partly because of institutional structures that select for productive work.
+- A self-play game-playing system is intelligent partly because of single-agent gradient learning, partly because of the population dynamics of the agents playing each other.
+
+In each case, intelligence is not located in one process. It is located in the *coordination* of multiple processes operating at different scales.
+
+So this chapter surveys those processes — beyond gradient-based single-agent supervised/RL learning, which is what most of the book has covered. The point is not encyclopedic coverage. The point is to *widen the frame*.
+
+## Evolution as a learning process
+
+Natural selection is the longest-running learning process on Earth. It is a learning process in the literal optimization sense: a population, a fitness function (survival and reproduction), and a stochastic update rule (mutation, recombination, selection). It has no gradient. It has no centralized objective. It has no individual that "learns" — the population learns, across generations.
+
+For deep learning, the connection runs two ways.
+
+**Evolutionary methods in ML.** Optimization without gradients. The relevant techniques are **evolution strategies (ES)**, **neuroevolution**, and various genetic algorithm flavors. They estimate update directions by random perturbations of the parameters and selection on fitness, rather than by backpropagating a loss. They are typically less sample-efficient than gradient methods *when gradients are available and meaningful*, but they can shine in settings where the gradient is not — when the objective is non-differentiable, when the environment is too noisy for gradient signal, or when the optimization landscape is rugged in ways that gradients cannot navigate. They have been competitive in some gradient-free RL settings.
+
+**The structural analogy.** Both NN training and evolution are forms of optimization, but they are not the same kind of optimization. Gradient descent moves a *single* parameter vector along an explicit local direction. Evolution maintains a *population* and selects across it. The differences matter — for what they can find, for how they generalize, and for what kinds of objectives they can handle. A physicist's reflex of "they are both optimization, treat them similarly" is partially right and partially wrong, and the partially-wrong part is interesting.
+
+The deeper point is that evolution is not a backup option for when gradient descent fails. It is *a different mode of learning*, and intelligence-in-nature uses both — the genome is the slow evolutionary learner, the brain is the fast within-lifetime learner, and human intelligence requires both.
+
+## Multi-agent intelligence
+
+A second mode: intelligence as a **property of populations** of interacting agents, rather than of individuals.
+
+**Self-play.** Train an agent against copies of itself. The AlphaGo / AlphaZero lineage is the canonical example: an RL agent playing Go (or Chess, or Shogi) against itself, with the opponent's policy continuously co-evolving with the agent's. The self-play dynamic creates a curriculum without any external curation — each agent always faces an opponent matched to its current strength, and the strength climbs.
+
+**Nash equilibria and game theory.** In multi-agent settings, the natural solution concept is not "the optimal policy" (which is ill-defined) but the **Nash equilibrium** (or some refinement) — a configuration in which no agent can unilaterally improve by changing strategy. Game theory becomes load-bearing. Solution concepts get messier in many-player games and in games with continuous action spaces. Some of the most interesting recent work in multi-agent RL is about learning dynamics that converge to (refinements of) Nash equilibria in non-trivial games.
+
+**Cooperative vs. competitive dynamics.** In cooperative multi-agent settings, agents share a reward and have to coordinate. The hard problem is *credit assignment among agents* — when a team succeeds, which agent's actions caused the success? In competitive settings, the hard problem is the moving target — your opponents are adapting to your strategy. Mixed-motive settings (some cooperation, some competition) are the messiest and most realistic.
+
+The phenomenon worth taking away: intelligence can emerge from the interaction of agents who, individually, are not particularly intelligent. The emergent behaviors of mixed populations of simple agents often look more competent than the agents themselves. This is the multi-agent analog of "emergence at scale" from [Chapter 5](05_llm_pretraining.qmd) — except the "scale" is the size of the population, not the parameter count of any individual.
+
+::: {.callout-note appearance="simple" icon=false}
+**[Plot]** Schematic of self-play curriculum: a single agent against frozen copies of its older selves, with the opponent's strength climbing over training. The agent's performance is plotted against the population's average strength, both rising together.
+:::
+
+## Quality-diversity
+
+In standard optimization, the goal is to find one good solution. In **quality-diversity (QD)** methods, the goal is to find *many diverse* high-quality solutions. The motivation: in many problems, there is no single "best" solution; there are families of distinct solutions, each suited to a different niche. Finding the family is more useful than finding any one member.
+
+The canonical methods include **novelty search** (rewarding diversity rather than performance) and **MAP-Elites** (maintaining a grid of solutions indexed by behavioral descriptors, keeping the best solution per grid cell). The result is a *map* of the solution space, not just a point. QD methods have been useful in robotics (where many gaits, many strategies, etc. each have their use), in protein design, and in open-ended exploration.
+
+The connection to intelligence: QD is one of the simplest formal expressions of the idea that intelligence is *not just optimization toward a single objective*. A good explorer of a possibility space — a system that maintains diverse competencies — is in some senses smarter than a system that finds the single best policy and stops.
+
+## Open-endedness
+
+**Open-endedness** is the aspiration of designing a learning process that *keeps generating new challenges and new capabilities indefinitely*. The most evocative example is evolution itself: 3.5 billion years and still inventing new niches, new body plans, new ecosystems. Nothing we have built in ML comes close to this in practice.
+
+The recent open-endedness research line — **POET**, **OMNI-EPIC**, and related work — tries to instantiate this in compute: have a system that simultaneously generates new environments *and* new agents that learn in them, with the environments and agents co-evolving in a way that keeps presenting fresh challenges. The systems are not yet capable of running indefinitely without engineering intervention, but they are interesting *as research questions*. The fact that we do not yet know how to build a process that keeps surprising itself indefinitely is one of the meaningful frontiers.
+
+Open-endedness connects to all the previous threads in this chapter. Evolution is the original open-ended process. Multi-agent self-play is a form of open-endedness — each agent's improvements set up new challenges for the others. QD provides the structural ingredient of diversity. The threads are not parallel research areas; they are facets of one larger question: *what kind of process keeps generating new structure?*
+
+## Creativity
+
+A short, honest section. Creativity in AI systems is a debate-shaped territory of the kind [Chapter 10](10_world_models.qmd) warned against — ill-defined, prone to motivated assessments, and resistant to crisp operational definitions. We will not try to resolve it here.
+
+What is worth saying: the surface phenomena are striking. Large generative models produce outputs that are at least *novel* in the sense of not appearing in training data. Some of those outputs are *useful*, *interesting*, *evocative* by human assessment. Whether any of this counts as "creativity" in the philosophically loaded sense depends on what you think creativity is, and the field has not settled the operationalization any more than it settled the operationalization of "world model" or "concept."
+
+Channel the same methodology from previous chapters: refuse the binary, operationalize before debating, embrace partial answers, cross-check on small things. The creative outputs of large models are a phenomenon. Whether they constitute "real creativity" is a question that does not yet have an answer that pays scientific dividends. Better questions: what is the structure of the outputs the model produces? What kinds of novelty does it surface easily, and what kinds does it miss? Under what conditions does it produce outputs humans rate as creative? These are answerable. The bigger question may not be.
+
+## Learning, in the expansive view
+
+Pulling threads together: once you survey evolution, multi-agent, quality-diversity, open-endedness, and creativity, the original notion of *learning* as gradient descent on a loss starts to feel narrow. The expansive view of learning includes any process by which a system updates its behavior or its representations in response to interaction with its environment — and that process can operate at many timescales, on many substrates, with many objectives (or none).
+
+The course's punchline: *learning is a much broader phenomenon than the gradient-descent-on-a-loss picture [Chapter 1](01_intro.qmd) started with*. Intelligence may be a property of *systems-with-objectives* — coordinating learning processes across scales, in service of goals that may themselves be emergent — of which the gradient-trained networks of this book are one instance.
+
+This is not a dismissal of the gradient-trained-network picture. It is a positioning of it. The science we have developed across the eleven previous chapters is the science of one important instance of a broader phenomenon. The broader phenomenon is still being explored, and the broader frontier is wide open.
+
+## Some adjacent threads, briefly
+
+A few topics that fit the chapter's expansive frame and are worth flagging without dwelling.
+
+**Knightian uncertainty vs. probabilistic uncertainty.** *Aleatory* uncertainty is the irreducible randomness in a system. *Epistemic* uncertainty is uncertainty about model parameters or structure, which more data could in principle reduce. *Knightian* uncertainty is uncertainty about events whose *probabilities are themselves unknown* — situations where the probabilistic framework does not even apply. Real-world intelligence has to handle all three, and most of the deep-learning machinery in this book really only handles the first two. This is an open frontier.
+
+**Active learning.** Choosing *what* to learn from, rather than passively consuming whatever data arrives. Open-endedness, intrinsic motivation, exploration in RL, curriculum learning — these are all flavors of active learning. The science here connects to RL ([Chapter 9](09_rl.qmd)) and to the data-efficiency questions in LLM pretraining ([Chapter 5](05_llm_pretraining.qmd)).
+
+**AI for scientific discovery.** The author's long-term research vision, mentioned here because the chapter is the right place for it: what kind of intelligence do we need for *open-ended scientific research*? This is a question that ties together everything in this chapter — open-endedness, creativity, learning at the level of frameworks, multi-agent dynamics within scientific communities. It is a frontier that is barely scratched, and it is plausibly the frontier where the broader view of intelligence will be most useful.
+
+## Capstone: closing the course
+
+We started in [Chapter 1](01_intro.qmd) with a methodology — five steps for doing science on neural networks — and a thesis: *neural networks as model organisms*. Eleven chapters later, we have seen that methodology cash out twice (in [Chapter 7](07_scidl_training.qmd) and [Chapter 11](11_scidl_concepts.qmd)), and we have zoomed out to where it points — toward intelligence as a broader phenomenon than gradient learning on a single objective.
+
+You should now have, more than anything else, a *taste*: a sense of what counts as a real phenomenon in deep learning, what counts as a useful synthetic experiment, what counts as evidence, what counts as a properly operationalized question. That taste is the deliverable. Specific facts about scaling laws or attention will date faster than the methodological frame this book has been building.
+
+The invitation is open. The frontier is, by any honest reading, wider open than the field's current confidence would suggest. There are phenomena nobody has found, model systems nobody has built, methodologies nobody has yet pinned down. Go find them.

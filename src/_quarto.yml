@@ -8,12 +8,12 @@ project:
 book:
   title: "Intro to AI for Physicists"
   favicon: assets/favicon.ico
-  subtitle: "A short, modern introduction to ML, deep learning, and large-scale AI — for people who already know calculus, linear algebra, and a bit of statistics."
+  subtitle: "The science of deep learning, for physicists. Neural networks as model organisms — phenomena, methods, and the synthetic experiments that make them tractable."
   author: "cfpark00"
   date: today
   site-url: https://scienceofdl.com
   repo-url: https://github.com/cfpark00/science-of-dl
-  repo-actions: [edit, issue]
+  repo-actions: [issue]
   search: true
   page-navigation: true
   sidebar:
@@ -21,26 +21,22 @@ book:
     collapse-level: 1
   chapters:
     - index.qmd
-    - part: "Foundations"
+    - part: "Fundamentals and methods"
       chapters:
-        - chapters/01_landscape.qmd
-        - chapters/02_dl_primer.qmd
-    - part: "Modern architectures"
+        - chapters/01_intro.qmd
+        - chapters/02_image_classification.qmd
+        - chapters/03_sequence_modeling.qmd
+        - chapters/04_transformers.qmd
+        - chapters/05_llm_pretraining.qmd
+        - chapters/06_llm_posttraining.qmd
+        - chapters/07_scidl_training.qmd
+    - part: "Beyond LLMs"
       chapters:
-        - chapters/03_transformer.qmd
-        - chapters/04_scaling_laws.qmd
-    - part: "Large language models"
-      chapters:
-        - chapters/05_pretraining.qmd
-        - chapters/06_finetuning.qmd
-        - chapters/07_rl.qmd
-        - chapters/08_reasoning.qmd
-    - part: "Generative models beyond LLMs"
-      chapters:
-        - chapters/09_diffusion.qmd
-    - part: "Practice"
-      chapters:
-        - chapters/10_inference.qmd
+        - chapters/08_diffusion.qmd
+        - chapters/09_rl.qmd
+        - chapters/10_world_models.qmd
+        - chapters/11_scidl_concepts.qmd
+        - chapters/12_intelligence.qmd
     - references.qmd
 
 bibliography: references.bib

@@ -1,0 +1,111 @@
+---
+title: "Transformers"
+---
+
+The previous chapter framed the transformer as the no-compression extreme of memory in sequence models. This chapter pays that off in mechanism. We will work through what is actually inside a transformer — attention, the residual stream, multi-head processing, MLPs, positional encoding — and end with the practical economics (KV caches, mixture of experts) that decide what is feasible at scale.
+
+This is a structural chapter more than a phenomenological one. The deep architectural understanding *is* the deliverable. By the end you should be able to read a modern model card and know what every piece is doing, and you should be ready for [Chapter 5](05_llm_pretraining.qmd) to scale this up to LLMs.
+
+## Attention — the core invention
+
+A transformer processes a sequence of $T$ tokens. Each token starts life as an embedding vector in $\mathbb{R}^d$ where $d$ is the *model dimension*. Stack them and you have an array $X \in \mathbb{R}^{T \times d}$.
+
+The unit of computation that gives the transformer its name is **scaled dot-product attention** [@vaswani2017attention]. Given the current sequence representation $X$, attention projects it three ways:
+$$
+Q = X W_Q, \qquad K = X W_K, \qquad V = X W_V,
+$$
+into queries, keys, and values, each $T \times d_{\text{head}}$. Then for each pair of token positions $(i, j)$ it computes a similarity score and softmaxes across $j$:
+$$
+A_{ij} = \mathrm{softmax}_j\!\left(\frac{Q_i \cdot K_j}{\sqrt{d_{\text{head}}}}\right),
+$$
+and the output at position $i$ is a weighted sum of values:
+$$
+\mathrm{Attn}(X)_i = \sum_j A_{ij}\, V_j.
+$$
+
+In words: token $i$ poses a question (its query). Every token offers an answer (its key). Token $i$ takes a weighted average of the values, weighted by how well each key matched its query. This is **content-based routing** — the past tokens that get attended to are decided by what they *contain*, not by their position. That is the inductive bias that makes the transformer powerful.
+
+Two design details worth noting. The factor $1/\sqrt{d_{\text{head}}}$ keeps the softmax inputs in a regime where the gradient does not collapse — without it, dot products grow with dimension and the softmax saturates to a near-one-hot. Soft attention is differentiable everywhere and parallel across pairs $(i, j)$, which means the entire computation maps cleanly to dense GPU operations.
+
+The cost is $\mathcal{O}(T^2 d_{\text{head}})$ per layer in time and memory. That is the famous "$N^2$" that everyone worries about at long context, and it is the reason engineering effort goes into clever attention variants (sparse attention, sliding-window attention, FlashAttention's tiled implementation, and the SSM hybrids from the previous chapter).
+
+**Self-attention vs cross-attention.** When $Q$, $K$, $V$ all come from the same sequence, this is self-attention — what we have written above. When $Q$ comes from one sequence and $K, V$ come from another (as in encoder-decoder models, or any retrieval-flavored setup), this is cross-attention. Same mechanism, different sources.
+
+## The residual stream
+
+A transformer is a stack of $L$ identical blocks. Each block does:
+$$
+X \leftarrow X + \mathrm{Attn}(X), \qquad X \leftarrow X + \mathrm{MLP}(X).
+$$
+Every block **adds** something to the running representation $X$. The cumulative state $X$ is called the **residual stream**.
+
+This is not just a training trick — it is the *computational substrate* of the transformer. Each token's residual stream is a $d$-dimensional vector that gets refined as it passes through layers. Attention layers write information from other tokens into it; MLP layers process information already there. Crucially, the residual stream is a **linear channel**: every component reads its input via a linear projection of the stream, and writes its output by addition. There is no nonlinearity *between* components — only inside them.
+
+This framing pays off enormously in interpretability work, and we will use it again in [Chapter 7](07_scidl_training.qmd). Different components — different attention heads, different MLP neurons — can effectively communicate by writing to and reading from agreed-upon **subspaces** of the residual stream. "This head writes its output into a 50-dim subspace that the MLP three layers later reads" is the kind of sentence a transformer interpretability paper looks like, and it makes sense precisely because the residual stream is linear.
+
+The residual stream is the closest thing the transformer has to a "wire." Everything else is a component that reads from the wire, does some computation, and writes back to the wire.
+
+## MLPs — per-token processing
+
+Sandwiched between attention layers is a position-wise feed-forward network, typically a two-layer MLP with an inner dimension of $4d$:
+$$
+\mathrm{MLP}(x) = W_2\, \sigma(W_1 x).
+$$
+The same MLP is applied independently at every token position. There is no mixing across positions inside an MLP block — that is attention's job.
+
+This alternation matters. Attention mixes information *across* tokens. MLPs process information *within* each token. The two phases together let a transformer build complex token-position-dependent computations out of two simple ingredients.
+
+There is a useful, if rough, division of labor: **attention is the routing, MLPs are the memory.** Mechanistic interpretability suggests that most of a transformer's stored "knowledge" lives in the MLP weights, while attention heads implement the routing and circuit structure that decides which knowledge gets pulled in for which prediction. This is empirical, not theoretical, and it is not exact — but it is a useful first-order picture. The MLPs are also where most of the parameter count lives; in a typical transformer, the MLPs are roughly two-thirds of the parameters.
+
+## Multi-head attention
+
+Running attention once with one set of $(W_Q, W_K, W_V)$ matrices gives you one "channel" of relational structure. **Multi-head attention** runs $h$ attention operations in parallel, each with its own learned projections (and with $d_{\text{head}} = d/h$, so the total compute is comparable to a single attention with $d_{\text{head}} = d$). The outputs are concatenated and passed through a final linear projection.
+
+The intuition is that different heads can specialize in different relationships between tokens — one might track syntactic dependencies, another might track coreference, another might just copy tokens from a recent position. Whether this clean "head specialization" actually emerges in trained models is its own research question; the answer is "sometimes yes, sometimes no, sometimes the heads cooperate in non-obvious ways." There is interesting phenomenology here that interpretability work has only partially mapped — see Chapter 7's discussion of probing methods.
+
+## Positional encoding
+
+There is one piece of structure attention does not naturally have: it is **permutation-equivariant**. If you shuffle the input tokens, the output gets shuffled the same way. For a language model, this is unacceptable — "the cat ate the mouse" and "the mouse ate the cat" had better produce different predictions.
+
+The fix is to add position information explicitly. There are several flavors:
+
+- **Sinusoidal positional encodings**: add fixed sinusoidal vectors of varying frequencies to the input embeddings before the first block. Simple, parameter-free, and extrapolates somewhat to longer sequences.
+- **Learned positional embeddings**: a learned vector per absolute position. Conceptually trivial; does not extrapolate beyond training-time lengths.
+- **Rotary position embeddings (RoPE)**: applied inside the attention computation by rotating $Q$ and $K$ by position-dependent angles. The key insight is that the attention score then depends only on the *relative* offset $i - j$, not on absolute positions. RoPE is the default in most modern decoder-only LLMs.
+
+The choice of positional encoding is one of the places where the "memory of order" lives. Several recent context-length advances are essentially modifications to how positions get encoded so that the model can be evaluated on sequences longer than it was trained on.
+
+## Causal masking and the training loss
+
+For language modeling we want each position $i$ to predict token $i+1$ using only tokens at positions $\le i$. This is enforced by **causal masking**: set $A_{ij} = 0$ for $j > i$ before normalizing (in practice, set the pre-softmax logits to $-\infty$). The model can attend to the past and to itself but not to the future.
+
+The training loss is cross-entropy at every position:
+$$
+\mathcal{L} = -\frac{1}{T} \sum_{i=1}^T \log p_\theta(x_{i+1} \mid x_{\le i}).
+$$
+
+A single forward pass on a sequence of length $T$ produces $T$ supervised gradient signals. This is one of the reasons next-token prediction scales so well: every token in your training data is a training example. We will see in [Chapter 5](05_llm_pretraining.qmd) how this density of supervision interacts with scale.
+
+::: {.callout-note appearance="simple" icon=false}
+**[Plot]** A schematic of a single transformer block, with the residual stream as a thick horizontal line at the top. Attention and MLP components branch off of it, do their thing, and write their outputs back. Highlight that the stream itself is linear — no nonlinearity *between* components.
+:::
+
+## Transformer economics: KV cache and mixture of experts
+
+Two engineering ideas matter enough to mention in a scientific chapter, because they shape what scale you can actually reach.
+
+**KV cache.** At inference time, you generate one token, then feed it back and generate the next token, and so on. Naively, every new token requires recomputing attention against the entire growing prefix. But the keys and values for previous tokens do not change as you extend the sequence. So you cache them: keep the $K$ and $V$ tensors from previous steps in memory and only compute the new step's contribution. This turns autoregressive generation from $\mathcal{O}(T^2)$ per token to $\mathcal{O}(T)$ per token, at the cost of memory that grows linearly with sequence length. This is an inference-engineering optimization that the science-of-DL framing has nothing scientifically interesting to say about — we mention it because it sets the practical limit on how long a context window your hardware tolerates.
+
+**Mixture of experts (MoE).** Instead of every token going through the same MLP block, you have $E$ different MLPs (the "experts") and a small router that picks a few of them per token. Only the picked experts run. This decouples *total parameters* (large — all experts) from *active parameters per token* (small — only the picked few). MoE lets you scale parameter count without paying for it at inference time on every token. There are interesting questions about specialization (do experts actually learn distinguishable functions?), load balancing (do all experts get used, or does the router collapse to a few favorites?), and training stability, but those are beyond this chapter.
+
+## Variants & history
+
+The original transformer was an encoder-decoder model designed for machine translation. The architecture splits into two halves: an encoder that processes the source sequence with bidirectional self-attention, and a decoder that processes the target sequence with causal self-attention plus cross-attention to the encoder.
+
+Modern usage has mostly converged on **decoder-only** transformers: a single stack with causal masking, trained on next-token prediction. The decoder-only design is the simplest thing that scales, and almost every frontier language model you have heard of is a decoder-only transformer with engineering refinements. Vision transformers apply the same machinery to images by splitting an image into a grid of patches and treating each patch as a token; the deeper history of vision models is in [Chapter 2](02_image_classification.qmd).
+
+## Where this is going
+
+We have not yet looked at what happens when you scale a transformer to hundreds of billions of parameters trained on a substantial fraction of the readable internet. That is [Chapter 5](05_llm_pretraining.qmd). We have also not yet looked at what trained transformers actually *do* — what features they represent, what circuits they implement, what phenomena emerge in their training dynamics. That is the subject of [Chapter 7](07_scidl_training.qmd), the first of the two Science of DL pillars.
+
+For now, the picture you should hold is: a transformer is a stack of identical blocks, each one writing to a shared residual stream, with attention as the cross-token router and MLPs as the per-token processors. Once you internalize that picture, almost everything else — modern context-length extensions, parameter-efficient fine-tuning, interpretability circuits — is a modification of one of those pieces.

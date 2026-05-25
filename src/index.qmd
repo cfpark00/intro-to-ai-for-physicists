@@ -2,48 +2,30 @@
 title: "Preface"
 ---
 
-This is a short, modern introduction to AI/ML/DL written for physicists. It is **not** a survey of classical machine learning — there are already excellent books for SVMs, decision trees, and kernel methods, and they are no longer the bottleneck for understanding what is happening in AI today.
+This is a short web textbook on the **science of deep learning** — modern AI treated as a *scientific object*, surfaced through controlled synthetic experiments, mechanistic probing, and phenomenology. It is the companion to the experimentalist half of a Harvard Physics graduate course taught from this material; the theoretical half (NTK, neural manifold capacity, high-dimensional geometry) is covered separately and deliberately not duplicated here.
 
-Instead, this book focuses on the ideas that drive modern AI:
+## What this book is
 
-- **Why scale matters.** Why a single recipe — transformers + large compute — has eaten most of the field, and what that means for the next decade.
-- **The transformer**, attention, and the residual stream — the architecture behind nearly every frontier model.
-- **Scaling laws** as empirical physics: power-law behavior of loss in compute, data, and parameters; and what Chinchilla actually said.
-- **Large language models** — pretraining, fine-tuning (SFT, LoRA), and post-training (RLHF, DPO, GRPO, RLVR).
-- **Reasoning and test-time compute** — chain-of-thought, RL on verifiable rewards, and why this changed the trajectory.
-- **Diffusion and score-based generative models** — the part of modern AI most directly continuous with statistical physics.
-- **Inference** — KV cache, speculative decoding, batching: the engineering that decides whether a model is usable.
+Neural networks as **model organisms.** The guiding methodology — taught in [Chapter 1](chapters/01_intro.qmd) and revisited in the two "Science of DL" chapters ([Chapter 7](chapters/07_scidl_training.qmd) and [Chapter 11](chapters/11_scidl_concepts.qmd)) — mirrors how physicists study biological systems via neuroethology:
 
-The treatment is mathematical where it helps and intuitive where it doesn't. Code is included sparingly and only when it is the clearest explanation. Equations use the conventions a physicist already knows — sums over indices, derivatives, expectations — and avoid the notational tics of ML papers when they don't add anything.
+1. Notice a phenomenon in a real network.
+2. Explore broadly to sharpen the question.
+3. Build a synthetic model system you can fully instrument.
+4. Run experiments the original network does not allow.
+5. Bring the findings back to the original system.
+
+The chapters move through the dominant model classes — image classifiers, sequence models, the transformer, large language models pre- and post-training, diffusion, reinforcement learning, world models — and through two pillar chapters on the phenomenology of *training dynamics* and *concept acquisition*. The final chapter widens the frame to intelligence beyond task-learning: multi-agent dynamics, evolution, open-endedness.
 
 ## Who this is for
 
-Anyone comfortable with:
-
-- Linear algebra (matrices, eigendecompositions)
-- Calculus and basic optimization (gradients, chain rule)
-- Probability (expectations, KL divergence, sampling)
-
-You do **not** need prior ML background. If you have written `optimizer.zero_grad()` in your life, you may skim the early chapters.
+Physicists comfortable with linear algebra, calculus, probability, and statistical mechanics. No prior ML background is required, but the pace assumes graduate-physics-level fluency with quantitative thinking — the book does not re-derive things you already know.
 
 ## What this is not
 
-- **Not a research survey.** Citations are minimal and chosen for pedagogy, not credit assignment.
-- **Not a software manual.** We will not teach PyTorch, JAX, or distributed training systems in depth.
-- **Not opinion-free.** Where the field has converged on a view, this book takes that view rather than presenting all historical alternatives equally.
-
-## How to read it
-
-Chapters build on each other but most can be read out of order if you already have the basics. The dependency graph is roughly:
-
-```
-landscape → dl_primer → transformer → scaling_laws → pretraining → finetuning → rl → reasoning
-                                                  ↘
-                                                   diffusion (mostly independent)
-                                                  ↘
-                                                   inference
-```
+- **Not a classical-ML survey.** SVMs, kNN, decision trees, kernel methods — covered well elsewhere and skipped here.
+- **Not a theory exposition.** Generalization bounds, NTK, capacity calculations — handled by a different course.
+- **Not a software tutorial.** PyTorch, JAX, kubernetes, MLOps — recipes, not science.
 
 ## Source and contributions
 
-Source for this book lives at [github.com/cfpark00/science-of-dl](https://github.com/cfpark00/science-of-dl). Issues and PRs are welcome.
+Source for this book lives at [github.com/cfpark00/science-of-dl](https://github.com/cfpark00/science-of-dl). Errata, suggestions, and plot-quality reports are welcome via the issue templates.

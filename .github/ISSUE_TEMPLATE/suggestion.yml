@@ -1,0 +1,18 @@
+name: Suggestion
+description: Suggest content, an example, a paper to cite, or a clearer explanation.
+title: "[suggestion] "
+labels: ["suggestion"]
+body:
+  - type: input
+    id: location
+    attributes:
+      label: Where (optional)
+      description: Chapter or section this relates to, if any.
+      placeholder: "Ch. 7 — Training dynamics"
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggestion
+      description: What should be added, changed, or clarified, and why.
+    validations:
+      required: true

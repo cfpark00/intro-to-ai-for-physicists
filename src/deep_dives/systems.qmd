@@ -1,0 +1,45 @@
+---
+title: "Systems and infrastructure for deep learning"
+number-sections: false
+---
+
+The main spine of this book treats training compute as a parameter and stops there. In practice, *making compute actually run* — efficiently, reliably, at scale — is a deep engineering field with its own research culture, its own conferences, and its own set of unsolved problems. Frontier models do not exist without it.
+
+This chapter is a pointer to that field. It is deliberately separate from the science of deep learning because it is a different *kind* of work: systems engineering with ML-shaped problems, rather than science of the trained network.
+
+## What the field covers
+
+Roughly four overlapping clusters:
+
+**Hardware.** GPUs, TPUs, and increasingly diverse accelerators. The memory hierarchy (HBM, on-chip SRAM, register files) and what it costs to move tensors across it. The arithmetic intensity of attention, of MLP blocks, of convolutions. Why FlashAttention is a hardware-aware algorithm and not just a clever software optimization. The economics of frontier compute and how they constrain what experiments are possible.
+
+**Parallelism and distributed training.** Data parallelism, tensor parallelism, pipeline parallelism, expert parallelism, fully-sharded data parallelism (FSDP). How communication primitives (all-reduce, all-gather, ring topologies) shape the design of large training runs. How parallelism strategies compose, and where they break down.
+
+**Inference systems.** KV caches, continuous batching, speculative decoding, paged attention, request scheduling. Latency-vs-throughput tradeoffs. Quantization (INT8, INT4, FP8) and what it does to model quality. Serving infrastructure for millions of concurrent users.
+
+**Data and training pipelines.** Petabyte-scale data ingestion, deduplication, quality filtering, mixture sampling. Checkpoint management. Failure recovery in multi-week, thousand-GPU runs. Observability for training (when has the loss diverged? when has a node failed silently?).
+
+## Why this is its own field
+
+The skills required overlap with but do not reduce to ML skills. A strong ML systems engineer thinks in terms of memory bandwidth, network topology, kernel-launch overhead, and numerical-stability tradeoffs in low-precision arithmetic. The intellectual heritage is closer to high-performance computing and operating systems than to learning theory.
+
+The work is also where a lot of *frontier capability* actually comes from. The reason a 100B-parameter model was trainable when a 10B one was previously the ceiling is rarely a new architectural idea — it is usually a parallelism strategy, a kernel rewrite, a precision change, or an infrastructure tool that made the previously-impossible run.
+
+## What this chapter does not do
+
+Two things this chapter deliberately is not:
+
+It is **not** a recipe book. We do not show you how to set up a distributed training run, configure DeepSpeed or Megatron-LM, deploy a vLLM server, or pick the right number of pipeline stages for your model. Those are tutorial concerns and they age fast — the tools change every six months.
+
+It is **not** a science-of-DL chapter. We can ask scientifically interesting questions about *what trained networks do* without engaging with how they were trained at scale. The systems work is a precondition for frontier science, not the science itself.
+
+## Where to go next
+
+Systems-for-ML is a field that mostly does not teach itself well through textbooks — the canonical references date quickly. Reasonable entry points:
+
+- The MLSys conference proceedings.
+- The high-performance computing and operating-systems literature, applied with ML in mind.
+- Frontier-lab engineering blogs and technical reports (they are deeply technical, often more so than papers).
+- Open-source frameworks (PyTorch internals, JAX internals, Triton, CUDA programming) are themselves a curriculum.
+
+If the science-of-DL chapters in this book convinced you the *interesting* questions in deep learning are scientific, the systems field will convince you that the *load-bearing* questions in frontier deep learning are equally engineering. Both views are correct, and both are necessary.

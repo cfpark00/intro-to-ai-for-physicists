@@ -1,0 +1,38 @@
+---
+title: "Classical machine learning"
+number-sections: false
+---
+
+The main spine of this book skips the toolkit that was the *core* of machine learning before deep learning took over: support vector machines, kernel methods, decision trees, random forests, gradient boosting, kNN, naive Bayes, mixture models, the EM algorithm, principal component analysis, and a long list of friends. The omission is deliberate — these methods are covered well by other textbooks, are no longer where the most interesting questions in modern AI live, and would crowd out the science-of-DL focus the book is trying to keep clean.
+
+But classical ML has not disappeared. It still wins on small structured datasets where neural networks are wasteful, it still underpins the statistical reasoning that anyone in ML should have, and a handful of its ideas have quietly become load-bearing infrastructure inside modern systems (gradient boosting in feature pipelines, EM as the prototype of all latent-variable inference, kernel methods reborn as NTK in theory work).
+
+## What the field gives you
+
+A reader who has gone through a classical-ML course leaves with three things the main spine does not provide:
+
+**A grammar of inductive biases.** SVMs, kernels, decision trees, and graphical models each express a distinct view of what *structure in data* looks like. Studying them side by side trains taste for which prior to bring to which problem — taste that survives the shift to deep learning, even when the specific methods do not.
+
+**Statistical-learning vocabulary.** Bias-variance, capacity, VC dimension, regularization, cross-validation, kernel tricks, dual formulations, conjugate priors, posterior inference. The vocabulary is universal — modern ML papers use it implicitly even when their methods do not.
+
+**Tractable model systems.** Classical methods are small, fast, and analyzable. They are excellent *teaching* models for what learning is and what it isn't — a small SVM on a 2D problem is a much better first encounter with the bias-variance tradeoff than a transformer on the web.
+
+## What stays load-bearing
+
+A few classical techniques continue to do real work in 2026:
+
+- **Gradient-boosted trees** (XGBoost, LightGBM and descendants) — still beat neural networks routinely on small tabular data and remain the default for many industrial-prediction pipelines.
+- **EM algorithm** — the canonical method for learning latent-variable models, still used directly in mixture models, topic models, and as a conceptual scaffold for understanding amortized variational inference.
+- **PCA and friends** (kernel PCA, sparse PCA) — exploratory analysis, dimensionality reduction, and the conceptual entry point for the geometry of representations.
+- **Kernel methods** — now mostly important *theoretically*: the NTK results (mentioned in the [theory deep dive](theory.qmd)) connect infinite-width networks to kernel regression.
+- **Gaussian processes** — still the gold-standard probabilistic model when calibrated uncertainty matters more than predictive accuracy.
+
+## Where this field is, culturally
+
+Classical ML has settled into a stable, well-taught discipline with mature textbooks, standard courses, and a clear pedagogical arc. Anyone serious about machine learning as a field benefits from having gone through it once; anyone trying to *understand* modern deep learning benefits from being able to compare and contrast.
+
+## Where to go next
+
+The standard graduate-level entry points (Bishop's *Pattern Recognition and Machine Learning*, Murphy's *Machine Learning: a Probabilistic Perspective*, Hastie–Tibshirani–Friedman's *Elements of Statistical Learning*) are well-known. Any of them covers the territory thoroughly. A standalone semester course on statistical learning is the standard immersion. Past that point, the field is mature enough that the marginal next book is mostly diminishing returns.
+
+This chapter is a pointer, and an acknowledgment: classical ML is not below modern deep learning — it is the language modern deep learning emerged from, and is still spoken fluently by everyone in the field, even when nobody is writing it down.

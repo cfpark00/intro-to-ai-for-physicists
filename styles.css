@@ -19,9 +19,11 @@ main {
   opacity: 0.7;
 }
 
-/* Tiny breathing room between sidebar list items */
+/* Tiny breathing room between sidebar list items (Bootstrap's default
+   is margin-top: 0.4rem — bump it up for clearer visual separation) */
 nav.sidebar li.sidebar-item {
-  margin-top: 0.2rem;
+  margin-top: 0.7rem !important;
+  margin-bottom: 0.35em !important;
 }
 
 /* Horizontal rule above References in the sidebar (separates the main

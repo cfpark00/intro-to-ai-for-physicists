@@ -2,7 +2,14 @@
 
 ## What We're Building
 
-A short, modern web textbook: **"Intro to AI for Physicists"** — covering the ideas that matter in current AI (transformers, scaling laws, LLM pretraining, fine-tuning, RL, reasoning, diffusion, inference) and skipping the classical ML survey material (SVM, kNN, decision trees, etc.) that other textbooks already cover well.
+A short, modern web textbook: **"Intro to AI for Physicists"** — companion to a Harvard Physics grad-level AI/ML course launching early 2027.
+
+**Genre: science of deep learning.** The book treats modern AI (transformers, scaling laws, LLM pretraining, fine-tuning, RL, reasoning, diffusion, inference) as a *scientific object* — phenomena surfaced through controlled synthetic experiments, mechanistic probing, and phenomenology. Neural networks as model organisms. The voice mirrors the lead author's own research output (ICL phase transitions, hidden-capability emergence, world representations).
+
+**Explicitly out of scope:**
+- Classical ML survey (SVM, kNN, decision trees) — other books do this well.
+- ML theory (NTK, neural manifold capacity, high-dim geometry, generalization bounds) — covered by a different professor in the course.
+- Software/engineering tutorials ("how to train your LLM," kubernetes, MLOps) — these are recipes, not science.
 
 Live site: <https://scienceofdl.com>
 Source: <https://github.com/cfpark00/intro-to-ai-for-physicists>

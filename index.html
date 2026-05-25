@@ -460,10 +460,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#contents" id="toc-contents" class="nav-link active" data-scroll-target="#contents">Contents</a>
-  <ul class="collapse">
+  <li><a href="#lectures" id="toc-lectures" class="nav-link active" data-scroll-target="#lectures">Lectures</a></li>
   <li><a href="#deep-dives" id="toc-deep-dives" class="nav-link" data-scroll-target="#deep-dives">Deep Dives</a></li>
-  </ul></li>
   <li><a href="#what-this-book-is" id="toc-what-this-book-is" class="nav-link" data-scroll-target="#what-this-book-is">What this book is</a></li>
   <li><a href="#who-this-is-for" id="toc-who-this-is-for" class="nav-link" data-scroll-target="#who-this-is-for">Who this is for</a></li>
   <li><a href="#what-this-is-not" id="toc-what-this-is-not" class="nav-link" data-scroll-target="#what-this-is-not">What this is not</a></li>
@@ -508,8 +506,12 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="contents" class="level2">
-<h2 class="anchored" data-anchor-id="contents">Contents</h2>
+<details class="toc-collapse" open="">
+<summary>
+Contents
+</summary>
+<section id="lectures" class="level3">
+<h3 class="anchored" data-anchor-id="lectures">Lectures</h3>
 <div class="toc-grid">
   <a class="toc-tile" href="chapters/01_intro.html"><span class="toc-num">1</span><span class="toc-icon"><i class="bi bi-compass"></i></span><span class="toc-title">Introduction</span></a>
   <a class="toc-tile" href="chapters/02_image_classification.html"><span class="toc-num">2</span><span class="toc-icon"><i class="bi bi-image"></i></span><span class="toc-title">Image classification</span></a>
@@ -524,6 +526,7 @@ ul.task-list li input[type="checkbox"] {
   <a class="toc-tile" href="chapters/11_scidl_concepts.html"><span class="toc-num">11</span><span class="toc-icon"><i class="bi bi-lightbulb"></i></span><span class="toc-title">Concept learning</span></a>
   <a class="toc-tile" href="chapters/12_intelligence.html"><span class="toc-num">12</span><span class="toc-icon"><i class="bi bi-stars"></i></span><span class="toc-title">Intelligence</span></a>
 </div>
+</section>
 <section id="deep-dives" class="level3">
 <h3 class="anchored" data-anchor-id="deep-dives">Deep Dives</h3>
 <div class="toc-grid toc-grid-dd">
@@ -544,8 +547,8 @@ ul.task-list li input[type="checkbox"] {
   <a class="toc-tile" href="deep_dives/ai_agents.html"><span class="toc-icon"><i class="bi bi-robot"></i></span><span class="toc-title">AI agents</span></a>
   <a class="toc-tile" href="deep_dives/mechanism_design.html"><span class="toc-icon"><i class="bi bi-people"></i></span><span class="toc-title">Mechanism design</span></a>
 </div>
-</section>
-</section>
+</section></details>
+
 <section id="what-this-book-is" class="level2">
 <h2 class="anchored" data-anchor-id="what-this-book-is">What this book is</h2>
 <p>This book has two aims.</p>

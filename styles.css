@@ -34,6 +34,44 @@ li.sidebar-item:has(> div > a[href$="references.html"]) {
   padding-top: 1rem !important;
 }
 
+/* ---------- Collapsible Contents wrapper ---------- */
+details.toc-collapse {
+  margin: 1.25rem 0 1.5rem 0;
+}
+details.toc-collapse > summary {
+  list-style: none;
+  cursor: pointer;
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0.5rem 0 0.75rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  user-select: none;
+}
+details.toc-collapse > summary::-webkit-details-marker { display: none; }
+details.toc-collapse > summary::before {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-top: 0.32em solid transparent;
+  border-bottom: 0.32em solid transparent;
+  border-left: 0.42em solid currentColor;
+  opacity: 0.55;
+  transition: transform 0.15s ease;
+}
+details.toc-collapse[open] > summary::before {
+  transform: rotate(90deg);
+}
+details.toc-collapse h3 {
+  font-size: 1.05rem;
+  font-weight: 500;
+  margin: 1rem 0 0.5rem 0;
+  opacity: 0.85;
+}
+
 /* ---------- Preface visual TOC: grid of square tiles ---------- */
 .toc-grid {
   display: grid;
@@ -105,5 +143,23 @@ a.toc-tile:hover {
   display: block;
 }
 
-/* Deep-dive tiles: slightly smaller icon, same footprint, no number */
-.toc-grid-dd .toc-tile .toc-icon { font-size: 1.2rem; }
+/* Deep-dive grid: denser, 8 across on desktop */
+.toc-grid-dd { grid-template-columns: repeat(8, 1fr); gap: 0.35rem; }
+.toc-grid-dd .toc-tile { padding: 0.25rem 0.2rem; border-radius: 7px; }
+.toc-grid-dd .toc-tile .toc-icon {
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+}
+.toc-grid-dd .toc-tile .toc-title {
+  font-size: 0.56rem;
+  line-height: 1.1;
+}
+@media (max-width: 900px) {
+  .toc-grid-dd { grid-template-columns: repeat(6, 1fr); }
+}
+@media (max-width: 600px) {
+  .toc-grid-dd { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 380px) {
+  .toc-grid-dd { grid-template-columns: repeat(3, 1fr); }
+}

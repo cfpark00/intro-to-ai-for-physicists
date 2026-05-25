@@ -3,9 +3,11 @@ project:
   output-dir: _site
   resources:
     - CNAME
+    - assets/**
 
 book:
   title: "Intro to AI for Physicists"
+  favicon: assets/favicon.ico
   subtitle: "A short, modern introduction to ML, deep learning, and large-scale AI — for people who already know calculus, linear algebra, and a bit of statistics."
   author: "cfpark00"
   date: today

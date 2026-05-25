@@ -1,0 +1,27 @@
+[project]
+name = "science-of-dl"
+version = "0.1.0"
+description = "Course materials for Intro to AI for Physicists (scienceofdl.com)"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+    { name = "Core Francisco Park", email = "core@priorcomputers.ai" },
+]
+license = { text = "MIT" }
+
+dependencies = [
+    "numpy",
+    "scipy",
+    "scikit-image",
+    "scikit-learn",
+    "matplotlib",
+    "torch",
+    "torchvision",
+    "transformers",
+    "datasets",
+    "huggingface_hub",
+    "accelerate",
+]
+
+[tool.uv]
+package = false

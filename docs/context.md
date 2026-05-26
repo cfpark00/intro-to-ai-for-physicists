@@ -42,7 +42,7 @@ repo root
 │   ├── _quarto.yml             # book config, sidebar, theme
 │   ├── index.qmd               # preface (sidebar label "0  Preface")
 │   ├── chapters/               # 12 numbered chapters (1..12)
-│   ├── deep_dives/             # 15 adjacent-field chapters
+│   ├── deep_dives/             # 16 adjacent-field chapters
 │   ├── code/
 │   │   ├── chapters/<slug>/    # per-chapter materials (course/, homework/solutions/)
 │   │   └── deep_dives/<slug>/  # same layout for each Deep Dive

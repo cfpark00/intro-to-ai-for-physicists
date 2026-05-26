@@ -25,7 +25,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -552,16 +571,21 @@ Contents
 <section id="what-this-book-is" class="level2">
 <h2 class="anchored" data-anchor-id="what-this-book-is">What this book is</h2>
 <p>This book has two aims.</p>
-<p>The <strong>first</strong> is to bring a quantitatively literate reader up to date on where AI is in 2026, to cover the unknown unknowns rather than the textbook basics, and to leave the reader able to grasp the main concepts of modern deep learning and follow the conversation at the research frontier.</p>
-<p>The <strong>second</strong> is to introduce the <strong>experimental physicist’s approach to understanding neural networks</strong>, neural networks treated as a <em>scientific object</em>, studied via controlled synthetic experiments, mechanistic probing, and phenomenology. The methodology borrows heavily from the practice of <strong>neuroethology</strong>: the study of natural behavior in its ecological context, transposed to networks-in-their-natural-habitat. Neural networks as model organisms.</p>
-<p>The guiding methodology, taught in <a href="./chapters/01_intro.html">Chapter 1</a> and revisited in the two “Science of DL” chapters (<a href="./chapters/07_scidl_training.html">Chapter 7</a> and <a href="./chapters/11_scidl_concepts.html">Chapter 11</a>), is five steps:</p>
+<ul>
+<li><strong>A current account of where AI is in 2026.</strong> Weighted toward the unknown unknowns rather than textbook basics, enough to follow conversation at the research frontier.</li>
+<li><strong>An experimental physicist’s view of neural networks.</strong> Networks treated as a <em>scientific object</em>, studied via controlled synthetic experiments, mechanistic probing, and phenomenology. The framing borrows from <strong>neuroethology</strong>, the study of natural behavior in its ecological context, transposed to networks-in-their-natural-habitat. Neural networks as model organisms.</li>
+</ul>
+<div class="scidl-callout">
+<p>The guiding methodology, introduced in <a href="./chapters/01_intro.html">Chapter 1</a> and revisited in the two “Science of DL” chapters (<a href="./chapters/07_scidl_training.html">Chapter 7</a> and <a href="./chapters/11_scidl_concepts.html">Chapter 11</a>), borrows from the ethological tradition of Tinbergen, Lorenz, and von Frisch <span class="citation" data-cites="tinbergen1963aims lorenz1981foundations vonfrisch1967dance">(<a href="references.html#ref-tinbergen1963aims" role="doc-biblioref">Tinbergen 1963</a>; <a href="references.html#ref-lorenz1981foundations" role="doc-biblioref">Lorenz 1981</a>; <a href="references.html#ref-vonfrisch1967dance" role="doc-biblioref">Frisch 1967</a>)</span>:</p>
 <ol type="1">
-<li>Notice a phenomenon in a real network.</li>
-<li>Explore broadly to sharpen the question.</li>
-<li>Build a synthetic model system you can fully instrument.</li>
-<li>Run experiments the original network does not allow.</li>
-<li>Bring the findings back to the original system.</li>
+<li><em>Observe</em> behavior in naturalistic environments.</li>
+<li><em>Isolate</em> the core phenomenon to study.</li>
+<li><em>Reproduce</em> the phenomenon in a model system.</li>
+<li><em>Understand</em> the model system.</li>
+<li><em>Confirm</em> the understanding on the original system.</li>
 </ol>
+<p>Not every chapter walks all five steps cleanly. This is the guiding principle, not a procedure.</p>
+</div>
 <p>The chapters move through the dominant model classes (image classifiers, sequence models, the transformer, large language models pre- and post-training, diffusion, reinforcement learning, world models) and through two pillar chapters on the phenomenology of <em>training dynamics</em> and <em>concept acquisition</em>. The final chapter widens the frame to intelligence beyond task-learning: multi-agent dynamics, evolution, open-endedness.</p>
 <p>After the main twelve chapters comes a section of <strong>Deep Dives</strong>. Each Deep Dive is a full chapter on a single topic that did not fit the main flow but stands on its own. If you want to go deeper on theoretical foundations, LLM systems engineering, interpretability, neuroscience, cognitive science, or any of the other adjacent fields, that is where to look. Treat them as optional but first-class material, not as appendices.</p>
 </section>
@@ -589,6 +613,17 @@ Contents
 <p>Source for this book lives at <a href="https://github.com/cfpark00/science-of-dl">github.com/cfpark00/science-of-dl</a>. Errata, suggestions, and plot-quality reports are welcome via the <a href="https://github.com/cfpark00/science-of-dl/issues/new/choose">issue templates</a>.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-vonfrisch1967dance" class="csl-entry" role="listitem">
+Frisch, Karl von. 1967. <em>The Dance Language and Orientation of Bees</em>. Harvard University Press.
+</div>
+<div id="ref-lorenz1981foundations" class="csl-entry" role="listitem">
+Lorenz, Konrad. 1981. <em>The Foundations of Ethology</em>. Springer-Verlag.
+</div>
+<div id="ref-tinbergen1963aims" class="csl-entry" role="listitem">
+Tinbergen, Niko. 1963. <span>“On Aims and Methods of Ethology.”</span> <em>Zeitschrift f<span>ü</span>r Tierpsychologie</em> 20 (4): 410–33.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->

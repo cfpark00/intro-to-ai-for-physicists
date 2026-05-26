@@ -3,6 +3,27 @@ main {
   max-width: 820px;
 }
 
+/* ---------- Site-wide accent color ---------- */
+:root {
+  --scidl-accent: #0d7c8a;
+  --scidl-accent-soft: rgba(13, 124, 138, 0.07);
+}
+.quarto-dark {
+  --scidl-accent: #5fb9c2;
+  --scidl-accent-soft: rgba(95, 185, 194, 0.10);
+}
+
+/* ---------- Soft tinted callout for highlighted prose ---------- */
+.scidl-callout {
+  border-left: 3px solid var(--scidl-accent);
+  background: var(--scidl-accent-soft);
+  padding: 0.75rem 1.1rem;
+  border-radius: 0 8px 8px 0;
+  margin: 1.25rem 0 1.5rem 0;
+}
+.scidl-callout > :first-child { margin-top: 0; }
+.scidl-callout > :last-child { margin-bottom: 0; }
+
 /* Slightly softer code block background in light mode */
 .quarto-light pre code:not(.sourceCode) {
   background-color: #f7f7f7;

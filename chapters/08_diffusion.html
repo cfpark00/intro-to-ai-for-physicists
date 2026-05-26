@@ -27,6 +27,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -575,12 +576,12 @@ window.Quarto = {
 <p><strong>Forward process: incremental noising.</strong> Start with a clean datapoint <span class="math inline">x_0</span> and gradually corrupt it by adding Gaussian noise over many steps: <span class="math display">
 x_t = \sqrt{1 - \beta_t}\, x_{t-1} + \sqrt{\beta_t}\, \epsilon_t, \qquad \epsilon_t \sim \mathcal{N}(0, I).
 </span> For appropriate <span class="math inline">\beta_t</span> and large enough <span class="math inline">T</span>, <span class="math inline">x_T</span> is approximately Gaussian noise, all the structure of <span class="math inline">x_0</span> has been smeared out.</p>
-<p><strong>Reverse process: learn to denoise.</strong> Train a neural network to predict, at each noise level <span class="math inline">t</span>, the denoising step, equivalently (and with a more useful parameterization), the <em>noise</em> that was added. The network sees <span class="math inline">x_t</span> and is trained to predict <span class="math inline">\epsilon</span> such that subtracting it (with the right scaling) recovers <span class="math inline">x_{t-1}</span>. The training objective, in the canonical DDPM formulation <span class="citation" data-cites="ho2020denoising">(<a href="../references.html#ref-ho2020denoising" role="doc-biblioref">Ho et al. 2020</a>)</span>, reduces to a simple weighted MSE on <span class="math inline">\epsilon</span>: <span class="math display">
+<p><strong>Reverse process: learn to denoise.</strong> Train a neural network to predict, at each noise level <span class="math inline">t</span>, the denoising step, equivalently (and with a more useful parameterization), the <em>noise</em> that was added. The network sees <span class="math inline">x_t</span> and is trained to predict <span class="math inline">\epsilon</span> such that subtracting it (with the right scaling) recovers <span class="math inline">x_{t-1}</span>. The training objective, in the canonical DDPM formulation <span class="citation" data-cites="ho2020denoising"><a href="../references.html#ref-ho2020denoising" role="doc-biblioref">[1]</a></span>, reduces to a simple weighted MSE on <span class="math inline">\epsilon</span>: <span class="math display">
 \mathcal{L}(\theta) = \mathbb{E}_{x_0, t, \epsilon}\!\left[\|\epsilon - \epsilon_\theta(x_t, t)\|^2\right].
 </span> Given a network trained this way, you generate samples by starting from pure noise and applying the learned reverse process step by step until you have a clean sample.</p>
 <p><strong>Score matching.</strong> The unifying view of why this works comes from <strong>score matching</strong>. The <em>score</em> of a distribution is the gradient of its log-density, <span class="math inline">\nabla_x \log p(x)</span>, a vector field that points in the direction of higher probability. If you knew the score, Langevin dynamics <span class="math display">
 x_{t+1} = x_t + \frac{\delta}{2} \nabla_x \log p(x_t) + \sqrt{\delta}\, \eta_t
-</span> would let you sample from <span class="math inline">p</span>. The diffusion training objective turns out to be equivalent to learning the score of a sequence of <em>noise-corrupted</em> versions of <span class="math inline">p_{\text{data}}</span>. This unification, the score-based-SDE framing of Song et al. <span class="citation" data-cites="song2021scorebased">(<a href="../references.html#ref-song2021scorebased" role="doc-biblioref">Song et al. 2021</a>)</span>, generalizes the discrete diffusion-step formulation into a continuous stochastic differential equation, and reveals the same machinery in several previously distinct lines of work.</p>
+</span> would let you sample from <span class="math inline">p</span>. The diffusion training objective turns out to be equivalent to learning the score of a sequence of <em>noise-corrupted</em> versions of <span class="math inline">p_{\text{data}}</span>. This unification, the score-based-SDE framing of Song et al. <span class="citation" data-cites="song2021scorebased"><a href="../references.html#ref-song2021scorebased" role="doc-biblioref">[2]</a></span>, generalizes the discrete diffusion-step formulation into a continuous stochastic differential equation, and reveals the same machinery in several previously distinct lines of work.</p>
 <p>For a physicist, all of this looks familiar: a Langevin process, a learned drift, scores as gradient fields. The structural appeal is real and the math is comfortable. The neural-network part is “learn the score function”; the probabilistic part is what you do once you have it.</p>
 <p><strong>DDPM (Ho et al., 2020).</strong> The version of the formulation that made diffusion practical for high-fidelity image generation. The choice of parameterization (<span class="math inline">\epsilon</span>-prediction, weighted MSE), schedule of <span class="math inline">\beta_t</span>, and architectural choices for the denoiser (typically a U-Net) are all from this lineage. Most modern diffusion image generators are descendants.</p>
 <div class="callout callout-style-simple callout-note no-icon">
@@ -634,12 +635,12 @@ x_{t+1} = x_t + \frac{\delta}{2} \nabla_x \log p(x_t) + \sqrt{\delta}\, \eta_t
 <p>Next chapter steps further out of the LLM/transformer mainstream and into <strong>reinforcement learning</strong> in its genuine, non-RLHF sense.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-ho2020denoising" class="csl-entry" role="listitem">
-Ho, Jonathan, Ajay Jain, and Pieter Abbeel. 2020. <span>“Denoising Diffusion Probabilistic Models.”</span> <em>Advances in Neural Information Processing Systems</em> 33.
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">J. Ho, A. Jain, and P. Abbeel, <span>“Denoising diffusion probabilistic models,”</span> <em>Advances in neural information processing systems</em>, vol. 33, 2020.</div>
 </div>
 <div id="ref-song2021scorebased" class="csl-entry" role="listitem">
-Song, Yang, Jascha Sohl-Dickstein, Diederik P Kingma, Abhishek Kumar, Stefano Ermon, and Ben Poole. 2021. <span>“Score-Based Generative Modeling Through Stochastic Differential Equations.”</span> <em>ICLR</em>.
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">Y. Song, J. Sohl-Dickstein, D. P. Kingma, A. Kumar, S. Ermon, and B. Poole, <span>“Score-based generative modeling through stochastic differential equations,”</span> <em>ICLR</em>, 2021.</div>
 </div>
 </div>
 </section>

@@ -27,6 +27,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -554,7 +555,7 @@ window.Quarto = {
 
 
 <p><a href="https://github.com/cfpark00/science-of-dl/tree/main/src/code/deep_dives/llm_architectures" class="btn btn-outline-secondary btn-sm" role="button"><i class="bi bi-github"></i>&nbsp;Deep-dive code on GitHub →</a></p>
-<p><a href="../chapters/04_transformers.html">Chapter 4</a> covered the transformer at the level of “what it is and why it works.” That is enough to follow the rest of the main spine, but it is not the whole architectural picture. There is a substantial second-pass set of ideas, variants, refinements, and outright departures, that frontier practice has accumulated over the years since the original transformer paper <span class="citation" data-cites="vaswani2017attention">(<a href="../references.html#ref-vaswani2017attention" role="doc-biblioref">Vaswani et al. 2017</a>)</span>. This chapter is a launching point into that territory.</p>
+<p><a href="../chapters/04_transformers.html">Chapter 4</a> covered the transformer at the level of “what it is and why it works.” That is enough to follow the rest of the main spine, but it is not the whole architectural picture. There is a substantial second-pass set of ideas, variants, refinements, and outright departures, that frontier practice has accumulated over the years since the original transformer paper <span class="citation" data-cites="vaswani2017attention"><a href="../references.html#ref-vaswani2017attention" role="doc-biblioref">[1]</a></span>. This chapter is a launching point into that territory.</p>
 <section id="the-kv-cache-revisited" class="level2">
 <h2 class="anchored" data-anchor-id="the-kv-cache-revisited">The KV cache, revisited</h2>
 <p>The KV cache was introduced in Chapter 4 as an inference optimization. It is also a <em>design constraint</em> that shapes architecture choices at the frontier. Cache memory grows linearly with sequence length and proportionally with model width, and at long context it can dominate the per-request memory budget more than the model weights themselves do. A surprising amount of recent architectural work, grouped-query attention (GQA), multi-query attention (MQA), various sliding-window or sparse attention schemes, is best understood as <strong>trying to reduce KV cache footprint without sacrificing capability</strong>.</p>
@@ -605,9 +606,9 @@ window.Quarto = {
 <p>If you finished Chapter 4 wanting more, this chapter is a sketch of where the real depth lives.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-vaswani2017attention" class="csl-entry" role="listitem">
-Vaswani, Ashish, Noam Shazeer, Niki Parmar, et al. 2017. <span>“Attention Is All You Need.”</span> <em>Advances in Neural Information Processing Systems</em> 30.
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">A. Vaswani <em>et al.</em>, <span>“Attention is all you need,”</span> <em>Advances in neural information processing systems</em>, vol. 30, 2017.</div>
 </div>
 </div>
 </section>

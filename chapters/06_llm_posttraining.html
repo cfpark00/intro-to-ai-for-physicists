@@ -27,6 +27,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -560,15 +561,15 @@ window.Quarto = {
 <p>This chapter covers what does show up: the post-training methods, the reasoning paradigm, agents, RAG, and evals.</p>
 <section id="post-training-methods" class="level2">
 <h2 class="anchored" data-anchor-id="post-training-methods">Post-training methods</h2>
-<p><strong>RLHF, reinforcement learning from human feedback</strong> <span class="citation" data-cites="ouyang2022instructgpt">(<a href="../references.html#ref-ouyang2022instructgpt" role="doc-biblioref"><span class="nocase">Ouyang et al.</span> 2022</a>)</span>. The standard recipe has three pieces:</p>
+<p><strong>RLHF, reinforcement learning from human feedback</strong> <span class="citation" data-cites="ouyang2022instructgpt"><a href="../references.html#ref-ouyang2022instructgpt" role="doc-biblioref">[1]</a></span>. The standard recipe has three pieces:</p>
 <ol type="1">
 <li>Collect human preference data, pairs of model outputs <span class="math inline">(y_a, y_b)</span> for the same prompt, with humans labeling which they prefer.</li>
 <li>Train a <strong>reward model</strong> <span class="math inline">r_\phi(x, y)</span> on those preferences, typically as a binary classifier under the Bradley–Terry assumption that the probability of preferring <span class="math inline">y_a</span> over <span class="math inline">y_b</span> is <span class="math inline">\sigma(r_\phi(x, y_a) - r_\phi(x, y_b))</span>.</li>
-<li>Use <strong>PPO</strong> <span class="citation" data-cites="schulman2017ppo">(<a href="../references.html#ref-schulman2017ppo" role="doc-biblioref">Schulman et al. 2017</a>)</span> (or similar) to fine-tune the policy <span class="math inline">\pi_\theta</span> to maximize the expected reward <span class="math inline">\mathbb{E}_{y \sim \pi_\theta}[r_\phi(x, y)]</span>, regularized by a KL penalty toward the original supervised model to prevent it from drifting off the manifold of plausible text.</li>
+<li>Use <strong>PPO</strong> <span class="citation" data-cites="schulman2017ppo"><a href="../references.html#ref-schulman2017ppo" role="doc-biblioref">[2]</a></span> (or similar) to fine-tune the policy <span class="math inline">\pi_\theta</span> to maximize the expected reward <span class="math inline">\mathbb{E}_{y \sim \pi_\theta}[r_\phi(x, y)]</span>, regularized by a KL penalty toward the original supervised model to prevent it from drifting off the manifold of plausible text.</li>
 </ol>
 <p>The result is a model that is better aligned with whatever the human raters were trained to prefer (helpfulness, harmlessness, style, format compliance, etc.). The recipe also introduced the field to the <strong>alignment tax</strong>, measurable capability degradation that often accompanies the alignment treatment, where the model becomes less competent at some pretraining capabilities while becoming better at preference-following.</p>
 <p>The framing here is: RLHF is <em>useful</em>, it is the move that turned base models into chat assistants, and it is also <em>not the hard problems of RL</em>. The reward signal is dense (you have a reward model that can score any completion), the horizon is short (one completion is one episode), and the data distribution is close to a supervised fine-tuning distribution. PPO is being used here because it works for this setting, not because the deep RL machinery is essential.</p>
-<p><strong>DPO, direct preference optimization</strong> <span class="citation" data-cites="rafailov2023dpo">(<a href="../references.html#ref-rafailov2023dpo" role="doc-biblioref">Rafailov et al. 2023</a>)</span>. Once people noticed the previous bullet point, the natural response was to skip the reward model and the PPO and directly optimize a clever loss on the preference pairs. DPO does this. The resulting loss, derived by recognizing that the optimal policy in the KL-regularized RL problem can be reparameterized in terms of log-ratios, looks like a contrastive log-likelihood: <span class="math display">
+<p><strong>DPO, direct preference optimization</strong> <span class="citation" data-cites="rafailov2023dpo"><a href="../references.html#ref-rafailov2023dpo" role="doc-biblioref">[3]</a></span>. Once people noticed the previous bullet point, the natural response was to skip the reward model and the PPO and directly optimize a clever loss on the preference pairs. DPO does this. The resulting loss, derived by recognizing that the optimal policy in the KL-regularized RL problem can be reparameterized in terms of log-ratios, looks like a contrastive log-likelihood: <span class="math display">
 \mathcal{L}_{\text{DPO}}(\theta) = -\mathbb{E}_{(x, y_a, y_b)}\!\left[\log \sigma\!\left(\beta \log \frac{\pi_\theta(y_a \mid x)}{\pi_{\text{ref}}(y_a \mid x)} - \beta \log \frac{\pi_\theta(y_b \mid x)}{\pi_{\text{ref}}(y_b \mid x)}\right)\right].
 </span> The variables are the policy <span class="math inline">\pi_\theta</span> being trained, a reference policy <span class="math inline">\pi_{\text{ref}}</span> (usually the SFT checkpoint), the preferred and dispreferred responses <span class="math inline">y_a, y_b</span>, and a temperature <span class="math inline">\beta</span>. The remarkable thing about DPO is what is <em>not</em> in it, no separately trained reward model, no rollout, no PPO. It is a direct preference loss on log-ratios that you can plug into a standard fine-tuning loop.</p>
 <p>DPO works surprisingly well and has largely displaced PPO-RLHF in many practical pipelines. Both PPO and DPO show up in later chapters, DPO appears again briefly in <a href="../chapters/09_rl.html">Chapter 9</a> as a foil for “real” RL, and the relationship between preference-based and policy-gradient methods is a thread that continues there.</p>
@@ -634,15 +635,15 @@ window.Quarto = {
 <p>Two things to carry forward. First, post-training is <em>not</em> the deep RL of <a href="../chapters/09_rl.html">Chapter 9</a>; much of it is supervised-with-extra-steps, and saying so is more honest than the marketing. Second, inference-time compute and RL-for-reasoning are the active research frontier, and the science there, what these training procedures actually do to the model, is genuinely interesting and partially open. That science is the bridge into <a href="../chapters/07_scidl_training.html">Chapter 7</a>, where we step back and look at training-dynamics phenomena as proper objects of study.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-ouyang2022instructgpt" class="csl-entry" role="listitem">
-<span class="nocase">Ouyang, Long, Jeff Wu, Xu Jiang, et al.</span> 2022. <span>“Training Language Models to Follow Instructions with Human Feedback.”</span> <em>Advances in Neural Information Processing Systems</em> 35.
-</div>
-<div id="ref-rafailov2023dpo" class="csl-entry" role="listitem">
-Rafailov, Rafael, Archit Sharma, Eric Mitchell, Stefano Ermon, Christopher D Manning, and Chelsea Finn. 2023. <span>“Direct Preference Optimization: Your Language Model Is Secretly a Reward Model.”</span> <em>NeurIPS</em>.
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline"><span class="nocase">L. Ouyang, J. Wu, X. Jiang, <em>et al.</em></span>, <span>“Training language models to follow instructions with human feedback,”</span> <em>Advances in neural information processing systems</em>, vol. 35, 2022.</div>
 </div>
 <div id="ref-schulman2017ppo" class="csl-entry" role="listitem">
-Schulman, John, Filip Wolski, Prafulla Dhariwal, Alec Radford, and Oleg Klimov. 2017. <span>“Proximal Policy Optimization Algorithms.”</span> <em>arXiv Preprint arXiv:1707.06347</em>.
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">J. Schulman, F. Wolski, P. Dhariwal, A. Radford, and O. Klimov, <span>“Proximal policy optimization algorithms,”</span> <em>arXiv preprint arXiv:1707.06347</em>, 2017.</div>
+</div>
+<div id="ref-rafailov2023dpo" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">R. Rafailov, A. Sharma, E. Mitchell, S. Ermon, C. D. Manning, and C. Finn, <span>“Direct preference optimization: Your language model is secretly a reward model,”</span> <em>NeurIPS</em>, 2023.</div>
 </div>
 </div>
 </section>

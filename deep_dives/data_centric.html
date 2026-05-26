@@ -27,6 +27,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -520,7 +521,7 @@ div.csl-indent {
 <li><strong>Many strong base models are strong because of their data.</strong> Pretraining corpora are not commodities. Two labs with the same architecture and similar compute will produce noticeably different base models because their data pipelines, deduplication strategies, and quality filters were different. The architecture is mostly settled; the data pipeline is the moat.</li>
 <li><strong>Specialized capabilities track specialized data.</strong> As a concrete example: code models, <em>including Claude Code, which you may be using to read this book</em>, are strong at programming tasks largely because their post-training pipeline includes large volumes of high-quality coding demonstrations and feedback from expert engineers. The model is “good at code” because someone curated a lot of good code data and trained on it carefully.</li>
 </ul>
-<p>The deeper consequence: <strong>scaling laws are all conditional on the data distribution.</strong> Kaplan and Chinchilla scaling <span class="citation" data-cites="kaplan2020scaling hoffmann2022chinchilla">(<a href="../references.html#ref-kaplan2020scaling" role="doc-biblioref">Kaplan et al. 2020</a>; <a href="../references.html#ref-hoffmann2022chinchilla" role="doc-biblioref"><span class="nocase">Hoffmann et al.</span> 2022</a>)</span> derive an empirical relationship between compute, parameters, and loss, <em>for a given data distribution</em>. Change the data and you can shift the curves; the relationship is not a law of nature about networks, it is a law of nature about networks + a specific dataset.</p>
+<p>The deeper consequence: <strong>scaling laws are all conditional on the data distribution.</strong> Kaplan and Chinchilla scaling <span class="citation" data-cites="kaplan2020scaling hoffmann2022chinchilla"><a href="../references.html#ref-kaplan2020scaling" role="doc-biblioref">[1]</a>, <a href="../references.html#ref-hoffmann2022chinchilla" role="doc-biblioref">[2]</a></span> derive an empirical relationship between compute, parameters, and loss, <em>for a given data distribution</em>. Change the data and you can shift the curves; the relationship is not a law of nature about networks, it is a law of nature about networks + a specific dataset.</p>
 </section>
 <section id="what-the-field-actually-studies" class="level2">
 <h2 class="anchored" data-anchor-id="what-the-field-actually-studies">What the field actually studies</h2>
@@ -550,12 +551,12 @@ div.csl-indent {
 <p>If you finished the main spine with the impression that <em>the scientific question of deep learning is about networks</em>, this chapter is a counterweight: a serious fraction of the scientific question is about the <em>data</em> networks are trained on.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
-<div id="ref-hoffmann2022chinchilla" class="csl-entry" role="listitem">
-<span class="nocase">Hoffmann, Jordan, Sebastian Borgeaud, Arthur Mensch, et al.</span> 2022. <span>“Training Compute-Optimal Large Language Models.”</span> <em>arXiv Preprint arXiv:2203.15556</em>.
-</div>
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-kaplan2020scaling" class="csl-entry" role="listitem">
-Kaplan, Jared, Sam McCandlish, Tom Henighan, et al. 2020. <span>“Scaling Laws for Neural Language Models.”</span> <em>arXiv Preprint arXiv:2001.08361</em>.
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">J. Kaplan <em>et al.</em>, <span>“Scaling laws for neural language models,”</span> <em>arXiv preprint arXiv:2001.08361</em>, 2020.</div>
+</div>
+<div id="ref-hoffmann2022chinchilla" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline"><span class="nocase">J. Hoffmann, S. Borgeaud, A. Mensch, <em>et al.</em></span>, <span>“Training compute-optimal large language models,”</span> <em>arXiv preprint arXiv:2203.15556</em>, 2022.</div>
 </div>
 </div>
 </section>

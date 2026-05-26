@@ -27,6 +27,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -562,7 +563,7 @@ window.Quarto = {
 <section id="attention-the-core-invention" class="level2">
 <h2 class="anchored" data-anchor-id="attention-the-core-invention">Attention, the core invention</h2>
 <p>A transformer processes a sequence of <span class="math inline">T</span> tokens. Each token starts life as an embedding vector in <span class="math inline">\mathbb{R}^d</span> where <span class="math inline">d</span> is the <em>model dimension</em>. Stack them and you have an array <span class="math inline">X \in \mathbb{R}^{T \times d}</span>.</p>
-<p>The unit of computation that gives the transformer its name is <strong>scaled dot-product attention</strong> <span class="citation" data-cites="vaswani2017attention">(<a href="../references.html#ref-vaswani2017attention" role="doc-biblioref">Vaswani et al. 2017</a>)</span>. Given the current sequence representation <span class="math inline">X</span>, attention projects it three ways: <span class="math display">
+<p>The unit of computation that gives the transformer its name is <strong>scaled dot-product attention</strong> <span class="citation" data-cites="vaswani2017attention"><a href="../references.html#ref-vaswani2017attention" role="doc-biblioref">[1]</a></span>. Given the current sequence representation <span class="math inline">X</span>, attention projects it three ways: <span class="math display">
 Q = X W_Q, \qquad K = X W_K, \qquad V = X W_V,
 </span> into queries, keys, and values, each <span class="math inline">T \times d_{\text{head}}</span>. Then for each pair of token positions <span class="math inline">(i, j)</span> it computes a similarity score and softmaxes across <span class="math inline">j</span>: <span class="math display">
 A_{ij} = \mathrm{softmax}_j\!\left(\frac{Q_i \cdot K_j}{\sqrt{d_{\text{head}}}}\right),
@@ -642,9 +643,9 @@ X \leftarrow X + \mathrm{Attn}(X), \qquad X \leftarrow X + \mathrm{MLP}(X).
 <p>For now, the picture you should hold is: a transformer is a stack of identical blocks, each one writing to a shared residual stream, with attention as the cross-token router and MLPs as the per-token processors. Once you internalize that picture, almost everything else, modern context-length extensions, parameter-efficient fine-tuning, interpretability circuits, is a modification of one of those pieces.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-vaswani2017attention" class="csl-entry" role="listitem">
-Vaswani, Ashish, Noam Shazeer, Niki Parmar, et al. 2017. <span>“Attention Is All You Need.”</span> <em>Advances in Neural Information Processing Systems</em> 30.
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">A. Vaswani <em>et al.</em>, <span>“Attention is all you need,”</span> <em>Advances in neural information processing systems</em>, vol. 30, 2017.</div>
 </div>
 </div>
 </section>

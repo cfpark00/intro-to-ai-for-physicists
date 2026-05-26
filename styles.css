@@ -13,16 +13,11 @@ main {
   --scidl-accent-soft: rgba(95, 185, 194, 0.10);
 }
 
-/* ---------- Soft tinted callout for highlighted prose ---------- */
-.scidl-callout {
-  border-left: 3px solid var(--scidl-accent);
-  background: var(--scidl-accent-soft);
-  padding: 0.75rem 1.1rem;
-  border-radius: 0 8px 8px 0;
-  margin: 1.25rem 0 1.5rem 0;
+/* ---------- Inline accent for emphasized keywords (e.g. methodology verbs) ---------- */
+.scidl-verb {
+  color: var(--scidl-accent);
+  font-weight: 600;
 }
-.scidl-callout > :first-child { margin-top: 0; }
-.scidl-callout > :last-child { margin-bottom: 0; }
 
 /* Slightly softer code block background in light mode */
 .quarto-light pre code:not(.sourceCode) {

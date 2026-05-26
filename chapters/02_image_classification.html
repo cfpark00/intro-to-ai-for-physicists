@@ -27,6 +27,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -609,16 +610,16 @@ h_{\ell+1} = \sigma(W_\ell h_\ell + b_\ell),
 <section id="the-first-bitter-lesson-bigger-is-better" class="level2">
 <h2 class="anchored" data-anchor-id="the-first-bitter-lesson-bigger-is-better">The first bitter lesson: bigger is better</h2>
 <p>Long before “scaling laws” became a coherent research subfield, image classification had already absorbed its own preview of the lesson: bigger networks, trained on more data with more compute, were just <em>better</em>. The improvement was not marginal and not noisy, it was consistent across years, across architectures, and across teams.</p>
-<p>This is the first taste of a pattern that gets the full treatment in <a href="../chapters/05_llm_pretraining.html">Chapter 5</a>, where we look at the actual functional form of the loss as a function of compute, data, and parameters <span class="citation" data-cites="kaplan2020scaling hoffmann2022chinchilla">(<a href="../references.html#ref-kaplan2020scaling" role="doc-biblioref">Kaplan et al. 2020</a>; <a href="../references.html#ref-hoffmann2022chinchilla" role="doc-biblioref"><span class="nocase">Hoffmann et al.</span> 2022</a>)</span>. For now, just note the pattern: in image classification, the people who won the benchmark were the people who trained bigger networks on more data with better hardware. The architectural cleverness mattered, but it mattered less than the scaling.</p>
+<p>This is the first taste of a pattern that gets the full treatment in <a href="../chapters/05_llm_pretraining.html">Chapter 5</a>, where we look at the actual functional form of the loss as a function of compute, data, and parameters <span class="citation" data-cites="kaplan2020scaling hoffmann2022chinchilla"><a href="../references.html#ref-kaplan2020scaling" role="doc-biblioref">[1]</a>, <a href="../references.html#ref-hoffmann2022chinchilla" role="doc-biblioref">[2]</a></span>. For now, just note the pattern: in image classification, the people who won the benchmark were the people who trained bigger networks on more data with better hardware. The architectural cleverness mattered, but it mattered less than the scaling.</p>
 <p>That is the cliffhanger for the next several chapters: if scale is doing this much work, what <em>exactly</em> is it doing, and what is left for science to do once scale has done its part? That is the entire question of this book.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
-<div id="ref-hoffmann2022chinchilla" class="csl-entry" role="listitem">
-<span class="nocase">Hoffmann, Jordan, Sebastian Borgeaud, Arthur Mensch, et al.</span> 2022. <span>“Training Compute-Optimal Large Language Models.”</span> <em>arXiv Preprint arXiv:2203.15556</em>.
-</div>
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-kaplan2020scaling" class="csl-entry" role="listitem">
-Kaplan, Jared, Sam McCandlish, Tom Henighan, et al. 2020. <span>“Scaling Laws for Neural Language Models.”</span> <em>arXiv Preprint arXiv:2001.08361</em>.
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">J. Kaplan <em>et al.</em>, <span>“Scaling laws for neural language models,”</span> <em>arXiv preprint arXiv:2001.08361</em>, 2020.</div>
+</div>
+<div id="ref-hoffmann2022chinchilla" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline"><span class="nocase">J. Hoffmann, S. Borgeaud, A. Mensch, <em>et al.</em></span>, <span>“Training compute-optimal large language models,”</span> <em>arXiv preprint arXiv:2203.15556</em>, 2022.</div>
 </div>
 </div>
 </section>

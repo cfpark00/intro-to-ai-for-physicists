@@ -27,6 +27,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -565,7 +566,7 @@ div.csl-indent {
 </section>
 <section id="the-bitter-lesson" class="level2">
 <h2 class="anchored" data-anchor-id="the-bitter-lesson">The bitter lesson</h2>
-<p>The lecture closes on a single recurring lesson from the history of AI: scaling general methods consistently beats clever hand-engineering of priors <span class="citation" data-cites="sutton2019bitter">(<a href="../references.html#ref-sutton2019bitter" role="doc-biblioref">Sutton 2019</a>)</span>. Rich Sutton’s “bitter lesson” essay is the canonical statement; the pattern is older. People kept trying to encode their domain knowledge into AI systems, grammars for language, hand-designed features for vision, hand-coded heuristics for chess and Go, and at every scale, the methods that won were the ones that threw the hand-engineering out and let a generic learner consume more compute and more data.</p>
+<p>The lecture closes on a single recurring lesson from the history of AI: scaling general methods consistently beats clever hand-engineering of priors <span class="citation" data-cites="sutton2019bitter"><a href="../references.html#ref-sutton2019bitter" role="doc-biblioref">[1]</a></span>. Rich Sutton’s “bitter lesson” essay is the canonical statement; the pattern is older. People kept trying to encode their domain knowledge into AI systems, grammars for language, hand-designed features for vision, hand-coded heuristics for chess and Go, and at every scale, the methods that won were the ones that threw the hand-engineering out and let a generic learner consume more compute and more data.</p>
 <p>This will be the connecting thread through the next several chapters. The “first bitter lesson”, <em>bigger nets are better</em>, surfaces in <a href="../chapters/02_image_classification.html">Chapter 2</a> before scaling laws were a phrase, and gets the full treatment in <a href="../chapters/05_llm_pretraining.html">Chapter 5</a> once we have the LLM context to motivate the actual functional forms.</p>
 <section id="what-the-bitter-lesson-does-not-mean" class="level3">
 <h3 class="anchored" data-anchor-id="what-the-bitter-lesson-does-not-mean">What the bitter lesson does <em>not</em> mean</h3>
@@ -593,9 +594,9 @@ div.csl-indent {
 <p>By the end of the book you should not feel that you have <em>covered</em> deep learning. You should feel that you have entered an open scientific frontier, and that you have the taste to recognize good questions in it, and the tools to start answering them.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-sutton2019bitter" class="csl-entry" role="listitem">
-Sutton, Richard. 2019. <span>“The Bitter Lesson.”</span> <em>Incomplete Ideas (Blog)</em>.
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">R. Sutton, <span>“The bitter lesson,”</span> <em>Incomplete Ideas (blog)</em>, 2019.</div>
 </div>
 </div>
 </section>

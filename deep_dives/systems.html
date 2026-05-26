@@ -27,6 +27,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -527,7 +528,7 @@ div.csl-indent {
 </section>
 <section id="scaling-laws-in-practice" class="level2">
 <h2 class="anchored" data-anchor-id="scaling-laws-in-practice">Scaling laws, in practice</h2>
-<p>The textbook scaling-law story from <a href="../chapters/05_llm_pretraining.html">Chapter 5</a> is the Kaplan vs.&nbsp;Chinchilla arc. <strong>Kaplan et al.&nbsp;(2020)</strong> <span class="citation" data-cites="kaplan2020scaling">(<a href="../references.html#ref-kaplan2020scaling" role="doc-biblioref">Kaplan et al. 2020</a>)</span> argued for a particular allocation of compute between model size and training tokens. <strong>Hoffmann et al.&nbsp;(2022)</strong> <span class="citation" data-cites="hoffmann2022chinchilla">(<a href="../references.html#ref-hoffmann2022chinchilla" role="doc-biblioref"><span class="nocase">Hoffmann et al.</span> 2022</a>)</span>, the Chinchilla paper, revised it: for a fixed compute budget, the <em>optimal</em> model is smaller and trained on more tokens than Kaplan suggested.</p>
+<p>The textbook scaling-law story from <a href="../chapters/05_llm_pretraining.html">Chapter 5</a> is the Kaplan vs.&nbsp;Chinchilla arc. <strong>Kaplan et al.&nbsp;(2020)</strong> <span class="citation" data-cites="kaplan2020scaling"><a href="../references.html#ref-kaplan2020scaling" role="doc-biblioref">[1]</a></span> argued for a particular allocation of compute between model size and training tokens. <strong>Hoffmann et al.&nbsp;(2022)</strong> <span class="citation" data-cites="hoffmann2022chinchilla"><a href="../references.html#ref-hoffmann2022chinchilla" role="doc-biblioref">[2]</a></span>, the Chinchilla paper, revised it: for a fixed compute budget, the <em>optimal</em> model is smaller and trained on more tokens than Kaplan suggested.</p>
 <p>What the textbook story understates is what has happened in practice since. Frontier production has moved <em>beyond</em> Chinchilla-optimal in a specific, deliberate direction: modern frontier models are often <strong>over-trained</strong> relative to the Chinchilla optimum, trained on far more tokens per parameter than the training-compute-optimal recipe would suggest. The reason is honest: training is a one-time cost, <strong>inference is amortized over millions of deployed conversations</strong>, and a smaller-but-more-trained model is cheaper to serve at comparable quality. The compute-optimal point for the <em>training run</em> is not the same as the cost-optimal point for the <em>deployed system</em>.</p>
 <p>Two important caveats:</p>
 <ul>
@@ -573,12 +574,12 @@ div.csl-indent {
 <p>If the main spine convinced you the <em>interesting</em> questions in deep learning are scientific, this chapter is a reminder that the <em>load-bearing</em> questions in frontier deep learning are equally engineering. Both views are correct, and both are necessary.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
-<div id="ref-hoffmann2022chinchilla" class="csl-entry" role="listitem">
-<span class="nocase">Hoffmann, Jordan, Sebastian Borgeaud, Arthur Mensch, et al.</span> 2022. <span>“Training Compute-Optimal Large Language Models.”</span> <em>arXiv Preprint arXiv:2203.15556</em>.
-</div>
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-kaplan2020scaling" class="csl-entry" role="listitem">
-Kaplan, Jared, Sam McCandlish, Tom Henighan, et al. 2020. <span>“Scaling Laws for Neural Language Models.”</span> <em>arXiv Preprint arXiv:2001.08361</em>.
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">J. Kaplan <em>et al.</em>, <span>“Scaling laws for neural language models,”</span> <em>arXiv preprint arXiv:2001.08361</em>, 2020.</div>
+</div>
+<div id="ref-hoffmann2022chinchilla" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline"><span class="nocase">J. Hoffmann, S. Borgeaud, A. Mensch, <em>et al.</em></span>, <span>“Training compute-optimal large language models,”</span> <em>arXiv preprint arXiv:2203.15556</em>, 2022.</div>
 </div>
 </div>
 </section>

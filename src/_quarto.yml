@@ -57,6 +57,7 @@ book:
     - glossary.qmd
 
 bibliography: references.bib
+csl: ieee.csl
 
 format:
   html:

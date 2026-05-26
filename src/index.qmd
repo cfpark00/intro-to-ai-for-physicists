@@ -52,24 +52,20 @@ number-sections: false
 
 ## What this book is
 
-This book has two aims.
+This book has two aims:
 
-- **A current account of where AI is in 2026.** Weighted toward the unknown unknowns rather than textbook basics, enough to follow conversation at the research frontier.
-- **An experimental physicist's view of neural networks.** Networks treated as a *scientific object*, studied via controlled synthetic experiments, mechanistic probing, and phenomenology. The framing borrows from **neuroethology**, the study of natural behavior in its ecological context, transposed to networks-in-their-natural-habitat. Neural networks as model organisms.
+- **A quick overview of how AI got here.** A walk through the algorithms, philosophies, and economics that drove modern ML to where it is.
+- **An experimental physicist's approach to neural networks.** A primer on the neuroethological method: networks treated as *model organisms*, their rich phenomenology surfaced through controlled synthetic experiments and mechanistic probing.
 
-:::{.scidl-callout}
+The guiding methodology, introduced in [Chapter 1](chapters/01_intro.qmd) and revisited in the two "Science of DL" chapters ([Chapter 7](chapters/07_scidl_training.qmd) and [Chapter 11](chapters/11_scidl_concepts.qmd)), borrows from the ethological tradition of Tinbergen [@tinbergen1963aims], Lorenz [@lorenz1981foundations], and von Frisch [@vonfrisch1967dance]:
 
-The guiding methodology, introduced in [Chapter 1](chapters/01_intro.qmd) and revisited in the two "Science of DL" chapters ([Chapter 7](chapters/07_scidl_training.qmd) and [Chapter 11](chapters/11_scidl_concepts.qmd)), borrows from the ethological tradition of Tinbergen, Lorenz, and von Frisch [@tinbergen1963aims; @lorenz1981foundations; @vonfrisch1967dance]:
-
-1. *Observe* behavior in naturalistic environments.
-2. *Isolate* the core phenomenon to study.
-3. *Reproduce* the phenomenon in a model system.
-4. *Understand* the model system.
-5. *Confirm* the understanding on the original system.
+1. [Observe]{.scidl-verb} behavior in naturalistic environments.
+2. [Isolate]{.scidl-verb} the core phenomenon to study.
+3. [Reproduce]{.scidl-verb} the phenomenon in a model system.
+4. [Understand]{.scidl-verb} the model system.
+5. [Confirm]{.scidl-verb} the understanding on the original system.
 
 Not every chapter walks all five steps cleanly. This is the guiding principle, not a procedure.
-
-:::
 
 The chapters move through the dominant model classes (image classifiers, sequence models, the transformer, large language models pre- and post-training, diffusion, reinforcement learning, world models) and through two pillar chapters on the phenomenology of *training dynamics* and *concept acquisition*. The final chapter widens the frame to intelligence beyond task-learning: multi-agent dynamics, evolution, open-endedness.
 

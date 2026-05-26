@@ -54,17 +54,22 @@ number-sections: false
 
 This book has two aims.
 
-The **first** is to bring a quantitatively literate reader up to date on where AI is in 2026, to cover the unknown unknowns rather than the textbook basics, and to leave the reader able to grasp the main concepts of modern deep learning and follow the conversation at the research frontier.
+- **A current account of where AI is in 2026.** Weighted toward the unknown unknowns rather than textbook basics, enough to follow conversation at the research frontier.
+- **An experimental physicist's view of neural networks.** Networks treated as a *scientific object*, studied via controlled synthetic experiments, mechanistic probing, and phenomenology. The framing borrows from **neuroethology**, the study of natural behavior in its ecological context, transposed to networks-in-their-natural-habitat. Neural networks as model organisms.
 
-The **second** is to introduce the **experimental physicist's approach to understanding neural networks**, neural networks treated as a *scientific object*, studied via controlled synthetic experiments, mechanistic probing, and phenomenology. The methodology borrows heavily from the practice of **neuroethology**: the study of natural behavior in its ecological context, transposed to networks-in-their-natural-habitat. Neural networks as model organisms.
+:::{.scidl-callout}
 
-The guiding methodology, taught in [Chapter 1](chapters/01_intro.qmd) and revisited in the two "Science of DL" chapters ([Chapter 7](chapters/07_scidl_training.qmd) and [Chapter 11](chapters/11_scidl_concepts.qmd)), is five steps:
+The guiding methodology, introduced in [Chapter 1](chapters/01_intro.qmd) and revisited in the two "Science of DL" chapters ([Chapter 7](chapters/07_scidl_training.qmd) and [Chapter 11](chapters/11_scidl_concepts.qmd)), borrows from the ethological tradition of Tinbergen, Lorenz, and von Frisch [@tinbergen1963aims; @lorenz1981foundations; @vonfrisch1967dance]:
 
-1. Notice a phenomenon in a real network.
-2. Explore broadly to sharpen the question.
-3. Build a synthetic model system you can fully instrument.
-4. Run experiments the original network does not allow.
-5. Bring the findings back to the original system.
+1. *Observe* behavior in naturalistic environments.
+2. *Isolate* the core phenomenon to study.
+3. *Reproduce* the phenomenon in a model system.
+4. *Understand* the model system.
+5. *Confirm* the understanding on the original system.
+
+Not every chapter walks all five steps cleanly. This is the guiding principle, not a procedure.
+
+:::
 
 The chapters move through the dominant model classes (image classifiers, sequence models, the transformer, large language models pre- and post-training, diffusion, reinforcement learning, world models) and through two pillar chapters on the phenomenology of *training dynamics* and *concept acquisition*. The final chapter widens the frame to intelligence beyond task-learning: multi-agent dynamics, evolution, open-endedness.
 

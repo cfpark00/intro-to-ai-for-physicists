@@ -1981,13 +1981,23 @@
     ]
   },
   {
+    "objectID": "concept_map.html",
+    "href": "concept_map.html",
+    "title": "Concept Map",
+    "section": "",
+    "text": "A visual map of the concepts in the book and how they relate. To be filled in as the chapters mature.",
+    "crumbs": [
+      "<span class='chapter-number'>31</span>  <span class='chapter-title'>Concept Map</span>"
+    ]
+  },
+  {
     "objectID": "glossary.html",
     "href": "glossary.html",
     "title": "Glossary",
     "section": "",
     "text": "Architectures and building blocks\nA seed glossary of terms used in the book. Definitions are being filled in as the chapters mature; this page is currently closer to an index of the vocabulary you should be able to use comfortably by the end of the book than a finished reference.\nIf a term you saw in the text is missing here, that’s a bug, please file an issue.\nMLP · CNN · RNN · LSTM · GRU · transformer · attention · self-attention · cross-attention · multi-head attention · residual stream · positional encoding · RoPE · KV cache · mixture of experts (MoE) · state space model (SSM) · S4 · Mamba · vision transformer (ViT) · normalization (BatchNorm, LayerNorm) · residual / skip connections.",
     "crumbs": [
-      "<span class='chapter-number'>31</span>  <span class='chapter-title'>Glossary</span>"
+      "<span class='chapter-number'>32</span>  <span class='chapter-title'>Glossary</span>"
     ]
   },
   {
@@ -1997,7 +2007,7 @@
     "section": "Training",
     "text": "Training\nSGD · momentum · Adam · AdamW · weight decay · learning rate · batch size · dropout · regularization · cross-entropy · next-token prediction · perplexity · self-supervised learning · pretraining · fine-tuning · SFT · LoRA · distillation · context distillation · behavioral cloning · RLHF · RLAIF · DPO · PPO · GRPO · reward model · reward hacking.",
     "crumbs": [
-      "<span class='chapter-number'>31</span>  <span class='chapter-title'>Glossary</span>"
+      "<span class='chapter-number'>32</span>  <span class='chapter-title'>Glossary</span>"
     ]
   },
   {
@@ -2007,7 +2017,7 @@
     "section": "Phenomena and dynamics",
     "text": "Phenomena and dynamics\nscaling laws · Chinchilla scaling · emergence · in-context learning (ICL) · grokking · double descent · lottery ticket · sharpness / flatness · catastrophic forgetting · model collapse · phase transitions in training · representation re-organization · hidden capabilities · swing-by dynamics.",
     "crumbs": [
-      "<span class='chapter-number'>31</span>  <span class='chapter-title'>Glossary</span>"
+      "<span class='chapter-number'>32</span>  <span class='chapter-title'>Glossary</span>"
     ]
   },
   {
@@ -2017,7 +2027,7 @@
     "section": "Generative models",
     "text": "Generative models\nvariational autoencoder (VAE) · generative adversarial network (GAN) · normalizing flow · energy-based model · diffusion model · DDPM · score matching · flow matching · score-based SDE · NeRF.",
     "crumbs": [
-      "<span class='chapter-number'>31</span>  <span class='chapter-title'>Glossary</span>"
+      "<span class='chapter-number'>32</span>  <span class='chapter-title'>Glossary</span>"
     ]
   },
   {
@@ -2027,7 +2037,7 @@
     "section": "Reinforcement learning",
     "text": "Reinforcement learning\nMarkov decision process (MDP) · policy · value function · Q-function · advantage · policy gradient · REINFORCE · actor-critic · on-policy · off-policy · offline RL · model-based RL · Dreamer · MuZero · credit assignment · sparse reward · exploration vs. exploitation · long horizon · intrinsic motivation · self-play · Nash equilibrium · multi-agent RL · evolutionary methods · quality-diversity (QD) · MAP-Elites · open-endedness.",
     "crumbs": [
-      "<span class='chapter-number'>31</span>  <span class='chapter-title'>Glossary</span>"
+      "<span class='chapter-number'>32</span>  <span class='chapter-title'>Glossary</span>"
     ]
   },
   {
@@ -2037,7 +2047,7 @@
     "section": "Concepts, representations, interpretability",
     "text": "Concepts, representations, interpretability\nconcept · concept space · compositional generalization · continual learning · world model · world representations · theory of mind · probes · steering vectors · dictionary learning · sparse autoencoder · CKA · t-SNE · UMAP · linear probing · activation patching.",
     "crumbs": [
-      "<span class='chapter-number'>31</span>  <span class='chapter-title'>Glossary</span>"
+      "<span class='chapter-number'>32</span>  <span class='chapter-title'>Glossary</span>"
     ]
   },
   {
@@ -2047,7 +2057,7 @@
     "section": "Other",
     "text": "Other\nLLM · VLM · omni-model · agent · RAG · evals · tokenization · BPE · SentencePiece · vector quantizer · foundation model · alignment · calibration · inference-time compute · chain of thought (CoT) · System 1 / System 2 · knightian uncertainty · aleatory / epistemic uncertainty · active learning · EM algorithm · principal component analysis (PCA) · Mahalanobis distance · bitter lesson.",
     "crumbs": [
-      "<span class='chapter-number'>31</span>  <span class='chapter-title'>Glossary</span>"
+      "<span class='chapter-number'>32</span>  <span class='chapter-title'>Glossary</span>"
     ]
   }
 ]

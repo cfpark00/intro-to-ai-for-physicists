@@ -54,6 +54,7 @@ book:
         - deep_dives/ai_agents.qmd
         - deep_dives/mechanism_design.qmd
     - references.qmd
+    - concept_map.qmd
     - glossary.qmd
 
 bibliography: references.bib

@@ -22,4 +22,4 @@ cd src && quarto render                        # build static site to src/_site/
 uv run python src/code/chapters/<slug>/course/<script>.py   # run a chapter demo
 ```
 
-See `docs/context.md` for the project's design rationale and `docs/repo_usage.md` for repo conventions.
+Contributions are welcome via the [issue templates](https://github.com/cfpark00/science-of-dl/issues/new/choose) (errata, suggestions, plot-quality reports).
